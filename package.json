@@ -1,0 +1,27 @@
+{
+  "name": "pagewalker",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "debug": "DEBUG_LOG=query,app electron .",
+    "esdoc": "esdoc"
+  },
+  "esdoc": {
+    "source": "./lib",
+    "destination": "../pagewalker-docs",
+    "plugins": [
+      {
+        "name": "esdoc-standard-plugin"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron": "*",
+    "mocha": "*"
+  },
+  "devDependencies": {
+    "esdoc": "*",
+    "esdoc-standard-plugin": "*"
+  }
+}
