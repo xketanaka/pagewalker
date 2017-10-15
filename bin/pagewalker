@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+const electron = require('electron');
+const proc = require('child_process');
+const path = require('path');
+
+let args = [path.join(__dirname, "../lib/cli_start.js")].concat(process.argv.slice(2));
+
+let child = proc.spawn(electron, args, {stdio: 'inherit'});
+child.on('close', (code)=>{
+  process.exit(code)
+})
