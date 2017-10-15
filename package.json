@@ -1,7 +1,13 @@
 {
   "name": "pagewalker",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "main": "index.js",
+  "bin": "bin/pagewalker",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xketanaka/pagewalker.git"
+  },
+  "license": "MIT",
   "scripts": {
     "start": "electron .",
     "debug": "DEBUG_LOG=query,app electron .",
