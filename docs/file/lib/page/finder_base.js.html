@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/page/finder_base.js | pagewalker</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/xketanaka/pagewalker.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html">PageWalker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageWalker">pageWalker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/page/finder_base.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const debug = require(&quot;../utils/debug&quot;).getLogger(&quot;app&quot;);
+
+class FinderBase {
+  static convertArgumentsToConditions(...args){
+    return args.map((arg)=&gt;{
+      if(typeof arg == &apos;function&apos;){
+        return new Filter(arg.toString());
+      }
+      if(typeof arg == &apos;string&apos;){
+        if(arg.match(/\)\s*=&gt;\s*\{/) || arg.trim().match(/^function/)){
+          return new Filter(arg);
+        }else{
+          return new Selector(arg);
+        }
+      }
+      throw `Condition parameter is unexpected value, [${arg}]`;
+    })
+  }
+  constructor(page, ...args){
+    this._page = page;
+    this._conditions = FinderBase.convertArgumentsToConditions(...args);
+    this._allowNotFound = false;
+    this._matcher = undefined;
+    this._action = undefined;
+  }
+  get page(){ return this._page }
+  get conditions(){ return this._conditions }
+  get matcher(){ return this._matcher }
+  get action(){ return this._action }
+  get allowNotFound(){ return this._allowNotFound }
+  allowNotFound(val){ this._allowNotFound = val }
+  /**
+   * @return {Object} cloned object
+   */
+  clone(){
+    return Object.assign(new this.constructor(this.page), {
+      _conditions: this.conditions.concat(),
+      allowNotFound: this.allowNotFound,
+      _matcher: this.matcher,
+      _action: this.action
+    });
+  }
+  /**
+   * @return {FinderBase} self which have added conditions
+   */
+  find(...args){
+    this._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditions(...args));
+    return this;
+  }
+  withAction(action){
+    this._action = typeof action == &quot;function&quot; ?  action.toString() : action;
+    return this;
+  }
+  withMatcher(filter, matcher){
+    if(typeof filter == &quot;function&quot;){ filter = filter.toString() }
+    if(typeof matcher == &quot;function&quot;){ matcher = matcher.toString() }
+    this._matcher = new Matcher(filter, matcher);
+    return this;
+  }
+  /**
+   * @return {Promise} Promise resolved in evaluated JavaScript code
+   */
+  evaluate(){
+    if(this.matcher &amp;&amp; this.action){ throw &quot;Both action and matcher were specified&quot; }
+
+    let conditions = this.conditions;
+    if(!conditions || !(conditions[0] instanceof Selector)){
+      conditions = [new Selector(&quot;*&quot;)];
+    }
+
+    let jsCode = `
+      var elements = Array.from(document.querySelectorAll(&quot;${conditions[0].selector}&quot;));
+    `;
+    jsCode += conditions.slice(1).map((condition)=&gt;{
+      return condition instanceof Selector ?
+        `{
+          elements = elements.reduce((arr, e, idx)=&gt;{
+            return arr.concat(Array.from(e.querySelectorAll(&quot;${condtion.selector}&quot;)));
+          }, []);
+        }` :
+        `{
+          let func = ${condition.code};
+          elements = elements.filter((e, idx)=&gt;{ return func(e, idx) });
+        }`;
+    }).join(&quot;\n&quot;);
+
+    if(!this.allowNotFound){
+      jsCode += `
+        if(elements.length == 0){
+          return Promise.reject(&apos;not found&apos;);
+        }
+      `
+    }
+    if(this.action){
+      jsCode += `
+        return (${this.action})(elements);
+      `;
+    }
+    else if(this.matcher){
+      jsCode += `{
+        let filtered = (${this.matcher.filter})(elements);
+        return (${this.matcher.matcher})(filtered);
+      }`;
+    }
+    else{
+      jsCode += `return elements.length;`
+    }
+    debug(`Evaluate Javascript &quot;${jsCode}&quot;`)
+
+    return this.page.executeJs(`(()=&gt;{ try{ ${jsCode} }catch(e){ return Promise.reject(e.toString()) } })()`)
+    .then((val)=&gt;{
+      if(this.matcher &amp;&amp; val === false){ throw &quot;No Match!&quot; }
+      return val;
+    })
+    .catch((err)=&gt;{
+      debug(`Error occurred in Evaluating Javascript: ${err}`);
+      throw err
+    })
+  }
+}
+
+class Filter {
+  constructor(code){
+    this.code = code;
+  }
+}
+class Selector {
+  constructor(selector){
+    this.selector = selector;
+  }
+}
+class Matcher {
+  constructor(filter, matcher){
+    this.filter = filter;
+    this.matcher = matcher;
+  }
+}
+
+module.exports = FinderBase;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

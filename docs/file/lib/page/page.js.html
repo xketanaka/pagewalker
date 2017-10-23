@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/page/page.js | pagewalker</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/xketanaka/pagewalker.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html">PageWalker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageWalker">pageWalker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/page/page.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const {ipcMain} = require(&apos;electron&apos;);
+const Finder = require(&apos;./finder&apos;);
+
+const TIMEOUT_MSEC = 10000;
+
+class Page {
+  constructor(window){
+    this._window = window;
+  }
+  /**
+   * @return {Window} Window Object which contains this page.
+   */
+  get window(){ return this._window }
+  /**
+   * @return {object} WebContents Object
+   * @see https://github.com/electron/electron/blob/master/docs/api/web-contents.md
+   */
+  get webContents(){ return this.window.browserWindow.webContents }
+  /**
+   * @private
+   */
+  checkReady(){
+    if(!this.window.isReady) throw &quot;PageContent is not ready!, Please call the &apos;load&apos; method first&quot;
+  }
+  /**
+   * @return {Promise}
+   */
+  load(url, options = {}){
+    let loadURLFunction = ()=&gt;{
+      return this.expectPageLoaded(()=&gt;{ if(url) this.webContents.loadURL(url, options) })
+    };
+    if(this.window.isReady){
+      return loadURLFunction()
+    }else{
+      return new Promise((resolve, reject)=&gt;{
+        this.window.on(&apos;ready&apos;, ()=&gt;{ loadURLFunction().then(resolve).catch(reject) });
+      });
+    }
+  }
+  /**
+   * Alias of load
+   */
+  waitLoading(...args){
+    return this.load(...args)
+  }
+  /**
+   * @return {string} URL of current page
+   */
+  get url(){
+    return this.webContents.getURL();
+  }
+  /**
+   * @param {function} action - A function representing the operation of loading new page
+   * @return {Promise}
+   */
+  expectPageLoaded(action){
+    return new Promise((resolve,reject)=&gt;{
+      try{ this.checkReady() }catch(err){ return reject(err) }
+      this.webContents.removeAllListeners(&apos;did-finish-load&apos;);
+      this.webContents.removeAllListeners(&apos;did-fail-load&apos;);
+      try{ action &amp;&amp; action() }catch(e){ reject(e) }
+      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+      this.webContents.once(&apos;did-finish-load&apos;, (event)=&gt;{
+        clearTimeout(timeoutId)
+        resolve(this)
+      })
+      this.webContents.once(&apos;did-fail-load&apos;, (event)=&gt;{
+        clearTimeout(timeoutId)
+        reject(event)
+      })
+    })
+  }
+  /**
+   * @param {function} action - A function representing the operation of file download
+   * @return {Promise}
+   */
+  expectDownloaded(action){
+    return new Promise((resolve,reject)=&gt;{
+      try{ this.checkReady() }catch(err){ return reject(err) }
+
+      // TODO
+    })
+  }
+  /**
+   * @param {function} action - A function representing the operation of sending IPC
+   * @param {string} channel - string of representing the channel of IPC
+   * @return {Promise}
+   */
+  expectIpcReceived(action, channel = &apos;asynchronous-message&apos;){
+    return new Promise((resolve, reject)=&gt;{
+      try{ this.checkReady() }catch(err){ return reject(err) }
+      try{
+        let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+        ipcMain.once(channel, (event, arg)=&gt;{
+          clearTimeout(timeoutId);
+          resolve(arg);
+        });
+        action &amp;&amp; action()
+      }catch(e){ reject(e) }
+    })
+  }
+  /**
+   * @param {function} action - A function representing the operation of sending Ajax request
+   * @return {Promise}
+   */
+  expectAjaxComplete(action){
+    return this.expectIpcReceived(()=&gt;{
+      return this.executeJs(`
+        if(!XMLHttpRequest.prototype.__original_open){
+          XMLHttpRequest.prototype.__original_open = XMLHttpRequest.prototype.open;
+        }
+        XMLHttpRequest.prototype.open = function(){
+          let timeoutId = setTimeout(()=&gt;{ ipcRenderer.send(&apos;asynchronous-message&apos;, &apos;timeout&apos;) }, ${TIMEOUT_MSEC})
+          this.addEventListener(&apos;readystatechange&apos;, function(){
+            if(this.readyState == 4){
+              clearTimeout(timeoutId);
+              setTimeout(()=&gt;{ ipcRenderer.send(&apos;asynchronous-message&apos;, &apos;ajaxComplete&apos;) }, 0);
+            }
+          });
+          XMLHttpRequest.prototype.__original_open.apply(this, arguments);
+        };
+      `)
+      .then(()=&gt;{ action &amp;&amp; action() })
+    })
+    .then((result)=&gt;{
+      if(result == &apos;ajaxComplete&apos;) return;
+      throw result;
+    });
+  }
+  /**
+   * @param {string} code - JavaScript Code for executing this page.
+   * @return {Promise}
+   */
+  executeJs(code){
+    try{ this.checkReady() }catch(err){ return Promise.reject(err) }
+    return this.webContents.executeJavaScript(code, true)
+  }
+  /**
+   * @override
+   * @return {Finder} new Finder object
+   */
+  find(...args){
+    return new Finder(this, ...args);
+  }
+  /**
+   * Get the HTML source of current page.
+   * @return {Promise} resolved by current HTML source.
+   */
+  getSourceHTML(){
+    return this.executeJs(`document.getElementsByTagName(&quot;html&quot;)[0].outerHTML`);
+  }
+
+  findClickable(){
+    return this.find(&quot;a,button,input[type=button],input[type=submit]&quot;)
+  }
+}
+
+module.exports = Page;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

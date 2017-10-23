@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/page/finder.js | pagewalker</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/xketanaka/pagewalker.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html">PageWalker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageWalker">pageWalker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/page/finder.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const FinderBase = require(&apos;./finder_base&apos;);
+const FinderAction = require(&apos;./finder_action&apos;);
+const FinderFilter = require(&apos;./finder_filter&apos;);
+
+/**
+ * @extends {FinderBase}
+ * @extends {FinderAction}
+ * @extends {FinderFilter}
+ */
+class Finder extends FinderBase {
+  constructor(page, ...args){
+    super(page, ...args)
+  }
+  /**
+   * Set &quot;selected&quot; property true on option element whose textContent match the given string.
+   * This method is assumed to be called on a select element
+   * @return {Promise}
+   */
+  selectOption(content){
+    return this.find(&quot;option&quot;, FinderFilter.haveContent(content.trim())).select();
+  }
+  /**
+   * Alias of &quot;selectOption&quot;
+   * @return {Promise}
+   */
+  choose(content){
+    return this.selectOption(content);
+  }
+  attachFile(filepath){
+    // TODO
+  }
+  /**
+   * execute &quot;JavaScript code&quot; given as argument
+   * @return {Promise}
+   */
+  executeJs(code){
+    return this.withAction(code).evaluate();
+  }
+  /**
+   * @return {Promise} Promise which resolved with array of finder, that array length is matched number
+   */
+  toArray(){
+    return this.count()
+    .then((count)=&gt;{
+      let array = [];
+      for(let i = 0; i &lt; count; i++){
+        array.push(this.clone().find(`(node, idx)=&gt;{ return idx == ${i} }`));
+      }
+      return array;
+    })
+  }
+  /**
+   * @return {Promise} Get new Finder for the first matched element. this is same to &quot;indexOf(0)&quot;
+   */
+  getFirst(){
+    return this.indexOf(0);
+  }
+  /**
+   * @return {Promise} Get new Finder for the given index of matched elements
+   */
+  indexOf(i){
+    return this.count()
+    .then((count)=&gt;{
+      if(count &lt; i){ throw `Finder have matched less Elements than given value(${i}) !` }
+      return this.clone().find(`(node, idx)=&gt;{ return idx == ${i} }`);
+    })
+  }
+  /**
+   * return true if all elements which is found by Finder satisfied given filter
+   * @example
+   * await page.find(&quot;input&quot;).every(FinderFilter.haveValue(&quot;123&quot;)) // return true or false
+   */
+  every(code){
+    return this.withMatcher(code, `(filtered)=&gt;{ return filtered.length == elements.length }`)
+  }
+
+  clickAndExpectPageLoaded(...args){
+    if(args.length &gt; 0){ this.find(...args) }
+    return this.page.expectPageLoaded(()=&gt;{ this.click() });
+  }
+  /**
+   * alias of clickAndExpectPageLoaded
+   */
+  clickAndWaitLoading(...args){
+    return this.clickAndExpectPageLoaded(...args);
+  }
+  clickAndExpectAjaxComplete(...args){
+    if(args.length &gt; 0){ this.find(...args) }
+    return this.page.expectAjaxComplete(()=&gt;{ this.click() });
+  }
+}
+
+function mixin(dest, source){
+  for(let key of Reflect.ownKeys(source)){
+    if(key === &quot;constructor&quot;) continue;
+
+    let descriptor = Object.getOwnPropertyDescriptor(source, key);
+    descriptor.configurable = true;
+    descriptor.enumerable   = false;
+    if(descriptor.hasOwnProperty(&quot;writable&quot;)){
+      descriptor.writable = true;
+    }
+    Object.defineProperty(dest, key, descriptor);
+  }
+}
+
+mixin(Finder.prototype, FinderAction.prototype);
+mixin(Finder.prototype, FinderFilter.prototype);
+
+module.exports = Finder;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

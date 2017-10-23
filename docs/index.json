@@ -1,0 +1,5292 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "lib/.external-ecmascript.js",
+    "static": true,
+    "longname": "lib/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "lib/cli_start.js",
+    "content": "\nconst pageWalker = require(\"../\");\n\npageWalker.start(process.argv.slice(2));\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/cli_start.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "variable",
+    "name": "pageWalker",
+    "memberof": "lib/cli_start.js",
+    "static": true,
+    "longname": "lib/cli_start.js~pageWalker",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/cli_start.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 50,
+    "kind": "file",
+    "name": "lib/page/finder.js",
+    "content": "const FinderBase = require('./finder_base');\nconst FinderAction = require('./finder_action');\nconst FinderFilter = require('./finder_filter');\n\n/**\n * @extends {FinderBase}\n * @extends {FinderAction}\n * @extends {FinderFilter}\n */\nclass Finder extends FinderBase {\n  constructor(page, ...args){\n    super(page, ...args)\n  }\n  /**\n   * Set \"selected\" property true on option element whose textContent match the given string.\n   * This method is assumed to be called on a select element\n   * @return {Promise}\n   */\n  selectOption(content){\n    return this.find(\"option\", FinderFilter.haveContent(content.trim())).select();\n  }\n  /**\n   * Alias of \"selectOption\"\n   * @return {Promise}\n   */\n  choose(content){\n    return this.selectOption(content);\n  }\n  attachFile(filepath){\n    // TODO\n  }\n  /**\n   * execute \"JavaScript code\" given as argument\n   * @return {Promise}\n   */\n  executeJs(code){\n    return this.withAction(code).evaluate();\n  }\n  /**\n   * @return {Promise} Promise which resolved with array of finder, that array length is matched number\n   */\n  toArray(){\n    return this.count()\n    .then((count)=>{\n      let array = [];\n      for(let i = 0; i < count; i++){\n        array.push(this.clone().find(`(node, idx)=>{ return idx == ${i} }`));\n      }\n      return array;\n    })\n  }\n  /**\n   * @return {Promise} Get new Finder for the first matched element. this is same to \"indexOf(0)\"\n   */\n  getFirst(){\n    return this.indexOf(0);\n  }\n  /**\n   * @return {Promise} Get new Finder for the given index of matched elements\n   */\n  indexOf(i){\n    return this.count()\n    .then((count)=>{\n      if(count < i){ throw `Finder have matched less Elements than given value(${i}) !` }\n      return this.clone().find(`(node, idx)=>{ return idx == ${i} }`);\n    })\n  }\n  /**\n   * return true if all elements which is found by Finder satisfied given filter\n   * @example\n   * await page.find(\"input\").every(FinderFilter.haveValue(\"123\")) // return true or false\n   */\n  every(code){\n    return this.withMatcher(code, `(filtered)=>{ return filtered.length == elements.length }`)\n  }\n\n  clickAndExpectPageLoaded(...args){\n    if(args.length > 0){ this.find(...args) }\n    return this.page.expectPageLoaded(()=>{ this.click() });\n  }\n  /**\n   * alias of clickAndExpectPageLoaded\n   */\n  clickAndWaitLoading(...args){\n    return this.clickAndExpectPageLoaded(...args);\n  }\n  clickAndExpectAjaxComplete(...args){\n    if(args.length > 0){ this.find(...args) }\n    return this.page.expectAjaxComplete(()=>{ this.click() });\n  }\n}\n\nfunction mixin(dest, source){\n  for(let key of Reflect.ownKeys(source)){\n    if(key === \"constructor\") continue;\n\n    let descriptor = Object.getOwnPropertyDescriptor(source, key);\n    descriptor.configurable = true;\n    descriptor.enumerable   = false;\n    if(descriptor.hasOwnProperty(\"writable\")){\n      descriptor.writable = true;\n    }\n    Object.defineProperty(dest, key, descriptor);\n  }\n}\n\nmixin(Finder.prototype, FinderAction.prototype);\nmixin(Finder.prototype, FinderFilter.prototype);\n\nmodule.exports = Finder;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/finder.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 51,
+    "kind": "variable",
+    "name": "FinderBase",
+    "memberof": "lib/page/finder.js",
+    "static": true,
+    "longname": "lib/page/finder.js~FinderBase",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "variable",
+    "name": "FinderAction",
+    "memberof": "lib/page/finder.js",
+    "static": true,
+    "longname": "lib/page/finder.js~FinderAction",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "variable",
+    "name": "FinderFilter",
+    "memberof": "lib/page/finder.js",
+    "static": true,
+    "longname": "lib/page/finder.js~FinderFilter",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 54,
+    "kind": "function",
+    "name": "mixin",
+    "memberof": "lib/page/finder.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder.js~mixin",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 93,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dest",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "source",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "class",
+    "name": "Finder",
+    "memberof": "lib/page/finder.js",
+    "static": true,
+    "longname": "lib/page/finder.js~Finder",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/page/finder.js",
+    "importStyle": "Finder",
+    "description": "",
+    "lineNumber": 10,
+    "interface": false,
+    "extends": [
+      "FinderBase",
+      "FinderAction",
+      "FinderFilter"
+    ]
+  },
+  {
+    "__docId__": 56,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "method",
+    "name": "selectOption",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#selectOption",
+    "access": "public",
+    "description": "Set \"selected\" property true on option element whose textContent match the given string.\nThis method is assumed to be called on a select element",
+    "lineNumber": 19,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": [
+      {
+        "name": "content",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
+    "name": "choose",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#choose",
+    "access": "public",
+    "description": "Alias of \"selectOption\"",
+    "lineNumber": 26,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": [
+      {
+        "name": "content",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "name": "attachFile",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#attachFile",
+    "access": "public",
+    "description": null,
+    "lineNumber": 29,
+    "undocument": true,
+    "params": [
+      {
+        "name": "filepath",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 60,
+    "kind": "method",
+    "name": "executeJs",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#executeJs",
+    "access": "public",
+    "description": "execute \"JavaScript code\" given as argument",
+    "lineNumber": 36,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": [
+      {
+        "name": "code",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "name": "toArray",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#toArray",
+    "access": "public",
+    "description": "",
+    "lineNumber": 42,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Promise which resolved with array of finder, that array length is matched number"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 62,
+    "kind": "method",
+    "name": "getFirst",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#getFirst",
+    "access": "public",
+    "description": "",
+    "lineNumber": 55,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Get new Finder for the first matched element. this is same to \"indexOf(0)\""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 63,
+    "kind": "method",
+    "name": "indexOf",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#indexOf",
+    "access": "public",
+    "description": "",
+    "lineNumber": 61,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Get new Finder for the given index of matched elements"
+    },
+    "params": [
+      {
+        "name": "i",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 64,
+    "kind": "method",
+    "name": "every",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#every",
+    "access": "public",
+    "description": "return true if all elements which is found by Finder satisfied given filter",
+    "examples": [
+      "await page.find(\"input\").every(FinderFilter.haveValue(\"123\")) // return true or false"
+    ],
+    "lineNumber": 73,
+    "params": [
+      {
+        "name": "code",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "method",
+    "name": "clickAndExpectPageLoaded",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#clickAndExpectPageLoaded",
+    "access": "public",
+    "description": null,
+    "lineNumber": 77,
+    "undocument": true,
+    "params": [
+      {
+        "name": "args",
+        "types": [
+          "...*"
+        ],
+        "spread": true
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 66,
+    "kind": "method",
+    "name": "clickAndWaitLoading",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#clickAndWaitLoading",
+    "access": "public",
+    "description": "alias of clickAndExpectPageLoaded",
+    "lineNumber": 84,
+    "params": [
+      {
+        "name": "args",
+        "types": [
+          "...*"
+        ],
+        "spread": true
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "name": "clickAndExpectAjaxComplete",
+    "memberof": "lib/page/finder.js~Finder",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder.js~Finder#clickAndExpectAjaxComplete",
+    "access": "public",
+    "description": null,
+    "lineNumber": 87,
+    "undocument": true,
+    "params": [
+      {
+        "name": "args",
+        "types": [
+          "...*"
+        ],
+        "spread": true
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "file",
+    "name": "lib/page/finder_action.js",
+    "content": "\n/**\n * This class provides action methods for Finder.\n * This class is Mixined to \"Finder\" class\n */\nclass FinderAction {\n  static get count(){\n    return (elements)=>{ return elements ? elements.length : 0 }\n  }\n  static get text(){\n    return (elements)=>{ return elements && elements[0].textContent }\n  }\n  static setText(text){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].textContent = \"${text}\" } }`\n  }\n  static get value(){\n    return (elements)=>{ return elements && elements[0].value }\n  }\n  static setValue(val){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].value = \"${val}\" } }`\n  }\n  static get click(){\n    return (elements)=>{\n      if(elements && elements[0]){\n        let event = document.createEvent('MouseEvent');\n        event.initMouseEvent(\"click\", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);\n        elements[0].dispatchEvent(event);\n      }\n    }\n  }\n  static setChecked(bool){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].checked = ${bool}; } }`\n  }\n  static setSelected(bool){\n    return `(elements)=>{ elements && elements[0].selected = ${bool} }`\n  }\n\n  ////// instance methods //////////////////////////////////////////////////////////////////\n\n  /*\n   * Get a textContent of element which is found first by Finder.\n   * @return {Promise} Promise resolved with element.textContent\n   */\n  text(){\n    return this.withAction(FinderAction.text).evaluate()\n  }\n  /**\n   * Get a value of element which is found first by Finder.\n   * @return {Promise} Promise resolved with element.value\n   */\n  value(){\n    return this.withAction(FinderAction.value).evaluate()\n  }\n  /**\n   * Click an element which is found first by Finder\n   * @return {Promise} Promise resolved after click event\n   */\n  click(){\n    return this.withAction(FinderAction.click).evaluate()\n  }\n  /**\n   * Get a count of elements which is found by Finder.\n   * @return {Promise} Promise resolved with matched number\n   */\n  count(){\n    return this.withAction(FinderAction.count).evaluate()\n  }\n  /**\n   * @return {Promise} return true if count of elements which is found by Finder is over one.\n   */\n  exist(){\n    return this.count().then(count => count >= 1)\n  }\n  /**\n   * @return {Promise} return true if count of elements which is found by Finder is zero.\n   */\n  notExist(){\n    return this.exist().then(exist => !exist)\n  }\n  /**\n   * Set given value to value of all elements which is found by Finder\n   * @return {Promise} Promise resolved after setting value\n   */\n  setValue(val){\n    return this.withAction(FinderAction.setValue(val)).evaluate()\n  }\n  /**\n   * Alias of \"setValue\"\n   */\n  fillIn(val){\n    return this.setValue(val)\n  }\n  /**\n   * Set given text to textContent of all elements which is found by Finder\n   * @return {Promise} Promise resolved after setting textContent\n   */\n  setText(text){\n    return this.withAction(FinderAction.setText(text)).evaluate()\n  }\n  /**\n   * Set \"checked\" property true on all elements which is found by Finder\n   * @return {Promise}\n   */\n  check(){\n    // TODO target is all elements\n    return this.withAction(FinderAction.setChecked(true)).evaluate()\n  }\n  /**\n   * Set \"checked\" property true on all elements which is found by Finder\n   * @return {Promise}\n   */\n  uncheck(){\n    // TODO target is all elements\n    return this.withAction(FinderAction.setChecked(false)).evaluate()\n  }\n  /**\n   * Alias of \"click\"\n   * @return {Promise}\n   */\n  chooseRadioButton(){\n    return this.click();\n  }\n  /**\n   * Set \"selected\" property true on element which is found by Finder\n   * @return {Promise}\n   */\n  select(){\n    return this.withAction(FinderAction.setSelected(true)).evaluate();\n  }\n}\n\nmodule.exports = FinderAction;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/finder_action.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 69,
+    "kind": "class",
+    "name": "FinderAction",
+    "memberof": "lib/page/finder_action.js",
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/page/finder_action.js",
+    "importStyle": "FinderAction",
+    "description": "This class provides action methods for Finder.\nThis class is Mixined to \"Finder\" class",
+    "lineNumber": 6,
+    "interface": false
+  },
+  {
+    "__docId__": 70,
+    "kind": "get",
+    "name": "count",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction.count",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "get",
+    "name": "text",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction.text",
+    "access": "public",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "method",
+    "name": "setText",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction.setText",
+    "access": "public",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [
+      {
+        "name": "text",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "get",
+    "name": "value",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction.value",
+    "access": "public",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 74,
+    "kind": "method",
+    "name": "setValue",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction.setValue",
+    "access": "public",
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "params": [
+      {
+        "name": "val",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "get",
+    "name": "click",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction.click",
+    "access": "public",
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "method",
+    "name": "setChecked",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction.setChecked",
+    "access": "public",
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "params": [
+      {
+        "name": "bool",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "method",
+    "name": "setSelected",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_action.js~FinderAction.setSelected",
+    "access": "public",
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "params": [
+      {
+        "name": "bool",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 78,
+    "kind": "method",
+    "name": "text",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#text",
+    "access": "public",
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 79,
+    "kind": "method",
+    "name": "value",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#value",
+    "access": "public",
+    "description": "Get a value of element which is found first by Finder.",
+    "lineNumber": 51,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Promise resolved with element.value"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 80,
+    "kind": "method",
+    "name": "click",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#click",
+    "access": "public",
+    "description": "Click an element which is found first by Finder",
+    "lineNumber": 58,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Promise resolved after click event"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "name": "count",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#count",
+    "access": "public",
+    "description": "Get a count of elements which is found by Finder.",
+    "lineNumber": 65,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Promise resolved with matched number"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "name": "exist",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#exist",
+    "access": "public",
+    "description": "",
+    "lineNumber": 71,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "return true if count of elements which is found by Finder is over one."
+    },
+    "params": []
+  },
+  {
+    "__docId__": 83,
+    "kind": "method",
+    "name": "notExist",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#notExist",
+    "access": "public",
+    "description": "",
+    "lineNumber": 77,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "return true if count of elements which is found by Finder is zero."
+    },
+    "params": []
+  },
+  {
+    "__docId__": 84,
+    "kind": "method",
+    "name": "setValue",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#setValue",
+    "access": "public",
+    "description": "Set given value to value of all elements which is found by Finder",
+    "lineNumber": 84,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Promise resolved after setting value"
+    },
+    "params": [
+      {
+        "name": "val",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 85,
+    "kind": "method",
+    "name": "fillIn",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#fillIn",
+    "access": "public",
+    "description": "Alias of \"setValue\"",
+    "lineNumber": 90,
+    "params": [
+      {
+        "name": "val",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 86,
+    "kind": "method",
+    "name": "setText",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#setText",
+    "access": "public",
+    "description": "Set given text to textContent of all elements which is found by Finder",
+    "lineNumber": 97,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Promise resolved after setting textContent"
+    },
+    "params": [
+      {
+        "name": "text",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "name": "check",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#check",
+    "access": "public",
+    "description": "Set \"checked\" property true on all elements which is found by Finder",
+    "lineNumber": 104,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 88,
+    "kind": "method",
+    "name": "uncheck",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#uncheck",
+    "access": "public",
+    "description": "Set \"checked\" property true on all elements which is found by Finder",
+    "lineNumber": 112,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 89,
+    "kind": "method",
+    "name": "chooseRadioButton",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#chooseRadioButton",
+    "access": "public",
+    "description": "Alias of \"click\"",
+    "lineNumber": 120,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 90,
+    "kind": "method",
+    "name": "select",
+    "memberof": "lib/page/finder_action.js~FinderAction",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_action.js~FinderAction#select",
+    "access": "public",
+    "description": "Set \"selected\" property true on element which is found by Finder",
+    "lineNumber": 127,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 91,
+    "kind": "file",
+    "name": "lib/page/finder_base.js",
+    "content": "const debug = require(\"../utils/debug\").getLogger(\"app\");\n\nclass FinderBase {\n  static convertArgumentsToConditions(...args){\n    return args.map((arg)=>{\n      if(typeof arg == 'function'){\n        return new Filter(arg.toString());\n      }\n      if(typeof arg == 'string'){\n        if(arg.match(/\\)\\s*=>\\s*\\{/) || arg.trim().match(/^function/)){\n          return new Filter(arg);\n        }else{\n          return new Selector(arg);\n        }\n      }\n      throw `Condition parameter is unexpected value, [${arg}]`;\n    })\n  }\n  constructor(page, ...args){\n    this._page = page;\n    this._conditions = FinderBase.convertArgumentsToConditions(...args);\n    this._allowNotFound = false;\n    this._matcher = undefined;\n    this._action = undefined;\n  }\n  get page(){ return this._page }\n  get conditions(){ return this._conditions }\n  get matcher(){ return this._matcher }\n  get action(){ return this._action }\n  get allowNotFound(){ return this._allowNotFound }\n  allowNotFound(val){ this._allowNotFound = val }\n  /**\n   * @return {Object} cloned object\n   */\n  clone(){\n    return Object.assign(new this.constructor(this.page), {\n      _conditions: this.conditions.concat(),\n      allowNotFound: this.allowNotFound,\n      _matcher: this.matcher,\n      _action: this.action\n    });\n  }\n  /**\n   * @return {FinderBase} self which have added conditions\n   */\n  find(...args){\n    this._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditions(...args));\n    return this;\n  }\n  withAction(action){\n    this._action = typeof action == \"function\" ?  action.toString() : action;\n    return this;\n  }\n  withMatcher(filter, matcher){\n    if(typeof filter == \"function\"){ filter = filter.toString() }\n    if(typeof matcher == \"function\"){ matcher = matcher.toString() }\n    this._matcher = new Matcher(filter, matcher);\n    return this;\n  }\n  /**\n   * @return {Promise} Promise resolved in evaluated JavaScript code\n   */\n  evaluate(){\n    if(this.matcher && this.action){ throw \"Both action and matcher were specified\" }\n\n    let conditions = this.conditions;\n    if(!conditions || !(conditions[0] instanceof Selector)){\n      conditions = [new Selector(\"*\")];\n    }\n\n    let jsCode = `\n      var elements = Array.from(document.querySelectorAll(\"${conditions[0].selector}\"));\n    `;\n    jsCode += conditions.slice(1).map((condition)=>{\n      return condition instanceof Selector ?\n        `{\n          elements = elements.reduce((arr, e, idx)=>{\n            return arr.concat(Array.from(e.querySelectorAll(\"${condtion.selector}\")));\n          }, []);\n        }` :\n        `{\n          let func = ${condition.code};\n          elements = elements.filter((e, idx)=>{ return func(e, idx) });\n        }`;\n    }).join(\"\\n\");\n\n    if(!this.allowNotFound){\n      jsCode += `\n        if(elements.length == 0){\n          return Promise.reject('not found');\n        }\n      `\n    }\n    if(this.action){\n      jsCode += `\n        return (${this.action})(elements);\n      `;\n    }\n    else if(this.matcher){\n      jsCode += `{\n        let filtered = (${this.matcher.filter})(elements);\n        return (${this.matcher.matcher})(filtered);\n      }`;\n    }\n    else{\n      jsCode += `return elements.length;`\n    }\n    debug(`Evaluate Javascript \"${jsCode}\"`)\n\n    return this.page.executeJs(`(()=>{ try{ ${jsCode} }catch(e){ return Promise.reject(e.toString()) } })()`)\n    .then((val)=>{\n      if(this.matcher && val === false){ throw \"No Match!\" }\n      return val;\n    })\n    .catch((err)=>{\n      debug(`Error occurred in Evaluating Javascript: ${err}`);\n      throw err\n    })\n  }\n}\n\nclass Filter {\n  constructor(code){\n    this.code = code;\n  }\n}\nclass Selector {\n  constructor(selector){\n    this.selector = selector;\n  }\n}\nclass Matcher {\n  constructor(filter, matcher){\n    this.filter = filter;\n    this.matcher = matcher;\n  }\n}\n\nmodule.exports = FinderBase;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/finder_base.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 92,
+    "kind": "variable",
+    "name": "debug",
+    "memberof": "lib/page/finder_base.js",
+    "static": true,
+    "longname": "lib/page/finder_base.js~debug",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder_base.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 93,
+    "kind": "class",
+    "name": "Filter",
+    "memberof": "lib/page/finder_base.js",
+    "static": true,
+    "longname": "lib/page/finder_base.js~Filter",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder_base.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 122,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 94,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/page/finder_base.js~Filter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~Filter#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 123,
+    "undocument": true
+  },
+  {
+    "__docId__": 95,
+    "kind": "member",
+    "name": "code",
+    "memberof": "lib/page/finder_base.js~Filter",
+    "static": false,
+    "longname": "lib/page/finder_base.js~Filter#code",
+    "access": "public",
+    "description": null,
+    "lineNumber": 124,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "class",
+    "name": "Selector",
+    "memberof": "lib/page/finder_base.js",
+    "static": true,
+    "longname": "lib/page/finder_base.js~Selector",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder_base.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 127,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 97,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/page/finder_base.js~Selector",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~Selector#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 128,
+    "undocument": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "member",
+    "name": "selector",
+    "memberof": "lib/page/finder_base.js~Selector",
+    "static": false,
+    "longname": "lib/page/finder_base.js~Selector#selector",
+    "access": "public",
+    "description": null,
+    "lineNumber": 129,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 99,
+    "kind": "class",
+    "name": "Matcher",
+    "memberof": "lib/page/finder_base.js",
+    "static": true,
+    "longname": "lib/page/finder_base.js~Matcher",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder_base.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 132,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 100,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/page/finder_base.js~Matcher",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~Matcher#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 133,
+    "undocument": true
+  },
+  {
+    "__docId__": 101,
+    "kind": "member",
+    "name": "filter",
+    "memberof": "lib/page/finder_base.js~Matcher",
+    "static": false,
+    "longname": "lib/page/finder_base.js~Matcher#filter",
+    "access": "public",
+    "description": null,
+    "lineNumber": 134,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "member",
+    "name": "matcher",
+    "memberof": "lib/page/finder_base.js~Matcher",
+    "static": false,
+    "longname": "lib/page/finder_base.js~Matcher#matcher",
+    "access": "public",
+    "description": null,
+    "lineNumber": 135,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 103,
+    "kind": "class",
+    "name": "FinderBase",
+    "memberof": "lib/page/finder_base.js",
+    "static": true,
+    "longname": "lib/page/finder_base.js~FinderBase",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/page/finder_base.js",
+    "importStyle": "FinderBase",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 104,
+    "kind": "method",
+    "name": "convertArgumentsToConditions",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_base.js~FinderBase.convertArgumentsToConditions",
+    "access": "public",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "params": [
+      {
+        "name": "args",
+        "types": [
+          "...*"
+        ],
+        "spread": true
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 105,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "member",
+    "name": "_page",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#_page",
+    "access": "private",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 107,
+    "kind": "member",
+    "name": "_conditions",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#_conditions",
+    "access": "private",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 108,
+    "kind": "member",
+    "name": "_allowNotFound",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#_allowNotFound",
+    "access": "private",
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 109,
+    "kind": "member",
+    "name": "_matcher",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#_matcher",
+    "access": "private",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 110,
+    "kind": "member",
+    "name": "_action",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#_action",
+    "access": "private",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 111,
+    "kind": "get",
+    "name": "page",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#page",
+    "access": "public",
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 112,
+    "kind": "get",
+    "name": "conditions",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#conditions",
+    "access": "public",
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 113,
+    "kind": "get",
+    "name": "matcher",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#matcher",
+    "access": "public",
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "get",
+    "name": "action",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#action",
+    "access": "public",
+    "description": null,
+    "lineNumber": 29,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 115,
+    "kind": "get",
+    "name": "allowNotFound",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#allowNotFound",
+    "access": "public",
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 116,
+    "kind": "method",
+    "name": "allowNotFound",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#allowNotFound",
+    "access": "public",
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "params": [
+      {
+        "name": "val",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 118,
+    "kind": "method",
+    "name": "clone",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#clone",
+    "access": "public",
+    "description": "",
+    "lineNumber": 35,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "cloned object"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 119,
+    "kind": "method",
+    "name": "find",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#find",
+    "access": "public",
+    "description": "",
+    "lineNumber": 46,
+    "return": {
+      "nullable": null,
+      "types": [
+        "FinderBase"
+      ],
+      "spread": false,
+      "description": "self which have added conditions"
+    },
+    "params": [
+      {
+        "name": "args",
+        "types": [
+          "...*"
+        ],
+        "spread": true
+      }
+    ]
+  },
+  {
+    "__docId__": 121,
+    "kind": "method",
+    "name": "withAction",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#withAction",
+    "access": "public",
+    "description": null,
+    "lineNumber": 50,
+    "undocument": true,
+    "params": [
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 123,
+    "kind": "method",
+    "name": "withMatcher",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#withMatcher",
+    "access": "public",
+    "description": null,
+    "lineNumber": 54,
+    "undocument": true,
+    "params": [
+      {
+        "name": "filter",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "matcher",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 125,
+    "kind": "method",
+    "name": "evaluate",
+    "memberof": "lib/page/finder_base.js~FinderBase",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_base.js~FinderBase#evaluate",
+    "access": "public",
+    "description": "",
+    "lineNumber": 63,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "Promise resolved in evaluated JavaScript code"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 126,
+    "kind": "file",
+    "name": "lib/page/finder_filter.js",
+    "content": "\nclass Private {\n  static haveContent(content, haveContent = true){\n    return `(elm, i)=>{ return elm.textContent && (elm.textContent.trim() == \"${content.trim()}\") === ${haveContent} }`;\n  }\n  static haveValue(value, haveValue = true){\n    return `(elm, i)=>{ return elm.value && (elm.value.trim() == \"${value.trim()}\") === ${haveValue} }`;\n  }\n  static haveClass(classname, haveClass = true){\n    return `(elm, i)=>{ return elm && (elm.classList.contains(\"${classname}\")) === ${haveClass} }`;\n  }\n  static haveStyle(styleName, value, haveStyle = true){\n    return `(elm, i)=>{ let style = getComputeStyle(elm); return style && (style[\"${styleName}\"] == \"${value}\") === ${haveStyle} }`\n  }\n  static be(propName, bool){\n    return `(elm, i)=>{ return elm && elm.${propName} === ${bool} }`;\n  }\n}\n\n/**\n * This class provides filtering methods for Finder.\n * This class is Mixined to \"Finder\" class\n */\nclass FinderFilter {\n  /**\n   * @return {string} return function code to select elements which have given content as element.textContent\n   */\n  static haveContent(content){\n    return Private.haveContent(content, true);\n  }\n  /**\n   * @return {string} return function code to select elements which do not have given content as element.textContent\n   */\n  static notHaveContent(content){\n    return Private.haveContent(content, false);\n  }\n  /**\n   * @return {string} return function code to select elements which have given value as element.value\n   */\n  static haveValue(value){\n    return Private.haveValue(value, true);\n  }\n  /**\n   * @return {string} return function code to select elements which do not have given value as element.value\n   */\n  static notHaveValue(value){\n    return Private.haveValue(value, false);\n  }\n  /**\n   * @return {string} return function code to select elements which has given value as element.checked attribute.\n   */\n  static beChecked(bool){\n    return Private.be(\"checked\", bool)\n  }\n  /**\n   * @return {string} return function code to select elements which has given value as element.selected attribute.\n   */\n  static beSelected(bool){\n    return Private.be(\"selected\", bool)\n  }\n  /**\n   * @return {string} return function code to select elements which has given value as element.disabled attribute.\n   */\n  static beDisabled(bool){\n    return Private.be(\"disabled\", bool)\n  }\n  /**\n   * @return {string} return function code to select elements which has given value in element.classList attribute.\n   */\n  static haveClass(classname){\n    return Private.haveClass(classname, true);\n  }\n  /**\n   * @return {string} return function code to select elements which do not has given value in element.classList attribute.\n   */\n  static notHaveClass(classname){\n    return Private.haveClass(classname, false);\n  }\n  /**\n   * @return {string} return function code to select elements which has given value in window.getComputedStyle(element)\n   */\n  static haveStyle(styleName, value){\n    return Private.haveStyle(styleName, value, true);\n  }\n  /**\n   * @return {string} return function code to select elements which do not has given value in window.getComputedStyle(element)\n   */\n  static notHaveStyle(styleName, value){\n    return Private.haveStyle(styleName, value, false);\n  }\n\n  ////// instance methods /////////////////////////////////////////////////////////////////////\n\n  /**\n   * @return {Finder} return filtered Finder object which has the specified value\n   */\n  haveValue(val){\n    return this.find(FinderFilter.haveValue(val))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has the specified text\n   */\n  haveText(text){\n    return this.find(FinderFilter.haveText(text))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has been checked\n   */\n  beChecked(){\n    return this.find(FinderFilter.beChecked(true))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which do not has been checked\n   */\n  notBeChecked(){\n    return this.find(FinderFilter.beChecked(false))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has been selected\n   */\n  beSelected(){\n    return this.find(FinderFilter.beSelected(true))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which do not has been selected\n   */\n  notBeSelected(){\n    return this.find(FinderFilter.beSelected(false))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has specified CssClass\n   */\n  haveCssClass(classname){\n    return this.find(FinderFilter.haveClass(classname))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which do not has specified CssClass\n   */\n  notHaveCssClass(classname){\n    return this.find(FinderFilter.notHaveClass(classname))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has specified CssProperty\n   */\n  haveCssProperty(propName, value){\n    return this.find(FinderFilter.haveStyle(propName, value))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which do not has specified CssProperty\n   */\n  notHaveCssProperty(propName, value){\n    return this.find(FinderFilter.notHaveStyle(propName, value))\n  }\n}\n\nmodule.exports = FinderFilter;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/finder_filter.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 127,
+    "kind": "class",
+    "name": "Private",
+    "memberof": "lib/page/finder_filter.js",
+    "static": true,
+    "longname": "lib/page/finder_filter.js~Private",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/finder_filter.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 128,
+    "kind": "method",
+    "name": "haveContent",
+    "memberof": "lib/page/finder_filter.js~Private",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~Private.haveContent",
+    "access": "public",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "params": [
+      {
+        "name": "content",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "haveContent",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": true,
+        "defaultValue": "true"
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 129,
+    "kind": "method",
+    "name": "haveValue",
+    "memberof": "lib/page/finder_filter.js~Private",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~Private.haveValue",
+    "access": "public",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "haveValue",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": true,
+        "defaultValue": "true"
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 130,
+    "kind": "method",
+    "name": "haveClass",
+    "memberof": "lib/page/finder_filter.js~Private",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~Private.haveClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "params": [
+      {
+        "name": "classname",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "haveClass",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": true,
+        "defaultValue": "true"
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 131,
+    "kind": "method",
+    "name": "haveStyle",
+    "memberof": "lib/page/finder_filter.js~Private",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~Private.haveStyle",
+    "access": "public",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [
+      {
+        "name": "styleName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "haveStyle",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": true,
+        "defaultValue": "true"
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 132,
+    "kind": "method",
+    "name": "be",
+    "memberof": "lib/page/finder_filter.js~Private",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~Private.be",
+    "access": "public",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "params": [
+      {
+        "name": "propName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "bool",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 133,
+    "kind": "class",
+    "name": "FinderFilter",
+    "memberof": "lib/page/finder_filter.js",
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/page/finder_filter.js",
+    "importStyle": "FinderFilter",
+    "description": "This class provides filtering methods for Finder.\nThis class is Mixined to \"Finder\" class",
+    "lineNumber": 24,
+    "interface": false
+  },
+  {
+    "__docId__": 134,
+    "kind": "method",
+    "name": "haveContent",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.haveContent",
+    "access": "public",
+    "description": "",
+    "lineNumber": 28,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which have given content as element.textContent"
+    },
+    "params": [
+      {
+        "name": "content",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 135,
+    "kind": "method",
+    "name": "notHaveContent",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.notHaveContent",
+    "access": "public",
+    "description": "",
+    "lineNumber": 34,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which do not have given content as element.textContent"
+    },
+    "params": [
+      {
+        "name": "content",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 136,
+    "kind": "method",
+    "name": "haveValue",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.haveValue",
+    "access": "public",
+    "description": "",
+    "lineNumber": 40,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which have given value as element.value"
+    },
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 137,
+    "kind": "method",
+    "name": "notHaveValue",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.notHaveValue",
+    "access": "public",
+    "description": "",
+    "lineNumber": 46,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which do not have given value as element.value"
+    },
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 138,
+    "kind": "method",
+    "name": "beChecked",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.beChecked",
+    "access": "public",
+    "description": "",
+    "lineNumber": 52,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which has given value as element.checked attribute."
+    },
+    "params": [
+      {
+        "name": "bool",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 139,
+    "kind": "method",
+    "name": "beSelected",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.beSelected",
+    "access": "public",
+    "description": "",
+    "lineNumber": 58,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which has given value as element.selected attribute."
+    },
+    "params": [
+      {
+        "name": "bool",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 140,
+    "kind": "method",
+    "name": "beDisabled",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.beDisabled",
+    "access": "public",
+    "description": "",
+    "lineNumber": 64,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which has given value as element.disabled attribute."
+    },
+    "params": [
+      {
+        "name": "bool",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 141,
+    "kind": "method",
+    "name": "haveClass",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.haveClass",
+    "access": "public",
+    "description": "",
+    "lineNumber": 70,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which has given value in element.classList attribute."
+    },
+    "params": [
+      {
+        "name": "classname",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 142,
+    "kind": "method",
+    "name": "notHaveClass",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.notHaveClass",
+    "access": "public",
+    "description": "",
+    "lineNumber": 76,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which do not has given value in element.classList attribute."
+    },
+    "params": [
+      {
+        "name": "classname",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 143,
+    "kind": "method",
+    "name": "haveStyle",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.haveStyle",
+    "access": "public",
+    "description": "",
+    "lineNumber": 82,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which has given value in window.getComputedStyle(element)"
+    },
+    "params": [
+      {
+        "name": "styleName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 144,
+    "kind": "method",
+    "name": "notHaveStyle",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page/finder_filter.js~FinderFilter.notHaveStyle",
+    "access": "public",
+    "description": "",
+    "lineNumber": 88,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "return function code to select elements which do not has given value in window.getComputedStyle(element)"
+    },
+    "params": [
+      {
+        "name": "styleName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 145,
+    "kind": "method",
+    "name": "haveValue",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#haveValue",
+    "access": "public",
+    "description": "",
+    "lineNumber": 97,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which has the specified value"
+    },
+    "params": [
+      {
+        "name": "val",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 146,
+    "kind": "method",
+    "name": "haveText",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#haveText",
+    "access": "public",
+    "description": "",
+    "lineNumber": 103,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which has the specified text"
+    },
+    "params": [
+      {
+        "name": "text",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 147,
+    "kind": "method",
+    "name": "beChecked",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#beChecked",
+    "access": "public",
+    "description": "",
+    "lineNumber": 109,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which has been checked"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 148,
+    "kind": "method",
+    "name": "notBeChecked",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#notBeChecked",
+    "access": "public",
+    "description": "",
+    "lineNumber": 115,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which do not has been checked"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 149,
+    "kind": "method",
+    "name": "beSelected",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#beSelected",
+    "access": "public",
+    "description": "",
+    "lineNumber": 121,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which has been selected"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 150,
+    "kind": "method",
+    "name": "notBeSelected",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#notBeSelected",
+    "access": "public",
+    "description": "",
+    "lineNumber": 127,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which do not has been selected"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 151,
+    "kind": "method",
+    "name": "haveCssClass",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#haveCssClass",
+    "access": "public",
+    "description": "",
+    "lineNumber": 133,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which has specified CssClass"
+    },
+    "params": [
+      {
+        "name": "classname",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 152,
+    "kind": "method",
+    "name": "notHaveCssClass",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#notHaveCssClass",
+    "access": "public",
+    "description": "",
+    "lineNumber": 139,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which do not has specified CssClass"
+    },
+    "params": [
+      {
+        "name": "classname",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 153,
+    "kind": "method",
+    "name": "haveCssProperty",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#haveCssProperty",
+    "access": "public",
+    "description": "",
+    "lineNumber": 145,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which has specified CssProperty"
+    },
+    "params": [
+      {
+        "name": "propName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 154,
+    "kind": "method",
+    "name": "notHaveCssProperty",
+    "memberof": "lib/page/finder_filter.js~FinderFilter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/finder_filter.js~FinderFilter#notHaveCssProperty",
+    "access": "public",
+    "description": "",
+    "lineNumber": 151,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "return filtered Finder object which do not has specified CssProperty"
+    },
+    "params": [
+      {
+        "name": "propName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 155,
+    "kind": "file",
+    "name": "lib/page/page.js",
+    "content": "const {ipcMain} = require('electron');\nconst Finder = require('./finder');\n\nconst TIMEOUT_MSEC = 10000;\n\nclass Page {\n  constructor(window){\n    this._window = window;\n  }\n  /**\n   * @return {Window} Window Object which contains this page.\n   */\n  get window(){ return this._window }\n  /**\n   * @return {object} WebContents Object\n   * @see https://github.com/electron/electron/blob/master/docs/api/web-contents.md\n   */\n  get webContents(){ return this.window.browserWindow.webContents }\n  /**\n   * @private\n   */\n  checkReady(){\n    if(!this.window.isReady) throw \"PageContent is not ready!, Please call the 'load' method first\"\n  }\n  /**\n   * @return {Promise}\n   */\n  load(url, options = {}){\n    let loadURLFunction = ()=>{\n      return this.expectPageLoaded(()=>{ if(url) this.webContents.loadURL(url, options) })\n    };\n    if(this.window.isReady){\n      return loadURLFunction()\n    }else{\n      return new Promise((resolve, reject)=>{\n        this.window.on('ready', ()=>{ loadURLFunction().then(resolve).catch(reject) });\n      });\n    }\n  }\n  /**\n   * Alias of load\n   */\n  waitLoading(...args){\n    return this.load(...args)\n  }\n  /**\n   * @return {string} URL of current page\n   */\n  get url(){\n    return this.webContents.getURL();\n  }\n  /**\n   * @param {function} action - A function representing the operation of loading new page\n   * @return {Promise}\n   */\n  expectPageLoaded(action){\n    return new Promise((resolve,reject)=>{\n      try{ this.checkReady() }catch(err){ return reject(err) }\n      this.webContents.removeAllListeners('did-finish-load');\n      this.webContents.removeAllListeners('did-fail-load');\n      try{ action && action() }catch(e){ reject(e) }\n      let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n      this.webContents.once('did-finish-load', (event)=>{\n        clearTimeout(timeoutId)\n        resolve(this)\n      })\n      this.webContents.once('did-fail-load', (event)=>{\n        clearTimeout(timeoutId)\n        reject(event)\n      })\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of file download\n   * @return {Promise}\n   */\n  expectDownloaded(action){\n    return new Promise((resolve,reject)=>{\n      try{ this.checkReady() }catch(err){ return reject(err) }\n\n      // TODO\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of sending IPC\n   * @param {string} channel - string of representing the channel of IPC\n   * @return {Promise}\n   */\n  expectIpcReceived(action, channel = 'asynchronous-message'){\n    return new Promise((resolve, reject)=>{\n      try{ this.checkReady() }catch(err){ return reject(err) }\n      try{\n        let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n        ipcMain.once(channel, (event, arg)=>{\n          clearTimeout(timeoutId);\n          resolve(arg);\n        });\n        action && action()\n      }catch(e){ reject(e) }\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of sending Ajax request\n   * @return {Promise}\n   */\n  expectAjaxComplete(action){\n    return this.expectIpcReceived(()=>{\n      return this.executeJs(`\n        if(!XMLHttpRequest.prototype.__original_open){\n          XMLHttpRequest.prototype.__original_open = XMLHttpRequest.prototype.open;\n        }\n        XMLHttpRequest.prototype.open = function(){\n          let timeoutId = setTimeout(()=>{ ipcRenderer.send('asynchronous-message', 'timeout') }, ${TIMEOUT_MSEC})\n          this.addEventListener('readystatechange', function(){\n            if(this.readyState == 4){\n              clearTimeout(timeoutId);\n              setTimeout(()=>{ ipcRenderer.send('asynchronous-message', 'ajaxComplete') }, 0);\n            }\n          });\n          XMLHttpRequest.prototype.__original_open.apply(this, arguments);\n        };\n      `)\n      .then(()=>{ action && action() })\n    })\n    .then((result)=>{\n      if(result == 'ajaxComplete') return;\n      throw result;\n    });\n  }\n  /**\n   * @param {string} code - JavaScript Code for executing this page.\n   * @return {Promise}\n   */\n  executeJs(code){\n    try{ this.checkReady() }catch(err){ return Promise.reject(err) }\n    return this.webContents.executeJavaScript(code, true)\n  }\n  /**\n   * @override\n   * @return {Finder} new Finder object\n   */\n  find(...args){\n    return new Finder(this, ...args);\n  }\n  /**\n   * Get the HTML source of current page.\n   * @return {Promise} resolved by current HTML source.\n   */\n  getSourceHTML(){\n    return this.executeJs(`document.getElementsByTagName(\"html\")[0].outerHTML`);\n  }\n\n  findClickable(){\n    return this.find(\"a,button,input[type=button],input[type=submit]\")\n  }\n}\n\nmodule.exports = Page;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/page.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 156,
+    "kind": "variable",
+    "name": "ipcMain",
+    "memberof": "lib/page/page.js",
+    "static": true,
+    "longname": "lib/page/page.js~ipcMain",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/page.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 157,
+    "kind": "variable",
+    "name": "Finder",
+    "memberof": "lib/page/page.js",
+    "static": true,
+    "longname": "lib/page/page.js~Finder",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/page.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 158,
+    "kind": "variable",
+    "name": "TIMEOUT_MSEC",
+    "memberof": "lib/page/page.js",
+    "static": true,
+    "longname": "lib/page/page.js~TIMEOUT_MSEC",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/page.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 159,
+    "kind": "class",
+    "name": "Page",
+    "memberof": "lib/page/page.js",
+    "static": true,
+    "longname": "lib/page/page.js~Page",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/page/page.js",
+    "importStyle": "Page",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 160,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true
+  },
+  {
+    "__docId__": 161,
+    "kind": "member",
+    "name": "_window",
+    "memberof": "lib/page/page.js~Page",
+    "static": false,
+    "longname": "lib/page/page.js~Page#_window",
+    "access": "private",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 162,
+    "kind": "get",
+    "name": "window",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#window",
+    "access": "public",
+    "description": "",
+    "lineNumber": 13,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Window"
+      ],
+      "spread": false,
+      "description": "Window Object which contains this page."
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 163,
+    "kind": "get",
+    "name": "webContents",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#webContents",
+    "access": "public",
+    "description": "",
+    "see": [
+      "https://github.com/electron/electron/blob/master/docs/api/web-contents.md"
+    ],
+    "lineNumber": 18,
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "WebContents Object"
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 164,
+    "kind": "method",
+    "name": "checkReady",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#checkReady",
+    "access": "private",
+    "description": "",
+    "lineNumber": 22,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 165,
+    "kind": "method",
+    "name": "load",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#load",
+    "access": "public",
+    "description": "",
+    "lineNumber": 28,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": [
+      {
+        "name": "url",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "options",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      }
+    ]
+  },
+  {
+    "__docId__": 166,
+    "kind": "method",
+    "name": "waitLoading",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#waitLoading",
+    "access": "public",
+    "description": "Alias of load",
+    "lineNumber": 43,
+    "params": [
+      {
+        "name": "args",
+        "types": [
+          "...*"
+        ],
+        "spread": true
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 167,
+    "kind": "get",
+    "name": "url",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#url",
+    "access": "public",
+    "description": "",
+    "lineNumber": 49,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "URL of current page"
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 168,
+    "kind": "method",
+    "name": "expectPageLoaded",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#expectPageLoaded",
+    "access": "public",
+    "description": "",
+    "lineNumber": 56,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "action",
+        "description": "A function representing the operation of loading new page"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 169,
+    "kind": "method",
+    "name": "expectDownloaded",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#expectDownloaded",
+    "access": "public",
+    "description": "",
+    "lineNumber": 77,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "action",
+        "description": "A function representing the operation of file download"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 170,
+    "kind": "method",
+    "name": "expectIpcReceived",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#expectIpcReceived",
+    "access": "public",
+    "description": "",
+    "lineNumber": 89,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "action",
+        "description": "A function representing the operation of sending IPC"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "channel",
+        "description": "string of representing the channel of IPC"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 171,
+    "kind": "method",
+    "name": "expectAjaxComplete",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#expectAjaxComplete",
+    "access": "public",
+    "description": "",
+    "lineNumber": 106,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "action",
+        "description": "A function representing the operation of sending Ajax request"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 172,
+    "kind": "method",
+    "name": "executeJs",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#executeJs",
+    "access": "public",
+    "description": "",
+    "lineNumber": 134,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "code",
+        "description": "JavaScript Code for executing this page."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 173,
+    "kind": "method",
+    "name": "find",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#find",
+    "access": "public",
+    "description": "",
+    "lineNumber": 142,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Finder"
+      ],
+      "spread": false,
+      "description": "new Finder object"
+    },
+    "override": true,
+    "params": [
+      {
+        "name": "args",
+        "types": [
+          "...*"
+        ],
+        "spread": true
+      }
+    ]
+  },
+  {
+    "__docId__": 174,
+    "kind": "method",
+    "name": "getSourceHTML",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#getSourceHTML",
+    "access": "public",
+    "description": "Get the HTML source of current page.",
+    "lineNumber": 149,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "resolved by current HTML source."
+    },
+    "params": []
+  },
+  {
+    "__docId__": 175,
+    "kind": "method",
+    "name": "findClickable",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#findClickable",
+    "access": "public",
+    "description": null,
+    "lineNumber": 153,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 176,
+    "kind": "file",
+    "name": "lib/page/window.js",
+    "content": "const EventEmitter = require('events');\nconst path = require('path');\nconst {BrowserWindow} = require('electron');\nconst {config} = require('../utils/config');\nconst Page = require('./page');\n\nclass Window extends EventEmitter {\n  constructor(options = {}){\n    super();\n    let configCloned = config.clone();\n    configCloned.merge({ browserWindow: options });\n    this.on('ready', ()=>{\n      this._browserWindow = new BrowserWindow(configCloned.browserWindow);\n      this._browserWindow.webContents.on('context-menu', (e, params)=>{\n        this._browserWindow.webContents.inspectElement(params.x, params.y);\n      })\n    })\n  }\n  /**\n   * @return {object} BrowserWindow Object\n   * @see https://github.com/electron/electron/blob/master/docs/api/browser-window.md\n   */\n  get browserWindow(){ return this._browserWindow }\n  /**\n   * @private\n   */\n  get isReady(){ return !!this._browserWindow }\n  get page(){\n    return this._page = this._page || new Page(this)\n  }\n}\n\nmodule.exports = Window;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/window.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 177,
+    "kind": "variable",
+    "name": "EventEmitter",
+    "memberof": "lib/page/window.js",
+    "static": true,
+    "longname": "lib/page/window.js~EventEmitter",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/window.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 178,
+    "kind": "variable",
+    "name": "path",
+    "memberof": "lib/page/window.js",
+    "static": true,
+    "longname": "lib/page/window.js~path",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/window.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 179,
+    "kind": "variable",
+    "name": "BrowserWindow",
+    "memberof": "lib/page/window.js",
+    "static": true,
+    "longname": "lib/page/window.js~BrowserWindow",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/window.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 180,
+    "kind": "variable",
+    "name": "config",
+    "memberof": "lib/page/window.js",
+    "static": true,
+    "longname": "lib/page/window.js~config",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/window.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 181,
+    "kind": "variable",
+    "name": "Page",
+    "memberof": "lib/page/window.js",
+    "static": true,
+    "longname": "lib/page/window.js~Page",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page/window.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 182,
+    "kind": "class",
+    "name": "Window",
+    "memberof": "lib/page/window.js",
+    "static": true,
+    "longname": "lib/page/window.js~Window",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/page/window.js",
+    "importStyle": "Window",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "EventEmitter"
+    ]
+  },
+  {
+    "__docId__": 183,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/page/window.js~Window",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/window.js~Window#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true
+  },
+  {
+    "__docId__": 184,
+    "kind": "member",
+    "name": "_browserWindow",
+    "memberof": "lib/page/window.js~Window",
+    "static": false,
+    "longname": "lib/page/window.js~Window#_browserWindow",
+    "access": "private",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 185,
+    "kind": "get",
+    "name": "browserWindow",
+    "memberof": "lib/page/window.js~Window",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/window.js~Window#browserWindow",
+    "access": "public",
+    "description": "",
+    "see": [
+      "https://github.com/electron/electron/blob/master/docs/api/browser-window.md"
+    ],
+    "lineNumber": 23,
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "BrowserWindow Object"
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 186,
+    "kind": "get",
+    "name": "isReady",
+    "memberof": "lib/page/window.js~Window",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/window.js~Window#isReady",
+    "access": "private",
+    "description": "",
+    "lineNumber": 27,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 187,
+    "kind": "get",
+    "name": "page",
+    "memberof": "lib/page/window.js~Window",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/window.js~Window#page",
+    "access": "public",
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 188,
+    "kind": "file",
+    "name": "lib/page_walker.js",
+    "content": "const electron = require('electron');\nconst Config = require('./utils/config');\nconst LoadWalkerModule = ()=>{ return require('./walker/walker') }; // for Lazy loading\nconst LoadWindowModudle = ()=>{ return require('./page/window') }; // for Lazy loading\n\nclass PageWalker {\n  constructor(app){\n    this.windows = {};\n    this._app = app;\n    this._app.on('window-all-closed', ()=>{ this._app.quit() });\n    this._app.on('ready', ()=>{\n      Object.values(this.windows).forEach((window)=>{ window.emit('ready') });\n    })\n  }\n  start(commandLineArgs){\n    this._config = Config.create(commandLineArgs);\n\n    const Walker = LoadWalkerModule();\n    this._walker = new Walker(Config.config);\n\n    this._app.on('ready', ()=>{\n      this._walker.walk((failures)=>{\n        console.log(`[${failures == 0? 'SUCCESS': 'FAILURE'}!] finished with status:${failures}`);\n        if(this.config.silentMode){\n          this._app.exit(failures);  // exit with non-zero status if there were failures\n        }else{\n          Object.values(this.windows).forEach((window)=>{ window.browserWindow.webContents.openDevTools() });;\n        }\n      })\n    })\n  }\n  get config(){\n    return this._config;\n  }\n  get page(){\n    return this.getWindow().page;\n  }\n  getWindow(name = \"default\"){\n    if(name == \"default\" && !this.windows[name]){\n      this.createWindow(\"default\", { title: \"MainWindow - PageWalker\" });\n    }\n    return this.windows[name]\n  }\n  createWindow(name, windowOptions = {}){\n    const Window = LoadWindowModudle();\n    this.windows[name] = new Window(windowOptions);\n    if(this._app.isReady()){\n      this.windows[name].emit('ready');\n    }\n  }\n}\n\nmodule.exports = new PageWalker(electron.app)\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page_walker.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 189,
+    "kind": "variable",
+    "name": "electron",
+    "memberof": "lib/page_walker.js",
+    "static": true,
+    "longname": "lib/page_walker.js~electron",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page_walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 190,
+    "kind": "variable",
+    "name": "Config",
+    "memberof": "lib/page_walker.js",
+    "static": true,
+    "longname": "lib/page_walker.js~Config",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page_walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 191,
+    "kind": "function",
+    "name": "LoadWalkerModule",
+    "memberof": "lib/page_walker.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page_walker.js~LoadWalkerModule",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page_walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 192,
+    "kind": "function",
+    "name": "LoadWindowModudle",
+    "memberof": "lib/page_walker.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/page_walker.js~LoadWindowModudle",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/page_walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 193,
+    "kind": "class",
+    "name": "PageWalker",
+    "memberof": "lib/page_walker.js",
+    "static": true,
+    "longname": "lib/page_walker.js~PageWalker",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/page_walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 194,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true
+  },
+  {
+    "__docId__": 195,
+    "kind": "member",
+    "name": "windows",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#windows",
+    "access": "public",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 196,
+    "kind": "member",
+    "name": "_app",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#_app",
+    "access": "private",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 197,
+    "kind": "method",
+    "name": "start",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#start",
+    "access": "public",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "params": [
+      {
+        "name": "commandLineArgs",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 198,
+    "kind": "member",
+    "name": "_config",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#_config",
+    "access": "private",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 199,
+    "kind": "member",
+    "name": "_walker",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#_walker",
+    "access": "private",
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 200,
+    "kind": "get",
+    "name": "config",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#config",
+    "access": "public",
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 201,
+    "kind": "get",
+    "name": "page",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#page",
+    "access": "public",
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 202,
+    "kind": "method",
+    "name": "getWindow",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#getWindow",
+    "access": "public",
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "params": [
+      {
+        "name": "name",
+        "optional": true,
+        "types": [
+          "string"
+        ],
+        "defaultRaw": "default",
+        "defaultValue": "default"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 203,
+    "kind": "method",
+    "name": "createWindow",
+    "memberof": "lib/page_walker.js~PageWalker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page_walker.js~PageWalker#createWindow",
+    "access": "public",
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "params": [
+      {
+        "name": "name",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "windowOptions",
+        "optional": true,
+        "types": [
+          "{}"
+        ],
+        "defaultRaw": {},
+        "defaultValue": "{}"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 204,
+    "kind": "variable",
+    "name": "pageWalker",
+    "memberof": "lib/page_walker.js",
+    "static": true,
+    "longname": "lib/page_walker.js~pageWalker",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/page_walker.js",
+    "importStyle": "pageWalker",
+    "description": null,
+    "lineNumber": 53,
+    "undocument": true,
+    "type": {
+      "types": [
+        "lib/page_walker.js~PageWalker"
+      ]
+    }
+  },
+  {
+    "__docId__": 205,
+    "kind": "file",
+    "name": "lib/utils/config.js",
+    "content": "const fs = require(\"fs\");\nconst path = require(\"path\");\nconst OptParser = require(\"./opt_parser\");\n\n/**\n * this class have configuratin information.\n */\nclass Config {\n  static get CONFIG_FILE_PATH(){\n    return \"config.json\";\n  }\n  static get DEFAULT_CONFIG(){\n    return {\n      scenarioDir: \"scenario\",\n      scenarioFile: undefined,\n      ignoreDir: \"supports\",\n      successSaveFile: \"success-scenario.log\",\n      silentMode: false,\n      startFromFirst: false,\n      mocha: {\n        ui: \"bdd\",\n        bail: true,\n        reporter: \"spec\",\n        timeout: 5000,\n        slow: false,\n      },\n      browserWindow: {\n        width: 1024,\n        height: 768,\n        show: true,\n        webPreferences: {\n          nodeIntegration: false,\n          preload: path.join(__dirname, \"..\", \"window_preloaded.js\"),\n          allowRunningInsecureContent: true\n        }\n      }\n    }\n  }\n  static create(commandLineArgs){\n    this.instance = new Config();\n    this.instance.merge(Config.DEFAULT_CONFIG)\n    this.instance.loadConfigFile(this.CONFIG_FILE_PATH);\n    this.instance.loadConfigFile(this.CONFIG_FILE_PATH + \".local\");\n\n    let optParser = new OptParser(commandLineArgs);\n    this.instance.merge(optParser.parse((config, cmdOpt)=>{\n      switch(cmdOpt.option()){\n        case \"-r\":\n        case \"--reset\":           config.startFromFirst = true; break;\n        case \"-s\":\n        case \"--silent\":          config.silentMode     = true; break;\n        default:\n          if(this.instance.isExists(cmdOpt.options(true))){\n            Config.assign(config, cmdOpt.options(true), cmdOpt.getValueOrFail())\n          }else{\n            throw new Error(\"Unexpected CommandLine Argument, [\" + cmdOpt.options() + \"]\");\n          }\n      }\n    }));\n\n    optParser.scriptArguments().forEach((args)=>{\n      let filePath = args[0] == \"/\" ? args : path.join(process.cwd(), args);\n      let stat = fs.statSync(filePath)\n      let keyName = stat.isDirectory() ? \"scenarioDir\" : \"scenarioFile\";\n      if(!(this.instance[keyName] instanceof Array)){\n        this.instance[keyName] = []\n      }\n      this.instance[keyName].push(args);\n    })\n\n    // apply options\n    if(this.instance.silentMode){\n      this.instance.browserWindow.show = false;\n      this.instance.mocha.reporter = \"dot\";\n    }\n    return this.instance;\n  }\n  static get config(){\n    return this.instance;\n  }\n  /**\n   * @private\n   */\n  loadConfigFile(filePath){\n    if(fs.existsSync(filePath)){\n      this.merge(JSON.parse(fs.readFileSync(filePath, 'utf8')));\n    }\n  }\n  clone(){\n    let cloned = new Config();\n    cloned.merge(this);\n    return cloned;\n  }\n  merge(source){\n    Config.merge(this, source);\n  }\n  static merge(dest, source){\n    Object.keys(source).forEach((key)=>{\n      if(typeof source[key] == \"object\" && typeof dest[key] == \"object\"){\n        this.merge(dest[key], source[key]);\n      }else{\n        dest[key] = source[key];\n      }\n    });\n  }\n  isExists(key){\n    return !!key.split(\".\").reduce((result, k)=>{ return Config.isExists(result, k) })\n  }\n  static isExists(object, key){\n    if(typeof object != \"object\") return false;\n    if(key in object){\n      return typeof object[key] == \"object\" ? object[key] : true;\n    }\n  }\n  static assign(config, key, value){\n    let keys = key.split(\".\");\n    keys.reduce((object, key, index)=>{\n      if(index < keys.length - 1){\n        return object[key];\n      }\n      switch(typeof object[key]){\n        case 'number':  object[key] = new Number(value);\n        case 'boolean': object[key] = new Boolean(value);\n        default:        object[key] = value;\n      }\n    }, config);\n  }\n}\n\nmodule.exports = Config;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/utils/config.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 206,
+    "kind": "variable",
+    "name": "fs",
+    "memberof": "lib/utils/config.js",
+    "static": true,
+    "longname": "lib/utils/config.js~fs",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/utils/config.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 207,
+    "kind": "variable",
+    "name": "path",
+    "memberof": "lib/utils/config.js",
+    "static": true,
+    "longname": "lib/utils/config.js~path",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/utils/config.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 208,
+    "kind": "variable",
+    "name": "OptParser",
+    "memberof": "lib/utils/config.js",
+    "static": true,
+    "longname": "lib/utils/config.js~OptParser",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/utils/config.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 209,
+    "kind": "class",
+    "name": "Config",
+    "memberof": "lib/utils/config.js",
+    "static": true,
+    "longname": "lib/utils/config.js~Config",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/utils/config.js",
+    "importStyle": "Config",
+    "description": "this class have configuratin information.",
+    "lineNumber": 8,
+    "interface": false
+  },
+  {
+    "__docId__": 210,
+    "kind": "get",
+    "name": "CONFIG_FILE_PATH",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/config.js~Config.CONFIG_FILE_PATH",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 211,
+    "kind": "get",
+    "name": "DEFAULT_CONFIG",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/config.js~Config.DEFAULT_CONFIG",
+    "access": "public",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"scenarioDir\": string, \"scenarioFile\": *, \"ignoreDir\": string, \"successSaveFile\": string, \"silentMode\": *, \"startFromFirst\": *, \"mocha\": *, \"browserWindow\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 212,
+    "kind": "method",
+    "name": "create",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/config.js~Config.create",
+    "access": "public",
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "params": [
+      {
+        "name": "commandLineArgs",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 213,
+    "kind": "member",
+    "name": "instance",
+    "memberof": "lib/utils/config.js~Config",
+    "static": true,
+    "longname": "lib/utils/config.js~Config.instance",
+    "access": "public",
+    "description": null,
+    "lineNumber": 40,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 214,
+    "kind": "get",
+    "name": "config",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/config.js~Config.config",
+    "access": "public",
+    "description": null,
+    "lineNumber": 78,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 215,
+    "kind": "method",
+    "name": "loadConfigFile",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/config.js~Config#loadConfigFile",
+    "access": "private",
+    "description": "",
+    "lineNumber": 84,
+    "params": [
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 216,
+    "kind": "method",
+    "name": "clone",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/config.js~Config#clone",
+    "access": "public",
+    "description": null,
+    "lineNumber": 89,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 217,
+    "kind": "method",
+    "name": "merge",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/config.js~Config#merge",
+    "access": "public",
+    "description": null,
+    "lineNumber": 94,
+    "undocument": true,
+    "params": [
+      {
+        "name": "source",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 218,
+    "kind": "method",
+    "name": "merge",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/config.js~Config.merge",
+    "access": "public",
+    "description": null,
+    "lineNumber": 97,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dest",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "source",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 219,
+    "kind": "method",
+    "name": "isExists",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/config.js~Config#isExists",
+    "access": "public",
+    "description": null,
+    "lineNumber": 106,
+    "undocument": true,
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 220,
+    "kind": "method",
+    "name": "isExists",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/config.js~Config.isExists",
+    "access": "public",
+    "description": null,
+    "lineNumber": 109,
+    "undocument": true,
+    "params": [
+      {
+        "name": "object",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 221,
+    "kind": "method",
+    "name": "assign",
+    "memberof": "lib/utils/config.js~Config",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/config.js~Config.assign",
+    "access": "public",
+    "description": null,
+    "lineNumber": 115,
+    "undocument": true,
+    "params": [
+      {
+        "name": "config",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 222,
+    "kind": "file",
+    "name": "lib/utils/debug.js",
+    "content": "\nfunction getEmptyLogger(){ return (msg)=>{ /* ignore */ }; }\nfunction getPrefixedLogger(prefix){ return (msg)=>{ console.log(`[${prefix}] ${msg}`) }; }\n\nfunction Debug(){\n  console.log(...arguments);\n}\n\nDebug.getLogger = (name)=>{\n  if(Debug.loggers[name]) return Debug.loggers[name];\n\n  if(Debug.target.includes(name)){\n    return Debug.loggers[name] = getPrefixedLogger(name);\n  }else{\n    return Debug.loggers[name] = getEmptyLogger();\n  }\n}\nDebug.target  = (process.env[\"DEBUG_LOG\"] || \"\").split(\",\").map(v => v.trim()).filter(v => v);\nDebug.loggers = {};\n\nmodule.exports = Debug;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/utils/debug.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 223,
+    "kind": "function",
+    "name": "getEmptyLogger",
+    "memberof": "lib/utils/debug.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/debug.js~getEmptyLogger",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/utils/debug.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 224,
+    "kind": "function",
+    "name": "getPrefixedLogger",
+    "memberof": "lib/utils/debug.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/debug.js~getPrefixedLogger",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/utils/debug.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "params": [
+      {
+        "name": "prefix",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 225,
+    "kind": "function",
+    "name": "Debug",
+    "memberof": "lib/utils/debug.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/debug.js~Debug",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/utils/debug.js",
+    "importStyle": "Debug",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 226,
+    "kind": "file",
+    "name": "lib/utils/opt_parser.js",
+    "content": "\nclass CommandLineOption {\n  constructor(optString){\n    this._option = optString;\n  }\n  option(removeHyphen = false){\n    if(removeHyphen){\n      return this._option.slice(this._option[1] == \"-\" ? 2 : 1);\n    }\n    return this._option;\n  }\n  setValue(val){ this._value = val }\n  getValueOrFail(){\n    if(this._value == undefined) throw new Error(\"CommandLine Argument [\" + this.option() + \"] is missing.\");\n    return this._value;\n  }\n}\n\nclass OptParser {\n  constructor(commandLineArgs){\n    this._commandLineOptions = [];\n    this._scriptArguments = [];\n    commandLineArgs.forEach((arg, i)=>{\n      if(arg[0] == \"-\"){\n        this._commandLineOptions.push(new CommandLineOption(arg));\n      }else{\n        if(i > 0 && commandLineArgs[i-1][0] == \"-\"){\n          this._commandLineOptions[this._commandLineOptions.length - 1].setValue(arg)\n        }else{\n          this._scriptArguments.push(arg);\n        }\n      }\n    });\n  }\n  parse(callback){\n    return this._commandLineOptions.reduce((result, cmdOpt, index, array)=>{\n      callback(result, cmdOpt, index, array);\n      return result;\n    }, {});\n  }\n  scriptArguments(){\n    return this._scriptArguments;\n  }\n}\n\nmodule.exports = OptParser;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/utils/opt_parser.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 227,
+    "kind": "class",
+    "name": "CommandLineOption",
+    "memberof": "lib/utils/opt_parser.js",
+    "static": true,
+    "longname": "lib/utils/opt_parser.js~CommandLineOption",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/utils/opt_parser.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 228,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/utils/opt_parser.js~CommandLineOption",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~CommandLineOption#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true
+  },
+  {
+    "__docId__": 229,
+    "kind": "member",
+    "name": "_option",
+    "memberof": "lib/utils/opt_parser.js~CommandLineOption",
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~CommandLineOption#_option",
+    "access": "private",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 230,
+    "kind": "method",
+    "name": "option",
+    "memberof": "lib/utils/opt_parser.js~CommandLineOption",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~CommandLineOption#option",
+    "access": "public",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "removeHyphen",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": false,
+        "defaultValue": "false"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 231,
+    "kind": "method",
+    "name": "setValue",
+    "memberof": "lib/utils/opt_parser.js~CommandLineOption",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~CommandLineOption#setValue",
+    "access": "public",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [
+      {
+        "name": "val",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 232,
+    "kind": "member",
+    "name": "_value",
+    "memberof": "lib/utils/opt_parser.js~CommandLineOption",
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~CommandLineOption#_value",
+    "access": "private",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 233,
+    "kind": "method",
+    "name": "getValueOrFail",
+    "memberof": "lib/utils/opt_parser.js~CommandLineOption",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~CommandLineOption#getValueOrFail",
+    "access": "public",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 234,
+    "kind": "class",
+    "name": "OptParser",
+    "memberof": "lib/utils/opt_parser.js",
+    "static": true,
+    "longname": "lib/utils/opt_parser.js~OptParser",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/utils/opt_parser.js",
+    "importStyle": "OptParser",
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 235,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/utils/opt_parser.js~OptParser",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~OptParser#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true
+  },
+  {
+    "__docId__": 236,
+    "kind": "member",
+    "name": "_commandLineOptions",
+    "memberof": "lib/utils/opt_parser.js~OptParser",
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~OptParser#_commandLineOptions",
+    "access": "private",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 237,
+    "kind": "member",
+    "name": "_scriptArguments",
+    "memberof": "lib/utils/opt_parser.js~OptParser",
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~OptParser#_scriptArguments",
+    "access": "private",
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 238,
+    "kind": "method",
+    "name": "parse",
+    "memberof": "lib/utils/opt_parser.js~OptParser",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~OptParser#parse",
+    "access": "public",
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "params": [
+      {
+        "name": "callback",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 239,
+    "kind": "method",
+    "name": "scriptArguments",
+    "memberof": "lib/utils/opt_parser.js~OptParser",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/utils/opt_parser.js~OptParser#scriptArguments",
+    "access": "public",
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 240,
+    "kind": "file",
+    "name": "lib/walker/result_store.js",
+    "content": "const fs = require(\"fs\");\nconst {promisify} = require('util');\nconst {config} = require(\"../utils/config\");\n\nclass ResultStore {\n  // ファイルから前回の結果をロードし、それを格納した配列で解決されるPromiseを返す\n  static loadPreviousResults(){\n    if(!fs.existsSync(config.successSaveFile))\n      return Promise.resolve([]);\n\n    return new Promise((resolve, reject)=>{\n      fs.readFile(config.successSaveFile, 'utf-8', (err, data)=>{ err ? reject(err) : resolve(data) })\n    })\n    .then((data)=>{\n      return data.split(\"\\n\")\n    })\n  }\n  // すべてのテストが成功した場合に、すべてのテストタイトルをファイルに書き出す\n  // ファイル書込みが終わると解決するPromiseを返す\n  static saveAll(suite){\n    return this.write(suite, []);\n  }\n  // 失敗したときに呼ばれる結果保存メソッド\n  // failtest までのテストを保存する\n  // ファイル書込みが終わると解決するPromiseを返す\n  static saveSucceeded(suite, failtest){\n    let noSucceeded = [];\n    let failedTitle = failtest.fullTitle().replace(/\"before each\" hook for \"(.+)\"/, \"$1\");\n    suite.eachTest((test)=>{\n      if(noSucceeded.length > 0 || test.fullTitle() == failedTitle){\n        noSucceeded.push(test.fullTitle());\n      }\n    });\n    if(noSucceeded.length > 0){\n      return this.write(suite, noSucceeded);\n    }\n  };\n\n  /**\n   * 引数で指定された noSucceeded 以外のテスト名をファイルに書き込む\n   * @private:\n   */\n  static write(suite, noSucceeded){\n    let succeededs = [];\n    suite.eachTest((test)=>{\n      if(noSucceeded.indexOf(test.fullTitle()) == -1)\n        succeededs.push(test.fullTitle())\n    })\n    return new Promise((resolve, reject)=>{\n      fs.writeFile(config.successSaveFile, succeededs.join(\"\\n\")+\"\\n\", (err)=>{\n        err ? reject(err) : resolve();\n      })\n    })\n  }\n}\n\nmodule.exports = ResultStore;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/walker/result_store.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 241,
+    "kind": "variable",
+    "name": "fs",
+    "memberof": "lib/walker/result_store.js",
+    "static": true,
+    "longname": "lib/walker/result_store.js~fs",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/walker/result_store.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 242,
+    "kind": "variable",
+    "name": "promisify",
+    "memberof": "lib/walker/result_store.js",
+    "static": true,
+    "longname": "lib/walker/result_store.js~promisify",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/walker/result_store.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 243,
+    "kind": "variable",
+    "name": "config",
+    "memberof": "lib/walker/result_store.js",
+    "static": true,
+    "longname": "lib/walker/result_store.js~config",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/walker/result_store.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 244,
+    "kind": "class",
+    "name": "ResultStore",
+    "memberof": "lib/walker/result_store.js",
+    "static": true,
+    "longname": "lib/walker/result_store.js~ResultStore",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/walker/result_store.js",
+    "importStyle": "ResultStore",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 245,
+    "kind": "method",
+    "name": "loadPreviousResults",
+    "memberof": "lib/walker/result_store.js~ResultStore",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/walker/result_store.js~ResultStore.loadPreviousResults",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 246,
+    "kind": "method",
+    "name": "saveAll",
+    "memberof": "lib/walker/result_store.js~ResultStore",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/walker/result_store.js~ResultStore.saveAll",
+    "access": "public",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "params": [
+      {
+        "name": "suite",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 247,
+    "kind": "method",
+    "name": "saveSucceeded",
+    "memberof": "lib/walker/result_store.js~ResultStore",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/walker/result_store.js~ResultStore.saveSucceeded",
+    "access": "public",
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "params": [
+      {
+        "name": "suite",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "failtest",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 248,
+    "kind": "method",
+    "name": "write",
+    "memberof": "lib/walker/result_store.js~ResultStore",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/walker/result_store.js~ResultStore.write",
+    "access": "public",
+    "description": "引数で指定された noSucceeded 以外のテスト名をファイルに書き込む\n@private:",
+    "lineNumber": 43,
+    "params": [
+      {
+        "name": "suite",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "noSucceeded",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 249,
+    "kind": "file",
+    "name": "lib/walker/walker.js",
+    "content": "const Mocha = require('mocha');\nconst fs = require('fs');\nconst path = require('path');\nconst ResultStore = require(\"./result_store\");\n\nclass Walker {\n  constructor(config){\n    this.config = config;\n    this.mocha = new Mocha(config.mocha);\n\n    if(this.config.scenarioFile){\n      let scenarioFiles = Walker.toArray(this.config.scenarioFile);\n      scenarioFiles.sort().forEach((file)=>{ this.mocha.addFile(file) })\n    }else{\n      let scenarioDirs = Walker.toArray(this.config.scenarioDir);\n      let ignoreDirs = Walker.toArray(this.config.ignoreDir);\n      scenarioDirs.map(dir => path.join(process.cwd(), dir)).forEach((scenarioDir)=>{\n        if(!Walker.isDir(scenarioDir)){\n          throw `Scenario Directory(${scenarioDir}) is not found or not directory!`;\n        }\n        Walker.findAllFilesSync(scenarioDir, ignoreDirs)\n        .filter(file => file.substr(-3) === '.js')\n        .forEach((file)=>{ this.mocha.addFile(file) })\n      })\n    }\n    let originalFunctions = {};\n    let delayedFunctions = [];\n    this.mocha.suite.on('pre-require', (context)=>{\n      originalFunctions.describe = context.describe;\n      originalFunctions.xdescribe = context.xdescribe;\n      originalFunctions.describeOnly = context.describe.only;\n      context.describe = function(title, fn){\n        delayedFunctions.push([\"describe\", title, fn, this]);\n      }\n      context.xdescribe = function(title, fn){\n        delayedFunctions.push([\"xdescribe\", title, fn, this]);\n      }\n      context.describe.only = function(title, fn){\n        delayedFunctions.push([\"describeOnly\", title, fn, this]);\n      }\n      // set to aliases\n      context.context = context.suite = context.describe;\n      context.xcontext = context.describe.skip = context.xdescribe;\n    })\n    this.mocha.suite.on('post-require', (context)=>{\n      context.context = context.suite = context.describe = originalFunctions.describe;\n      context.xcontext = context.xdescribe = originalFunctions.xdescribe;\n    })\n    this.mocha.loadFiles();\n    delayedFunctions.forEach((array)=>{\n      let func = originalFunctions[array[0]];\n      func.call(array[3], array[1], array[2]);\n    })\n  }\n\n  walk(callback){\n    Promise.resolve().then(()=>{\n      return this.config.startFromFirst ? [] : ResultStore.loadPreviousResults();\n    })\n    .then((succeeded)=>{\n      if(succeeded && succeeded.length > 0){\n        let regexp = succeeded.map(s => s.replace(/[()|]/g, \"\\\\$&\")).join(\"|\");\n        this.mocha.options.grep = new RegExp(\"^(\"+ regexp +\")$\");\n        this.mocha.options.invert = true;\n      }\n    })\n    .then(()=>{\n      let runner = this.mocha.run((failures)=>{\n        if(failures==0){\n          ResultStore.saveAll(this.mocha.suite).then(()=>{ callback(failures) })\n        }else{\n          callback(failures);\n        }\n      });\n      runner.on('fail', (failtest, error)=>{\n        ResultStore.saveSucceeded(this.mocha.suite, failtest);\n      })\n    })\n  }\n\n  static isDir(path){\n    let stat = fs.statSync(path);\n    return stat && stat.isDirectory();\n  }\n  static findAllFilesSync(dir, ignorePattern){\n    let results = [];\n    fs.readdirSync(dir)\n    .filter(file => !ignorePattern.includes(file))\n    .map(file => path.join(dir, file))\n    .forEach((file)=>{\n      if (this.isDir(file)){\n        results = results.concat(Walker.findAllFilesSync(file, ignorePattern))\n      }else{\n        results.push(file)\n      }\n    })\n    return results\n  }\n  static toArray(value){\n    return (value instanceof Array) ? value : [ value ];\n  }\n}\n\nmodule.exports = Walker;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/walker/walker.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 250,
+    "kind": "variable",
+    "name": "Mocha",
+    "memberof": "lib/walker/walker.js",
+    "static": true,
+    "longname": "lib/walker/walker.js~Mocha",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/walker/walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 251,
+    "kind": "variable",
+    "name": "fs",
+    "memberof": "lib/walker/walker.js",
+    "static": true,
+    "longname": "lib/walker/walker.js~fs",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/walker/walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 252,
+    "kind": "variable",
+    "name": "path",
+    "memberof": "lib/walker/walker.js",
+    "static": true,
+    "longname": "lib/walker/walker.js~path",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/walker/walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 253,
+    "kind": "variable",
+    "name": "ResultStore",
+    "memberof": "lib/walker/walker.js",
+    "static": true,
+    "longname": "lib/walker/walker.js~ResultStore",
+    "access": "public",
+    "export": false,
+    "importPath": "pagewalker/lib/walker/walker.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 254,
+    "kind": "class",
+    "name": "Walker",
+    "memberof": "lib/walker/walker.js",
+    "static": true,
+    "longname": "lib/walker/walker.js~Walker",
+    "access": "public",
+    "export": true,
+    "importPath": "pagewalker/lib/walker/walker.js",
+    "importStyle": "Walker",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 255,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/walker/walker.js~Walker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/walker/walker.js~Walker#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true
+  },
+  {
+    "__docId__": 256,
+    "kind": "member",
+    "name": "config",
+    "memberof": "lib/walker/walker.js~Walker",
+    "static": false,
+    "longname": "lib/walker/walker.js~Walker#config",
+    "access": "public",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 257,
+    "kind": "member",
+    "name": "mocha",
+    "memberof": "lib/walker/walker.js~Walker",
+    "static": false,
+    "longname": "lib/walker/walker.js~Walker#mocha",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 258,
+    "kind": "method",
+    "name": "walk",
+    "memberof": "lib/walker/walker.js~Walker",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/walker/walker.js~Walker#walk",
+    "access": "public",
+    "description": null,
+    "lineNumber": 56,
+    "undocument": true,
+    "params": [
+      {
+        "name": "callback",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 259,
+    "kind": "method",
+    "name": "isDir",
+    "memberof": "lib/walker/walker.js~Walker",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/walker/walker.js~Walker.isDir",
+    "access": "public",
+    "description": null,
+    "lineNumber": 81,
+    "undocument": true,
+    "params": [
+      {
+        "name": "path",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 260,
+    "kind": "method",
+    "name": "findAllFilesSync",
+    "memberof": "lib/walker/walker.js~Walker",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/walker/walker.js~Walker.findAllFilesSync",
+    "access": "public",
+    "description": null,
+    "lineNumber": 85,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dir",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "ignorePattern",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 261,
+    "kind": "method",
+    "name": "toArray",
+    "memberof": "lib/walker/walker.js~Walker",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/walker/walker.js~Walker.toArray",
+    "access": "public",
+    "description": null,
+    "lineNumber": 99,
+    "undocument": true,
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 262,
+    "kind": "file",
+    "name": "lib/window_preloaded.js",
+    "content": "window.nodeRequire = require;\nwindow.ipcRenderer = require('electron').ipcRenderer;\n",
+    "static": true,
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/window_preloaded.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "kind": "index",
+    "content": "# pagewalker\n\nPagewalker is a framework for scripting a browser.\n\n",
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"pagewalker\",\n  \"version\": \"0.0.5\",\n  \"main\": \"index.js\",\n  \"bin\": \"bin/pagewalker\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/xketanaka/pagewalker.git\"\n  },\n  \"license\": \"MIT\",\n  \"scripts\": {\n    \"start\": \"electron .\",\n    \"debug\": \"DEBUG_LOG=query,app electron .\",\n    \"esdoc\": \"esdoc\"\n  },\n  \"esdoc\": {\n    \"source\": \"./lib\",\n    \"destination\": \"../pagewalker-docs\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\"\n      },\n      {\n        \"name\": \"esdoc-node\"\n      }\n    ]\n  },\n  \"dependencies\": {\n    \"electron\": \"*\",\n    \"mocha\": \"*\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"*\",\n    \"esdoc-node\": \"*\",\n    \"esdoc-standard-plugin\": \"*\"\n  }\n}\n",
+    "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]

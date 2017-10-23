@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/utils/config.js | pagewalker</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/xketanaka/pagewalker.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html">PageWalker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageWalker">pageWalker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/utils/config.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const fs = require(&quot;fs&quot;);
+const path = require(&quot;path&quot;);
+const OptParser = require(&quot;./opt_parser&quot;);
+
+/**
+ * this class have configuratin information.
+ */
+class Config {
+  static get CONFIG_FILE_PATH(){
+    return &quot;config.json&quot;;
+  }
+  static get DEFAULT_CONFIG(){
+    return {
+      scenarioDir: &quot;scenario&quot;,
+      scenarioFile: undefined,
+      ignoreDir: &quot;supports&quot;,
+      successSaveFile: &quot;success-scenario.log&quot;,
+      silentMode: false,
+      startFromFirst: false,
+      mocha: {
+        ui: &quot;bdd&quot;,
+        bail: true,
+        reporter: &quot;spec&quot;,
+        timeout: 5000,
+        slow: false,
+      },
+      browserWindow: {
+        width: 1024,
+        height: 768,
+        show: true,
+        webPreferences: {
+          nodeIntegration: false,
+          preload: path.join(__dirname, &quot;..&quot;, &quot;window_preloaded.js&quot;),
+          allowRunningInsecureContent: true
+        }
+      }
+    }
+  }
+  static create(commandLineArgs){
+    this.instance = new Config();
+    this.instance.merge(Config.DEFAULT_CONFIG)
+    this.instance.loadConfigFile(this.CONFIG_FILE_PATH);
+    this.instance.loadConfigFile(this.CONFIG_FILE_PATH + &quot;.local&quot;);
+
+    let optParser = new OptParser(commandLineArgs);
+    this.instance.merge(optParser.parse((config, cmdOpt)=&gt;{
+      switch(cmdOpt.option()){
+        case &quot;-r&quot;:
+        case &quot;--reset&quot;:           config.startFromFirst = true; break;
+        case &quot;-s&quot;:
+        case &quot;--silent&quot;:          config.silentMode     = true; break;
+        default:
+          if(this.instance.isExists(cmdOpt.options(true))){
+            Config.assign(config, cmdOpt.options(true), cmdOpt.getValueOrFail())
+          }else{
+            throw new Error(&quot;Unexpected CommandLine Argument, [&quot; + cmdOpt.options() + &quot;]&quot;);
+          }
+      }
+    }));
+
+    optParser.scriptArguments().forEach((args)=&gt;{
+      let filePath = args[0] == &quot;/&quot; ? args : path.join(process.cwd(), args);
+      let stat = fs.statSync(filePath)
+      let keyName = stat.isDirectory() ? &quot;scenarioDir&quot; : &quot;scenarioFile&quot;;
+      if(!(this.instance[keyName] instanceof Array)){
+        this.instance[keyName] = []
+      }
+      this.instance[keyName].push(args);
+    })
+
+    // apply options
+    if(this.instance.silentMode){
+      this.instance.browserWindow.show = false;
+      this.instance.mocha.reporter = &quot;dot&quot;;
+    }
+    return this.instance;
+  }
+  static get config(){
+    return this.instance;
+  }
+  /**
+   * @private
+   */
+  loadConfigFile(filePath){
+    if(fs.existsSync(filePath)){
+      this.merge(JSON.parse(fs.readFileSync(filePath, &apos;utf8&apos;)));
+    }
+  }
+  clone(){
+    let cloned = new Config();
+    cloned.merge(this);
+    return cloned;
+  }
+  merge(source){
+    Config.merge(this, source);
+  }
+  static merge(dest, source){
+    Object.keys(source).forEach((key)=&gt;{
+      if(typeof source[key] == &quot;object&quot; &amp;&amp; typeof dest[key] == &quot;object&quot;){
+        this.merge(dest[key], source[key]);
+      }else{
+        dest[key] = source[key];
+      }
+    });
+  }
+  isExists(key){
+    return !!key.split(&quot;.&quot;).reduce((result, k)=&gt;{ return Config.isExists(result, k) })
+  }
+  static isExists(object, key){
+    if(typeof object != &quot;object&quot;) return false;
+    if(key in object){
+      return typeof object[key] == &quot;object&quot; ? object[key] : true;
+    }
+  }
+  static assign(config, key, value){
+    let keys = key.split(&quot;.&quot;);
+    keys.reduce((object, key, index)=&gt;{
+      if(index &lt; keys.length - 1){
+        return object[key];
+      }
+      switch(typeof object[key]){
+        case &apos;number&apos;:  object[key] = new Number(value);
+        case &apos;boolean&apos;: object[key] = new Boolean(value);
+        default:        object[key] = value;
+      }
+    }, config);
+  }
+}
+
+module.exports = Config;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
