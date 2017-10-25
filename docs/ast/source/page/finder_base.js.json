@@ -6203,9 +6203,9 @@
                                                     "line": 78,
                                                     "column": 71
                                                   },
-                                                  "identifierName": "condtion"
+                                                  "identifierName": "condition"
                                                 },
-                                                "name": "condtion"
+                                                "name": "condition"
                                               },
                                               "property": {
                                                 "type": "Identifier",
@@ -15083,9 +15083,9 @@
                                                       "line": 78,
                                                       "column": 71
                                                     },
-                                                    "identifierName": "condtion"
+                                                    "identifierName": "condition"
                                                   },
-                                                  "name": "condtion"
+                                                  "name": "condition"
                                                 },
                                                 "property": {
                                                   "type": "Identifier",
@@ -29563,7 +29563,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "condtion",
+      "value": "condition",
       "start": 2519,
       "end": 2527,
       "loc": {

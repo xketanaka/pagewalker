@@ -126,7 +126,7 @@ class FinderBase {
       return condition instanceof Selector ?
         `{
           elements = elements.reduce((arr, e, idx)=&gt;{
-            return arr.concat(Array.from(e.querySelectorAll(&quot;${condtion.selector}&quot;)));
+            return arr.concat(Array.from(e.querySelectorAll(&quot;${condition.selector}&quot;)));
           }, []);
         }` :
         `{
