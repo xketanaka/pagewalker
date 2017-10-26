@@ -720,6 +720,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter#havecontent",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-haveContent",
+    "lib/page/finder_filter.js~FinderFilter#haveContent",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter#havecssclass",
     "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-haveCssClass",
     "lib/page/finder_filter.js~FinderFilter#haveCssClass",
@@ -756,6 +762,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter#nothavecontent",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-notHaveContent",
+    "lib/page/finder_filter.js~FinderFilter#notHaveContent",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter#nothavecssclass",
     "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-notHaveCssClass",
     "lib/page/finder_filter.js~FinderFilter#notHaveCssClass",
@@ -765,6 +777,18 @@ window.esdocSearchIndex = [
     "lib/page/finder_filter.js~finderfilter#nothavecssproperty",
     "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-notHaveCssProperty",
     "lib/page/finder_filter.js~FinderFilter#notHaveCssProperty",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter#nothavetext",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-notHaveText",
+    "lib/page/finder_filter.js~FinderFilter#notHaveText",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter#nothavevalue",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-notHaveValue",
+    "lib/page/finder_filter.js~FinderFilter#notHaveValue",
     "method"
   ],
   [
@@ -804,6 +828,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter.havetext",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-haveText",
+    "lib/page/finder_filter.js~FinderFilter.haveText",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter.havevalue",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-haveValue",
     "lib/page/finder_filter.js~FinderFilter.haveValue",
@@ -825,6 +855,12 @@ window.esdocSearchIndex = [
     "lib/page/finder_filter.js~finderfilter.nothavestyle",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-notHaveStyle",
     "lib/page/finder_filter.js~FinderFilter.notHaveStyle",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter.nothavetext",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-notHaveText",
+    "lib/page/finder_filter.js~FinderFilter.notHaveText",
     "method"
   ],
   [
@@ -879,6 +915,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#expectipcreceived",
     "class/lib/page/page.js~Page.html#instance-method-expectIpcReceived",
     "lib/page/page.js~Page#expectIpcReceived",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#expectnewwindow",
+    "class/lib/page/page.js~Page.html#instance-method-expectNewWindow",
+    "lib/page/page.js~Page#expectNewWindow",
     "method"
   ],
   [
@@ -961,8 +1003,14 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/page/window.js~window#isready",
-    "class/lib/page/window.js~Window.html#instance-get-isReady",
+    "class/lib/page/window.js~Window.html#instance-method-isReady",
     "lib/page/window.js~Window#isReady",
+    "method"
+  ],
+  [
+    "lib/page/window.js~window#name",
+    "class/lib/page/window.js~Window.html#instance-member-name",
+    "lib/page/window.js~Window#name",
     "member"
   ],
   [
@@ -1020,10 +1068,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page_walker.js~pagewalker#oncreatenewwindow",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-onCreateNewWindow",
+    "lib/page_walker.js~PageWalker#onCreateNewWindow",
+    "method"
+  ],
+  [
     "lib/page_walker.js~pagewalker#page",
     "class/lib/page_walker.js~PageWalker.html#instance-get-page",
     "lib/page_walker.js~PageWalker#page",
     "member"
+  ],
+  [
+    "lib/page_walker.js~pagewalker#removewindow",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-removeWindow",
+    "lib/page_walker.js~PageWalker#removeWindow",
+    "method"
   ],
   [
     "lib/page_walker.js~pagewalker#start",

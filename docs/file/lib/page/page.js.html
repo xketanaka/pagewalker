@@ -51,6 +51,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/page/page.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const {ipcMain} = require(&apos;electron&apos;);
 const Finder = require(&apos;./finder&apos;);
+const pageWalker = require(&apos;../page_walker&apos;);
 
 const TIMEOUT_MSEC = 10000;
 
@@ -71,7 +72,7 @@ class Page {
    * @private
    */
   checkReady(){
-    if(!this.window.isReady) throw &quot;PageContent is not ready!, Please call the &apos;load&apos; method first&quot;
+    if(!this.window.isReady()) throw &quot;PageContent is not ready!, Please call the &apos;load&apos; method first&quot;
   }
   /**
    * @return {Promise}
@@ -80,7 +81,7 @@ class Page {
     let loadURLFunction = ()=&gt;{
       return this.expectPageLoaded(()=&gt;{ if(url) this.webContents.loadURL(url, options) })
     };
-    if(this.window.isReady){
+    if(this.window.isReady()){
       return loadURLFunction()
     }else{
       return new Promise((resolve, reject)=&gt;{
@@ -130,6 +131,26 @@ class Page {
       try{ this.checkReady() }catch(err){ return reject(err) }
 
       // TODO
+    })
+  }
+  /**
+   * @param {function} action - A function representing the operation of open new window
+   * @return {Promise}
+   */
+  expectNewWindow(action){
+    return new Promise((resolve,reject)=&gt;{
+      try{ this.checkReady() }catch(err){ return reject(err) }
+
+      this.webContents.on(&apos;new-window&apos;, (event, url, frameName)=&gt;{
+        if(pageWalker.getWindow(frameName)){
+          resolve(pageWalker.getWindow(frameName));
+        }else{
+          reject(`no window opened! [${frameName}]`);
+        }
+      })
+      try {
+        action &amp;&amp; action();
+      }catch(e){ reject(e) }
     })
   }
   /**

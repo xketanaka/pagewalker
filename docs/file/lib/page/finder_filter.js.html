@@ -86,6 +86,20 @@ class FinderFilter {
     return Private.haveContent(content, false);
   }
   /**
+  * Alias of haveContent
+   * @return {string} return function code to select elements which have given content as element.textContent
+   */
+  static haveText(text){
+    return this.haveContent(text)
+  }
+  /**
+   * Alias of notHaveContent
+   * @return {string} return function code to select elements which do not have given content as element.textContent
+   */
+  static notHaveText(text){
+    return this.notHaveContent(text)
+  }
+  /**
    * @return {string} return function code to select elements which have given value as element.value
    */
   static haveValue(value){
@@ -149,10 +163,34 @@ class FinderFilter {
     return this.find(FinderFilter.haveValue(val))
   }
   /**
+   * @return {Finder} return filtered Finder object which does not have the specified value
+   */
+  notHaveValue(val){
+    return this.find(FinderFilter.notHaveValue(val))
+  }
+  /**
+   * @return {Finder} return filtered Finder object which has the specified text
+   */
+  haveContent(content){
+    return this.find(FinderFilter.haveContent(content))
+  }
+  /**
+   * @return {Finder} return filtered Finder object which does not have the specified text
+   */
+  notHaveContent(content){
+    return this.find(FinderFilter.notHaveContent(content))
+  }
+  /**
    * @return {Finder} return filtered Finder object which has the specified text
    */
   haveText(text){
     return this.find(FinderFilter.haveText(text))
+  }
+  /**
+   * @return {Finder} return filtered Finder object which does not have the specified text
+   */
+  notHaveText(text){
+    return this.find(FinderFilter.notHaveText(text))
   }
   /**
    * @return {Finder} return filtered Finder object which has been checked

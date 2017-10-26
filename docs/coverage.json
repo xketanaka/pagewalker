@@ -1,7 +1,7 @@
 {
-  "coverage": "32.99%",
-  "expectCount": 197,
-  "actualCount": 65,
+  "coverage": "34.76%",
+  "expectCount": 210,
+  "actualCount": 73,
   "files": {
     "lib/cli_start.js": {
       "expectCount": 1,
@@ -73,8 +73,8 @@
       ]
     },
     "lib/page/finder_filter.js": {
-      "expectCount": 28,
-      "actualCount": 22,
+      "expectCount": 34,
+      "actualCount": 28,
       "undocumentLines": [
         2,
         3,
@@ -85,20 +85,21 @@
       ]
     },
     "lib/page/page.js": {
-      "expectCount": 20,
-      "actualCount": 13,
+      "expectCount": 22,
+      "actualCount": 14,
       "undocumentLines": [
         1,
         2,
-        4,
-        6,
+        3,
+        5,
         7,
         8,
-        153
+        9,
+        174
       ]
     },
     "lib/page/window.js": {
-      "expectCount": 11,
+      "expectCount": 13,
       "actualCount": 2,
       "undocumentLines": [
         1,
@@ -106,15 +107,17 @@
         3,
         4,
         5,
-        7,
+        6,
         8,
-        13,
-        28
+        9,
+        11,
+        16,
+        39
       ]
     },
     "lib/page_walker.js": {
-      "expectCount": 16,
-      "actualCount": 0,
+      "expectCount": 18,
+      "actualCount": 1,
       "undocumentLines": [
         1,
         2,
@@ -131,7 +134,8 @@
         35,
         38,
         44,
-        53
+        52,
+        69
       ]
     },
     "lib/utils/config.js": {
@@ -164,7 +168,7 @@
       ]
     },
     "lib/utils/opt_parser.js": {
-      "expectCount": 13,
+      "expectCount": 14,
       "actualCount": 0,
       "undocumentLines": [
         2,
@@ -174,12 +178,13 @@
         12,
         12,
         13,
-        19,
+        15,
         20,
         21,
         22,
-        35,
-        41
+        23,
+        38,
+        44
       ]
     },
     "lib/walker/result_store.js": {

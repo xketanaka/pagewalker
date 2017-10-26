@@ -86,18 +86,34 @@ class PageWalker {
   get page(){
     return this.getWindow().page;
   }
-  getWindow(name = &quot;default&quot;){
-    if(name == &quot;default&quot; &amp;&amp; !this.windows[name]){
-      this.createWindow(&quot;default&quot;, { title: &quot;MainWindow - PageWalker&quot; });
+  getWindow(name = &quot;__default__&quot;){
+    if(name == &quot;__default__&quot; &amp;&amp; !this.windows[name]){
+      this.createWindow(&quot;__default__&quot;, { title: &quot;MainWindow - PageWalker&quot; });
     }
     return this.windows[name]
   }
   createWindow(name, windowOptions = {}){
     const Window = LoadWindowModudle();
-    this.windows[name] = new Window(windowOptions);
+    this.windows[name] = new Window(name, this._app.isReady(), windowOptions);
     if(this._app.isReady()){
       this.windows[name].emit(&apos;ready&apos;);
     }
+    return this.getWindow(name);
+  }
+  removeWindow(name){
+    this.windows[name] = undefined;
+  }
+  /**
+   * Handle window.open event.
+   * prevent default-behavior and create new Window object which is managed by pageWalker.
+   */
+  onCreateNewWindow(event, url, frameName, disposition, options, additionalFeatures){
+    event.preventDefault();
+    let win = this.getWindow(frameName) || this.createWindow(frameName, options);
+    if(url &amp;&amp; url != &quot;about:blank&quot;){
+      win.page.load(url)
+    }
+    event.newGuest = win.browserWindow
   }
 }
 

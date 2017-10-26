@@ -54,18 +54,29 @@ const path = require(&apos;path&apos;);
 const {BrowserWindow} = require(&apos;electron&apos;);
 const {config} = require(&apos;../utils/config&apos;);
 const Page = require(&apos;./page&apos;);
+const pageWalker = require(&apos;../page_walker&apos;);
 
 class Window extends EventEmitter {
-  constructor(options = {}){
+  constructor(name, appIsReady, options = {}){
     super();
+    this.name = name;
     let configCloned = config.clone();
     configCloned.merge({ browserWindow: options });
-    this.on(&apos;ready&apos;, ()=&gt;{
+
+    let windowSetup = ()=&gt;{
       this._browserWindow = new BrowserWindow(configCloned.browserWindow);
       this._browserWindow.webContents.on(&apos;context-menu&apos;, (e, params)=&gt;{
         this._browserWindow.webContents.inspectElement(params.x, params.y);
       })
-    })
+      this._browserWindow.webContents.on(&apos;new-window&apos;, (...args) =&gt; {
+        pageWalker.onCreateNewWindow(...args)
+      })
+      this._browserWindow.on(&apos;closed&apos;, (event)=&gt;{
+        pageWalker.removeWindow(this.name);
+      })
+    };
+    // setup now or later
+    appIsReady ? windowSetup() : this.on(&apos;ready&apos;, windowSetup);
   }
   /**
    * @return {object} BrowserWindow Object
@@ -75,7 +86,7 @@ class Window extends EventEmitter {
   /**
    * @private
    */
-  get isReady(){ return !!this._browserWindow }
+  isReady(){ return !!this.browserWindow }
   get page(){
     return this._page = this._page || new Page(this)
   }
