@@ -3140,7 +3140,7 @@
     "__docId__": 161,
     "kind": "file",
     "name": "lib/page/page.js",
-    "content": "const {ipcMain} = require('electron');\nconst Finder = require('./finder');\nconst pageWalker = require('../page_walker');\n\nconst TIMEOUT_MSEC = 10000;\n\nclass Page {\n  constructor(window){\n    this._window = window;\n  }\n  /**\n   * @return {Window} Window Object which contains this page.\n   */\n  get window(){ return this._window }\n  /**\n   * @return {object} WebContents Object\n   * @see https://github.com/electron/electron/blob/master/docs/api/web-contents.md\n   */\n  get webContents(){ return this.window.browserWindow.webContents }\n  /**\n   * @private\n   */\n  checkReady(){\n    if(!this.window.isReady()) throw \"PageContent is not ready!, Please call the 'load' method first\"\n  }\n  /**\n   * @return {Promise}\n   */\n  load(url, options = {}){\n    let loadURLFunction = ()=>{\n      return this.expectPageLoaded(()=>{ if(url) this.webContents.loadURL(url, options) })\n    };\n    if(this.window.isReady()){\n      return loadURLFunction()\n    }else{\n      return new Promise((resolve, reject)=>{\n        this.window.on('ready', ()=>{ loadURLFunction().then(resolve).catch(reject) });\n      });\n    }\n  }\n  /**\n   * Alias of load\n   */\n  waitLoading(...args){\n    return this.load(...args)\n  }\n  /**\n   * @return {string} URL of current page\n   */\n  get url(){\n    return this.webContents.getURL();\n  }\n  /**\n   * @param {function} action - A function representing the operation of loading new page\n   * @return {Promise}\n   */\n  expectPageLoaded(action){\n    return new Promise((resolve,reject)=>{\n      try{ this.checkReady() }catch(err){ return reject(err) }\n      this.webContents.removeAllListeners('did-finish-load');\n      this.webContents.removeAllListeners('did-fail-load');\n      try{ action && action() }catch(e){ reject(e) }\n      let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n      this.webContents.once('did-finish-load', (event)=>{\n        clearTimeout(timeoutId)\n        resolve(this)\n      })\n      this.webContents.once('did-fail-load', (event)=>{\n        clearTimeout(timeoutId)\n        reject(event)\n      })\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of file download\n   * @return {Promise}\n   */\n  expectDownloaded(action){\n    return new Promise((resolve,reject)=>{\n      try{ this.checkReady() }catch(err){ return reject(err) }\n\n      // TODO\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of open new window\n   * @return {Promise}\n   */\n  expectNewWindow(action){\n    return new Promise((resolve,reject)=>{\n      try{ this.checkReady() }catch(err){ return reject(err) }\n\n      this.webContents.on('new-window', (event, url, frameName)=>{\n        if(pageWalker.getWindow(frameName)){\n          resolve(pageWalker.getWindow(frameName));\n        }else{\n          reject(`no window opened! [${frameName}]`);\n        }\n      })\n      try {\n        action && action();\n      }catch(e){ reject(e) }\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of sending IPC\n   * @param {string} channel - string of representing the channel of IPC\n   * @return {Promise}\n   */\n  expectIpcReceived(action, channel = 'asynchronous-message'){\n    return new Promise((resolve, reject)=>{\n      try{ this.checkReady() }catch(err){ return reject(err) }\n      try{\n        let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n        ipcMain.once(channel, (event, arg)=>{\n          clearTimeout(timeoutId);\n          resolve(arg);\n        });\n        action && action()\n      }catch(e){ reject(e) }\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of sending Ajax request\n   * @return {Promise}\n   */\n  expectAjaxComplete(action){\n    return this.expectIpcReceived(()=>{\n      return this.executeJs(`\n        if(!XMLHttpRequest.prototype.__original_open){\n          XMLHttpRequest.prototype.__original_open = XMLHttpRequest.prototype.open;\n        }\n        XMLHttpRequest.prototype.open = function(){\n          let timeoutId = setTimeout(()=>{ ipcRenderer.send('asynchronous-message', 'timeout') }, ${TIMEOUT_MSEC})\n          this.addEventListener('readystatechange', function(){\n            if(this.readyState == 4){\n              clearTimeout(timeoutId);\n              setTimeout(()=>{ ipcRenderer.send('asynchronous-message', 'ajaxComplete') }, 0);\n            }\n          });\n          XMLHttpRequest.prototype.__original_open.apply(this, arguments);\n        };\n      `)\n      .then(()=>{ action && action() })\n    })\n    .then((result)=>{\n      if(result == 'ajaxComplete') return;\n      throw result;\n    });\n  }\n  /**\n   * @param {string} code - JavaScript Code for executing this page.\n   * @return {Promise}\n   */\n  executeJs(code){\n    try{ this.checkReady() }catch(err){ return Promise.reject(err) }\n    return this.webContents.executeJavaScript(code, true)\n  }\n  /**\n   * @override\n   * @return {Finder} new Finder object\n   */\n  find(...args){\n    return new Finder(this, ...args);\n  }\n  /**\n   * Get the HTML source of current page.\n   * @return {Promise} resolved by current HTML source.\n   */\n  getSourceHTML(){\n    return this.executeJs(`document.getElementsByTagName(\"html\")[0].outerHTML`);\n  }\n\n  findClickable(){\n    return this.find(\"a,button,input[type=button],input[type=submit]\")\n  }\n}\n\nmodule.exports = Page;\n",
+    "content": "const {ipcMain} = require('electron');\nconst Finder = require('./finder');\nconst pageWalker = require('../page_walker');\n\nconst TIMEOUT_MSEC = pageWalker.config.mocha.timeout;\n\nclass Page {\n  constructor(window){\n    this._window = window;\n  }\n  /**\n   * @return {Window} Window Object which contains this page.\n   */\n  get window(){ return this._window }\n  /**\n   * @return {object} WebContents Object\n   * @see https://github.com/electron/electron/blob/master/docs/api/web-contents.md\n   */\n  get webContents(){ return this.window.browserWindow.webContents }\n  /**\n   * @private\n   */\n  checkReady(){\n    if(!this.window.isReady()) throw \"PageContent is not ready!, Please call the 'load' method first\"\n  }\n  /**\n   * @return {Promise}\n   */\n  load(url, options = {}){\n    let loadURLFunction = ()=>{\n      return this.expectPageLoaded(()=>{ if(url) this.webContents.loadURL(url, options) })\n    };\n    if(this.window.isReady()){\n      return loadURLFunction()\n    }else{\n      return new Promise((resolve, reject)=>{\n        this.window.on('ready', ()=>{ loadURLFunction().then(resolve).catch(reject) });\n      });\n    }\n  }\n  /**\n   * @return {Promise}\n   */\n  waitLoading(...args){\n    if(typeof args[0] == 'undefined' || typeof args[0] == 'function'){\n      return this.expectPageLoaded(...args)\n    }else{\n      return this.load(...args)\n    }\n  }\n  /**\n   * @return {string} URL of current page\n   */\n  get url(){\n    return this.webContents.getURL();\n  }\n  /**\n   * @param {function} action - A function representing the operation of loading new page\n   * @return {Promise}\n   */\n  expectPageLoaded(action){\n    return this.invokeAfterReady((resolve, reject)=>{\n      this.webContents.removeAllListeners('did-finish-load');\n      this.webContents.removeAllListeners('did-fail-load');\n      action && action();\n\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n      this.webContents.once('did-finish-load', (event)=>{\n        clearTimeout(timeoutId)\n        resolve(this)\n      })\n      this.webContents.once('did-fail-load', (event)=>{\n        clearTimeout(timeoutId)\n        reject(event)\n      })\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of file download\n   * @return {Promise}\n   */\n  expectDownloaded(action){\n    return this.invokeAfterReady((resolve, reject)=>{\n      // TODO\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of open new window\n   * @return {Promise}\n   */\n  expectNewWindow(action){\n    return this.invokeAfterReady((resolve, reject)=>{\n      this.webContents.on('new-window', (event, url, frameName)=>{\n        if(pageWalker.getWindow(frameName)){\n          resolve(pageWalker.getWindow(frameName));\n        }else{\n          reject(new Error(`no window opened! [${frameName}]`));\n        }\n      })\n      action && action();\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of sending IPC\n   * @param {string} channel - string of representing the channel of IPC\n   * @return {Promise}\n   */\n  expectIpcReceived(action, channel = 'asynchronous-message'){\n    return this.invokeAfterReady((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n      ipcMain.once(channel, (event, arg)=>{\n        clearTimeout(timeoutId);\n\n        resolve(arg);\n      });\n      action && action();\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of sending Ajax request\n   * @return {Promise}\n   */\n  expectAjaxComplete(action){\n    return this.expectIpcReceived(()=>{\n      return this.executeJs(`\n        if(!XMLHttpRequest.prototype.__original_open){\n          XMLHttpRequest.prototype.__original_open = XMLHttpRequest.prototype.open;\n        }\n        XMLHttpRequest.prototype.open = function(){\n          let timeoutId = setTimeout(()=>{ ipcRenderer.send('asynchronous-message', 'timeout') }, ${TIMEOUT_MSEC})\n          this.addEventListener('readystatechange', function(){\n            if(this.readyState == 4){\n              clearTimeout(timeoutId);\n              setTimeout(()=>{ ipcRenderer.send('asynchronous-message', 'ajaxComplete') }, 0);\n            }\n          });\n          XMLHttpRequest.prototype.__original_open.apply(this, arguments);\n        };\n      `)\n      .then(()=>{ action && action() })\n    })\n    .then((result)=>{\n      if(result == 'ajaxComplete') return;\n      throw result;\n    });\n  }\n  /**\n   * @param {object} confirmOption - specify message property(default undefined), and isClickOK property(default true)\n   * @param {function} action - A function representing the operation of open confirm dialog\n   * @return {Promise}\n   * @example\n   *   await page.expectConfirmDialog({ message: \"Are you OK?\", isClickOK: false }, ()=>{\n   *     page.find(\"button.submit-form\").click()\n   *   })\n   *\n   *   await page.waitLoading(async ()=>{\n   *     await page.expectConfirmDialog(()=>{\n   *       page.find(\"button.submit-form\").click()\n   *     })\n   *   })\n   */\n  expectConfirmDialog(confirmOption, action){\n    const defaultOption = { message: \"\", isClickOK: true };\n    if(typeof action == \"undefined\" && typeof confirmOption == \"function\"){\n      action = confirmOption\n      confirmOption = defaultOption;\n    }\n    let message = confirmOption.message || defaultOption.message;\n    let isClickOK = ('isClickOK' in confirmOption)? confirmOption.isClickOK : defaultOption.isClickOK;\n\n    return this.invokeAfterReady((resolve, reject)=>{\n      const channel = 'confirm-synchronous';\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n      ipcMain.once(channel, (event, arg)=>{\n        clearTimeout(timeoutId);\n        if(message && message != arg){\n          reject(new Error(`expected message is \"${message}\", but actual is \"${arg}\"`));\n        }\n        event.returnValue = isClickOK;\n        resolve(message);\n      });\n      return this.executeJs(`\n        if(!window.__original_confirm){\n          window.__original_confirm = window.confirm;\n        }\n        window.confirm = function(message){\n          var ret = ipcRenderer.sendSync('${channel}', message);\n          window.confirm = window.__original_confirm;\n          return ret;\n        };\n      `)\n      .then(()=>{ action && action() })\n    })\n  }\n  /**\n   * @private\n   */\n  invokeAfterReady(func){\n    return new Promise((resolve, reject)=>{\n      try{\n        this.checkReady()\n        func(resolve, reject);\n      }\n      catch(err){ return reject(err) }\n    })\n  }\n  /**\n   * @param {string} code - JavaScript Code for executing this page.\n   * @return {Promise}\n   */\n  executeJs(code){\n    try{ this.checkReady() }catch(err){ return Promise.reject(err) }\n    return this.webContents.executeJavaScript(code, true)\n  }\n  /**\n   * @override\n   * @return {Finder} new Finder object\n   */\n  find(...args){\n    return new Finder(this, ...args);\n  }\n  /**\n   * Get the HTML source of current page.\n   * @return {Promise} resolved by current HTML source.\n   */\n  getSourceHTML(){\n    return this.executeJs(`document.getElementsByTagName(\"html\")[0].outerHTML`);\n  }\n\n  findClickable(){\n    return this.find(\"a,button,input[type=button],input[type=submit]\")\n  }\n}\n\nmodule.exports = Page;\n",
     "static": true,
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/page.js",
     "access": "public",
@@ -3226,7 +3226,7 @@
     "undocument": true,
     "type": {
       "types": [
-        "number"
+        "*"
       ]
     },
     "ignore": true
@@ -3396,8 +3396,16 @@
     "static": false,
     "longname": "lib/page/page.js~Page#waitLoading",
     "access": "public",
-    "description": "Alias of load",
+    "description": "",
     "lineNumber": 44,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    },
     "params": [
       {
         "name": "args",
@@ -3406,12 +3414,7 @@
         ],
         "spread": true
       }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
+    ]
   },
   {
     "__docId__": 174,
@@ -3424,7 +3427,7 @@
     "longname": "lib/page/page.js~Page#url",
     "access": "public",
     "description": "",
-    "lineNumber": 50,
+    "lineNumber": 54,
     "return": {
       "nullable": null,
       "types": [
@@ -3450,7 +3453,7 @@
     "longname": "lib/page/page.js~Page#expectPageLoaded",
     "access": "public",
     "description": "",
-    "lineNumber": 57,
+    "lineNumber": 61,
     "params": [
       {
         "nullable": null,
@@ -3483,7 +3486,7 @@
     "longname": "lib/page/page.js~Page#expectDownloaded",
     "access": "public",
     "description": "",
-    "lineNumber": 78,
+    "lineNumber": 82,
     "params": [
       {
         "nullable": null,
@@ -3516,7 +3519,7 @@
     "longname": "lib/page/page.js~Page#expectNewWindow",
     "access": "public",
     "description": "",
-    "lineNumber": 89,
+    "lineNumber": 91,
     "params": [
       {
         "nullable": null,
@@ -3549,7 +3552,7 @@
     "longname": "lib/page/page.js~Page#expectIpcReceived",
     "access": "public",
     "description": "",
-    "lineNumber": 110,
+    "lineNumber": 108,
     "params": [
       {
         "nullable": null,
@@ -3592,7 +3595,7 @@
     "longname": "lib/page/page.js~Page#expectAjaxComplete",
     "access": "public",
     "description": "",
-    "lineNumber": 127,
+    "lineNumber": 123,
     "params": [
       {
         "nullable": null,
@@ -3617,6 +3620,78 @@
   {
     "__docId__": 180,
     "kind": "method",
+    "name": "expectConfirmDialog",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#expectConfirmDialog",
+    "access": "public",
+    "description": "",
+    "examples": [
+      "  await page.expectConfirmDialog({ message: \"Are you OK?\", isClickOK: false }, ()=>{\n    page.find(\"button.submit-form\").click()\n  })\n\n  await page.waitLoading(async ()=>{\n    await page.expectConfirmDialog(()=>{\n      page.find(\"button.submit-form\").click()\n    })\n  })"
+    ],
+    "lineNumber": 162,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "confirmOption",
+        "description": "specify message property(default undefined), and isClickOK property(default true)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "action",
+        "description": "A function representing the operation of open confirm dialog"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 181,
+    "kind": "method",
+    "name": "invokeAfterReady",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#invokeAfterReady",
+    "access": "private",
+    "description": "",
+    "lineNumber": 198,
+    "params": [
+      {
+        "name": "func",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 182,
+    "kind": "method",
     "name": "executeJs",
     "memberof": "lib/page/page.js~Page",
     "generator": false,
@@ -3625,7 +3700,7 @@
     "longname": "lib/page/page.js~Page#executeJs",
     "access": "public",
     "description": "",
-    "lineNumber": 155,
+    "lineNumber": 211,
     "params": [
       {
         "nullable": null,
@@ -3648,7 +3723,7 @@
     }
   },
   {
-    "__docId__": 181,
+    "__docId__": 183,
     "kind": "method",
     "name": "find",
     "memberof": "lib/page/page.js~Page",
@@ -3658,7 +3733,7 @@
     "longname": "lib/page/page.js~Page#find",
     "access": "public",
     "description": "",
-    "lineNumber": 163,
+    "lineNumber": 219,
     "return": {
       "nullable": null,
       "types": [
@@ -3679,7 +3754,7 @@
     ]
   },
   {
-    "__docId__": 182,
+    "__docId__": 184,
     "kind": "method",
     "name": "getSourceHTML",
     "memberof": "lib/page/page.js~Page",
@@ -3689,7 +3764,7 @@
     "longname": "lib/page/page.js~Page#getSourceHTML",
     "access": "public",
     "description": "Get the HTML source of current page.",
-    "lineNumber": 170,
+    "lineNumber": 226,
     "return": {
       "nullable": null,
       "types": [
@@ -3701,7 +3776,7 @@
     "params": []
   },
   {
-    "__docId__": 183,
+    "__docId__": 185,
     "kind": "method",
     "name": "findClickable",
     "memberof": "lib/page/page.js~Page",
@@ -3711,7 +3786,7 @@
     "longname": "lib/page/page.js~Page#findClickable",
     "access": "public",
     "description": null,
-    "lineNumber": 174,
+    "lineNumber": 230,
     "undocument": true,
     "params": [],
     "return": {
@@ -3721,7 +3796,7 @@
     }
   },
   {
-    "__docId__": 184,
+    "__docId__": 186,
     "kind": "file",
     "name": "lib/page/window.js",
     "content": "const EventEmitter = require('events');\nconst path = require('path');\nconst {BrowserWindow} = require('electron');\nconst {config} = require('../utils/config');\nconst Page = require('./page');\nconst pageWalker = require('../page_walker');\n\nclass Window extends EventEmitter {\n  constructor(name, appIsReady, options = {}){\n    super();\n    this.name = name;\n    let configCloned = config.clone();\n    configCloned.merge({ browserWindow: options });\n\n    let windowSetup = ()=>{\n      this._browserWindow = new BrowserWindow(configCloned.browserWindow);\n      this._browserWindow.webContents.on('context-menu', (e, params)=>{\n        this._browserWindow.webContents.inspectElement(params.x, params.y);\n      })\n      this._browserWindow.webContents.on('new-window', (...args) => {\n        pageWalker.onCreateNewWindow(...args)\n      })\n      this._browserWindow.on('closed', (event)=>{\n        pageWalker.removeWindow(this.name);\n      })\n    };\n    // setup now or later\n    appIsReady ? windowSetup() : this.on('ready', windowSetup);\n  }\n  /**\n   * @return {object} BrowserWindow Object\n   * @see https://github.com/electron/electron/blob/master/docs/api/browser-window.md\n   */\n  get browserWindow(){ return this._browserWindow }\n  /**\n   * @private\n   */\n  isReady(){ return !!this.browserWindow }\n  get page(){\n    return this._page = this._page || new Page(this)\n  }\n}\n\nmodule.exports = Window;\n",
@@ -3732,7 +3807,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 185,
+    "__docId__": 187,
     "kind": "variable",
     "name": "EventEmitter",
     "memberof": "lib/page/window.js",
@@ -3753,7 +3828,7 @@
     "ignore": true
   },
   {
-    "__docId__": 186,
+    "__docId__": 188,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/page/window.js",
@@ -3774,7 +3849,7 @@
     "ignore": true
   },
   {
-    "__docId__": 187,
+    "__docId__": 189,
     "kind": "variable",
     "name": "BrowserWindow",
     "memberof": "lib/page/window.js",
@@ -3795,7 +3870,7 @@
     "ignore": true
   },
   {
-    "__docId__": 188,
+    "__docId__": 190,
     "kind": "variable",
     "name": "config",
     "memberof": "lib/page/window.js",
@@ -3816,7 +3891,7 @@
     "ignore": true
   },
   {
-    "__docId__": 189,
+    "__docId__": 191,
     "kind": "variable",
     "name": "Page",
     "memberof": "lib/page/window.js",
@@ -3837,7 +3912,7 @@
     "ignore": true
   },
   {
-    "__docId__": 190,
+    "__docId__": 192,
     "kind": "variable",
     "name": "pageWalker",
     "memberof": "lib/page/window.js",
@@ -3858,7 +3933,7 @@
     "ignore": true
   },
   {
-    "__docId__": 191,
+    "__docId__": 193,
     "kind": "class",
     "name": "Window",
     "memberof": "lib/page/window.js",
@@ -3877,7 +3952,7 @@
     ]
   },
   {
-    "__docId__": 192,
+    "__docId__": 194,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page/window.js~Window",
@@ -3891,7 +3966,7 @@
     "undocument": true
   },
   {
-    "__docId__": 193,
+    "__docId__": 195,
     "kind": "member",
     "name": "name",
     "memberof": "lib/page/window.js~Window",
@@ -3908,7 +3983,7 @@
     }
   },
   {
-    "__docId__": 194,
+    "__docId__": 196,
     "kind": "member",
     "name": "_browserWindow",
     "memberof": "lib/page/window.js~Window",
@@ -3925,7 +4000,7 @@
     }
   },
   {
-    "__docId__": 195,
+    "__docId__": 197,
     "kind": "get",
     "name": "browserWindow",
     "memberof": "lib/page/window.js~Window",
@@ -3954,7 +4029,7 @@
     }
   },
   {
-    "__docId__": 196,
+    "__docId__": 198,
     "kind": "method",
     "name": "isReady",
     "memberof": "lib/page/window.js~Window",
@@ -3973,7 +4048,7 @@
     }
   },
   {
-    "__docId__": 197,
+    "__docId__": 199,
     "kind": "get",
     "name": "page",
     "memberof": "lib/page/window.js~Window",
@@ -3992,7 +4067,7 @@
     }
   },
   {
-    "__docId__": 198,
+    "__docId__": 200,
     "kind": "file",
     "name": "lib/page_walker.js",
     "content": "const electron = require('electron');\nconst Config = require('./utils/config');\nconst LoadWalkerModule = ()=>{ return require('./walker/walker') }; // for Lazy loading\nconst LoadWindowModudle = ()=>{ return require('./page/window') }; // for Lazy loading\n\nclass PageWalker {\n  constructor(app){\n    this.windows = {};\n    this._app = app;\n    this._app.on('window-all-closed', ()=>{ this._app.quit() });\n    this._app.on('ready', ()=>{\n      Object.values(this.windows).forEach((window)=>{ window.emit('ready') });\n    })\n  }\n  start(commandLineArgs){\n    this._config = Config.create(commandLineArgs);\n\n    const Walker = LoadWalkerModule();\n    this._walker = new Walker(Config.config);\n\n    this._app.on('ready', ()=>{\n      this._walker.walk((failures)=>{\n        console.log(`[${failures == 0? 'SUCCESS': 'FAILURE'}!] finished with status:${failures}`);\n        if(this.config.silentMode){\n          this._app.exit(failures);  // exit with non-zero status if there were failures\n        }else{\n          Object.values(this.windows).forEach((window)=>{ window.browserWindow.webContents.openDevTools() });;\n        }\n      })\n    })\n  }\n  get config(){\n    return this._config;\n  }\n  get page(){\n    return this.getWindow().page;\n  }\n  getWindow(name = \"__default__\"){\n    if(name == \"__default__\" && !this.windows[name]){\n      this.createWindow(\"__default__\", { title: \"MainWindow - PageWalker\" });\n    }\n    return this.windows[name]\n  }\n  createWindow(name, windowOptions = {}){\n    const Window = LoadWindowModudle();\n    this.windows[name] = new Window(name, this._app.isReady(), windowOptions);\n    if(this._app.isReady()){\n      this.windows[name].emit('ready');\n    }\n    return this.getWindow(name);\n  }\n  removeWindow(name){\n    this.windows[name] = undefined;\n  }\n  /**\n   * Handle window.open event.\n   * prevent default-behavior and create new Window object which is managed by pageWalker.\n   */\n  onCreateNewWindow(event, url, frameName, disposition, options, additionalFeatures){\n    event.preventDefault();\n    let win = this.getWindow(frameName) || this.createWindow(frameName, options);\n    if(url && url != \"about:blank\"){\n      win.page.load(url)\n    }\n    event.newGuest = win.browserWindow\n  }\n}\n\nmodule.exports = new PageWalker(electron.app)\n",
@@ -4003,7 +4078,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 199,
+    "__docId__": 201,
     "kind": "variable",
     "name": "electron",
     "memberof": "lib/page_walker.js",
@@ -4024,7 +4099,7 @@
     "ignore": true
   },
   {
-    "__docId__": 200,
+    "__docId__": 202,
     "kind": "variable",
     "name": "Config",
     "memberof": "lib/page_walker.js",
@@ -4045,7 +4120,7 @@
     "ignore": true
   },
   {
-    "__docId__": 201,
+    "__docId__": 203,
     "kind": "function",
     "name": "LoadWalkerModule",
     "memberof": "lib/page_walker.js",
@@ -4069,7 +4144,7 @@
     "ignore": true
   },
   {
-    "__docId__": 202,
+    "__docId__": 204,
     "kind": "function",
     "name": "LoadWindowModudle",
     "memberof": "lib/page_walker.js",
@@ -4093,7 +4168,7 @@
     "ignore": true
   },
   {
-    "__docId__": 203,
+    "__docId__": 205,
     "kind": "class",
     "name": "PageWalker",
     "memberof": "lib/page_walker.js",
@@ -4110,7 +4185,7 @@
     "interface": false
   },
   {
-    "__docId__": 204,
+    "__docId__": 206,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4124,7 +4199,7 @@
     "undocument": true
   },
   {
-    "__docId__": 205,
+    "__docId__": 207,
     "kind": "member",
     "name": "windows",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4141,7 +4216,7 @@
     }
   },
   {
-    "__docId__": 206,
+    "__docId__": 208,
     "kind": "member",
     "name": "_app",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4158,7 +4233,7 @@
     }
   },
   {
-    "__docId__": 207,
+    "__docId__": 209,
     "kind": "method",
     "name": "start",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4181,7 +4256,7 @@
     "return": null
   },
   {
-    "__docId__": 208,
+    "__docId__": 210,
     "kind": "member",
     "name": "_config",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4198,7 +4273,7 @@
     }
   },
   {
-    "__docId__": 209,
+    "__docId__": 211,
     "kind": "member",
     "name": "_walker",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4215,7 +4290,7 @@
     }
   },
   {
-    "__docId__": 210,
+    "__docId__": 212,
     "kind": "get",
     "name": "config",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4234,7 +4309,7 @@
     }
   },
   {
-    "__docId__": 211,
+    "__docId__": 213,
     "kind": "get",
     "name": "page",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4253,7 +4328,7 @@
     }
   },
   {
-    "__docId__": 212,
+    "__docId__": 214,
     "kind": "method",
     "name": "getWindow",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4283,7 +4358,7 @@
     }
   },
   {
-    "__docId__": 213,
+    "__docId__": 215,
     "kind": "method",
     "name": "createWindow",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4319,7 +4394,7 @@
     }
   },
   {
-    "__docId__": 214,
+    "__docId__": 216,
     "kind": "method",
     "name": "removeWindow",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4342,7 +4417,7 @@
     "return": null
   },
   {
-    "__docId__": 215,
+    "__docId__": 217,
     "kind": "method",
     "name": "onCreateNewWindow",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -4394,7 +4469,7 @@
     "return": null
   },
   {
-    "__docId__": 216,
+    "__docId__": 218,
     "kind": "variable",
     "name": "pageWalker",
     "memberof": "lib/page_walker.js",
@@ -4414,7 +4489,7 @@
     }
   },
   {
-    "__docId__": 217,
+    "__docId__": 219,
     "kind": "file",
     "name": "lib/utils/config.js",
     "content": "const fs = require(\"fs\");\nconst path = require(\"path\");\nconst OptParser = require(\"./opt_parser\");\n\n/**\n * this class have configuratin information.\n */\nclass Config {\n  static get CONFIG_FILE_PATH(){\n    return \"config.json\";\n  }\n  static get DEFAULT_CONFIG(){\n    return {\n      scenarioDir: \"scenario\",\n      scenarioFile: undefined,\n      ignoreDir: \"supports\",\n      successSaveFile: \"success-scenario.log\",\n      silentMode: false,\n      startFromFirst: false,\n      mocha: {\n        ui: \"bdd\",\n        bail: true,\n        reporter: \"spec\",\n        timeout: 5000,\n        slow: false,\n      },\n      browserWindow: {\n        width: 1024,\n        height: 768,\n        show: true,\n        webPreferences: {\n          nodeIntegration: false,\n          preload: path.join(__dirname, \"..\", \"window_preloaded.js\"),\n          allowRunningInsecureContent: true\n        }\n      }\n    }\n  }\n  static create(commandLineArgs){\n    this.instance = new Config();\n    this.instance.merge(Config.DEFAULT_CONFIG)\n    this.instance.loadConfigFile(this.CONFIG_FILE_PATH);\n    this.instance.loadConfigFile(this.CONFIG_FILE_PATH + \".local\");\n\n    let optParser = new OptParser(commandLineArgs);\n    this.instance.merge(optParser.parse((config, cmdOpt)=>{\n      switch(cmdOpt.option()){\n        case \"-r\":\n        case \"--reset\":           config.startFromFirst = true; break;\n        case \"-s\":\n        case \"--silent\":          config.silentMode     = true; break;\n        default:\n          if(this.instance.isExists(cmdOpt.options(true))){\n            Config.assign(config, cmdOpt.options(true), cmdOpt.getValueOrFail())\n          }else{\n            throw new Error(\"Unexpected CommandLine Argument, [\" + cmdOpt.options() + \"]\");\n          }\n      }\n    }));\n\n    optParser.scriptArguments().forEach((args)=>{\n      let filePath = args[0] == \"/\" ? args : path.join(process.cwd(), args);\n      let stat = fs.statSync(filePath)\n      let keyName = stat.isDirectory() ? \"scenarioDir\" : \"scenarioFile\";\n      if(!(this.instance[keyName] instanceof Array)){\n        this.instance[keyName] = []\n      }\n      this.instance[keyName].push(args);\n    })\n\n    // apply options\n    if(this.instance.silentMode){\n      this.instance.browserWindow.show = false;\n      this.instance.mocha.reporter = \"dot\";\n    }\n    return this.instance;\n  }\n  static get config(){\n    return this.instance;\n  }\n  /**\n   * @private\n   */\n  loadConfigFile(filePath){\n    if(fs.existsSync(filePath)){\n      this.merge(JSON.parse(fs.readFileSync(filePath, 'utf8')));\n    }\n  }\n  clone(){\n    let cloned = new Config();\n    cloned.merge(this);\n    return cloned;\n  }\n  merge(source){\n    Config.merge(this, source);\n  }\n  static merge(dest, source){\n    Object.keys(source).forEach((key)=>{\n      if(typeof source[key] == \"object\" && typeof dest[key] == \"object\"){\n        this.merge(dest[key], source[key]);\n      }else{\n        dest[key] = source[key];\n      }\n    });\n  }\n  isExists(key){\n    return !!key.split(\".\").reduce((result, k)=>{ return Config.isExists(result, k) })\n  }\n  static isExists(object, key){\n    if(typeof object != \"object\") return false;\n    if(key in object){\n      return typeof object[key] == \"object\" ? object[key] : true;\n    }\n  }\n  static assign(config, key, value){\n    let keys = key.split(\".\");\n    keys.reduce((object, key, index)=>{\n      if(index < keys.length - 1){\n        return object[key];\n      }\n      switch(typeof object[key]){\n        case 'number':  object[key] = new Number(value);\n        case 'boolean': object[key] = new Boolean(value);\n        default:        object[key] = value;\n      }\n    }, config);\n  }\n}\n\nmodule.exports = Config;\n",
@@ -4425,7 +4500,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 218,
+    "__docId__": 220,
     "kind": "variable",
     "name": "fs",
     "memberof": "lib/utils/config.js",
@@ -4446,7 +4521,7 @@
     "ignore": true
   },
   {
-    "__docId__": 219,
+    "__docId__": 221,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/utils/config.js",
@@ -4467,7 +4542,7 @@
     "ignore": true
   },
   {
-    "__docId__": 220,
+    "__docId__": 222,
     "kind": "variable",
     "name": "OptParser",
     "memberof": "lib/utils/config.js",
@@ -4488,7 +4563,7 @@
     "ignore": true
   },
   {
-    "__docId__": 221,
+    "__docId__": 223,
     "kind": "class",
     "name": "Config",
     "memberof": "lib/utils/config.js",
@@ -4503,7 +4578,7 @@
     "interface": false
   },
   {
-    "__docId__": 222,
+    "__docId__": 224,
     "kind": "get",
     "name": "CONFIG_FILE_PATH",
     "memberof": "lib/utils/config.js~Config",
@@ -4522,7 +4597,7 @@
     }
   },
   {
-    "__docId__": 223,
+    "__docId__": 225,
     "kind": "get",
     "name": "DEFAULT_CONFIG",
     "memberof": "lib/utils/config.js~Config",
@@ -4541,7 +4616,7 @@
     }
   },
   {
-    "__docId__": 224,
+    "__docId__": 226,
     "kind": "method",
     "name": "create",
     "memberof": "lib/utils/config.js~Config",
@@ -4568,7 +4643,7 @@
     }
   },
   {
-    "__docId__": 225,
+    "__docId__": 227,
     "kind": "member",
     "name": "instance",
     "memberof": "lib/utils/config.js~Config",
@@ -4585,7 +4660,7 @@
     }
   },
   {
-    "__docId__": 226,
+    "__docId__": 228,
     "kind": "get",
     "name": "config",
     "memberof": "lib/utils/config.js~Config",
@@ -4604,7 +4679,7 @@
     }
   },
   {
-    "__docId__": 227,
+    "__docId__": 229,
     "kind": "method",
     "name": "loadConfigFile",
     "memberof": "lib/utils/config.js~Config",
@@ -4626,7 +4701,7 @@
     "return": null
   },
   {
-    "__docId__": 228,
+    "__docId__": 230,
     "kind": "method",
     "name": "clone",
     "memberof": "lib/utils/config.js~Config",
@@ -4646,7 +4721,7 @@
     }
   },
   {
-    "__docId__": 229,
+    "__docId__": 231,
     "kind": "method",
     "name": "merge",
     "memberof": "lib/utils/config.js~Config",
@@ -4669,7 +4744,7 @@
     "return": null
   },
   {
-    "__docId__": 230,
+    "__docId__": 232,
     "kind": "method",
     "name": "merge",
     "memberof": "lib/utils/config.js~Config",
@@ -4698,7 +4773,7 @@
     "return": null
   },
   {
-    "__docId__": 231,
+    "__docId__": 233,
     "kind": "method",
     "name": "isExists",
     "memberof": "lib/utils/config.js~Config",
@@ -4725,7 +4800,7 @@
     }
   },
   {
-    "__docId__": 232,
+    "__docId__": 234,
     "kind": "method",
     "name": "isExists",
     "memberof": "lib/utils/config.js~Config",
@@ -4758,7 +4833,7 @@
     }
   },
   {
-    "__docId__": 233,
+    "__docId__": 235,
     "kind": "method",
     "name": "assign",
     "memberof": "lib/utils/config.js~Config",
@@ -4793,7 +4868,7 @@
     "return": null
   },
   {
-    "__docId__": 234,
+    "__docId__": 236,
     "kind": "file",
     "name": "lib/utils/debug.js",
     "content": "\nfunction getEmptyLogger(){ return (msg)=>{ /* ignore */ }; }\nfunction getPrefixedLogger(prefix){ return (msg)=>{ console.log(`[${prefix}] ${msg}`) }; }\n\nfunction Debug(){\n  console.log(...arguments);\n}\n\nDebug.getLogger = (name)=>{\n  if(Debug.loggers[name]) return Debug.loggers[name];\n\n  if(Debug.target.includes(name)){\n    return Debug.loggers[name] = getPrefixedLogger(name);\n  }else{\n    return Debug.loggers[name] = getEmptyLogger();\n  }\n}\nDebug.target  = (process.env[\"DEBUG_LOG\"] || \"\").split(\",\").map(v => v.trim()).filter(v => v);\nDebug.loggers = {};\n\nmodule.exports = Debug;\n",
@@ -4804,7 +4879,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 235,
+    "__docId__": 237,
     "kind": "function",
     "name": "getEmptyLogger",
     "memberof": "lib/utils/debug.js",
@@ -4828,7 +4903,7 @@
     "ignore": true
   },
   {
-    "__docId__": 236,
+    "__docId__": 238,
     "kind": "function",
     "name": "getPrefixedLogger",
     "memberof": "lib/utils/debug.js",
@@ -4859,7 +4934,7 @@
     "ignore": true
   },
   {
-    "__docId__": 237,
+    "__docId__": 239,
     "kind": "function",
     "name": "Debug",
     "memberof": "lib/utils/debug.js",
@@ -4878,7 +4953,7 @@
     "return": null
   },
   {
-    "__docId__": 238,
+    "__docId__": 240,
     "kind": "file",
     "name": "lib/utils/opt_parser.js",
     "content": "\nclass CommandLineOption {\n  constructor(optString){\n    this._option = optString;\n  }\n  option(removeHyphen = false){\n    if(removeHyphen){\n      return this._option.slice(this._option[1] == \"-\" ? 2 : 1);\n    }\n    return this._option;\n  }\n  setValue(val){ this._value = val }\n  getValueOrFail(){\n    if(this._value == undefined) throw new Error(\"CommandLine Argument [\" + this.option() + \"] is missing.\");\n    this.valueIsOption = true;\n    return this._value;\n  }\n}\n\nclass OptParser {\n  constructor(commandLineArgs){\n    this._commandLineOptions = [];\n    this._scriptArguments = [];\n    commandLineArgs.forEach((arg, i)=>{\n      if(arg[0] == \"-\"){\n        this._commandLineOptions.push(new CommandLineOption(arg));\n      }else{\n        if(i > 0 && commandLineArgs[i-1][0] == \"-\"){\n          let commandLineOption = this._commandLineOptions[this._commandLineOptions.length - 1];\n          commandLineOption.setValue(arg)\n          this._scriptArguments.push(commandLineOption);\n        }else{\n          this._scriptArguments.push(arg);\n        }\n      }\n    });\n  }\n  parse(callback){\n    return this._commandLineOptions.reduce((result, cmdOpt, index, array)=>{\n      callback(result, cmdOpt, index, array);\n      return result;\n    }, {});\n  }\n  scriptArguments(){\n    return this._scriptArguments.filter(v => !(v instanceof CommandLineOption && v.valueIsOption))\n    .map(v => (v instanceof CommandLineOption ? v._value : v))\n  }\n}\n\nmodule.exports = OptParser;\n",
@@ -4889,7 +4964,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 239,
+    "__docId__": 241,
     "kind": "class",
     "name": "CommandLineOption",
     "memberof": "lib/utils/opt_parser.js",
@@ -4906,7 +4981,7 @@
     "ignore": true
   },
   {
-    "__docId__": 240,
+    "__docId__": 242,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -4920,7 +4995,7 @@
     "undocument": true
   },
   {
-    "__docId__": 241,
+    "__docId__": 243,
     "kind": "member",
     "name": "_option",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -4937,7 +5012,7 @@
     }
   },
   {
-    "__docId__": 242,
+    "__docId__": 244,
     "kind": "method",
     "name": "option",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -4967,7 +5042,7 @@
     }
   },
   {
-    "__docId__": 243,
+    "__docId__": 245,
     "kind": "method",
     "name": "setValue",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -4990,7 +5065,7 @@
     "return": null
   },
   {
-    "__docId__": 244,
+    "__docId__": 246,
     "kind": "member",
     "name": "_value",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -5007,7 +5082,7 @@
     }
   },
   {
-    "__docId__": 245,
+    "__docId__": 247,
     "kind": "method",
     "name": "getValueOrFail",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -5027,7 +5102,7 @@
     }
   },
   {
-    "__docId__": 246,
+    "__docId__": 248,
     "kind": "member",
     "name": "valueIsOption",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -5044,7 +5119,7 @@
     }
   },
   {
-    "__docId__": 247,
+    "__docId__": 249,
     "kind": "class",
     "name": "OptParser",
     "memberof": "lib/utils/opt_parser.js",
@@ -5060,7 +5135,7 @@
     "interface": false
   },
   {
-    "__docId__": 248,
+    "__docId__": 250,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -5074,7 +5149,7 @@
     "undocument": true
   },
   {
-    "__docId__": 249,
+    "__docId__": 251,
     "kind": "member",
     "name": "_commandLineOptions",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -5091,7 +5166,7 @@
     }
   },
   {
-    "__docId__": 250,
+    "__docId__": 252,
     "kind": "member",
     "name": "_scriptArguments",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -5108,7 +5183,7 @@
     }
   },
   {
-    "__docId__": 251,
+    "__docId__": 253,
     "kind": "method",
     "name": "parse",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -5135,7 +5210,7 @@
     }
   },
   {
-    "__docId__": 252,
+    "__docId__": 254,
     "kind": "method",
     "name": "scriptArguments",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -5155,7 +5230,7 @@
     }
   },
   {
-    "__docId__": 253,
+    "__docId__": 255,
     "kind": "file",
     "name": "lib/walker/result_store.js",
     "content": "const fs = require(\"fs\");\nconst {promisify} = require('util');\nconst {config} = require(\"../utils/config\");\n\nclass ResultStore {\n  // ファイルから前回の結果をロードし、それを格納した配列で解決されるPromiseを返す\n  static loadPreviousResults(){\n    if(!fs.existsSync(config.successSaveFile))\n      return Promise.resolve([]);\n\n    return new Promise((resolve, reject)=>{\n      fs.readFile(config.successSaveFile, 'utf-8', (err, data)=>{ err ? reject(err) : resolve(data) })\n    })\n    .then((data)=>{\n      return data.split(\"\\n\")\n    })\n  }\n  // すべてのテストが成功した場合に、すべてのテストタイトルをファイルに書き出す\n  // ファイル書込みが終わると解決するPromiseを返す\n  static saveAll(suite){\n    return this.write(suite, []);\n  }\n  // 失敗したときに呼ばれる結果保存メソッド\n  // failtest までのテストを保存する\n  // ファイル書込みが終わると解決するPromiseを返す\n  static saveSucceeded(suite, failtest){\n    let noSucceeded = [];\n    let failedTitle = failtest.fullTitle().replace(/\"before each\" hook for \"(.+)\"/, \"$1\");\n    suite.eachTest((test)=>{\n      if(noSucceeded.length > 0 || test.fullTitle() == failedTitle){\n        noSucceeded.push(test.fullTitle());\n      }\n    });\n    if(noSucceeded.length > 0){\n      return this.write(suite, noSucceeded);\n    }\n  };\n\n  /**\n   * 引数で指定された noSucceeded 以外のテスト名をファイルに書き込む\n   * @private:\n   */\n  static write(suite, noSucceeded){\n    let succeededs = [];\n    suite.eachTest((test)=>{\n      if(noSucceeded.indexOf(test.fullTitle()) == -1)\n        succeededs.push(test.fullTitle())\n    })\n    return new Promise((resolve, reject)=>{\n      fs.writeFile(config.successSaveFile, succeededs.join(\"\\n\")+\"\\n\", (err)=>{\n        err ? reject(err) : resolve();\n      })\n    })\n  }\n}\n\nmodule.exports = ResultStore;\n",
@@ -5166,7 +5241,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 254,
+    "__docId__": 256,
     "kind": "variable",
     "name": "fs",
     "memberof": "lib/walker/result_store.js",
@@ -5187,7 +5262,7 @@
     "ignore": true
   },
   {
-    "__docId__": 255,
+    "__docId__": 257,
     "kind": "variable",
     "name": "promisify",
     "memberof": "lib/walker/result_store.js",
@@ -5208,7 +5283,7 @@
     "ignore": true
   },
   {
-    "__docId__": 256,
+    "__docId__": 258,
     "kind": "variable",
     "name": "config",
     "memberof": "lib/walker/result_store.js",
@@ -5229,7 +5304,7 @@
     "ignore": true
   },
   {
-    "__docId__": 257,
+    "__docId__": 259,
     "kind": "class",
     "name": "ResultStore",
     "memberof": "lib/walker/result_store.js",
@@ -5245,7 +5320,7 @@
     "interface": false
   },
   {
-    "__docId__": 258,
+    "__docId__": 260,
     "kind": "method",
     "name": "loadPreviousResults",
     "memberof": "lib/walker/result_store.js~ResultStore",
@@ -5265,7 +5340,7 @@
     }
   },
   {
-    "__docId__": 259,
+    "__docId__": 261,
     "kind": "method",
     "name": "saveAll",
     "memberof": "lib/walker/result_store.js~ResultStore",
@@ -5292,7 +5367,7 @@
     }
   },
   {
-    "__docId__": 260,
+    "__docId__": 262,
     "kind": "method",
     "name": "saveSucceeded",
     "memberof": "lib/walker/result_store.js~ResultStore",
@@ -5325,7 +5400,7 @@
     }
   },
   {
-    "__docId__": 261,
+    "__docId__": 263,
     "kind": "method",
     "name": "write",
     "memberof": "lib/walker/result_store.js~ResultStore",
@@ -5357,7 +5432,7 @@
     }
   },
   {
-    "__docId__": 262,
+    "__docId__": 264,
     "kind": "file",
     "name": "lib/walker/walker.js",
     "content": "const Mocha = require('mocha');\nconst fs = require('fs');\nconst path = require('path');\nconst ResultStore = require(\"./result_store\");\n\nclass Walker {\n  constructor(config){\n    this.config = config;\n    this.mocha = new Mocha(config.mocha);\n\n    if(this.config.scenarioFile){\n      let scenarioFiles = Walker.toArray(this.config.scenarioFile);\n      scenarioFiles.sort().forEach((file)=>{ this.mocha.addFile(file) })\n    }else{\n      let scenarioDirs = Walker.toArray(this.config.scenarioDir);\n      let ignoreDirs = Walker.toArray(this.config.ignoreDir);\n      scenarioDirs.map(dir => path.join(process.cwd(), dir)).forEach((scenarioDir)=>{\n        if(!Walker.isDir(scenarioDir)){\n          throw `Scenario Directory(${scenarioDir}) is not found or not directory!`;\n        }\n        Walker.findAllFilesSync(scenarioDir, ignoreDirs)\n        .filter(file => file.substr(-3) === '.js')\n        .forEach((file)=>{ this.mocha.addFile(file) })\n      })\n    }\n    let originalFunctions = {};\n    let delayedFunctions = [];\n    this.mocha.suite.on('pre-require', (context)=>{\n      originalFunctions.describe = context.describe;\n      originalFunctions.xdescribe = context.xdescribe;\n      originalFunctions.describeOnly = context.describe.only;\n      context.describe = function(title, fn){\n        delayedFunctions.push([\"describe\", title, fn, this]);\n      }\n      context.xdescribe = function(title, fn){\n        delayedFunctions.push([\"xdescribe\", title, fn, this]);\n      }\n      context.describe.only = function(title, fn){\n        delayedFunctions.push([\"describeOnly\", title, fn, this]);\n      }\n      // set to aliases\n      context.context = context.suite = context.describe;\n      context.xcontext = context.describe.skip = context.xdescribe;\n    })\n    this.mocha.suite.on('post-require', (context)=>{\n      context.context = context.suite = context.describe = originalFunctions.describe;\n      context.xcontext = context.xdescribe = originalFunctions.xdescribe;\n    })\n    this.mocha.loadFiles();\n    delayedFunctions.forEach((array)=>{\n      let func = originalFunctions[array[0]];\n      func.call(array[3], array[1], array[2]);\n    })\n  }\n\n  walk(callback){\n    Promise.resolve().then(()=>{\n      return this.config.startFromFirst ? [] : ResultStore.loadPreviousResults();\n    })\n    .then((succeeded)=>{\n      if(succeeded && succeeded.length > 0){\n        let regexp = succeeded.map(s => s.replace(/[()|]/g, \"\\\\$&\")).join(\"|\");\n        this.mocha.options.grep = new RegExp(\"^(\"+ regexp +\")$\");\n        this.mocha.options.invert = true;\n      }\n    })\n    .then(()=>{\n      let runner = this.mocha.run((failures)=>{\n        if(failures==0){\n          ResultStore.saveAll(this.mocha.suite).then(()=>{ callback(failures) })\n        }else{\n          callback(failures);\n        }\n      });\n      runner.on('fail', (failtest, error)=>{\n        ResultStore.saveSucceeded(this.mocha.suite, failtest);\n      })\n    })\n  }\n\n  static isDir(path){\n    let stat = fs.statSync(path);\n    return stat && stat.isDirectory();\n  }\n  static findAllFilesSync(dir, ignorePattern){\n    let results = [];\n    fs.readdirSync(dir)\n    .filter(file => !ignorePattern.includes(file))\n    .map(file => path.join(dir, file))\n    .forEach((file)=>{\n      if (this.isDir(file)){\n        results = results.concat(Walker.findAllFilesSync(file, ignorePattern))\n      }else{\n        results.push(file)\n      }\n    })\n    return results\n  }\n  static toArray(value){\n    return (value instanceof Array) ? value : [ value ];\n  }\n}\n\nmodule.exports = Walker;\n",
@@ -5368,7 +5443,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 263,
+    "__docId__": 265,
     "kind": "variable",
     "name": "Mocha",
     "memberof": "lib/walker/walker.js",
@@ -5389,7 +5464,7 @@
     "ignore": true
   },
   {
-    "__docId__": 264,
+    "__docId__": 266,
     "kind": "variable",
     "name": "fs",
     "memberof": "lib/walker/walker.js",
@@ -5410,7 +5485,7 @@
     "ignore": true
   },
   {
-    "__docId__": 265,
+    "__docId__": 267,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/walker/walker.js",
@@ -5431,7 +5506,7 @@
     "ignore": true
   },
   {
-    "__docId__": 266,
+    "__docId__": 268,
     "kind": "variable",
     "name": "ResultStore",
     "memberof": "lib/walker/walker.js",
@@ -5452,7 +5527,7 @@
     "ignore": true
   },
   {
-    "__docId__": 267,
+    "__docId__": 269,
     "kind": "class",
     "name": "Walker",
     "memberof": "lib/walker/walker.js",
@@ -5468,7 +5543,7 @@
     "interface": false
   },
   {
-    "__docId__": 268,
+    "__docId__": 270,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/walker/walker.js~Walker",
@@ -5482,7 +5557,7 @@
     "undocument": true
   },
   {
-    "__docId__": 269,
+    "__docId__": 271,
     "kind": "member",
     "name": "config",
     "memberof": "lib/walker/walker.js~Walker",
@@ -5499,7 +5574,7 @@
     }
   },
   {
-    "__docId__": 270,
+    "__docId__": 272,
     "kind": "member",
     "name": "mocha",
     "memberof": "lib/walker/walker.js~Walker",
@@ -5516,7 +5591,7 @@
     }
   },
   {
-    "__docId__": 271,
+    "__docId__": 273,
     "kind": "method",
     "name": "walk",
     "memberof": "lib/walker/walker.js~Walker",
@@ -5539,7 +5614,7 @@
     "return": null
   },
   {
-    "__docId__": 272,
+    "__docId__": 274,
     "kind": "method",
     "name": "isDir",
     "memberof": "lib/walker/walker.js~Walker",
@@ -5566,7 +5641,7 @@
     }
   },
   {
-    "__docId__": 273,
+    "__docId__": 275,
     "kind": "method",
     "name": "findAllFilesSync",
     "memberof": "lib/walker/walker.js~Walker",
@@ -5599,7 +5674,7 @@
     }
   },
   {
-    "__docId__": 274,
+    "__docId__": 276,
     "kind": "method",
     "name": "toArray",
     "memberof": "lib/walker/walker.js~Walker",
@@ -5626,7 +5701,7 @@
     }
   },
   {
-    "__docId__": 275,
+    "__docId__": 277,
     "kind": "file",
     "name": "lib/window_preloaded.js",
     "content": "window.nodeRequire = require;\nwindow.ipcRenderer = require('electron').ipcRenderer;\n",
@@ -5646,7 +5721,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"pagewalker\",\n  \"version\": \"0.0.6\",\n  \"main\": \"index.js\",\n  \"bin\": \"bin/pagewalker\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/xketanaka/pagewalker.git\"\n  },\n  \"license\": \"MIT\",\n  \"scripts\": {\n    \"start\": \"electron .\",\n    \"debug\": \"DEBUG_LOG=query,app electron .\",\n    \"esdoc\": \"esdoc\"\n  },\n  \"esdoc\": {\n    \"source\": \"./lib\",\n    \"destination\": \"./docs\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\"\n      },\n      {\n        \"name\": \"esdoc-node\"\n      }\n    ]\n  },\n  \"dependencies\": {\n    \"electron\": \"*\",\n    \"mocha\": \"*\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"*\",\n    \"esdoc-node\": \"*\",\n    \"esdoc-standard-plugin\": \"*\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"pagewalker\",\n  \"version\": \"0.0.7\",\n  \"main\": \"index.js\",\n  \"bin\": \"bin/pagewalker\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/xketanaka/pagewalker.git\"\n  },\n  \"license\": \"MIT\",\n  \"scripts\": {\n    \"start\": \"electron .\",\n    \"debug\": \"DEBUG_LOG=query,app electron .\",\n    \"esdoc\": \"esdoc\"\n  },\n  \"esdoc\": {\n    \"source\": \"./lib\",\n    \"destination\": \"./docs\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\"\n      },\n      {\n        \"name\": \"esdoc-node\"\n      }\n    ]\n  },\n  \"dependencies\": {\n    \"electron\": \"*\",\n    \"mocha\": \"*\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"*\",\n    \"esdoc-node\": \"*\",\n    \"esdoc-standard-plugin\": \"*\"\n  }\n}\n",
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/package.json",
     "name": "package.json",
     "static": true,

@@ -906,6 +906,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#expectconfirmdialog",
+    "class/lib/page/page.js~Page.html#instance-method-expectConfirmDialog",
+    "lib/page/page.js~Page#expectConfirmDialog",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#expectdownloaded",
     "class/lib/page/page.js~Page.html#instance-method-expectDownloaded",
     "lib/page/page.js~Page#expectDownloaded",
@@ -945,6 +951,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#getsourcehtml",
     "class/lib/page/page.js~Page.html#instance-method-getSourceHTML",
     "lib/page/page.js~Page#getSourceHTML",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#invokeafterready",
+    "class/lib/page/page.js~Page.html#instance-method-invokeAfterReady",
+    "lib/page/page.js~Page#invokeAfterReady",
     "method"
   ],
   [

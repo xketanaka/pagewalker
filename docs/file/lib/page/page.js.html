@@ -53,7 +53,7 @@
 const Finder = require(&apos;./finder&apos;);
 const pageWalker = require(&apos;../page_walker&apos;);
 
-const TIMEOUT_MSEC = 10000;
+const TIMEOUT_MSEC = pageWalker.config.mocha.timeout;
 
 class Page {
   constructor(window){
@@ -90,10 +90,14 @@ class Page {
     }
   }
   /**
-   * Alias of load
+   * @return {Promise}
    */
   waitLoading(...args){
-    return this.load(...args)
+    if(typeof args[0] == &apos;undefined&apos; || typeof args[0] == &apos;function&apos;){
+      return this.expectPageLoaded(...args)
+    }else{
+      return this.load(...args)
+    }
   }
   /**
    * @return {string} URL of current page
@@ -106,12 +110,12 @@ class Page {
    * @return {Promise}
    */
   expectPageLoaded(action){
-    return new Promise((resolve,reject)=&gt;{
-      try{ this.checkReady() }catch(err){ return reject(err) }
+    return this.invokeAfterReady((resolve, reject)=&gt;{
       this.webContents.removeAllListeners(&apos;did-finish-load&apos;);
       this.webContents.removeAllListeners(&apos;did-fail-load&apos;);
-      try{ action &amp;&amp; action() }catch(e){ reject(e) }
-      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+      action &amp;&amp; action();
+
+      let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
       this.webContents.once(&apos;did-finish-load&apos;, (event)=&gt;{
         clearTimeout(timeoutId)
         resolve(this)
@@ -127,9 +131,7 @@ class Page {
    * @return {Promise}
    */
   expectDownloaded(action){
-    return new Promise((resolve,reject)=&gt;{
-      try{ this.checkReady() }catch(err){ return reject(err) }
-
+    return this.invokeAfterReady((resolve, reject)=&gt;{
       // TODO
     })
   }
@@ -138,19 +140,15 @@ class Page {
    * @return {Promise}
    */
   expectNewWindow(action){
-    return new Promise((resolve,reject)=&gt;{
-      try{ this.checkReady() }catch(err){ return reject(err) }
-
+    return this.invokeAfterReady((resolve, reject)=&gt;{
       this.webContents.on(&apos;new-window&apos;, (event, url, frameName)=&gt;{
         if(pageWalker.getWindow(frameName)){
           resolve(pageWalker.getWindow(frameName));
         }else{
-          reject(`no window opened! [${frameName}]`);
+          reject(new Error(`no window opened! [${frameName}]`));
         }
       })
-      try {
-        action &amp;&amp; action();
-      }catch(e){ reject(e) }
+      action &amp;&amp; action();
     })
   }
   /**
@@ -159,16 +157,14 @@ class Page {
    * @return {Promise}
    */
   expectIpcReceived(action, channel = &apos;asynchronous-message&apos;){
-    return new Promise((resolve, reject)=&gt;{
-      try{ this.checkReady() }catch(err){ return reject(err) }
-      try{
-        let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
-        ipcMain.once(channel, (event, arg)=&gt;{
-          clearTimeout(timeoutId);
-          resolve(arg);
-        });
-        action &amp;&amp; action()
-      }catch(e){ reject(e) }
+    return this.invokeAfterReady((resolve, reject)=&gt;{
+      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+      ipcMain.once(channel, (event, arg)=&gt;{
+        clearTimeout(timeoutId);
+
+        resolve(arg);
+      });
+      action &amp;&amp; action();
     })
   }
   /**
@@ -198,6 +194,66 @@ class Page {
       if(result == &apos;ajaxComplete&apos;) return;
       throw result;
     });
+  }
+  /**
+   * @param {object} confirmOption - specify message property(default undefined), and isClickOK property(default true)
+   * @param {function} action - A function representing the operation of open confirm dialog
+   * @return {Promise}
+   * @example
+   *   await page.expectConfirmDialog({ message: &quot;Are you OK?&quot;, isClickOK: false }, ()=&gt;{
+   *     page.find(&quot;button.submit-form&quot;).click()
+   *   })
+   *
+   *   await page.waitLoading(async ()=&gt;{
+   *     await page.expectConfirmDialog(()=&gt;{
+   *       page.find(&quot;button.submit-form&quot;).click()
+   *     })
+   *   })
+   */
+  expectConfirmDialog(confirmOption, action){
+    const defaultOption = { message: &quot;&quot;, isClickOK: true };
+    if(typeof action == &quot;undefined&quot; &amp;&amp; typeof confirmOption == &quot;function&quot;){
+      action = confirmOption
+      confirmOption = defaultOption;
+    }
+    let message = confirmOption.message || defaultOption.message;
+    let isClickOK = (&apos;isClickOK&apos; in confirmOption)? confirmOption.isClickOK : defaultOption.isClickOK;
+
+    return this.invokeAfterReady((resolve, reject)=&gt;{
+      const channel = &apos;confirm-synchronous&apos;;
+      let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
+      ipcMain.once(channel, (event, arg)=&gt;{
+        clearTimeout(timeoutId);
+        if(message &amp;&amp; message != arg){
+          reject(new Error(`expected message is &quot;${message}&quot;, but actual is &quot;${arg}&quot;`));
+        }
+        event.returnValue = isClickOK;
+        resolve(message);
+      });
+      return this.executeJs(`
+        if(!window.__original_confirm){
+          window.__original_confirm = window.confirm;
+        }
+        window.confirm = function(message){
+          var ret = ipcRenderer.sendSync(&apos;${channel}&apos;, message);
+          window.confirm = window.__original_confirm;
+          return ret;
+        };
+      `)
+      .then(()=&gt;{ action &amp;&amp; action() })
+    })
+  }
+  /**
+   * @private
+   */
+  invokeAfterReady(func){
+    return new Promise((resolve, reject)=&gt;{
+      try{
+        this.checkReady()
+        func(resolve, reject);
+      }
+      catch(err){ return reject(err) }
+    })
   }
   /**
    * @param {string} code - JavaScript Code for executing this page.
