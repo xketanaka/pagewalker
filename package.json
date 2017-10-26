@@ -1,6 +1,6 @@
 {
   "name": "pagewalker",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "index.js",
   "bin": "bin/pagewalker",
   "repository": {
@@ -15,7 +15,7 @@
   },
   "esdoc": {
     "source": "./lib",
-    "destination": "../pagewalker-docs",
+    "destination": "./docs",
     "plugins": [
       {
         "name": "esdoc-standard-plugin"
