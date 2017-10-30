@@ -250,7 +250,7 @@ class Page {
     return new Promise((resolve, reject)=&gt;{
       try{
         this.checkReady()
-        func(resolve, reject);
+        func &amp;&amp; func(resolve, reject);
       }
       catch(err){ return reject(err) }
     })
@@ -264,8 +264,9 @@ class Page {
     return this.webContents.executeJavaScript(code, true)
   }
   /**
+   * Create and Return new Finder object with given finder-condition
    * @override
-   * @return {Finder} new Finder object
+   * @return {Finder}
    */
   find(...args){
     return new Finder(this, ...args);

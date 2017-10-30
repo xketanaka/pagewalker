@@ -49,13 +49,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Finder from &apos;<span><a href="file/lib/page/finder.js.html#lineNumber10">pagewalker/lib/page/finder.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Finder from &apos;<span><a href="file/lib/page/finder.js.html#lineNumber12">pagewalker/lib/page/finder.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/page/finder.js.html#lineNumber10">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/page/finder.js.html#lineNumber12">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -143,13 +143,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html#instance-method-attachFile">attachFile</a></span></span><span class="code" data-ice="signature">(filepath: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html#instance-method-attachFile">attachFile</a></span></span><span class="code" data-ice="signature">(filePath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Attach the file given with filePath.</p>
+</div>
       </div>
     </td>
     <td>
@@ -399,6 +400,35 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html#instance-method-replaceSubmitWithAjax">replaceSubmitWithAjax</a></span></span><span class="code" data-ice="signature">(callbacks: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Replace the behavior when form is submitted with ajax.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html#instance-method-selectOption">selectOption</a></span></span><span class="code" data-ice="signature">(content: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
@@ -464,7 +494,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber11">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber13">source</a></span></span>
     </span>
   </h3>
 
@@ -507,18 +537,22 @@
     
     
     
-    <span class="code" data-ice="name">attachFile</span><span class="code" data-ice="signature">(filepath: <span>*</span>)</span>
+    <span class="code" data-ice="name">attachFile</span><span class="code" data-ice="signature">(filePath: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber29">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Attach the file given with filePath.
+Rather than setting it to the files attribute of the specified input element,
+set it as the data-file-object attribute of the input element.
+This is because the files attribute can not be rewritten by script</p>
+</div>
 
   
 
@@ -531,17 +565,50 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">filepath</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="name" class="code" data-depth="0">filePath</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Specify the path of the file to be attached</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">options</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">options.fileType</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>type attribute of the File (see HTML5 File API)</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">options.replaceSubmitWithAjax</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>whether replace form-submit with ajax request, default is true.</p>
+</td>
     </tr>
 </tbody>
   </table>
 </div>
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -570,7 +637,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber26">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
@@ -642,7 +709,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber87">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber173">source</a></span></span>
     </span>
   </h3>
 
@@ -713,7 +780,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber77">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber163">source</a></span></span>
     </span>
   </h3>
 
@@ -784,7 +851,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber84">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber170">source</a></span></span>
     </span>
   </h3>
 
@@ -856,7 +923,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber73">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber159">source</a></span></span>
     </span>
   </h3>
 
@@ -935,7 +1002,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber122">source</a></span></span>
     </span>
   </h3>
 
@@ -1007,7 +1074,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber141">source</a></span></span>
     </span>
   </h3>
 
@@ -1063,7 +1130,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber147">source</a></span></span>
     </span>
   </h3>
 
@@ -1124,6 +1191,108 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-replaceSubmitWithAjax">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">replaceSubmitWithAjax</span><span class="code" data-ice="signature">(callbacks: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber79">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Replace the behavior when form is submitted with ajax. And The behavior is below,
+Send the request by including the File object specified in the data-file-object attribute of
+the input element of type=file in the form.
+When submit request get response 200:OK, call onSuccess callback with response object,
+by default replace document.body by response.text() and ipcMessage send on channel &apos;submit-ajax-done&apos;.
+When submit request get response 302:Redirect, call onRedirect callback with response object,
+by default load the page of response.url, and pageLoaded event occur.
+When submit request get response neither 200:OK or 302:Redirect, call onRespoinse callback with response object,
+by default throw Error</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">callbacks</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An object with callback with each attribute name</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">callbacks.onSuccess</td>
+      <td data-ice="type" class="code"><span>function,string</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>callback function for handling response when status 200.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">callbacks.onRedirect</td>
+      <td data-ice="type" class="code"><span>function,string</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>callback function for handling response when status 302.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">callbacks.onResponse</td>
+      <td data-ice="type" class="code"><span>function,string</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>callback function for handling response when status is not 200 and 302.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-selectOption">
     <span class="access" data-ice="access">public</span>
     
@@ -1135,7 +1304,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber19">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber21">source</a></span></span>
     </span>
   </h3>
 
@@ -1208,7 +1377,7 @@ This method is assumed to be called on a select element</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber42">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber128">source</a></span></span>
     </span>
   </h3>
 

@@ -444,6 +444,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder.js~finder#replacesubmitwithajax",
+    "class/lib/page/finder.js~Finder.html#instance-method-replaceSubmitWithAjax",
+    "lib/page/finder.js~Finder#replaceSubmitWithAjax",
+    "method"
+  ],
+  [
     "lib/page/finder.js~finder#selectoption",
     "class/lib/page/finder.js~Finder.html#instance-method-selectOption",
     "lib/page/finder.js~Finder#selectOption",

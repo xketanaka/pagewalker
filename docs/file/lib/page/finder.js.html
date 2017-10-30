@@ -49,7 +49,9 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/page/finder.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const FinderBase = require(&apos;./finder_base&apos;);
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const fs = require(&apos;fs&apos;);
+const path = require(&apos;path&apos;);
+const FinderBase = require(&apos;./finder_base&apos;);
 const FinderAction = require(&apos;./finder_action&apos;);
 const FinderFilter = require(&apos;./finder_filter&apos;);
 
@@ -77,8 +79,92 @@ class Finder extends FinderBase {
   choose(content){
     return this.selectOption(content);
   }
-  attachFile(filepath){
-    // TODO
+  /**
+   * Attach the file given with filePath.
+   * Rather than setting it to the files attribute of the specified input element,
+   * set it as the data-file-object attribute of the input element.
+   * This is because the files attribute can not be rewritten by script
+   * @param {string} filePath - Specify the path of the file to be attached
+   * @param {object} options
+   * @param {object} options.fileType - type attribute of the File (see HTML5 File API)
+   * @param {object} options.replaceSubmitWithAjax - whether replace form-submit with ajax request, default is true.
+   * @return {Promise}
+   */
+  attachFile(filePath, options = {}){
+    const fileType = options.fileType || &quot;&quot;;
+    options.replaceSubmitWithAjax = options.replaceSubmitWithAjax || true;
+
+    return (options.replaceSubmitWithAjax ? this.clone().replaceSubmitWithAjax() : Promise.resove())
+    .then(()=&gt;{
+      return this.executeJs(`(elements)=&gt;{
+        const input = elements[0];
+        ipcRenderer.once(&apos;file-body-transfer&apos;, (event, data)=&gt;{
+          input.attributes[&quot;data-file-object&quot;] = new File([data], &apos;${path.basename(filePath)}&apos;, { type: &quot;${fileType}&quot; });
+          ipcRenderer.send(&apos;file-body-transfer-end&apos;, &apos;done&apos;);
+        });
+      }`);
+    })
+    .then(()=&gt;{
+      let data = fs.readFileSync(filePath);
+      return this.page.expectIpcReceived(()=&gt;{
+        this.page.webContents.send(&apos;file-body-transfer&apos;, data);
+      }, &apos;file-body-transfer-end&apos;)
+    });
+  }
+  /**
+   * Replace the behavior when form is submitted with ajax. And The behavior is below,
+   * Send the request by including the File object specified in the data-file-object attribute of
+   * the input element of type=file in the form.
+   * When submit request get response 200:OK, call onSuccess callback with response object,
+   * by default replace document.body by response.text() and ipcMessage send on channel &apos;submit-ajax-done&apos;.
+   * When submit request get response 302:Redirect, call onRedirect callback with response object,
+   * by default load the page of response.url, and pageLoaded event occur.
+   * When submit request get response neither 200:OK or 302:Redirect, call onRespoinse callback with response object,
+   * by default throw Error
+   * @param {object} callbacks - An object with callback with each attribute name
+   * @param {function,string} callbacks.onSuccess - callback function for handling response when status 200.
+   * @param {function,string} callbacks.onRedirect - callback function for handling response when status 302.
+   * @param {function,string} callbacks.onResponse - callback function for handling response when status is not 200 and 302.
+   * @return {Promise}
+   */
+  replaceSubmitWithAjax(callbacks = {}){
+    const callbacksDefault = {
+      onSuccess: (response)=&gt;{ response.text().then((text)=&gt;{ document.body.innerHTML = text }) },
+      onRedirect: (response)=&gt;{ window.location.href = response.url; ipcRenderer.send(&apos;submit-ajax-done&apos;, &apos;done&apos;); },
+      onResponse: (response)=&gt;{ throw new Error(response.status + &quot; &quot; + response.statusText) }
+    };
+    callbacks.onSuccess  = callbacks.onSuccess  || callbacksDefault.onSuccess;
+    callbacks.onRedirect = callbacks.onRedirect || callbacksDefault.onRedirect;
+    callbacks.onResponse = callbacks.onResponse || callbacksDefault.onResponse;
+
+    return this.executeJs(`(elements)=&gt;{
+        let searchTag = (el, tag)=&gt;{ return el == null || el.tagName == tag ? el : searchTag(el.parentElement, tag) };
+        let form = searchTag(elements[0].parentElement, &quot;FORM&quot;);
+
+        form &amp;&amp; !form.attributes[&quot;data-upload-file-event-listener-added&quot;] &amp;&amp; form.addEventListener(&apos;submit&apos;, (event)=&gt;{
+          form.attributes[&quot;data-upload-file-event-listener-added&quot;] = true;
+          event.preventDefault();
+
+          const formData = new FormData(form);
+          for(let i = 0; i &lt; form.elements.length; i++){
+            let input = form.elements[i];
+            if(input &amp;&amp; input.type == &quot;file&quot; &amp;&amp; input.attributes[&quot;data-file-object&quot;]){
+              formData.append(input.name, input.attributes[&quot;data-file-object&quot;]);
+            }
+          }
+          fetch(form.action, {
+            method: form.method, body: formData, credentials: &apos;same-origin&apos;, redirect: &apos;manual&apos;
+          })
+          .then((response)=&gt;{
+            switch(response.status){
+              case 200: return (${callbacks.onSuccess.toString()})(response);
+              case 302: return (${callbacks.onRedirect.toString()})(response);
+              default:  return (${callbacks.onResponse.toString()})(response);
+            }
+          })
+        })
+      }`
+    );
   }
   /**
    * execute &quot;JavaScript code&quot; given as argument
