@@ -40,6 +40,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -74,36 +75,56 @@ class Walker {
         .forEach((file)=&gt;{ this.mocha.addFile(file) })
       })
     }
+    this.loadFiles();
+  }
+  loadFiles(){
     let originalFunctions = {};
     let delayedFunctions = [];
     this.mocha.suite.on(&apos;pre-require&apos;, (context)=&gt;{
       originalFunctions.describe = context.describe;
       originalFunctions.xdescribe = context.xdescribe;
       originalFunctions.describeOnly = context.describe.only;
-      context.describe = function(title, fn){
-        delayedFunctions.push([&quot;describe&quot;, title, fn, this]);
+      context.describe = function(title, fn, ...args){
+        delayedFunctions.push([&quot;describe&quot;, this, title, fn, args]);
       }
-      context.xdescribe = function(title, fn){
-        delayedFunctions.push([&quot;xdescribe&quot;, title, fn, this]);
+      context.xdescribe = function(title, fn, ...args){
+        delayedFunctions.push([&quot;xdescribe&quot;, this, title, fn, args]);
       }
-      context.describe.only = function(title, fn){
-        delayedFunctions.push([&quot;describeOnly&quot;, title, fn, this]);
+      context.describe.only = function(title, fn, ...args){
+        delayedFunctions.push([&quot;describeOnly&quot;, this, title, fn, args]);
       }
       // set to aliases
       context.context = context.suite = context.describe;
       context.xcontext = context.describe.skip = context.xdescribe;
     })
     this.mocha.suite.on(&apos;post-require&apos;, (context)=&gt;{
-      context.context = context.suite = context.describe = originalFunctions.describe;
-      context.xcontext = context.xdescribe = originalFunctions.xdescribe;
+      // restore desctibe, xdescribe, describe.only with object property function support
+      // object property function support is describe(&quot;title&quot;, { &quot;title&quot;: function(){...} }, ...args)
+      originalFunctions.describe = context.context = context.suite = context.describe = Walker.objectPropertySupport(originalFunctions.describe);
+      originalFunctions.xdescribe = context.xcontext = context.xdescribe = Walker.objectPropertySupport(originalFunctions.xdescribe);
+      originalFunctions.describeOnly = context.describe.only = Walker.objectPropertySupport(originalFunctions.describeOnly);
     })
     this.mocha.loadFiles();
     delayedFunctions.forEach((array)=&gt;{
       let func = originalFunctions[array[0]];
-      func.call(array[3], array[1], array[2]);
+      func.call(array[1], array[2], array[3], ...array[4]); // this, title, fn, args
     })
   }
-
+  static objectPropertySupport(originalFunc){
+    let newFunc = function(title, fn, ...args){
+      if(typeof fn == &quot;function&quot;){
+        originalFunc.call(this, title, fn);
+      }
+      if(typeof fn == &quot;object&quot;){
+        if(typeof fn[title] != &quot;function&quot;) throw new Error(`Property missing! &quot;${title}&quot; on object [${fn}]`)
+        originalFunc.call(this, title, ()=&gt;{ (typeof args[0] == &quot;function&quot;)? args[0](fn[title]) : (fn[title])(...args) });
+      }
+    }
+    for(var prop in originalFunc){
+      if(originalFunc.hasOwnProperty(prop)) newFunc[prop] = originalFunc[prop];
+    }
+    return newFunc;
+  }
   walk(callback){
     Promise.resolve().then(()=&gt;{
       return this.config.startFromFirst ? [] : ResultStore.loadPreviousResults();

@@ -40,6 +40,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -65,6 +66,9 @@ class Private {
   }
   static be(propName, bool){
     return `(elm, i)=&gt;{ return elm &amp;&amp; elm.${propName} === ${bool} }`;
+  }
+  static isClickable(){
+    return &quot;a,button,input[type=button],input[type=submit]&quot;;
   }
 }
 
@@ -154,6 +158,14 @@ class FinderFilter {
     return Private.haveStyle(styleName, value, false);
   }
 
+  /**
+   * return css selector string to select clickable elements like a, button, input[type=button]
+   * @return {string}
+   */
+  static isClickable(){
+    return Private.isClickable()
+  }
+
   ////// instance methods /////////////////////////////////////////////////////////////////////
 
   /**
@@ -239,6 +251,13 @@ class FinderFilter {
    */
   notHaveCssProperty(propName, value){
     return this.find(FinderFilter.notHaveStyle(propName, value))
+  }
+
+  /**
+   * @return {Finder} return filtered Finder object which is clickable like a, button, input[type=button]
+   */
+  isClickable(){
+    return this.find(FinderFilter.isClickable())
   }
 }
 

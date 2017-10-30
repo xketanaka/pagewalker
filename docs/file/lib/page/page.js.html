@@ -40,6 +40,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -49,9 +50,12 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/page/page.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const {ipcMain} = require(&apos;electron&apos;);
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
+const {ipcMain} = require(&apos;electron&apos;);
 const Finder = require(&apos;./finder&apos;);
 const pageWalker = require(&apos;../page_walker&apos;);
+const {config} = pageWalker;
+const DateFormat = require(&apos;../utils/date_format&apos;);
 
 const TIMEOUT_MSEC = pageWalker.config.mocha.timeout;
 
@@ -113,7 +117,7 @@ class Page {
     return this.invokeAfterReady((resolve, reject)=&gt;{
       this.webContents.removeAllListeners(&apos;did-finish-load&apos;);
       this.webContents.removeAllListeners(&apos;did-fail-load&apos;);
-      action &amp;&amp; action();
+      this.invokeAction(action, reject);
 
       let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
       this.webContents.once(&apos;did-finish-load&apos;, (event)=&gt;{
@@ -127,28 +131,63 @@ class Page {
     })
   }
   /**
+   * Wait file-download completed and resolve the promise with savedFile path.
+   * A File is saved in config.fileDownloadDir with timestamp string like &apos;20171225002540_print.pdf&apos;
    * @param {function} action - A function representing the operation of file download
    * @return {Promise}
+   * @example
+   *   const filePath = await page.expectDownloaded(()=&gt;{
+   *     ...
+   *   })
+   *   assert.equal(await (util.promisify(fs.readFile))(filePath, &apos;utf-8&apos;), ...);
    */
   expectDownloaded(action){
     return this.invokeAfterReady((resolve, reject)=&gt;{
-      // TODO
+      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+
+      this.webContents.session.once(&apos;will-download&apos;, (event, item, webContents) =&gt; {
+        // Set the save path, making Electron not to prompt a save dialog.
+        let filename = `${DateFormat.toTimepstampString(new Date())}_${item.getFilename()}`;
+        let savePath = path.resolve(path.join(config.fileDownloadDir, filename));
+        item.setSavePath(savePath);
+        item.on(&apos;updated&apos;, (event, state)=&gt;{
+          if(state === &apos;interrupted&apos;) reject(new Error(&apos;Download is interrupted&apos;));
+        })
+        item.once(&apos;done&apos;, (event, state) =&gt; {
+          clearTimeout(timeoutId);
+          if(state == &apos;completed&apos;){
+            resolve(savePath)
+          }else{
+            reject(new Error(`Download failed: ${state}`))
+          }
+        })
+      })
+      this.invokeAction(action, reject);
     })
   }
   /**
+   * Wait new-window opend and resolve the promise with Window object.
    * @param {function} action - A function representing the operation of open new window
    * @return {Promise}
+   * @example
+   *   const newWin = await page.expectNewWindow(()=&gt;{
+   *     ...
+   *   })
+   *   newWin.page.find(...).click();
+   *   newWin.close();
    */
   expectNewWindow(action){
     return this.invokeAfterReady((resolve, reject)=&gt;{
-      this.webContents.on(&apos;new-window&apos;, (event, url, frameName)=&gt;{
+      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+      this.webContents.once(&apos;new-window&apos;, (event, url, frameName)=&gt;{
+        clearTimeout(timeoutId);
         if(pageWalker.getWindow(frameName)){
           resolve(pageWalker.getWindow(frameName));
         }else{
           reject(new Error(`no window opened! [${frameName}]`));
         }
       })
-      action &amp;&amp; action();
+      this.invokeAction(action, reject);
     })
   }
   /**
@@ -164,7 +203,7 @@ class Page {
 
         resolve(arg);
       });
-      action &amp;&amp; action();
+      this.invokeAction(action, reject);
     })
   }
   /**
@@ -188,7 +227,7 @@ class Page {
           XMLHttpRequest.prototype.__original_open.apply(this, arguments);
         };
       `)
-      .then(()=&gt;{ action &amp;&amp; action() })
+      .then(()=&gt;{ return action &amp;&amp; action() })
     })
     .then((result)=&gt;{
       if(result == &apos;ajaxComplete&apos;) return;
@@ -240,7 +279,8 @@ class Page {
           return ret;
         };
       `)
-      .then(()=&gt;{ action &amp;&amp; action() })
+      .then(()=&gt;{ return action &amp;&amp; action() })
+      .catch(reject)
     })
   }
   /**
@@ -254,6 +294,16 @@ class Page {
       }
       catch(err){ return reject(err) }
     })
+  }
+  /**
+   * @private
+   */
+  invokeAction(action, reject){
+    let actionResult = action &amp;&amp; action()
+    if(actionResult instanceof Promise){
+      actionResult.catch(reject)
+    }
+    return actionResult;
   }
   /**
    * @param {string} code - JavaScript Code for executing this page.
@@ -280,7 +330,7 @@ class Page {
   }
 
   findClickable(){
-    return this.find(&quot;a,button,input[type=button],input[type=submit]&quot;)
+    return this.find().isClickable()
   }
 }
 

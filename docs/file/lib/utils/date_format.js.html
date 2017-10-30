@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">lib/walker/result_store.js | pagewalker</title>
+  <title data-ice="title">lib/utils/date_format.js | pagewalker</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -49,64 +49,23 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/walker/result_store.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const fs = require(&quot;fs&quot;);
-const {promisify} = require(&apos;util&apos;);
-const {config} = require(&quot;../utils/config&quot;);
+<div class="content" data-ice="content"><h1 data-ice="title">lib/utils/date_format.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">class DateFormat {
+  static format(date, formatString){
+    let [ yyyy, mm, dd, HH, MM, ss, ...rest ] = date.toISOString().split(/[-T:.]/);
+    let replacement = { yyyy: yyyy, mm: mm, dd: dd, HH: HH, MM: MM, ss: ss };
 
-class ResultStore {
-  // &#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x304B;&#x3089;&#x524D;&#x56DE;&#x306E;&#x7D50;&#x679C;&#x3092;&#x30ED;&#x30FC;&#x30C9;&#x3057;&#x3001;&#x305D;&#x308C;&#x3092;&#x683C;&#x7D0D;&#x3057;&#x305F;&#x914D;&#x5217;&#x3067;&#x89E3;&#x6C7A;&#x3055;&#x308C;&#x308B;Promise&#x3092;&#x8FD4;&#x3059;
-  static loadPreviousResults(){
-    if(!fs.existsSync(config.successSaveFile))
-      return Promise.resolve([]);
-
-    return new Promise((resolve, reject)=&gt;{
-      fs.readFile(config.successSaveFile, &apos;utf-8&apos;, (err, data)=&gt;{ err ? reject(err) : resolve(data) })
-    })
-    .then((data)=&gt;{
-      return data.split(&quot;\n&quot;)
-    })
-  }
-  // &#x3059;&#x3079;&#x3066;&#x306E;&#x30C6;&#x30B9;&#x30C8;&#x304C;&#x6210;&#x529F;&#x3057;&#x305F;&#x5834;&#x5408;&#x306B;&#x3001;&#x3059;&#x3079;&#x3066;&#x306E;&#x30C6;&#x30B9;&#x30C8;&#x30BF;&#x30A4;&#x30C8;&#x30EB;&#x3092;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306B;&#x66F8;&#x304D;&#x51FA;&#x3059;
-  // &#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x66F8;&#x8FBC;&#x307F;&#x304C;&#x7D42;&#x308F;&#x308B;&#x3068;&#x89E3;&#x6C7A;&#x3059;&#x308B;Promise&#x3092;&#x8FD4;&#x3059;
-  static saveAll(suite){
-    return this.write(suite, []);
-  }
-  // &#x5931;&#x6557;&#x3057;&#x305F;&#x3068;&#x304D;&#x306B;&#x547C;&#x3070;&#x308C;&#x308B;&#x7D50;&#x679C;&#x4FDD;&#x5B58;&#x30E1;&#x30BD;&#x30C3;&#x30C9;
-  // failtest &#x307E;&#x3067;&#x306E;&#x30C6;&#x30B9;&#x30C8;&#x3092;&#x4FDD;&#x5B58;&#x3059;&#x308B;
-  // &#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x66F8;&#x8FBC;&#x307F;&#x304C;&#x7D42;&#x308F;&#x308B;&#x3068;&#x89E3;&#x6C7A;&#x3059;&#x308B;Promise&#x3092;&#x8FD4;&#x3059;
-  static saveSucceeded(suite, failtest){
-    let noSucceeded = [];
-    let failedTitle = failtest.fullTitle().replace(/&quot;before each&quot; hook for &quot;(.+)&quot;/, &quot;$1&quot;);
-    suite.eachTest((test)=&gt;{
-      if(noSucceeded.length &gt; 0 || test.fullTitle() == failedTitle){
-        noSucceeded.push(test.fullTitle());
-      }
-    });
-    if(noSucceeded.length &gt; 0){
-      return this.write(suite, noSucceeded);
+    for(let key in replacement){
+      formatString = formatString.replace(new RegExp(key), replacement[key])
     }
-  };
-
-  /**
-   * &#x5F15;&#x6570;&#x3067;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F; noSucceeded &#x4EE5;&#x5916;&#x306E;&#x30C6;&#x30B9;&#x30C8;&#x540D;&#x3092;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306B;&#x66F8;&#x304D;&#x8FBC;&#x3080;
-   * @private:
-   */
-  static write(suite, noSucceeded){
-    let succeededs = [];
-    suite.eachTest((test)=&gt;{
-      if(noSucceeded.indexOf(test.fullTitle()) == -1)
-        succeededs.push(test.fullTitle())
-    })
-    return new Promise((resolve, reject)=&gt;{
-      fs.writeFile(config.successSaveFile, succeededs.join(&quot;\n&quot;)+&quot;\n&quot;, (err)=&gt;{
-        err ? reject(err) : resolve();
-      })
-    })
+    return formatString;
+  }
+  static toTimepstampString(date){
+    return this.format(date, &apos;yyyymmddHHMMss&apos;)
   }
 }
 
-module.exports = ResultStore;
+module.exports = DateFormat;
 </code></pre>
 
 </div>

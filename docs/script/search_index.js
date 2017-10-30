@@ -6,6 +6,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "pagewalker/lib/utils/date_format.js~dateformat",
+    "class/lib/utils/date_format.js~DateFormat.html",
+    "<span>DateFormat</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/date_format.js</span>",
+    "class"
+  ],
+  [
     "pagewalker/lib/utils/debug.js~debug",
     "function/index.html#static-function-Debug",
     "<span>Debug</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/debug.js</span>",
@@ -756,6 +762,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter#isclickable",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-isClickable",
+    "lib/page/finder_filter.js~FinderFilter#isClickable",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter#notbechecked",
     "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-notBeChecked",
     "lib/page/finder_filter.js~FinderFilter#notBeChecked",
@@ -843,6 +855,12 @@ window.esdocSearchIndex = [
     "lib/page/finder_filter.js~finderfilter.havevalue",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-haveValue",
     "lib/page/finder_filter.js~FinderFilter.haveValue",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter.isclickable",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-isClickable",
+    "lib/page/finder_filter.js~FinderFilter.isClickable",
     "method"
   ],
   [
@@ -960,6 +978,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#invokeaction",
+    "class/lib/page/page.js~Page.html#instance-method-invokeAction",
+    "lib/page/page.js~Page#invokeAction",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#invokeafterready",
     "class/lib/page/page.js~Page.html#instance-method-invokeAfterReady",
     "lib/page/page.js~Page#invokeAfterReady",
@@ -1012,6 +1036,12 @@ window.esdocSearchIndex = [
     "class/lib/page/window.js~Window.html#instance-get-browserWindow",
     "lib/page/window.js~Window#browserWindow",
     "member"
+  ],
+  [
+    "lib/page/window.js~window#close",
+    "class/lib/page/window.js~Window.html#instance-method-close",
+    "lib/page/window.js~Window#close",
+    "method"
   ],
   [
     "lib/page/window.js~window#constructor",
@@ -1194,6 +1224,24 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/utils/date_format.js",
+    "file/lib/utils/date_format.js.html",
+    "lib/utils/date_format.js",
+    "file"
+  ],
+  [
+    "lib/utils/date_format.js~dateformat.format",
+    "class/lib/utils/date_format.js~DateFormat.html#static-method-format",
+    "lib/utils/date_format.js~DateFormat.format",
+    "method"
+  ],
+  [
+    "lib/utils/date_format.js~dateformat.totimepstampstring",
+    "class/lib/utils/date_format.js~DateFormat.html#static-method-toTimepstampString",
+    "lib/utils/date_format.js~DateFormat.toTimepstampString",
+    "method"
+  ],
+  [
     "lib/utils/debug.js",
     "file/lib/utils/debug.js.html",
     "lib/utils/debug.js",
@@ -1284,6 +1332,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/walker/walker.js~walker#loadfiles",
+    "class/lib/walker/walker.js~Walker.html#instance-method-loadFiles",
+    "lib/walker/walker.js~Walker#loadFiles",
+    "method"
+  ],
+  [
     "lib/walker/walker.js~walker#mocha",
     "class/lib/walker/walker.js~Walker.html#instance-member-mocha",
     "lib/walker/walker.js~Walker#mocha",
@@ -1305,6 +1359,12 @@ window.esdocSearchIndex = [
     "lib/walker/walker.js~walker.isdir",
     "class/lib/walker/walker.js~Walker.html#static-method-isDir",
     "lib/walker/walker.js~Walker.isDir",
+    "method"
+  ],
+  [
+    "lib/walker/walker.js~walker.objectpropertysupport",
+    "class/lib/walker/walker.js~Walker.html#static-method-objectPropertySupport",
+    "lib/walker/walker.js~Walker.objectPropertySupport",
     "method"
   ],
   [

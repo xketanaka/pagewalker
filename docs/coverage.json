@@ -1,7 +1,7 @@
 {
-  "coverage": "35.81%",
-  "expectCount": 215,
-  "actualCount": 77,
+  "coverage": "35.52%",
+  "expectCount": 228,
+  "actualCount": 81,
   "files": {
     "lib/cli_start.js": {
       "expectCount": 1,
@@ -74,34 +74,38 @@
       ]
     },
     "lib/page/finder_filter.js": {
-      "expectCount": 34,
-      "actualCount": 28,
+      "expectCount": 37,
+      "actualCount": 30,
       "undocumentLines": [
         2,
         3,
         6,
         9,
         12,
-        15
+        15,
+        18
       ]
     },
     "lib/page/page.js": {
-      "expectCount": 24,
-      "actualCount": 16,
+      "expectCount": 28,
+      "actualCount": 17,
       "undocumentLines": [
         1,
         2,
         3,
+        4,
         5,
-        7,
+        6,
         8,
-        9,
-        231
+        10,
+        11,
+        12,
+        280
       ]
     },
     "lib/page/window.js": {
-      "expectCount": 13,
-      "actualCount": 2,
+      "expectCount": 14,
+      "actualCount": 3,
       "undocumentLines": [
         1,
         2,
@@ -113,7 +117,7 @@
         9,
         11,
         16,
-        39
+        45
       ]
     },
     "lib/page_walker.js": {
@@ -148,15 +152,24 @@
         3,
         9,
         12,
-        39,
         40,
-        78,
-        89,
-        94,
-        97,
-        106,
-        109,
-        115
+        41,
+        79,
+        90,
+        95,
+        98,
+        107,
+        110,
+        116
+      ]
+    },
+    "lib/utils/date_format.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        11
       ]
     },
     "lib/utils/debug.js": {
@@ -202,7 +215,7 @@
       ]
     },
     "lib/walker/walker.js": {
-      "expectCount": 12,
+      "expectCount": 14,
       "actualCount": 0,
       "undocumentLines": [
         1,
@@ -213,10 +226,12 @@
         7,
         8,
         9,
-        56,
-        81,
-        85,
-        99
+        28,
+        61,
+        76,
+        101,
+        105,
+        119
       ]
     }
   }
