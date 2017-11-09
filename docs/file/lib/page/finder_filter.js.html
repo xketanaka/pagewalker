@@ -70,6 +70,9 @@ class Private {
   static isClickable(){
     return &quot;a,button,input[type=button],input[type=submit]&quot;;
   }
+  static indexOf(index){
+    return `(elm, i)=&gt;{ return i == ${index} }`;
+  }
 }
 
 /**
@@ -166,6 +169,14 @@ class FinderFilter {
     return Private.isClickable()
   }
 
+  /**
+   * return function code to select elements which is in given index in elements
+   * @return {string}
+   */
+  static indexOf(i){
+    return Private.indexOf(i);
+  }
+
   ////// instance methods /////////////////////////////////////////////////////////////////////
 
   /**
@@ -259,6 +270,19 @@ class FinderFilter {
   isClickable(){
     return this.find(FinderFilter.isClickable())
   }
+  /**
+   * @return {Finder} return filtered Finder object which is in given index in elements
+   */
+  indexOf(i){
+    return this.find(FinderFilter.indexOf(i));
+  }
+  /**
+   * @return {Finder} return Finder for the first matched element. this is same to &quot;indexOf(0)&quot;
+   */
+  first(){
+    return this.indexOf(0);
+  }
+
 }
 
 module.exports = FinderFilter;

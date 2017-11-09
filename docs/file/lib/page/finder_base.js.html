@@ -72,13 +72,13 @@ class FinderBase {
     this._page = page;
     this._conditions = FinderBase.convertArgumentsToConditions(...args);
     this._allowNotFound = false;
-    this._matcher = undefined;
+    this._context = undefined;
     this._action = undefined;
   }
   get page(){ return this._page }
   get conditions(){ return this._conditions }
-  get matcher(){ return this._matcher }
   get action(){ return this._action }
+  get context(){ return this._context }
   get allowNotFound(){ return this._allowNotFound }
   allowNotFound(val){ this._allowNotFound = val }
   /**
@@ -88,8 +88,8 @@ class FinderBase {
     return Object.assign(new this.constructor(this.page), {
       _conditions: this.conditions.concat(),
       allowNotFound: this.allowNotFound,
-      _matcher: this.matcher,
-      _action: this.action
+      _action: this.action,
+      _context: this.context
     });
   }
   /**
@@ -103,25 +103,23 @@ class FinderBase {
     this._action = typeof action == &quot;function&quot; ?  action.toString() : action;
     return this;
   }
-  withMatcher(filter, matcher){
-    if(typeof filter == &quot;function&quot;){ filter = filter.toString() }
-    if(typeof matcher == &quot;function&quot;){ matcher = matcher.toString() }
-    this._matcher = new Matcher(filter, matcher);
+  withContext(context){
+    this._context = context;
     return this;
   }
   /**
-   * @return {Promise} Promise resolved in evaluated JavaScript code
+   * generate and return javascript code for finding element by this finder object
+   * @return {string}
    */
-  evaluate(){
-    if(this.matcher &amp;&amp; this.action){ throw &quot;Both action and matcher were specified&quot; }
-
+  toJsCode(){
     let conditions = this.conditions;
     if(!conditions || !(conditions[0] instanceof Selector)){
       conditions = [new Selector(&quot;*&quot;)];
     }
 
     let jsCode = `
-      var elements = Array.from(document.querySelectorAll(&quot;${conditions[0].selector}&quot;));
+      let _document = ${this.context ? this.context : &apos;window&apos;}.document;
+      var elements = Array.from(_document.querySelectorAll(&quot;${conditions[0].selector}&quot;));
     `;
     jsCode += conditions.slice(1).map((condition)=&gt;{
       return condition instanceof Selector ?
@@ -148,22 +146,20 @@ class FinderBase {
         return (${this.action})(elements);
       `;
     }
-    else if(this.matcher){
-      jsCode += `{
-        let filtered = (${this.matcher.filter})(elements);
-        return (${this.matcher.matcher})(filtered);
-      }`;
-    }
     else{
       jsCode += `return elements.length;`
     }
+    return jsCode;
+  }
+
+  /**
+   * @return {Promise} Promise resolved in evaluated JavaScript code
+   */
+  evaluate(){
+    let jsCode = this.toJsCode();
     debug(`Evaluate Javascript &quot;${jsCode}&quot;`)
 
     return this.page.executeJs(`(()=&gt;{ try{ ${jsCode} }catch(e){ return Promise.reject(e.toString()) } })()`)
-    .then((val)=&gt;{
-      if(this.matcher &amp;&amp; val === false){ throw &quot;No Match!&quot; }
-      return val;
-    })
     .catch((err)=&gt;{
       debug(`Error occurred in Evaluating Javascript: ${err}`);
       throw err
@@ -179,12 +175,6 @@ class Filter {
 class Selector {
   constructor(selector){
     this.selector = selector;
-  }
-}
-class Matcher {
-  constructor(filter, matcher){
-    this.filter = filter;
-    this.matcher = matcher;
   }
 }
 

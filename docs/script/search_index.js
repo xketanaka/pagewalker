@@ -438,15 +438,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/finder.js~finder#getfirst",
-    "class/lib/page/finder.js~Finder.html#instance-method-getFirst",
-    "lib/page/finder.js~Finder#getFirst",
-    "method"
-  ],
-  [
-    "lib/page/finder.js~finder#indexof",
-    "class/lib/page/finder.js~Finder.html#instance-method-indexOf",
-    "lib/page/finder.js~Finder#indexOf",
+    "lib/page/finder.js~finder#iniframe",
+    "class/lib/page/finder.js~Finder.html#instance-method-inIframe",
+    "lib/page/finder.js~Finder#inIframe",
     "method"
   ],
   [
@@ -465,6 +459,12 @@ window.esdocSearchIndex = [
     "lib/page/finder.js~finder#toarray",
     "class/lib/page/finder.js~Finder.html#instance-method-toArray",
     "lib/page/finder.js~Finder#toArray",
+    "method"
+  ],
+  [
+    "lib/page/finder.js~finder#tocontextstring",
+    "class/lib/page/finder.js~Finder.html#instance-method-toContextString",
+    "lib/page/finder.js~Finder#toContextString",
     "method"
   ],
   [
@@ -624,9 +624,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/page/finder_base.js~finderbase#_matcher",
-    "class/lib/page/finder_base.js~FinderBase.html#instance-member-_matcher",
-    "lib/page/finder_base.js~FinderBase#_matcher",
+    "lib/page/finder_base.js~finderbase#_context",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-member-_context",
+    "lib/page/finder_base.js~FinderBase#_context",
     "member"
   ],
   [
@@ -643,15 +643,15 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/page/finder_base.js~finderbase#allownotfound",
-    "class/lib/page/finder_base.js~FinderBase.html#instance-get-allowNotFound",
-    "lib/page/finder_base.js~FinderBase#allowNotFound",
-    "member"
-  ],
-  [
-    "lib/page/finder_base.js~finderbase#allownotfound",
     "class/lib/page/finder_base.js~FinderBase.html#instance-method-allowNotFound",
     "lib/page/finder_base.js~FinderBase#allowNotFound",
     "method"
+  ],
+  [
+    "lib/page/finder_base.js~finderbase#allownotfound",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-get-allowNotFound",
+    "lib/page/finder_base.js~FinderBase#allowNotFound",
+    "member"
   ],
   [
     "lib/page/finder_base.js~finderbase#clone",
@@ -672,6 +672,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_base.js~finderbase#context",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-get-context",
+    "lib/page/finder_base.js~FinderBase#context",
+    "member"
+  ],
+  [
     "lib/page/finder_base.js~finderbase#evaluate",
     "class/lib/page/finder_base.js~FinderBase.html#instance-method-evaluate",
     "lib/page/finder_base.js~FinderBase#evaluate",
@@ -684,16 +690,16 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/finder_base.js~finderbase#matcher",
-    "class/lib/page/finder_base.js~FinderBase.html#instance-get-matcher",
-    "lib/page/finder_base.js~FinderBase#matcher",
-    "member"
-  ],
-  [
     "lib/page/finder_base.js~finderbase#page",
     "class/lib/page/finder_base.js~FinderBase.html#instance-get-page",
     "lib/page/finder_base.js~FinderBase#page",
     "member"
+  ],
+  [
+    "lib/page/finder_base.js~finderbase#tojscode",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-method-toJsCode",
+    "lib/page/finder_base.js~FinderBase#toJsCode",
+    "method"
   ],
   [
     "lib/page/finder_base.js~finderbase#withaction",
@@ -702,9 +708,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/finder_base.js~finderbase#withmatcher",
-    "class/lib/page/finder_base.js~FinderBase.html#instance-method-withMatcher",
-    "lib/page/finder_base.js~FinderBase#withMatcher",
+    "lib/page/finder_base.js~finderbase#withcontext",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-method-withContext",
+    "lib/page/finder_base.js~FinderBase#withContext",
     "method"
   ],
   [
@@ -729,6 +735,12 @@ window.esdocSearchIndex = [
     "lib/page/finder_filter.js~finderfilter#beselected",
     "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-beSelected",
     "lib/page/finder_filter.js~FinderFilter#beSelected",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter#first",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-first",
+    "lib/page/finder_filter.js~FinderFilter#first",
     "method"
   ],
   [
@@ -759,6 +771,12 @@ window.esdocSearchIndex = [
     "lib/page/finder_filter.js~finderfilter#havevalue",
     "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-haveValue",
     "lib/page/finder_filter.js~FinderFilter#haveValue",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter#indexof",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-indexOf",
+    "lib/page/finder_filter.js~FinderFilter#indexOf",
     "method"
   ],
   [
@@ -858,6 +876,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter.indexof",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-indexOf",
+    "lib/page/finder_filter.js~FinderFilter.indexOf",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter.isclickable",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-isClickable",
     "lib/page/finder_filter.js~FinderFilter.isClickable",
@@ -900,6 +924,18 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/page/page.js~page#_context",
+    "class/lib/page/page.js~Page.html#instance-member-_context",
+    "lib/page/page.js~Page#_context",
+    "member"
+  ],
+  [
+    "lib/page/page.js~page#_expectcontentloaded",
+    "class/lib/page/page.js~Page.html#instance-method-_expectContentLoaded",
+    "lib/page/page.js~Page#_expectContentLoaded",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#_window",
     "class/lib/page/page.js~Page.html#instance-member-_window",
     "lib/page/page.js~Page#_window",
@@ -916,6 +952,12 @@ window.esdocSearchIndex = [
     "class/lib/page/page.js~Page.html#instance-constructor-constructor",
     "lib/page/page.js~Page#constructor",
     "method"
+  ],
+  [
+    "lib/page/page.js~page#context",
+    "class/lib/page/page.js~Page.html#instance-get-context",
+    "lib/page/page.js~Page#context",
+    "member"
   ],
   [
     "lib/page/page.js~page#executejs",
@@ -939,6 +981,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#expectdownloaded",
     "class/lib/page/page.js~Page.html#instance-method-expectDownloaded",
     "lib/page/page.js~Page#expectDownloaded",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#expectframeloaded",
+    "class/lib/page/page.js~Page.html#instance-method-expectFrameLoaded",
+    "lib/page/page.js~Page#expectFrameLoaded",
     "method"
   ],
   [
@@ -975,6 +1023,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#getsourcehtml",
     "class/lib/page/page.js~Page.html#instance-method-getSourceHTML",
     "lib/page/page.js~Page#getSourceHTML",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#iniframe",
+    "class/lib/page/page.js~Page.html#instance-method-inIframe",
+    "lib/page/page.js~Page#inIframe",
     "method"
   ],
   [

@@ -261,7 +261,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-get-matcher">matcher</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-get-context">context</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -407,7 +407,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-member-_matcher">_matcher</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-member-_context">_context</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -582,6 +582,35 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-method-toJsCode">toJsCode</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>generate and return javascript code for finding element by this finder object</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-method-withAction">withAction</a></span></span><span class="code" data-ice="signature">(action: <span>*</span>): <span>*</span></span>
         </p>
       </div>
@@ -610,7 +639,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-method-withMatcher">withMatcher</a></span></span><span class="code" data-ice="signature">(filter: <span>*</span>, matcher: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-method-withContext">withContext</a></span></span><span class="code" data-ice="signature">(context: <span>*</span>): <span>*</span></span>
         </p>
       </div>
       <div>
@@ -765,7 +794,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber29">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
@@ -883,18 +912,18 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-matcher">
+  <h3 data-ice="anchor" id="instance-get-context">
     <span class="access" data-ice="access">public</span>
     
     <span class="kind" data-ice="kind">get</span>
     
     
     
-    <span class="code" data-ice="name">matcher</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">context</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber29">source</a></span></span>
     </span>
   </h3>
 
@@ -1100,14 +1129,14 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-_matcher">
+  <h3 data-ice="anchor" id="instance-member-_context">
     <span class="access" data-ice="access">private</span>
     
     
     
     
     
-    <span class="code" data-ice="name">_matcher</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">_context</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
@@ -1315,7 +1344,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber106">source</a></span></span>
     </span>
   </h3>
 
@@ -1432,6 +1461,62 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-toJsCode">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">toJsCode</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber62">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>generate and return javascript code for finding element by this finder object</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-withAction">
     <span class="access" data-ice="access">public</span>
     
@@ -1503,14 +1588,14 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-withMatcher">
+  <h3 data-ice="anchor" id="instance-method-withContext">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">withMatcher</span><span class="code" data-ice="signature">(filter: <span>*</span>, matcher: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">withContext</span><span class="code" data-ice="signature">(context: <span>*</span>): <span>*</span></span>
     <span class="right-info">
       
       
@@ -1534,13 +1619,7 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">filter</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">matcher</td>
+      <td data-ice="name" class="code" data-depth="0">context</td>
       <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>

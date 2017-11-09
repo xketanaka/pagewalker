@@ -100,9 +100,16 @@ class Walker {
     this.mocha.suite.on(&apos;post-require&apos;, (context)=&gt;{
       // restore desctibe, xdescribe, describe.only with object property function support
       // object property function support is describe(&quot;title&quot;, { &quot;title&quot;: function(){...} }, ...args)
-      originalFunctions.describe = context.context = context.suite = context.describe = Walker.objectPropertySupport(originalFunctions.describe);
-      originalFunctions.xdescribe = context.xcontext = context.xdescribe = Walker.objectPropertySupport(originalFunctions.xdescribe);
-      originalFunctions.describeOnly = context.describe.only = Walker.objectPropertySupport(originalFunctions.describeOnly);
+      [&quot;describe&quot;, &quot;xdescribe&quot;, &quot;describeOnly&quot;].forEach((key)=&gt;{
+        originalFunctions[key] = Walker.objectPropertySupport(originalFunctions[key]);
+      })
+      context.context = context.suite = context.describe = originalFunctions.describe;
+      context.xcontext = context.xdescribe = originalFunctions.xdescribe;
+      context.describe.only = originalFunctions.describeOnly;
+      // hook function allows object property support.
+      [&quot;before&quot;, &quot;after&quot;, &quot;beforeEach&quot;, &quot;afterEach&quot;].filter(key =&gt; context[key]).forEach((key)=&gt;{
+        context[key] = Walker.objectPropertySupport(context[key]);
+      })
     })
     this.mocha.loadFiles();
     delayedFunctions.forEach((array)=&gt;{
@@ -110,16 +117,22 @@ class Walker {
       func.call(array[1], array[2], array[3], ...array[4]); // this, title, fn, args
     })
   }
+  /**
+   * @private
+   */
   static objectPropertySupport(originalFunc){
     let newFunc = function(title, fn, ...args){
+      if(typeof title == &quot;function&quot;){
+        originalFunc.call(this, title);
+      }
       if(typeof fn == &quot;function&quot;){
         originalFunc.call(this, title, fn);
       }
       if(typeof fn == &quot;object&quot;){
         if(typeof fn[title] != &quot;function&quot;) throw new Error(`Property missing! &quot;${title}&quot; on object [${fn}]`)
-        originalFunc.call(this, title, ()=&gt;{ (typeof args[0] == &quot;function&quot;)? args[0](fn[title]) : (fn[title])(...args) });
+        originalFunc.call(this, title, ()=&gt;{ return (fn[title])(...args) });
       }
-    }
+    };
     for(var prop in originalFunc){
       if(originalFunc.hasOwnProperty(prop)) newFunc[prop] = originalFunc[prop];
     }

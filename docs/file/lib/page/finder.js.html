@@ -188,30 +188,33 @@ class Finder extends FinderBase {
     })
   }
   /**
-   * @return {Promise} Get new Finder for the first matched element. this is same to &quot;indexOf(0)&quot;
-   */
-  getFirst(){
-    return this.indexOf(0);
-  }
-  /**
-   * @return {Promise} Get new Finder for the given index of matched elements
-   */
-  indexOf(i){
-    return this.count()
-    .then((count)=&gt;{
-      if(count &lt; i){ throw `Finder have matched less Elements than given value(${i}) !` }
-      return this.clone().find(`(node, idx)=&gt;{ return idx == ${i} }`);
-    })
-  }
-  /**
    * return true if all elements which is found by Finder satisfied given filter
    * @example
    * await page.find(&quot;input&quot;).every(FinderFilter.haveValue(&quot;123&quot;)) // return true or false
    */
   every(code){
-    return this.withMatcher(code, `(filtered)=&gt;{ return filtered.length == elements.length }`)
+    let filtered = this.clone().find(code);
+    return Promise.all([ this.count(), filtered.count() ])
+    .then((beforeAndAfter)=&gt;{ return beforeAndAfter[0] == beforeAndAfter[1] })
   }
 
+  /**
+   * Make this finder object executed in given iframe.
+   * @param {Finder} finderForIframe - finder object for iframe
+   * @return {Finder}
+   * @example
+   *   await page.find(&quot;h3&quot;).inIframe(page.find(&quot;iframe&quot;).getFirst()).text()
+   */
+  inIframe(finderForIframe){
+    return this.withContext(finderForIframe.toContextString());
+  }
+  /**
+   * @private
+   */
+  toContextString(){
+    let codeToFindIframeObject = this.clone().withAction(elements =&gt; elements).toJsCode();
+    return `(()=&gt;{ ${codeToFindIframeObject} })()[0].contentWindow`;
+  }
   clickAndExpectPageLoaded(...args){
     if(args.length &gt; 0){ this.find(...args) }
     return this.page.expectPageLoaded(()=&gt;{ this.click() });

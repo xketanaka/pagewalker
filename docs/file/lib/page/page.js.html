@@ -60,13 +60,18 @@ const DateFormat = require(&apos;../utils/date_format&apos;);
 const TIMEOUT_MSEC = pageWalker.config.mocha.timeout;
 
 class Page {
-  constructor(window){
+  constructor(window, context = undefined){
     this._window = window;
+    this._context = context;
   }
   /**
    * @return {Window} Window Object which contains this page.
    */
   get window(){ return this._window }
+  /**
+   * @private
+   */
+  get context(){ return this._context }
   /**
    * @return {object} WebContents Object
    * @see https://github.com/electron/electron/blob/master/docs/api/web-contents.md
@@ -110,24 +115,39 @@ class Page {
     return this.webContents.getURL();
   }
   /**
-   * @param {function} action - A function representing the operation of loading new page
+   * Wait loading for contents in new page.
+   * @param {function} action - A function representing the operation of loading new page.
    * @return {Promise}
    */
   expectPageLoaded(action){
+    return this._expectContentLoaded(action, &apos;did-finish-load&apos;, &apos;did-fail-load&apos;)
+  }
+  /**
+   * Wait loading for contents in frame.
+   * @param {function} action - A function representing the operation of loading in frame contents
+   * @return {Promise}
+   */
+  expectFrameLoaded(action){
+    return this._expectContentLoaded(action, &apos;did-frame-finish-load&apos;, &apos;did-fail-load&apos;)
+  }
+  /**
+   * @private
+   */
+  _expectContentLoaded(action, successEvent, failEvent){
     return this.invokeAfterReady((resolve, reject)=&gt;{
-      this.webContents.removeAllListeners(&apos;did-finish-load&apos;);
-      this.webContents.removeAllListeners(&apos;did-fail-load&apos;);
-      this.invokeAction(action, reject);
+      this.webContents.removeAllListeners(successEvent);
+      this.webContents.removeAllListeners(failEvent);
 
       let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
-      this.webContents.once(&apos;did-finish-load&apos;, (event)=&gt;{
+      this.webContents.once(successEvent, (event)=&gt;{
         clearTimeout(timeoutId)
         resolve(this)
       })
-      this.webContents.once(&apos;did-fail-load&apos;, (event)=&gt;{
+      this.webContents.once(failEvent, (event)=&gt;{
         clearTimeout(timeoutId)
         reject(event)
       })
+      this.invokeAction(action, reject);
     })
   }
   /**
@@ -212,21 +232,23 @@ class Page {
    */
   expectAjaxComplete(action){
     return this.expectIpcReceived(()=&gt;{
-      return this.executeJs(`
-        if(!XMLHttpRequest.prototype.__original_open){
-          XMLHttpRequest.prototype.__original_open = XMLHttpRequest.prototype.open;
+      return this.executeJs(`{
+        let _XMLHttpRequest = ${this.context ? this.context : &apos;window&apos;}.XMLHttpRequest;
+        let _ipcRenderer = ${this.context ? &apos;parent&apos; : &apos;window&apos;}.ipcRenderer;
+        if(!_XMLHttpRequest.prototype.__original_open){
+          _XMLHttpRequest.prototype.__original_open = _XMLHttpRequest.prototype.open;
         }
-        XMLHttpRequest.prototype.open = function(){
-          let timeoutId = setTimeout(()=&gt;{ ipcRenderer.send(&apos;asynchronous-message&apos;, &apos;timeout&apos;) }, ${TIMEOUT_MSEC})
+        _XMLHttpRequest.prototype.open = function(){
+          let timeoutId = setTimeout(()=&gt;{ _ipcRenderer.send(&apos;asynchronous-message&apos;, &apos;timeout&apos;) }, ${TIMEOUT_MSEC})
           this.addEventListener(&apos;readystatechange&apos;, function(){
             if(this.readyState == 4){
               clearTimeout(timeoutId);
-              setTimeout(()=&gt;{ ipcRenderer.send(&apos;asynchronous-message&apos;, &apos;ajaxComplete&apos;) }, 0);
+              setTimeout(()=&gt;{ _ipcRenderer.send(&apos;asynchronous-message&apos;, &apos;ajaxComplete&apos;) }, 0);
             }
           });
-          XMLHttpRequest.prototype.__original_open.apply(this, arguments);
+          _XMLHttpRequest.prototype.__original_open.apply(this, arguments);
         };
-      `)
+      }`)
       .then(()=&gt;{ return action &amp;&amp; action() })
     })
     .then((result)=&gt;{
@@ -319,7 +341,19 @@ class Page {
    * @return {Finder}
    */
   find(...args){
-    return new Finder(this, ...args);
+    let finder = new Finder(this, ...args)
+    return this.context ? finder.withContext(this.context) : finder;
+  }
+  /**
+   * Create and Return new Page object in given iframe context.
+   * @param {Finder} finderForIframe - finder object for iframe
+   * @return {Finder}
+   * @example
+   *   const pageInIframe = page.inIframe(page.find(&quot;iframe&quot;).first());
+   *   await pageInIframe.find(&quot;h3&quot;).text()
+   */
+  inIframe(finderForIframe){
+    return new Page(this.window, finderForIframe.toContextString());
   }
   /**
    * Get the HTML source of current page.
