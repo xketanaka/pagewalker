@@ -402,15 +402,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/finder.js~finder#clickandexpectajaxcomplete",
-    "class/lib/page/finder.js~Finder.html#instance-method-clickAndExpectAjaxComplete",
-    "lib/page/finder.js~Finder#clickAndExpectAjaxComplete",
-    "method"
-  ],
-  [
-    "lib/page/finder.js~finder#clickandexpectpageloaded",
-    "class/lib/page/finder.js~Finder.html#instance-method-clickAndExpectPageLoaded",
-    "lib/page/finder.js~Finder#clickAndExpectPageLoaded",
+    "lib/page/finder.js~finder#clickandwaitajaxdone",
+    "class/lib/page/finder.js~Finder.html#instance-method-clickAndWaitAjaxDone",
+    "lib/page/finder.js~Finder#clickAndWaitAjaxDone",
     "method"
   ],
   [
@@ -643,15 +637,15 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/page/finder_base.js~finderbase#allownotfound",
-    "class/lib/page/finder_base.js~FinderBase.html#instance-method-allowNotFound",
-    "lib/page/finder_base.js~FinderBase#allowNotFound",
-    "method"
-  ],
-  [
-    "lib/page/finder_base.js~finderbase#allownotfound",
     "class/lib/page/finder_base.js~FinderBase.html#instance-get-allowNotFound",
     "lib/page/finder_base.js~FinderBase#allowNotFound",
     "member"
+  ],
+  [
+    "lib/page/finder_base.js~finderbase#allownotfound",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-method-allowNotFound",
+    "lib/page/finder_base.js~FinderBase#allowNotFound",
+    "method"
   ],
   [
     "lib/page/finder_base.js~finderbase#clone",
@@ -930,9 +924,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/page/page.js~page#_expectcontentloaded",
-    "class/lib/page/page.js~Page.html#instance-method-_expectContentLoaded",
-    "lib/page/page.js~Page#_expectContentLoaded",
+    "lib/page/page.js~page#_waitforcontent",
+    "class/lib/page/page.js~Page.html#instance-method-_waitForContent",
+    "lib/page/page.js~Page#_waitForContent",
     "method"
   ],
   [
@@ -963,48 +957,6 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#executejs",
     "class/lib/page/page.js~Page.html#instance-method-executeJs",
     "lib/page/page.js~Page#executeJs",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#expectajaxcomplete",
-    "class/lib/page/page.js~Page.html#instance-method-expectAjaxComplete",
-    "lib/page/page.js~Page#expectAjaxComplete",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#expectconfirmdialog",
-    "class/lib/page/page.js~Page.html#instance-method-expectConfirmDialog",
-    "lib/page/page.js~Page#expectConfirmDialog",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#expectdownloaded",
-    "class/lib/page/page.js~Page.html#instance-method-expectDownloaded",
-    "lib/page/page.js~Page#expectDownloaded",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#expectframeloaded",
-    "class/lib/page/page.js~Page.html#instance-method-expectFrameLoaded",
-    "lib/page/page.js~Page#expectFrameLoaded",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#expectipcreceived",
-    "class/lib/page/page.js~Page.html#instance-method-expectIpcReceived",
-    "lib/page/page.js~Page#expectIpcReceived",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#expectnewwindow",
-    "class/lib/page/page.js~Page.html#instance-method-expectNewWindow",
-    "lib/page/page.js~Page#expectNewWindow",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#expectpageloaded",
-    "class/lib/page/page.js~Page.html#instance-method-expectPageLoaded",
-    "lib/page/page.js~Page#expectPageLoaded",
     "method"
   ],
   [
@@ -1054,6 +1006,48 @@ window.esdocSearchIndex = [
     "class/lib/page/page.js~Page.html#instance-get-url",
     "lib/page/page.js~Page#url",
     "member"
+  ],
+  [
+    "lib/page/page.js~page#waitforajaxdone",
+    "class/lib/page/page.js~Page.html#instance-method-waitForAjaxDone",
+    "lib/page/page.js~Page#waitForAjaxDone",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#waitforconfirm",
+    "class/lib/page/page.js~Page.html#instance-method-waitForConfirm",
+    "lib/page/page.js~Page#waitForConfirm",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#waitfordownload",
+    "class/lib/page/page.js~Page.html#instance-method-waitForDownload",
+    "lib/page/page.js~Page#waitForDownload",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#waitforframeloaded",
+    "class/lib/page/page.js~Page.html#instance-method-waitForFrameLoaded",
+    "lib/page/page.js~Page#waitForFrameLoaded",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#waitforipcreceive",
+    "class/lib/page/page.js~Page.html#instance-method-waitForIpcReceive",
+    "lib/page/page.js~Page#waitForIpcReceive",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#waitfornewwindow",
+    "class/lib/page/page.js~Page.html#instance-method-waitForNewWindow",
+    "lib/page/page.js~Page#waitForNewWindow",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#waitforpageload",
+    "class/lib/page/page.js~Page.html#instance-method-waitForPageLoad",
+    "lib/page/page.js~Page#waitForPageLoad",
+    "method"
   ],
   [
     "lib/page/page.js~page#waitloading",

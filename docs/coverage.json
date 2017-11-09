@@ -1,7 +1,7 @@
 {
-  "coverage": "38.46%",
-  "expectCount": 234,
-  "actualCount": 90,
+  "coverage": "39.05%",
+  "expectCount": 233,
+  "actualCount": 91,
   "files": {
     "lib/cli_start.js": {
       "expectCount": 1,
@@ -11,18 +11,16 @@
       ]
     },
     "lib/page/finder.js": {
-      "expectCount": 20,
-      "actualCount": 11,
+      "expectCount": 19,
+      "actualCount": 12,
       "undocumentLines": [
         1,
         2,
         3,
         4,
         5,
-        182,
-        13,
-        166,
-        176
+        180,
+        13
       ]
     },
     "lib/page/finder_action.js": {
@@ -98,7 +96,7 @@
         11,
         12,
         13,
-        314
+        319
       ]
     },
     "lib/page/window.js": {

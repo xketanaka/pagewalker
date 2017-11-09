@@ -107,7 +107,7 @@ class Finder extends FinderBase {
     })
     .then(()=&gt;{
       let data = fs.readFileSync(filePath);
-      return this.page.expectIpcReceived(()=&gt;{
+      return this.page.waitForIpcReceive(()=&gt;{
         this.page.webContents.send(&apos;file-body-transfer&apos;, data);
       }, &apos;file-body-transfer-end&apos;)
     });
@@ -215,19 +215,17 @@ class Finder extends FinderBase {
     let codeToFindIframeObject = this.clone().withAction(elements =&gt; elements).toJsCode();
     return `(()=&gt;{ ${codeToFindIframeObject} })()[0].contentWindow`;
   }
-  clickAndExpectPageLoaded(...args){
-    if(args.length &gt; 0){ this.find(...args) }
-    return this.page.expectPageLoaded(()=&gt;{ this.click() });
+  /**
+   * this is same for `page.waitForPageLoad(async ()=&gt;{ await this.click() })`
+   */
+  clickAndWaitLoading(){
+    return this.page.waitForPageLoad(()=&gt;{ this.click() });
   }
   /**
-   * alias of clickAndExpectPageLoaded
+   * this is same for `page.waitForAjaxDone(async ()=&gt;{ await this.click() })`
    */
-  clickAndWaitLoading(...args){
-    return this.clickAndExpectPageLoaded(...args);
-  }
-  clickAndExpectAjaxComplete(...args){
-    if(args.length &gt; 0){ this.find(...args) }
-    return this.page.expectAjaxComplete(()=&gt;{ this.click() });
+  clickAndWaitAjaxDone(){
+    return this.page.waitForAjaxDone(()=&gt;{ this.click() });
   }
 }
 

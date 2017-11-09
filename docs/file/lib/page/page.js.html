@@ -84,11 +84,12 @@ class Page {
     if(!this.window.isReady()) throw &quot;PageContent is not ready!, Please call the &apos;load&apos; method first&quot;
   }
   /**
+   * Load new page which is URL given, and returned Promise is resolved when finished load.
    * @return {Promise}
    */
   load(url, options = {}){
     let loadURLFunction = ()=&gt;{
-      return this.expectPageLoaded(()=&gt;{ if(url) this.webContents.loadURL(url, options) })
+      return this.waitForPageLoad(()=&gt;{ if(url) this.webContents.loadURL(url, options) })
     };
     if(this.window.isReady()){
       return loadURLFunction()
@@ -99,17 +100,20 @@ class Page {
     }
   }
   /**
+   * When string given, load given URL page. Otherwise, wait for finish page load.
+   * This is same for `page.load()` or `page.waitForPageLoad()`
    * @return {Promise}
    */
   waitLoading(...args){
     if(typeof args[0] == &apos;undefined&apos; || typeof args[0] == &apos;function&apos;){
-      return this.expectPageLoaded(...args)
+      return this.waitForPageLoad(...args)
     }else{
       return this.load(...args)
     }
   }
   /**
-   * @return {string} URL of current page
+   * URL of current page
+   * @return {string}
    */
   get url(){
     return this.webContents.getURL();
@@ -119,21 +123,21 @@ class Page {
    * @param {function} action - A function representing the operation of loading new page.
    * @return {Promise}
    */
-  expectPageLoaded(action){
-    return this._expectContentLoaded(action, &apos;did-finish-load&apos;, &apos;did-fail-load&apos;)
+  waitForPageLoad(action){
+    return this._waitForContent(action, &apos;did-finish-load&apos;, &apos;did-fail-load&apos;)
   }
   /**
    * Wait loading for contents in frame.
    * @param {function} action - A function representing the operation of loading in frame contents
    * @return {Promise}
    */
-  expectFrameLoaded(action){
-    return this._expectContentLoaded(action, &apos;did-frame-finish-load&apos;, &apos;did-fail-load&apos;)
+  waitForFrameLoaded(action){
+    return this._waitForContent(action, &apos;did-frame-finish-load&apos;, &apos;did-fail-load&apos;)
   }
   /**
    * @private
    */
-  _expectContentLoaded(action, successEvent, failEvent){
+  _waitForContent(action, successEvent, failEvent){
     return this.invokeAfterReady((resolve, reject)=&gt;{
       this.webContents.removeAllListeners(successEvent);
       this.webContents.removeAllListeners(failEvent);
@@ -156,12 +160,12 @@ class Page {
    * @param {function} action - A function representing the operation of file download
    * @return {Promise}
    * @example
-   *   const filePath = await page.expectDownloaded(()=&gt;{
+   *   const filePath = await page.waitForDownload(()=&gt;{
    *     ...
    *   })
    *   assert.equal(await (util.promisify(fs.readFile))(filePath, &apos;utf-8&apos;), ...);
    */
-  expectDownloaded(action){
+  waitForDownload(action){
     return this.invokeAfterReady((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
 
@@ -190,15 +194,16 @@ class Page {
    * @param {function} action - A function representing the operation of open new window
    * @return {Promise}
    * @example
-   *   const newWin = await page.expectNewWindow(()=&gt;{
+   *   const newWin = await page.waitForNewWindow(()=&gt;{
    *     ...
    *   })
    *   newWin.page.find(...).click();
    *   newWin.close();
    */
-  expectNewWindow(action){
+  waitForNewWindow(action){
     return this.invokeAfterReady((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+      this.webContents.removeAllListeners(&apos;new-window&apos;);
       this.webContents.once(&apos;new-window&apos;, (event, url, frameName)=&gt;{
         clearTimeout(timeoutId);
         if(pageWalker.getWindow(frameName)){
@@ -215,7 +220,7 @@ class Page {
    * @param {string} channel - string of representing the channel of IPC
    * @return {Promise}
    */
-  expectIpcReceived(action, channel = &apos;asynchronous-message&apos;){
+  waitForIpcReceive(action, channel = &apos;asynchronous-message&apos;){
     return this.invokeAfterReady((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
       ipcMain.once(channel, (event, arg)=&gt;{
@@ -230,8 +235,8 @@ class Page {
    * @param {function} action - A function representing the operation of sending Ajax request
    * @return {Promise}
    */
-  expectAjaxComplete(action){
-    return this.expectIpcReceived(()=&gt;{
+  waitForAjaxDone(action){
+    return this.waitForIpcReceive(()=&gt;{
       return this.executeJs(`{
         let _XMLHttpRequest = ${this.context ? this.context : &apos;window&apos;}.XMLHttpRequest;
         let _ipcRenderer = ${this.context ? &apos;parent&apos; : &apos;window&apos;}.ipcRenderer;
@@ -261,17 +266,17 @@ class Page {
    * @param {function} action - A function representing the operation of open confirm dialog
    * @return {Promise}
    * @example
-   *   await page.expectConfirmDialog({ message: &quot;Are you OK?&quot;, isClickOK: false }, ()=&gt;{
+   *   await page.waitConfirmDialog({ message: &quot;Are you OK?&quot;, isClickOK: false }, ()=&gt;{
    *     page.find(&quot;button.submit-form&quot;).click()
    *   })
    *
    *   await page.waitLoading(async ()=&gt;{
-   *     await page.expectConfirmDialog(()=&gt;{
-   *       page.find(&quot;button.submit-form&quot;).click()
+   *     await page.waitForConfirm(async ()=&gt;{
+   *       await page.find(&quot;button.submit-form&quot;).click()
    *     })
    *   })
    */
-  expectConfirmDialog(confirmOption, action){
+  waitForConfirm(confirmOption, action){
     const defaultOption = { message: &quot;&quot;, isClickOK: true };
     if(typeof action == &quot;undefined&quot; &amp;&amp; typeof confirmOption == &quot;function&quot;){
       action = confirmOption
