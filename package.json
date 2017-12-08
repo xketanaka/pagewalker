@@ -26,12 +26,15 @@
     ]
   },
   "dependencies": {
-    "electron": "*",
     "mocha": "*"
   },
   "devDependencies": {
     "esdoc": "*",
     "esdoc-node": "*",
     "esdoc-standard-plugin": "*"
+  },
+  "optionalDependencies": {
+    "electron": "^1.7.9",
+    "puppeteer": "^0.13.0"
   }
 }
