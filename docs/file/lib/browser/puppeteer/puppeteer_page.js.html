@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/browser/puppeteer/puppeteer_page.js | pagewalker</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/xketanaka/pagewalker.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html">PageWalker</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageWalker">pageWalker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-electron">browser/electron</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention.html">ElectronFinderExtention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/electron_page.js~ElectronPage.html">ElectronPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/index.js~ElectronBrowser.html">ElectronBrowser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Finder">Finder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserPage">BrowserPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-interface">browser/interface</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser_page.js~BrowserPage.html">BrowserPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser_socket.js~BrowserSocket.html">BrowserSocket</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/browser/puppeteer/puppeteer_page.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
+const fs = require(&apos;fs&apos;);
+const EventEmitter = require(&apos;events&apos;);
+const BrowserPage = require(&quot;../interface/browser_page&quot;);
+const BrowserSocket = require(&quot;../interface/browser_socket&quot;);
+const PuppeteerFinderExtention = require(&quot;./puppeteer_finder_extention&quot;);
+const {config} = require(&quot;../../utils/config&quot;);
+const DateFormat = require(&apos;../../utils/date_format&apos;);
+
+const TIMEOUT_MSEC = config.mocha.timeout;
+const DOWNLOAD_PATH = path.resolve(config.fileDownloadDir);
+
+class PuppeteerPage extends BrowserPage {
+  constructor(window){
+    super();
+    this._window = window;
+    const browserSocket = this._browserSocket = new PuppeteerSocket();
+
+    this._window.on(&apos;ready&apos;, ()=&gt;{
+      this.nativeObject.exposeFunction(&apos;invokeBrowserSocket&apos;, (...args)=&gt;{
+        const argArray = JSON.parse(args.join(&quot;&quot;))
+        return browserSocket[argArray[0]](...(argArray.slice(1)));
+      })
+      this.nativeObject.evaluateOnNewDocument(()=&gt;{
+        window.browserSocket = {
+          on: (...args)=&gt;{ window.invokeBrowserSocket(&apos;on&apos;, ...args) },
+          once: (...args)=&gt;{ window.invokeBrowserSocket(&apos;once&apos;, ...args) },
+          removeAllListeners: (...args)=&gt;{ window.invokeBrowserSocket(&apos;removeAllListeners&apos;, ...args) },
+          send: (...args)=&gt;{ window.invokeBrowserSocket(&apos;send&apos;, ...args) },
+        }
+      });
+      this._setDownloadPath(DOWNLOAD_PATH);
+    })
+  }
+  on(eventName, callback){
+    this._addEventListener(eventName, callback, fasle)
+  }
+  once(eventName, callback){
+    this._addEventListener(eventName, callback, true)
+  }
+  _addEventListener(eventName, callback, once = true){
+    if(eventName in PuppeteerPage.EventMappings){
+      this.nativeObject[once ? &apos;once&apos; : &apos;on&apos;](PuppeteerPage.EventMappings[eventName], callback)
+    }else{
+      super[once ? &apos;once&apos; : &apos;on&apos;](evnetName, callback)
+    }
+  }
+  removeAllListeners(eventName){
+    if(eventName in PuppeteerPage.EventMappings){
+      this.nativeObject.removeAllListeners(PuppeteerPage.EventMappings[eventName])
+    }else{
+      super.removeAllListeners(eventName);
+    }
+  }
+  /**
+   * @return {Window}
+   */
+  get window(){
+    return this._window;
+  }
+  /**
+   * @return {object}
+   */
+  get nativeObject(){
+    return this._window.browserWindow;
+  }
+  /**
+   * @return {BrowserSocket}
+   */
+  get socket(){
+    return this._browserSocket;
+  }
+  /**
+   * @return {Finder}
+   */
+  get FinderClass(){
+    return PuppeteerFinderExtention;
+  }
+  /**
+   * @return {Promise&lt;BrowserPage&gt;}
+   */
+  loadURL(url, options = {}){
+    return this.nativeObject.goto(url);
+  }
+  /**
+   * @return {string}
+   */
+  getURL(){
+    return this.nativeObject.url();
+  }
+  /**
+   * @return {Promise&lt;string|number|boolean&gt;}
+   */
+  executeJavaScript(code, ...args){
+    return this.nativeObject.evaluate(code, ...args);
+  }
+  /**
+   * show developer tool
+   */
+  openDevTools(){ /*ignoe*/ }
+  /**
+   * @private
+   */
+  _setDownloadPath(downloadPath){
+    return this.nativeObject._client.send(
+      &apos;Page.setDownloadBehavior&apos;, {&#x3000;behavior: &apos;allow&apos;, downloadPath: downloadPath }
+    );
+  }
+  /**
+   * @return {Promise&lt;object&gt;}
+   */
+  waitForDownload(action, options){
+    const isDownloadComplete = (path)=&gt;{
+      return new Promise((resolve, reject)=&gt;{
+        fs.readdir(path, (err, files)=&gt;{ err ? reject(err) : resolve(files) })
+      })
+      .then((files)=&gt;{
+        if (files.length === 0) return false;
+        // .crdownload&#x304C;&#x3042;&#x308C;&#x3070;&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;&#x4E2D;
+        const nowDownloading = Array.from(files).some(file =&gt; /.*\.crdownload$/.test(file))
+        return !nowDownloading
+      });
+    };
+
+    const waitResponse = ()=&gt;{
+      return new Promise((resolve, reject)=&gt;{
+        let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
+        this.nativeObject.removeAllListeners(&apos;response&apos;);
+        this.nativeObject.on(&apos;response&apos;, (response)=&gt;{
+          let contentDisposition = response.headers[&quot;content-disposition&quot;];
+          if(contentDisposition){
+            clearTimeout(timeoutId);
+            let matched = contentDisposition.match(/filename=\&quot;(.*)\&quot;$/);
+            resolve(matched ? matched[1] : &quot;&quot;);
+          }
+        })
+        action();
+      })
+    };
+    const downloadPath = options.downloadPath || DOWNLOAD_PATH;
+    const waitTimeSpanMs = 100;
+
+    return (options.downloadPath ? this._setDownloadPath(options.downloadPath) : Promise.resolve())
+// patch start:
+// page.on(&apos;response&apos;) do not happen in puppeteer v0.13, so check saved file.
+//    .then(waitResponse)
+//    .then((filename)=&gt;{
+    .then(()=&gt;{
+      return new Promise((resolve, reject)=&gt;{
+        fs.readdir(downloadPath, (err, files)=&gt;{ err ? reject(err) : resolve(files) })
+      })
+    })
+    .then((filenames)=&gt;{
+      action();
+// patch end
+      return new Promise((resolve, reject)=&gt;{
+        let totalWaitTimeMs = 0;
+        const waitAndCheck = ()=&gt;{
+          if(totalWaitTimeMs &gt; TIMEOUT_MSEC) return reject(new Error(&apos;timeout&apos;));
+
+          setTimeout(()=&gt;{
+            totalWaitTimeMs += waitTimeSpanMs;
+            isDownloadComplete(downloadPath).catch(reject).then((completed)=&gt;{
+              if(!completed) return waitAndCheck();
+
+// patch start
+              return new Promise((resolve, reject)=&gt;{
+                const findDownloadedFile = ()=&gt;{
+                  fs.readdir(downloadPath, (err, files)=&gt;{
+                    if(err) return reject(err);
+                    let filename = files.filter(file =&gt; !filenames.includes(file))[0];
+                    if(!filename) return findDownloadedFile();
+                    resolve(filename);
+                  })
+                };
+                findDownloadedFile();
+              })
+              .then((filename)=&gt;{
+// patch end
+                resolve({ filename: filename, savedFilePath: path.resolve(path.join(downloadPath, filename)) });
+              });
+            })
+          }, waitTimeSpanMs);
+        };
+        waitAndCheck();
+      });
+    });
+  }
+
+  /**
+   * @return {Promise&lt;string&gt;} resolved by confirm message
+   */
+  waitForConfirm(action, message = undefined, isClickOK = false){
+    return new Promise((resolve, reject)=&gt;{
+      let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
+      this.nativeObject.once(&apos;dialog&apos;, (dialog)=&gt;{
+        if(dialog.type != &apos;confirm&apos;) return;
+
+        clearTimeout(timeoutId);
+        if(message &amp;&amp; message != dialog.message()){
+          return reject(new Error(`expected message is &quot;${message}&quot;, but actual is &quot;${dialog.message()}&quot;`));
+        }
+        dialog.accept().then(resolve);
+      })
+      action();
+    })
+  }
+}
+
+class PuppeteerSocket extends BrowserSocket {
+  constructor(){
+    super();
+    this.emitter = new EventEmitter();
+  }
+  on(channel, callback){
+    return this.emitter.on(channel, callback);
+  }
+  once(channel, callback){
+    return this.emitter.once(channel, callback);
+  }
+  removeAllListeners(channel){
+    return this.emitter.removeAllListeners(channel);
+  }
+  send(channel, ...args){
+    return this.emitter.emit(channel, ...args)
+  }
+}
+
+PuppeteerPage.EventMappings = {
+  [BrowserPage.Events.Load]: &apos;load&apos;,
+  [BrowserPage.Events.LoadError]: &apos;requestfailed&apos;,
+//  [BrowserPage.Events.NewWindow]: &apos;did-fail-load&apos;,
+}
+
+module.exports = PuppeteerPage;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -31,6 +31,19 @@
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html">PageWalker</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageWalker">pageWalker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-electron">browser/electron</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention.html">ElectronFinderExtention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/electron_page.js~ElectronPage.html">ElectronPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/index.js~ElectronBrowser.html">ElectronBrowser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Finder">Finder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserPage">BrowserPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-interface">browser/interface</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser_page.js~BrowserPage.html">BrowserPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser_socket.js~BrowserSocket.html">BrowserSocket</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
@@ -38,7 +51,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
@@ -56,30 +68,33 @@ const LoadWalkerModule = ()=&gt;{ return require(&apos;./walker/walker&apos;) };
 const LoadWindowModudle = ()=&gt;{ return require(&apos;./page/window&apos;) }; // for Lazy loading
 
 class PageWalker {
-  constructor(app){
+  constructor(){
     this.windows = {};
-    this._app = app;
-    this._app.on(&apos;window-all-closed&apos;, ()=&gt;{ this._app.quit() });
-    this._app.on(&apos;ready&apos;, ()=&gt;{
-      Object.values(this.windows).forEach((window)=&gt;{ window.emit(&apos;ready&apos;) });
-    })
   }
-  start(commandLineArgs){
-    this._config = Config.create(commandLineArgs);
+  start(config){
+    this._config = config;
+
+    this._browser = new (require(`./browser/${config.browser}`))(config[config.browser]);
 
     const Walker = LoadWalkerModule();
-    this._walker = new Walker(Config.config);
+    this._walker = new Walker(config);
 
-    this._app.on(&apos;ready&apos;, ()=&gt;{
+    this._browser.on(&apos;ready&apos;, ()=&gt;{
       this._walker.walk((failures)=&gt;{
         console.log(`[${failures == 0? &apos;SUCCESS&apos;: &apos;FAILURE&apos;}!] finished with status:${failures}`);
-        if(this.config.silentMode){
-          this._app.exit(failures);  // exit with non-zero status if there were failures
+        if(this.config.exitImmediately){
+          this._browser.exit(failures);  // exit with non-zero status if there were failures
         }else{
-          Object.values(this.windows).forEach((window)=&gt;{ window.browserWindow.webContents.openDevTools() });;
+          Object.values(this.windows).forEach((window)=&gt;{ window.page.openDevTools() });;
         }
       })
     })
+  }
+  /**
+   * @return {Browser} Browser Object(Instance will be relayed on Browser used)
+   */
+  get browser(){
+    return this._browser;
   }
   get config(){
     return this._config;
@@ -93,32 +108,37 @@ class PageWalker {
     }
     return this.windows[name]
   }
-  createWindow(name, windowOptions = {}){
-    const Window = LoadWindowModudle();
-    this.windows[name] = new Window(name, this._app.isReady(), windowOptions);
-    if(this._app.isReady()){
-      this.windows[name].emit(&apos;ready&apos;);
-    }
-    return this.getWindow(name);
+  getWindowById(id){
+    return Object.values(this.windows).filter(window =&gt; window.id &amp;&amp; window.id == id )[0];
   }
+  createWindow(name, windowOptions = {}){
+    return this.createWindowWithId(name, undefined, windowOptions);
+  }
+  createWindowWithId(name, id, windowOptions = {}){
+    const Window = LoadWindowModudle();
+    this.windows[name] = new Window(id, name, this._browser, windowOptions);
+    return this.windows[name];
+  }
+  /**
+   * remove window referrence, but not destroy window object.
+   */
   removeWindow(name){
     this.windows[name] = undefined;
   }
   /**
-   * Handle window.open event.
-   * prevent default-behavior and create new Window object which is managed by pageWalker.
+   * remove window referrence, but not destroy window object.
    */
-  onCreateNewWindow(event, url, frameName, disposition, options, additionalFeatures){
-    event.preventDefault();
-    let win = this.getWindow(frameName) || this.createWindow(frameName, options);
-    if(url &amp;&amp; url != &quot;about:blank&quot;){
-      win.page.load(url)
+  removeWindowById(id){
+    let window = this.getWindowById(id);
+    if(window &amp;&amp; window.name){
+      this.windows[window.name] = undefined;
     }
-    event.newGuest = win.browserWindow
+
   }
+
 }
 
-module.exports = new PageWalker(electron.app)
+module.exports = new PageWalker();
 </code></pre>
 
 </div>

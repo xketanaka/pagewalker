@@ -31,6 +31,19 @@
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html">PageWalker</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-pageWalker">pageWalker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-electron">browser/electron</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention.html">ElectronFinderExtention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/electron_page.js~ElectronPage.html">ElectronPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/electron/index.js~ElectronBrowser.html">ElectronBrowser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Finder">Finder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-BrowserPage">BrowserPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Browser">Browser</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-interface">browser/interface</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser.js~Browser.html">Browser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser_page.js~BrowserPage.html">BrowserPage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/interface/browser_socket.js~BrowserSocket.html">BrowserSocket</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
@@ -38,7 +51,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EventEmitter">EventEmitter</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
@@ -51,32 +63,34 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/page/page.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
-const {ipcMain} = require(&apos;electron&apos;);
 const Finder = require(&apos;./finder&apos;);
 const pageWalker = require(&apos;../page_walker&apos;);
 const {config} = pageWalker;
-const DateFormat = require(&apos;../utils/date_format&apos;);
+const BrowserPage = require(&apos;../browser/interface/browser_page&apos;);
 
 const TIMEOUT_MSEC = pageWalker.config.mocha.timeout;
 
 class Page {
-  constructor(window, context = undefined){
-    this._window = window;
+  constructor(browserPage, context = undefined){
+    this._browserPage = browserPage;
     this._context = context;
   }
   /**
-   * @return {Window} Window Object which contains this page.
+   * @return {BrowserPage} BrowserPage Object(Instance will be relayed on Browser used)
    */
-  get window(){ return this._window }
+  get browserPage(){ return this._browserPage }
   /**
    * @private
    */
   get context(){ return this._context }
   /**
-   * @return {object} WebContents Object
-   * @see https://github.com/electron/electron/blob/master/docs/api/web-contents.md
+   * @return {Window} Window Object which contains this page.
    */
-  get webContents(){ return this.window.browserWindow.webContents }
+  get window(){ return this._browserPage.window }
+  /**
+   * @return {object} Page Object provided by Each Browser
+   */
+  get webContents(){ return this._browserPage.nativeObject }
   /**
    * @private
    */
@@ -89,7 +103,7 @@ class Page {
    */
   load(url, options = {}){
     let loadURLFunction = ()=&gt;{
-      return this.waitForPageLoad(()=&gt;{ if(url) this.webContents.loadURL(url, options) })
+      return this.waitForPageLoad(()=&gt;{ if(url) this.browserPage.loadURL(url, options) })
     };
     if(this.window.isReady()){
       return loadURLFunction()
@@ -116,7 +130,7 @@ class Page {
    * @return {string}
    */
   get url(){
-    return this.webContents.getURL();
+    return this.browserPage.getURL();
   }
   /**
    * Wait loading for contents in new page.
@@ -124,30 +138,25 @@ class Page {
    * @return {Promise}
    */
   waitForPageLoad(action){
-    return this._waitForContent(action, &apos;did-finish-load&apos;, &apos;did-fail-load&apos;)
-  }
-  /**
-   * Wait loading for contents in frame.
-   * @param {function} action - A function representing the operation of loading in frame contents
-   * @return {Promise}
-   */
-  waitForFrameLoaded(action){
-    return this._waitForContent(action, &apos;did-frame-finish-load&apos;, &apos;did-fail-load&apos;)
-  }
-  /**
-   * @private
-   */
-  _waitForContent(action, successEvent, failEvent){
+    if(this._context){
+      return this.waitForBrowserSocket(&apos;iframe-page-load&apos;, ()=&gt;{
+        return this.executeJs(`{
+          ${this._context}.addEventListener(&apos;DOMContentLoaded&apos;, ()=&gt;{
+            window.browserSocket.send(&apos;iframe-page-load&apos;, &apos;loaded&apos;);
+          })
+        }`);
+      })
+    }
     return this.invokeAfterReady((resolve, reject)=&gt;{
-      this.webContents.removeAllListeners(successEvent);
-      this.webContents.removeAllListeners(failEvent);
+      this.browserPage.removeAllListeners(BrowserPage.Events.Load);
+      this.browserPage.removeAllListeners(BrowserPage.Events.LoadError);
 
       let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
-      this.webContents.once(successEvent, (event)=&gt;{
+      this.browserPage.once(BrowserPage.Events.Load, (event)=&gt;{
         clearTimeout(timeoutId)
         resolve(this)
       })
-      this.webContents.once(failEvent, (event)=&gt;{
+      this.browserPage.once(BrowserPage.Events.LoadError, (event)=&gt;{
         clearTimeout(timeoutId)
         reject(event)
       })
@@ -155,38 +164,23 @@ class Page {
     })
   }
   /**
-   * Wait file-download completed and resolve the promise with savedFile path.
+   * Wait file-download completed and resolve the promise with result object(contains filename, savedFilePath)
    * A File is saved in config.fileDownloadDir with timestamp string like &apos;20171225002540_print.pdf&apos;
    * @param {function} action - A function representing the operation of file download
-   * @return {Promise}
+   * @param {object} options - options for downloading
+   * @return {Promise&lt;object&gt;} object have property &quot;filename&quot; and &quot;savedFilePath&quot;
    * @example
-   *   const filePath = await page.waitForDownload(()=&gt;{
+   *   const item = await page.waitForDownload(()=&gt;{
    *     ...
    *   })
-   *   assert.equal(await (util.promisify(fs.readFile))(filePath, &apos;utf-8&apos;), ...);
+   *   assert.equal(await (util.promisify(fs.readFile))(item.savedFilePath, &apos;utf-8&apos;), ...);
    */
-  waitForDownload(action){
+  waitForDownload(action, options = {}){
     return this.invokeAfterReady((resolve, reject)=&gt;{
-      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
-
-      this.webContents.session.once(&apos;will-download&apos;, (event, item, webContents) =&gt; {
-        // Set the save path, making Electron not to prompt a save dialog.
-        let filename = `${DateFormat.toTimepstampString(new Date())}_${item.getFilename()}`;
-        let savePath = path.resolve(path.join(config.fileDownloadDir, filename));
-        item.setSavePath(savePath);
-        item.on(&apos;updated&apos;, (event, state)=&gt;{
-          if(state === &apos;interrupted&apos;) reject(new Error(&apos;Download is interrupted&apos;));
-        })
-        item.once(&apos;done&apos;, (event, state) =&gt; {
-          clearTimeout(timeoutId);
-          if(state == &apos;completed&apos;){
-            resolve(savePath)
-          }else{
-            reject(new Error(`Download failed: ${state}`))
-          }
-        })
-      })
-      this.invokeAction(action, reject);
+      return this.browserPage.waitForDownload(()=&gt;{
+        this.invokeAction(action, reject);
+      }, options)
+      .then(resolve).catch(reject);
     })
   }
   /**
@@ -203,8 +197,8 @@ class Page {
   waitForNewWindow(action){
     return this.invokeAfterReady((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
-      this.webContents.removeAllListeners(&apos;new-window&apos;);
-      this.webContents.once(&apos;new-window&apos;, (event, url, frameName)=&gt;{
+      this.browserPage.removeAllListeners(BrowserPage.Events.NewWindow);
+      this.browserPage.once(BrowserPage.Events.NewWindow, (frameName)=&gt;{
         clearTimeout(timeoutId);
         if(pageWalker.getWindow(frameName)){
           resolve(pageWalker.getWindow(frameName));
@@ -216,14 +210,19 @@ class Page {
     })
   }
   /**
-   * @param {function} action - A function representing the operation of sending IPC
-   * @param {string} channel - string of representing the channel of IPC
+   * @param {string} channel - string of representing the channel of Browser Socket Message. default is &apos;asynchronous-message-channel&apos;.
+   * @param {function} action - A function representing the operation of sending Browser Socket Message
    * @return {Promise}
    */
-  waitForIpcReceive(action, channel = &apos;asynchronous-message&apos;){
+  waitForBrowserSocket(channel, action){
+    if(!action &amp;&amp; typeof channel === &apos;function&apos;){
+      action = channel;
+      channel = &apos;asynchronous-message-channel&apos;
+    }
     return this.invokeAfterReady((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
-      ipcMain.once(channel, (event, arg)=&gt;{
+      this.browserPage.socket.removeAllListeners(channel);
+      this.browserPage.socket.once(channel, (arg)=&gt;{
         clearTimeout(timeoutId);
 
         resolve(arg);
@@ -236,22 +235,21 @@ class Page {
    * @return {Promise}
    */
   waitForAjaxDone(action){
-    return this.waitForIpcReceive(()=&gt;{
+    return this.waitForBrowserSocket(&quot;notify-ajax-done&quot;, ()=&gt;{
       return this.executeJs(`{
         let _XMLHttpRequest = ${this.context ? this.context : &apos;window&apos;}.XMLHttpRequest;
-        let _ipcRenderer = ${this.context ? &apos;parent&apos; : &apos;window&apos;}.ipcRenderer;
-        if(!_XMLHttpRequest.prototype.__original_open){
-          _XMLHttpRequest.prototype.__original_open = _XMLHttpRequest.prototype.open;
-        }
+        let _browserSocket = ${this.context ? &apos;parent&apos; : &apos;window&apos;}.browserSocket;
+        let __original_open = _XMLHttpRequest.prototype.open;
+
         _XMLHttpRequest.prototype.open = function(){
-          let timeoutId = setTimeout(()=&gt;{ _ipcRenderer.send(&apos;asynchronous-message&apos;, &apos;timeout&apos;) }, ${TIMEOUT_MSEC})
+          let timeoutId = setTimeout(()=&gt;{ _browserSocket.send(&apos;notify-ajax-done&apos;, &apos;timeout&apos;) }, ${TIMEOUT_MSEC})
           this.addEventListener(&apos;readystatechange&apos;, function(){
             if(this.readyState == 4){
               clearTimeout(timeoutId);
-              setTimeout(()=&gt;{ _ipcRenderer.send(&apos;asynchronous-message&apos;, &apos;ajaxComplete&apos;) }, 0);
+              setTimeout(()=&gt;{ _browserSocket.send(&apos;notify-ajax-done&apos;, &apos;ajaxComplete&apos;) }, 0);
             }
           });
-          _XMLHttpRequest.prototype.__original_open.apply(this, arguments);
+          __original_open.apply(this, arguments);
         };
       }`)
       .then(()=&gt;{ return action &amp;&amp; action() })
@@ -286,28 +284,8 @@ class Page {
     let isClickOK = (&apos;isClickOK&apos; in confirmOption)? confirmOption.isClickOK : defaultOption.isClickOK;
 
     return this.invokeAfterReady((resolve, reject)=&gt;{
-      const channel = &apos;confirm-synchronous&apos;;
-      let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
-      ipcMain.once(channel, (event, arg)=&gt;{
-        clearTimeout(timeoutId);
-        if(message &amp;&amp; message != arg){
-          reject(new Error(`expected message is &quot;${message}&quot;, but actual is &quot;${arg}&quot;`));
-        }
-        event.returnValue = isClickOK;
-        resolve(message);
-      });
-      return this.executeJs(`
-        if(!window.__original_confirm){
-          window.__original_confirm = window.confirm;
-        }
-        window.confirm = function(message){
-          var ret = ipcRenderer.sendSync(&apos;${channel}&apos;, message);
-          window.confirm = window.__original_confirm;
-          return ret;
-        };
-      `)
-      .then(()=&gt;{ return action &amp;&amp; action() })
-      .catch(reject)
+      this.browserPage.waitForConfirm(action, message, isClickOK)
+      .then(resolve).catch(reject);
     })
   }
   /**
@@ -338,7 +316,7 @@ class Page {
    */
   executeJs(code){
     try{ this.checkReady() }catch(err){ return Promise.reject(err) }
-    return this.webContents.executeJavaScript(code, true)
+    return this.browserPage.executeJavaScript(code, true)
   }
   /**
    * Create and Return new Finder object with given finder-condition
@@ -346,19 +324,19 @@ class Page {
    * @return {Finder}
    */
   find(...args){
-    let finder = new Finder(this, ...args)
+    let finder = new (this.browserPage.FinderClass)(this, ...args)
     return this.context ? finder.withContext(this.context) : finder;
   }
   /**
    * Create and Return new Page object in given iframe context.
    * @param {Finder} finderForIframe - finder object for iframe
-   * @return {Finder}
+   * @return {Page}
    * @example
    *   const pageInIframe = page.inIframe(page.find(&quot;iframe&quot;).first());
    *   await pageInIframe.find(&quot;h3&quot;).text()
    */
   inIframe(finderForIframe){
-    return new Page(this.window, finderForIframe.toContextString());
+    return new Page(this._browserPage, finderForIframe.toContextString());
   }
   /**
    * Get the HTML source of current page.
@@ -370,6 +348,10 @@ class Page {
 
   findClickable(){
     return this.find().isClickable()
+  }
+
+  openDevTools(){
+    return this._browserPage.openDevTools();
   }
 }
 

@@ -1,5 +1,35 @@
 window.esdocSearchIndex = [
   [
+    "pagewalker/lib/browser/electron/index.js~browser",
+    "variable/index.html#static-variable-Browser",
+    "<span>Browser</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/electron/index.js</span>",
+    "variable"
+  ],
+  [
+    "pagewalker/lib/browser/interface/browser.js~browser",
+    "class/lib/browser/interface/browser.js~Browser.html",
+    "<span>Browser</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/interface/browser.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/browser/electron/electron_page.js~browserpage",
+    "variable/index.html#static-variable-BrowserPage",
+    "<span>BrowserPage</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/electron/electron_page.js</span>",
+    "variable"
+  ],
+  [
+    "pagewalker/lib/browser/interface/browser_page.js~browserpage",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html",
+    "<span>BrowserPage</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/interface/browser_page.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/browser/interface/browser_socket.js~browsersocket",
+    "class/lib/browser/interface/browser_socket.js~BrowserSocket.html",
+    "<span>BrowserSocket</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/interface/browser_socket.js</span>",
+    "class"
+  ],
+  [
     "pagewalker/lib/utils/config.js~config",
     "class/lib/utils/config.js~Config.html",
     "<span>Config</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/config.js</span>",
@@ -18,9 +48,33 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "pagewalker/lib/page/window.js~eventemitter",
+    "pagewalker/lib/browser/electron/index.js~electronbrowser",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html",
+    "<span>ElectronBrowser</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/electron/index.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/browser/electron/electron_finder_extention.js~electronfinderextention",
+    "class/lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention.html",
+    "<span>ElectronFinderExtention</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/electron/electron_finder_extention.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/browser/electron/electron_page.js~electronpage",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html",
+    "<span>ElectronPage</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/electron/electron_page.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/browser/interface/browser.js~eventemitter",
     "variable/index.html#static-variable-EventEmitter",
-    "<span>EventEmitter</span> <span class=\"search-result-import-path\">pagewalker/lib/page/window.js</span>",
+    "<span>EventEmitter</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/interface/browser.js</span>",
+    "variable"
+  ],
+  [
+    "pagewalker/lib/browser/electron/electron_finder_extention.js~finder",
+    "variable/index.html#static-variable-Finder",
+    "<span>Finder</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/electron/electron_finder_extention.js</span>",
     "variable"
   ],
   [
@@ -69,6 +123,24 @@ window.esdocSearchIndex = [
     "pagewalker/lib/page_walker.js~pagewalker",
     "class/lib/page_walker.js~PageWalker.html",
     "<span>PageWalker</span> <span class=\"search-result-import-path\">pagewalker/lib/page_walker.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/browser/puppeteer/index.js~puppeteerbrowser",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html",
+    "<span>PuppeteerBrowser</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/puppeteer/index.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/browser/puppeteer/puppeteer_finder_extention.js~puppeteerfinderextention",
+    "class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html",
+    "<span>PuppeteerFinderExtention</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/puppeteer/puppeteer_finder_extention.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/browser/puppeteer/puppeteer_page.js~puppeteerpage",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html",
+    "<span>PuppeteerPage</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/puppeteer/puppeteer_page.js</span>",
     "class"
   ],
   [
@@ -378,10 +450,496 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "lib/cli_start.js",
-    "file/lib/cli_start.js.html",
-    "lib/cli_start.js",
+    "lib/browser/electron/electron_finder_extention.js",
+    "file/lib/browser/electron/electron_finder_extention.js.html",
+    "lib/browser/electron/electron_finder_extention.js",
     "file"
+  ],
+  [
+    "lib/browser/electron/electron_finder_extention.js~electronfinderextention#attachfile",
+    "class/lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention.html#instance-method-attachFile",
+    "lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention#attachFile",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_finder_extention.js~electronfinderextention#replacesubmitwithajax",
+    "class/lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention.html#instance-method-replaceSubmitWithAjax",
+    "lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention#replaceSubmitWithAjax",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js",
+    "file/lib/browser/electron/electron_page.js.html",
+    "lib/browser/electron/electron_page.js",
+    "file"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#finderclass",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-get-FinderClass",
+    "lib/browser/electron/electron_page.js~ElectronPage#FinderClass",
+    "member"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#_addeventlistener",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-_addEventListener",
+    "lib/browser/electron/electron_page.js~ElectronPage#_addEventListener",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#_socket",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-member-_socket",
+    "lib/browser/electron/electron_page.js~ElectronPage#_socket",
+    "member"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#_window",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-member-_window",
+    "lib/browser/electron/electron_page.js~ElectronPage#_window",
+    "member"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#constructor",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-constructor-constructor",
+    "lib/browser/electron/electron_page.js~ElectronPage#constructor",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#executejavascript",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-executeJavaScript",
+    "lib/browser/electron/electron_page.js~ElectronPage#executeJavaScript",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#geturl",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-getURL",
+    "lib/browser/electron/electron_page.js~ElectronPage#getURL",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#loadurl",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-loadURL",
+    "lib/browser/electron/electron_page.js~ElectronPage#loadURL",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#nativeobject",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-get-nativeObject",
+    "lib/browser/electron/electron_page.js~ElectronPage#nativeObject",
+    "member"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#on",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-on",
+    "lib/browser/electron/electron_page.js~ElectronPage#on",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#once",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-once",
+    "lib/browser/electron/electron_page.js~ElectronPage#once",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#opendevtools",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-openDevTools",
+    "lib/browser/electron/electron_page.js~ElectronPage#openDevTools",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#removealllisteners",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-removeAllListeners",
+    "lib/browser/electron/electron_page.js~ElectronPage#removeAllListeners",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#socket",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-get-socket",
+    "lib/browser/electron/electron_page.js~ElectronPage#socket",
+    "member"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#waitforconfirm",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-waitForConfirm",
+    "lib/browser/electron/electron_page.js~ElectronPage#waitForConfirm",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#waitfordownload",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-waitForDownload",
+    "lib/browser/electron/electron_page.js~ElectronPage#waitForDownload",
+    "method"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#window",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-get-window",
+    "lib/browser/electron/electron_page.js~ElectronPage#window",
+    "member"
+  ],
+  [
+    "lib/browser/electron/index.js",
+    "file/lib/browser/electron/index.js.html",
+    "lib/browser/electron/index.js",
+    "file"
+  ],
+  [
+    "lib/browser/electron/index.js~electronbrowser#_app",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-member-_app",
+    "lib/browser/electron/index.js~ElectronBrowser#_app",
+    "member"
+  ],
+  [
+    "lib/browser/electron/index.js~electronbrowser#constructor",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-constructor-constructor",
+    "lib/browser/electron/index.js~ElectronBrowser#constructor",
+    "method"
+  ],
+  [
+    "lib/browser/electron/index.js~electronbrowser#createbrowserpage",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-createBrowserPage",
+    "lib/browser/electron/index.js~ElectronBrowser#createBrowserPage",
+    "method"
+  ],
+  [
+    "lib/browser/electron/index.js~electronbrowser#createbrowserwindow",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-createBrowserWindow",
+    "lib/browser/electron/index.js~ElectronBrowser#createBrowserWindow",
+    "method"
+  ],
+  [
+    "lib/browser/electron/index.js~electronbrowser#exit",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-exit",
+    "lib/browser/electron/index.js~ElectronBrowser#exit",
+    "method"
+  ],
+  [
+    "lib/browser/electron/index.js~electronbrowser#getbrowserwindowbyid",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-getBrowserWindowById",
+    "lib/browser/electron/index.js~ElectronBrowser#getBrowserWindowById",
+    "method"
+  ],
+  [
+    "lib/browser/electron/index.js~electronbrowser#isready",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-isReady",
+    "lib/browser/electron/index.js~ElectronBrowser#isReady",
+    "method"
+  ],
+  [
+    "lib/browser/electron/window_preloaded.js",
+    "file/lib/browser/electron/window_preloaded.js.html",
+    "lib/browser/electron/window_preloaded.js",
+    "file"
+  ],
+  [
+    "lib/browser/interface/browser.js",
+    "file/lib/browser/interface/browser.js.html",
+    "lib/browser/interface/browser.js",
+    "file"
+  ],
+  [
+    "lib/browser/interface/browser.js~browser#createbrowserpage",
+    "class/lib/browser/interface/browser.js~Browser.html#instance-method-createBrowserPage",
+    "lib/browser/interface/browser.js~Browser#createBrowserPage",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser.js~browser#createbrowserwindow",
+    "class/lib/browser/interface/browser.js~Browser.html#instance-method-createBrowserWindow",
+    "lib/browser/interface/browser.js~Browser#createBrowserWindow",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser.js~browser#exit",
+    "class/lib/browser/interface/browser.js~Browser.html#instance-method-exit",
+    "lib/browser/interface/browser.js~Browser#exit",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser.js~browser#getbrowserwindowbyid",
+    "class/lib/browser/interface/browser.js~Browser.html#instance-method-getBrowserWindowById",
+    "lib/browser/interface/browser.js~Browser#getBrowserWindowById",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser.js~browser#isready",
+    "class/lib/browser/interface/browser.js~Browser.html#instance-method-isReady",
+    "lib/browser/interface/browser.js~Browser#isReady",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_page.js",
+    "file/lib/browser/interface/browser_page.js.html",
+    "lib/browser/interface/browser_page.js",
+    "file"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#finderclass",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-get-FinderClass",
+    "lib/browser/interface/browser_page.js~BrowserPage#FinderClass",
+    "member"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#executejavascript",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-executeJavaScript",
+    "lib/browser/interface/browser_page.js~BrowserPage#executeJavaScript",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#geturl",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-getURL",
+    "lib/browser/interface/browser_page.js~BrowserPage#getURL",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#loadurl",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-loadURL",
+    "lib/browser/interface/browser_page.js~BrowserPage#loadURL",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#nativeobject",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-get-nativeObject",
+    "lib/browser/interface/browser_page.js~BrowserPage#nativeObject",
+    "member"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#opendevtools",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-openDevTools",
+    "lib/browser/interface/browser_page.js~BrowserPage#openDevTools",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#socket",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-get-socket",
+    "lib/browser/interface/browser_page.js~BrowserPage#socket",
+    "member"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#waitforconfirm",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-waitForConfirm",
+    "lib/browser/interface/browser_page.js~BrowserPage#waitForConfirm",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#waitfordownload",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-waitForDownload",
+    "lib/browser/interface/browser_page.js~BrowserPage#waitForDownload",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#window",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-get-window",
+    "lib/browser/interface/browser_page.js~BrowserPage#window",
+    "member"
+  ],
+  [
+    "lib/browser/interface/browser_socket.js",
+    "file/lib/browser/interface/browser_socket.js.html",
+    "lib/browser/interface/browser_socket.js",
+    "file"
+  ],
+  [
+    "lib/browser/interface/browser_socket.js~browsersocket#on",
+    "class/lib/browser/interface/browser_socket.js~BrowserSocket.html#instance-method-on",
+    "lib/browser/interface/browser_socket.js~BrowserSocket#on",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_socket.js~browsersocket#once",
+    "class/lib/browser/interface/browser_socket.js~BrowserSocket.html#instance-method-once",
+    "lib/browser/interface/browser_socket.js~BrowserSocket#once",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_socket.js~browsersocket#removealllisteners",
+    "class/lib/browser/interface/browser_socket.js~BrowserSocket.html#instance-method-removeAllListeners",
+    "lib/browser/interface/browser_socket.js~BrowserSocket#removeAllListeners",
+    "method"
+  ],
+  [
+    "lib/browser/interface/browser_socket.js~browsersocket#send",
+    "class/lib/browser/interface/browser_socket.js~BrowserSocket.html#instance-method-send",
+    "lib/browser/interface/browser_socket.js~BrowserSocket#send",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/index.js",
+    "file/lib/browser/puppeteer/index.js.html",
+    "lib/browser/puppeteer/index.js",
+    "file"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#_browser",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-member-_browser",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#_browser",
+    "member"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#_browserpage",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-member-_browserPage",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#_browserPage",
+    "member"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#_ready",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-member-_ready",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#_ready",
+    "member"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#constructor",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-constructor-constructor",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#constructor",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#createbrowserpage",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-method-createBrowserPage",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#createBrowserPage",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#createbrowserwindow",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-method-createBrowserWindow",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#createBrowserWindow",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#exit",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-method-exit",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#exit",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#getbrowserwindowbyid",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-method-getBrowserWindowById",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#getBrowserWindowById",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/index.js~puppeteerbrowser#isready",
+    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-method-isReady",
+    "lib/browser/puppeteer/index.js~PuppeteerBrowser#isReady",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_finder_extention.js",
+    "file/lib/browser/puppeteer/puppeteer_finder_extention.js.html",
+    "lib/browser/puppeteer/puppeteer_finder_extention.js",
+    "file"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_finder_extention.js~puppeteerfinderextention#attachfile",
+    "class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html#instance-method-attachFile",
+    "lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention#attachFile",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js",
+    "file/lib/browser/puppeteer/puppeteer_page.js.html",
+    "lib/browser/puppeteer/puppeteer_page.js",
+    "file"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#finderclass",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-get-FinderClass",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#FinderClass",
+    "member"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#_addeventlistener",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-_addEventListener",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#_addEventListener",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#_setdownloadpath",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-_setDownloadPath",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#_setDownloadPath",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#_window",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-member-_window",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#_window",
+    "member"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#constructor",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-constructor-constructor",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#constructor",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#executejavascript",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-executeJavaScript",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#executeJavaScript",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#geturl",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-getURL",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#getURL",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#loadurl",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-loadURL",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#loadURL",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#nativeobject",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-get-nativeObject",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#nativeObject",
+    "member"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#on",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-on",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#on",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#once",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-once",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#once",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#opendevtools",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-openDevTools",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#openDevTools",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#removealllisteners",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-removeAllListeners",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#removeAllListeners",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#socket",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-get-socket",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#socket",
+    "member"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#waitforconfirm",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-waitForConfirm",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#waitForConfirm",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#waitfordownload",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-waitForDownload",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#waitForDownload",
+    "method"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#window",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-get-window",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#window",
+    "member"
   ],
   [
     "lib/page/finder.js",
@@ -438,12 +996,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/finder.js~finder#replacesubmitwithajax",
-    "class/lib/page/finder.js~Finder.html#instance-method-replaceSubmitWithAjax",
-    "lib/page/finder.js~Finder#replaceSubmitWithAjax",
-    "method"
-  ],
-  [
     "lib/page/finder.js~finder#selectoption",
     "class/lib/page/finder.js~Finder.html#instance-method-selectOption",
     "lib/page/finder.js~Finder#selectOption",
@@ -466,6 +1018,12 @@ window.esdocSearchIndex = [
     "file/lib/page/finder_action.js.html",
     "lib/page/finder_action.js",
     "file"
+  ],
+  [
+    "lib/page/finder_action.js~finderaction#attribute",
+    "class/lib/page/finder_action.js~FinderAction.html#instance-method-attribute",
+    "lib/page/finder_action.js~FinderAction#attribute",
+    "method"
   ],
   [
     "lib/page/finder_action.js~finderaction#check",
@@ -543,6 +1101,12 @@ window.esdocSearchIndex = [
     "lib/page/finder_action.js~finderaction#value",
     "class/lib/page/finder_action.js~FinderAction.html#instance-method-value",
     "lib/page/finder_action.js~FinderAction#value",
+    "method"
+  ],
+  [
+    "lib/page/finder_action.js~finderaction.attribute",
+    "class/lib/page/finder_action.js~FinderAction.html#static-method-attribute",
+    "lib/page/finder_action.js~FinderAction.attribute",
     "method"
   ],
   [
@@ -637,15 +1201,15 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/page/finder_base.js~finderbase#allownotfound",
-    "class/lib/page/finder_base.js~FinderBase.html#instance-get-allowNotFound",
-    "lib/page/finder_base.js~FinderBase#allowNotFound",
-    "member"
-  ],
-  [
-    "lib/page/finder_base.js~finderbase#allownotfound",
     "class/lib/page/finder_base.js~FinderBase.html#instance-method-allowNotFound",
     "lib/page/finder_base.js~FinderBase#allowNotFound",
     "method"
+  ],
+  [
+    "lib/page/finder_base.js~finderbase#allownotfound",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-get-allowNotFound",
+    "lib/page/finder_base.js~FinderBase#allowNotFound",
+    "member"
   ],
   [
     "lib/page/finder_base.js~finderbase#clone",
@@ -918,21 +1482,21 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/page/page.js~page#_browserpage",
+    "class/lib/page/page.js~Page.html#instance-member-_browserPage",
+    "lib/page/page.js~Page#_browserPage",
+    "member"
+  ],
+  [
     "lib/page/page.js~page#_context",
     "class/lib/page/page.js~Page.html#instance-member-_context",
     "lib/page/page.js~Page#_context",
     "member"
   ],
   [
-    "lib/page/page.js~page#_waitforcontent",
-    "class/lib/page/page.js~Page.html#instance-method-_waitForContent",
-    "lib/page/page.js~Page#_waitForContent",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#_window",
-    "class/lib/page/page.js~Page.html#instance-member-_window",
-    "lib/page/page.js~Page#_window",
+    "lib/page/page.js~page#browserpage",
+    "class/lib/page/page.js~Page.html#instance-get-browserPage",
+    "lib/page/page.js~Page#browserPage",
     "member"
   ],
   [
@@ -1002,6 +1566,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#opendevtools",
+    "class/lib/page/page.js~Page.html#instance-method-openDevTools",
+    "lib/page/page.js~Page#openDevTools",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#url",
     "class/lib/page/page.js~Page.html#instance-get-url",
     "lib/page/page.js~Page#url",
@@ -1014,6 +1584,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#waitforbrowsersocket",
+    "class/lib/page/page.js~Page.html#instance-method-waitForBrowserSocket",
+    "lib/page/page.js~Page#waitForBrowserSocket",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#waitforconfirm",
     "class/lib/page/page.js~Page.html#instance-method-waitForConfirm",
     "lib/page/page.js~Page#waitForConfirm",
@@ -1023,18 +1599,6 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#waitfordownload",
     "class/lib/page/page.js~Page.html#instance-method-waitForDownload",
     "lib/page/page.js~Page#waitForDownload",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#waitforframeloaded",
-    "class/lib/page/page.js~Page.html#instance-method-waitForFrameLoaded",
-    "lib/page/page.js~Page#waitForFrameLoaded",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#waitforipcreceive",
-    "class/lib/page/page.js~Page.html#instance-method-waitForIpcReceive",
-    "lib/page/page.js~Page#waitForIpcReceive",
     "method"
   ],
   [
@@ -1080,6 +1644,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/page/window.js~window#_page",
+    "class/lib/page/window.js~Window.html#instance-member-_page",
+    "lib/page/window.js~Window#_page",
+    "member"
+  ],
+  [
     "lib/page/window.js~window#browserwindow",
     "class/lib/page/window.js~Window.html#instance-get-browserWindow",
     "lib/page/window.js~Window#browserWindow",
@@ -1096,6 +1666,12 @@ window.esdocSearchIndex = [
     "class/lib/page/window.js~Window.html#instance-constructor-constructor",
     "lib/page/window.js~Window#constructor",
     "method"
+  ],
+  [
+    "lib/page/window.js~window#id",
+    "class/lib/page/window.js~Window.html#instance-member-id",
+    "lib/page/window.js~Window#id",
+    "member"
   ],
   [
     "lib/page/window.js~window#isready",
@@ -1122,9 +1698,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/page_walker.js~pagewalker#_app",
-    "class/lib/page_walker.js~PageWalker.html#instance-member-_app",
-    "lib/page_walker.js~PageWalker#_app",
+    "lib/page_walker.js~pagewalker#_browser",
+    "class/lib/page_walker.js~PageWalker.html#instance-member-_browser",
+    "lib/page_walker.js~PageWalker#_browser",
     "member"
   ],
   [
@@ -1137,6 +1713,12 @@ window.esdocSearchIndex = [
     "lib/page_walker.js~pagewalker#_walker",
     "class/lib/page_walker.js~PageWalker.html#instance-member-_walker",
     "lib/page_walker.js~PageWalker#_walker",
+    "member"
+  ],
+  [
+    "lib/page_walker.js~pagewalker#browser",
+    "class/lib/page_walker.js~PageWalker.html#instance-get-browser",
+    "lib/page_walker.js~PageWalker#browser",
     "member"
   ],
   [
@@ -1158,15 +1740,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page_walker.js~pagewalker#createwindowwithid",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-createWindowWithId",
+    "lib/page_walker.js~PageWalker#createWindowWithId",
+    "method"
+  ],
+  [
     "lib/page_walker.js~pagewalker#getwindow",
     "class/lib/page_walker.js~PageWalker.html#instance-method-getWindow",
     "lib/page_walker.js~PageWalker#getWindow",
     "method"
   ],
   [
-    "lib/page_walker.js~pagewalker#oncreatenewwindow",
-    "class/lib/page_walker.js~PageWalker.html#instance-method-onCreateNewWindow",
-    "lib/page_walker.js~PageWalker#onCreateNewWindow",
+    "lib/page_walker.js~pagewalker#getwindowbyid",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-getWindowById",
+    "lib/page_walker.js~PageWalker#getWindowById",
     "method"
   ],
   [
@@ -1179,6 +1767,12 @@ window.esdocSearchIndex = [
     "lib/page_walker.js~pagewalker#removewindow",
     "class/lib/page_walker.js~PageWalker.html#instance-method-removeWindow",
     "lib/page_walker.js~PageWalker#removeWindow",
+    "method"
+  ],
+  [
+    "lib/page_walker.js~pagewalker#removewindowbyid",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-removeWindowById",
+    "lib/page_walker.js~PageWalker#removeWindowById",
     "method"
   ],
   [
@@ -1420,11 +2014,5 @@ window.esdocSearchIndex = [
     "class/lib/walker/walker.js~Walker.html#static-method-toArray",
     "lib/walker/walker.js~Walker.toArray",
     "method"
-  ],
-  [
-    "lib/window_preloaded.js",
-    "file/lib/window_preloaded.js.html",
-    "lib/window_preloaded.js",
-    "file"
   ]
 ]
