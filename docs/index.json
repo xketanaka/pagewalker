@@ -786,7 +786,7 @@
     "__docId__": 55,
     "kind": "file",
     "name": "lib/browser/electron/electron_page.js",
-    "content": "const path = require('path');\nconst {ipcMain} = require('electron');\nconst BrowserPage = require(\"../interface/browser_page\");\nconst BrowserSocket = require(\"../interface/browser_socket\");\nconst ElectronFinderExtention = require(\"./electron_finder_extention\");\nconst {config} = require(\"../../utils/config\");\nconst DateFormat = require('../../utils/date_format');\n\nconst TIMEOUT_MSEC = config.mocha.timeout;\n\nclass ElectronPage extends BrowserPage {\n  constructor(window){\n    super();\n    this._window = window;\n\n    this._window.on('ready', ()=>{\n      this.nativeObject.on('new-window', (event, url, frameName)=>{\n        this.emit(BrowserPage.Events.NewWindow, frameName);\n      })\n    })\n  }\n  get window(){\n    return this._window;\n  }\n  get nativeObject(){\n    return this._window.browserWindow.webContents;\n  }\n  on(eventName, callback){\n    this._addEventListener(eventName, callback, fasle)\n  }\n  once(eventName, callback){\n    this._addEventListener(eventName, callback, true)\n  }\n  _addEventListener(eventName, callback, once = true){\n    if(eventName in ElectronPage.EventMappings){\n      this.nativeObject[once ? 'once' : 'on'](ElectronPage.EventMappings[eventName], callback)\n    }else{\n      super[once ? 'once' : 'on'](evnetName, callback)\n    }\n  }\n  removeAllListeners(eventName){\n    if(eventName in ElectronPage.EventMappings){\n      this.nativeObject.removeAllListeners(ElectronPage.EventMappings[eventName])\n    }else{\n      super.removeAllListeners(eventName);\n    }\n  }\n  get socket(){\n    this._socket = this._socket || new ElectronSocket();\n    return this._socket;\n  }\n  get FinderClass(){\n    return ElectronFinderExtention;\n  }\n  loadURL(url, options = {}){\n    return this.nativeObject.loadURL(url)\n  }\n  getURL(){\n    return this.nativeObject.getURL();\n  }\n  executeJavaScript(code, ...args){\n    return this.nativeObject.executeJavaScript(code, ...args);\n  }\n  openDevTools(){\n    return this.nativeObject.openDevTools();\n  }\n  waitForDownload(action, options){\n    return new Promise((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n\n      this.nativeObject.session.once('will-download', (event, item, webContents) => {\n        const result = { filename: item.getFilename() };\n        // Set the save path, making Electron not to prompt a save dialog.\n        const saveFilename = `${DateFormat.toTimepstampString(new Date())}_${item.getFilename()}`;\n        result.savedFilePath = path.resolve(path.join(config.fileDownloadDir, saveFilename));\n\n        item.setSavePath(result.savedFilePath);\n        item.on('updated', (event, state)=>{\n          if(state === 'interrupted') reject(new Error('Download is interrupted'));\n        })\n        item.once('done', (event, state) => {\n          clearTimeout(timeoutId);\n          if(state == 'completed'){\n            resolve(result)\n          }else{\n            reject(new Error(`Download failed: ${state}`))\n          }\n        })\n      })\n      action();\n    });\n  }\n  waitForConfirm(action, message = undefined, isClickOK = false){\n    return new Promise((resolve, reject)=>{\n      const channel = 'confirm-synchronous';\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n      this.socket.once(channel, (arg, event)=>{\n        clearTimeout(timeoutId);\n        if(message && message != arg){\n          return reject(new Error(`expected message is \"${message}\", but actual is \"${arg}\"`));\n        }\n        event.returnValue = isClickOK;\n        resolve(message);\n      });\n      return this.executeJavaScript(`{\n        let __original_confirm = window.confirm;\n        window.confirm = function(message){\n          var ret = browserSocket.sendSync('${channel}', message);\n          window.confirm = __original_confirm;\n          return ret;\n        };\n      }`, true)\n      .then(()=>{ return action && action() })\n      .catch(reject)\n    });\n  }\n}\n\nclass ElectronSocket extends BrowserSocket {\n  on(channel, callback){\n    return ipcMain.on(channel, (event, arg)=>{ callback(arg, event) });\n  }\n  once(channel, callback){\n    return ipcMain.once(channel, (event, arg)=>{ callback(arg, event) });\n  }\n  removeAllListeners(channel){\n    return ipcMain.removeAllListeners(channel);\n  }\n  send(channel, ...args){ throw new Error(\"Not Implemented\") }\n}\n\nElectronPage.EventMappings = {\n  [BrowserPage.Events.Load]: 'did-finish-load',\n  [BrowserPage.Events.LoadError]: 'did-fail-load',\n}\n\nmodule.exports = ElectronPage;\n",
+    "content": "const path = require('path');\nconst {ipcMain} = require('electron');\nconst BrowserPage = require(\"../interface/browser_page\");\nconst BrowserSocket = require(\"../interface/browser_socket\");\nconst ElectronFinderExtention = require(\"./electron_finder_extention\");\nconst {config} = require(\"../../utils/config\");\nconst DateFormat = require('../../utils/date_format');\n\nconst TIMEOUT_MSEC = config.mocha.timeout;\n\nclass ElectronPage extends BrowserPage {\n  constructor(window){\n    super();\n    this._window = window;\n\n    this._window.on('ready', ()=>{\n      this.nativeObject.on('new-window', (event, url, frameName)=>{\n        this.emit(BrowserPage.Events.NewWindow, frameName);\n      })\n    })\n  }\n  get window(){\n    return this._window;\n  }\n  get nativeObject(){\n    return this._window.browserWindow.webContents;\n  }\n  on(eventName, callback){\n    this._addEventListener(eventName, callback, false)\n  }\n  once(eventName, callback){\n    this._addEventListener(eventName, callback, true)\n  }\n  _addEventListener(eventName, callback, once = true){\n    if(eventName in ElectronPage.EventMappings){\n      this.nativeObject[once ? 'once' : 'on'](ElectronPage.EventMappings[eventName], callback)\n    }else{\n      super[once ? 'once' : 'on'](eventName, callback)\n    }\n  }\n  removeAllListeners(eventName){\n    if(eventName in ElectronPage.EventMappings){\n      this.nativeObject.removeAllListeners(ElectronPage.EventMappings[eventName])\n    }else{\n      super.removeAllListeners(eventName);\n    }\n  }\n  get socket(){\n    this._socket = this._socket || new ElectronSocket();\n    return this._socket;\n  }\n  get FinderClass(){\n    return ElectronFinderExtention;\n  }\n  loadURL(url, options = {}){\n    return this.nativeObject.loadURL(url)\n  }\n  /**\n   * @return {string}\n   */\n  getURL(){\n    return this.nativeObject.getURL();\n  }\n  /**\n   * @return {Promise<object}\n   */\n  reload(){\n    return this.nativeObject.reload();\n  }\n  executeJavaScript(code, ...args){\n    return this.nativeObject.executeJavaScript(code, ...args);\n  }\n  openDevTools(){\n    return this.nativeObject.openDevTools();\n  }\n  waitForDownload(action, options){\n    return new Promise((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n\n      this.nativeObject.session.once('will-download', (event, item, webContents) => {\n        const result = { filename: item.getFilename() };\n        // Set the save path, making Electron not to prompt a save dialog.\n        const saveFilename = `${DateFormat.toTimepstampString(new Date())}_${item.getFilename()}`;\n        result.savedFilePath = path.resolve(path.join(config.fileDownloadDir, saveFilename));\n\n        item.setSavePath(result.savedFilePath);\n        item.on('updated', (event, state)=>{\n          if(state === 'interrupted') reject(new Error('Download is interrupted'));\n        })\n        item.once('done', (event, state) => {\n          clearTimeout(timeoutId);\n          if(state == 'completed'){\n            resolve(result)\n          }else{\n            reject(new Error(`Download failed: ${state}`))\n          }\n        })\n      })\n      action();\n    });\n  }\n  _waitForDialog(dialogType, action, message = undefined, isClickOK = false){\n    return new Promise((resolve, reject)=>{\n      const channel = 'dialog-synchronous';\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n      this.socket.once(channel, (arg, event)=>{\n        clearTimeout(timeoutId);\n        if(message && message != arg){\n          return reject(new Error(`expected message is \"${message}\", but actual is \"${arg}\"`));\n        }\n        event.returnValue = isClickOK;\n        resolve(message);\n      });\n      return this.executeJavaScript(`{\n        let __original_dialog_func = window.${dialogType};\n        window.${dialogType} = function(message){\n          var ret = browserSocket.sendSync('${channel}', message);\n          window.${dialogType} = __original_dialog_func;\n          return ret;\n        };\n      }`, true)\n      .then(()=>{ return action && action() })\n      .catch(reject)\n    });\n  }\n  waitForConfirm(action, message = undefined, isClickOK = false){\n    return this._waitForDialog('confirm', action, message, isClickOK);\n  }\n  waitForAlert(action, message = undefined){\n    return this._waitForDialog('alert', action, message, true);\n  }\n}\n\nclass ElectronSocket extends BrowserSocket {\n  on(channel, callback){\n    return ipcMain.on(channel, (event, arg)=>{ callback(arg, event) });\n  }\n  once(channel, callback){\n    return ipcMain.once(channel, (event, arg)=>{ callback(arg, event) });\n  }\n  removeAllListeners(channel){\n    return ipcMain.removeAllListeners(channel);\n  }\n  send(channel, ...args){ throw new Error(\"Not Implemented\") }\n}\n\nElectronPage.EventMappings = {\n  [BrowserPage.Events.Load]: 'did-finish-load',\n  [BrowserPage.Events.LoadError]: 'did-fail-load',\n}\n\nmodule.exports = ElectronPage;\n",
     "static": true,
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/browser/electron/electron_page.js",
     "access": "public",
@@ -973,7 +973,7 @@
     "importPath": "pagewalker/lib/browser/electron/electron_page.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 119,
+    "lineNumber": 134,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -992,7 +992,7 @@
     "longname": "lib/browser/electron/electron_page.js~ElectronSocket#on",
     "access": "public",
     "description": null,
-    "lineNumber": 120,
+    "lineNumber": 135,
     "undocument": true,
     "params": [
       {
@@ -1025,7 +1025,7 @@
     "longname": "lib/browser/electron/electron_page.js~ElectronSocket#once",
     "access": "public",
     "description": null,
-    "lineNumber": 123,
+    "lineNumber": 138,
     "undocument": true,
     "params": [
       {
@@ -1058,7 +1058,7 @@
     "longname": "lib/browser/electron/electron_page.js~ElectronSocket#removeAllListeners",
     "access": "public",
     "description": null,
-    "lineNumber": 126,
+    "lineNumber": 141,
     "undocument": true,
     "params": [
       {
@@ -1085,7 +1085,7 @@
     "longname": "lib/browser/electron/electron_page.js~ElectronSocket#send",
     "access": "public",
     "description": null,
-    "lineNumber": 129,
+    "lineNumber": 144,
     "undocument": true,
     "params": [
       {
@@ -1412,18 +1412,42 @@
     "static": false,
     "longname": "lib/browser/electron/electron_page.js~ElectronPage#getURL",
     "access": "public",
-    "description": null,
-    "lineNumber": 58,
-    "undocument": true,
-    "params": [],
+    "description": "",
+    "lineNumber": 61,
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    }
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
   },
   {
     "__docId__": 83,
+    "kind": "method",
+    "name": "reload",
+    "memberof": "lib/browser/electron/electron_page.js~ElectronPage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/browser/electron/electron_page.js~ElectronPage#reload",
+    "access": "public",
+    "description": "",
+    "lineNumber": 67,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 84,
     "kind": "method",
     "name": "executeJavaScript",
     "memberof": "lib/browser/electron/electron_page.js~ElectronPage",
@@ -1433,7 +1457,7 @@
     "longname": "lib/browser/electron/electron_page.js~ElectronPage#executeJavaScript",
     "access": "public",
     "description": null,
-    "lineNumber": 61,
+    "lineNumber": 70,
     "undocument": true,
     "params": [
       {
@@ -1457,7 +1481,7 @@
     }
   },
   {
-    "__docId__": 84,
+    "__docId__": 85,
     "kind": "method",
     "name": "openDevTools",
     "memberof": "lib/browser/electron/electron_page.js~ElectronPage",
@@ -1467,7 +1491,7 @@
     "longname": "lib/browser/electron/electron_page.js~ElectronPage#openDevTools",
     "access": "public",
     "description": null,
-    "lineNumber": 64,
+    "lineNumber": 73,
     "undocument": true,
     "params": [],
     "return": {
@@ -1477,7 +1501,7 @@
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 86,
     "kind": "method",
     "name": "waitForDownload",
     "memberof": "lib/browser/electron/electron_page.js~ElectronPage",
@@ -1487,7 +1511,7 @@
     "longname": "lib/browser/electron/electron_page.js~ElectronPage#waitForDownload",
     "access": "public",
     "description": null,
-    "lineNumber": 67,
+    "lineNumber": 76,
     "undocument": true,
     "params": [
       {
@@ -1510,7 +1534,58 @@
     }
   },
   {
-    "__docId__": 86,
+    "__docId__": 87,
+    "kind": "method",
+    "name": "_waitForDialog",
+    "memberof": "lib/browser/electron/electron_page.js~ElectronPage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/browser/electron/electron_page.js~ElectronPage#_waitForDialog",
+    "access": "private",
+    "description": null,
+    "lineNumber": 102,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dialogType",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "optional": true,
+        "types": [
+          "*"
+        ],
+        "defaultRaw": "undefined",
+        "defaultValue": "undefined"
+      },
+      {
+        "name": "isClickOK",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": false,
+        "defaultValue": "false"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 88,
     "kind": "method",
     "name": "waitForConfirm",
     "memberof": "lib/browser/electron/electron_page.js~ElectronPage",
@@ -1520,7 +1595,7 @@
     "longname": "lib/browser/electron/electron_page.js~ElectronPage#waitForConfirm",
     "access": "public",
     "description": null,
-    "lineNumber": 93,
+    "lineNumber": 126,
     "undocument": true,
     "params": [
       {
@@ -1555,7 +1630,43 @@
     }
   },
   {
-    "__docId__": 87,
+    "__docId__": 89,
+    "kind": "method",
+    "name": "waitForAlert",
+    "memberof": "lib/browser/electron/electron_page.js~ElectronPage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/browser/electron/electron_page.js~ElectronPage#waitForAlert",
+    "access": "public",
+    "description": null,
+    "lineNumber": 129,
+    "undocument": true,
+    "params": [
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "optional": true,
+        "types": [
+          "*"
+        ],
+        "defaultRaw": "undefined",
+        "defaultValue": "undefined"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 90,
     "kind": "file",
     "name": "lib/browser/electron/index.js",
     "content": "const electron = require('electron');\nconst {BrowserWindow} = electron;\nconst Browser = require('../interface/browser');\nconst ElectronPage = require('./electron_page');\n\nclass ElectronBrowser extends Browser {\n  constructor(options){\n    super();\n    this._app = electron.app;\n    this._app.on('window-all-closed', ()=>{ this._app.quit() });\n    this._app.on('ready', (...args)=>{ this.emit(Browser.Events.Ready, ...args) });\n  }\n  isReady(){\n    return this._app.isReady();\n  }\n  exit(...args){\n    return this._app.exit(...args)\n  }\n  /**\n   * @return {Promise<object>} - object is browserWindow object provided by each browser.\n   */\n  createBrowserWindow(windowOptions, callbacks){\n    const browserWindow = new BrowserWindow(windowOptions);\n\n    browserWindow.webContents.on('context-menu', (e, params)=>{\n      browserWindow.webContents.inspectElement(params.x, params.y);\n    })\n    browserWindow.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures)=>{\n      event.preventDefault();\n      let newWindow = callbacks['new-window'](frameName, undefined, options);\n      if(url && url != \"about:blank\"){\n        newWindow.page.load(url)\n      }\n      event.newGuest = newWindow.browserWindow\n    })\n    const browserWindowId = browserWindow.id; // on closed event, browserWindow object has been destroyed, so could not get \"id\";\n    browserWindow.on('closed', (event)=>{\n      callbacks['closed'](browserWindowId);\n    });\n    return Promise.resolve({ id: browserWindow.id, browserWindow: browserWindow });\n  }\n  /**\n   * Get a browserWindow object by id if browserWindow given the id exist.\n   * @return {Promise<object>} - object is browserWindow object provided by each browser.\n   */\n  getBrowserWindowById(id){\n    return Promise.resolve(id && BrowserWindow.fromId(parseInt(id)));\n  }\n\n  createBrowserPage(window){\n    return new ElectronPage(window);\n  }\n}\n\nmodule.exports = ElectronBrowser;\n",
@@ -1566,7 +1677,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 88,
+    "__docId__": 91,
     "kind": "variable",
     "name": "electron",
     "memberof": "lib/browser/electron/index.js",
@@ -1587,7 +1698,7 @@
     "ignore": true
   },
   {
-    "__docId__": 89,
+    "__docId__": 92,
     "kind": "variable",
     "name": "BrowserWindow",
     "memberof": "lib/browser/electron/index.js",
@@ -1608,7 +1719,7 @@
     "ignore": true
   },
   {
-    "__docId__": 90,
+    "__docId__": 93,
     "kind": "variable",
     "name": "Browser",
     "memberof": "lib/browser/electron/index.js",
@@ -1629,7 +1740,7 @@
     "ignore": true
   },
   {
-    "__docId__": 91,
+    "__docId__": 94,
     "kind": "variable",
     "name": "ElectronPage",
     "memberof": "lib/browser/electron/index.js",
@@ -1650,7 +1761,7 @@
     "ignore": true
   },
   {
-    "__docId__": 92,
+    "__docId__": 95,
     "kind": "class",
     "name": "ElectronBrowser",
     "memberof": "lib/browser/electron/index.js",
@@ -1669,7 +1780,7 @@
     ]
   },
   {
-    "__docId__": 93,
+    "__docId__": 96,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/browser/electron/index.js~ElectronBrowser",
@@ -1683,7 +1794,7 @@
     "undocument": true
   },
   {
-    "__docId__": 94,
+    "__docId__": 97,
     "kind": "member",
     "name": "_app",
     "memberof": "lib/browser/electron/index.js~ElectronBrowser",
@@ -1700,7 +1811,7 @@
     }
   },
   {
-    "__docId__": 95,
+    "__docId__": 98,
     "kind": "method",
     "name": "isReady",
     "memberof": "lib/browser/electron/index.js~ElectronBrowser",
@@ -1720,7 +1831,7 @@
     }
   },
   {
-    "__docId__": 96,
+    "__docId__": 99,
     "kind": "method",
     "name": "exit",
     "memberof": "lib/browser/electron/index.js~ElectronBrowser",
@@ -1748,7 +1859,7 @@
     }
   },
   {
-    "__docId__": 97,
+    "__docId__": 100,
     "kind": "method",
     "name": "createBrowserWindow",
     "memberof": "lib/browser/electron/index.js~ElectronBrowser",
@@ -1783,7 +1894,7 @@
     ]
   },
   {
-    "__docId__": 98,
+    "__docId__": 101,
     "kind": "method",
     "name": "getBrowserWindowById",
     "memberof": "lib/browser/electron/index.js~ElectronBrowser",
@@ -1812,7 +1923,7 @@
     ]
   },
   {
-    "__docId__": 99,
+    "__docId__": 102,
     "kind": "method",
     "name": "createBrowserPage",
     "memberof": "lib/browser/electron/index.js~ElectronBrowser",
@@ -1839,7 +1950,7 @@
     }
   },
   {
-    "__docId__": 100,
+    "__docId__": 103,
     "kind": "file",
     "name": "lib/browser/electron/window_preloaded.js",
     "content": "window.nodeRequire = require;\nwindow.browserSocket = require('electron').ipcRenderer;\n",
@@ -1850,7 +1961,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 101,
+    "__docId__": 104,
     "kind": "file",
     "name": "lib/browser/interface/browser.js",
     "content": "const EventEmitter = require('events');\n\nclass Browser extends EventEmitter {\n\n  isReady(){ throw new Error(\"Not Implemented.\") }\n  exit(...args){ throw new Error(\"Not Implemented.\") }\n  /**\n   * @return {Promise<object>} - object is browserWindow object provided by each browser.\n   */\n  createBrowserWindow(config, callbacks){ throw new Error(\"Not Implemented.\") }\n  /**\n   * Get a browserWindow object by id if browserWindow given the id exist.\n   * @return {Promise<object>} - object is browserWindow object provided by each browser.\n   */\n  getBrowserWindowById(id){ throw new Error(\"Not Implemented.\") }\n  /**\n   * @return {BrowserPage}\n   */\n  createBrowserPage(window){ throw new Error(\"Not Implemented.\") }\n}\n\nBrowser.Events = {\n  Ready: 'ready',\n}\n\nmodule.exports = Browser;\n",
@@ -1861,7 +1972,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 102,
+    "__docId__": 105,
     "kind": "variable",
     "name": "EventEmitter",
     "memberof": "lib/browser/interface/browser.js",
@@ -1882,7 +1993,7 @@
     "ignore": true
   },
   {
-    "__docId__": 103,
+    "__docId__": 106,
     "kind": "class",
     "name": "Browser",
     "memberof": "lib/browser/interface/browser.js",
@@ -1901,7 +2012,7 @@
     ]
   },
   {
-    "__docId__": 104,
+    "__docId__": 107,
     "kind": "method",
     "name": "isReady",
     "memberof": "lib/browser/interface/browser.js~Browser",
@@ -1917,7 +2028,7 @@
     "return": null
   },
   {
-    "__docId__": 105,
+    "__docId__": 108,
     "kind": "method",
     "name": "exit",
     "memberof": "lib/browser/interface/browser.js~Browser",
@@ -1941,7 +2052,7 @@
     "return": null
   },
   {
-    "__docId__": 106,
+    "__docId__": 109,
     "kind": "method",
     "name": "createBrowserWindow",
     "memberof": "lib/browser/interface/browser.js~Browser",
@@ -1976,7 +2087,7 @@
     ]
   },
   {
-    "__docId__": 107,
+    "__docId__": 110,
     "kind": "method",
     "name": "getBrowserWindowById",
     "memberof": "lib/browser/interface/browser.js~Browser",
@@ -2005,7 +2116,7 @@
     ]
   },
   {
-    "__docId__": 108,
+    "__docId__": 111,
     "kind": "method",
     "name": "createBrowserPage",
     "memberof": "lib/browser/interface/browser.js~Browser",
@@ -2034,10 +2145,10 @@
     ]
   },
   {
-    "__docId__": 109,
+    "__docId__": 112,
     "kind": "file",
     "name": "lib/browser/interface/browser_page.js",
-    "content": "const EventEmitter = require('events');\n\nclass BrowserPage extends EventEmitter {\n  /**\n   * @return {Window}\n   */\n  get window(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {object}\n   */\n  get nativeObject(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {BrowserSocket}\n   */\n  get socket(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Finder}\n   */\n  get FinderClass(){\n    return require(\"../../page/finder\");\n  }\n  /**\n   * @return {Promise<BrowserPage>}\n   */\n  loadURL(url, options = {}){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {string}\n   */\n  getURL(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Promise<string|number|boolean>}\n   */\n  executeJavaScript(code, ...args){ throw new Error(\"Not Implemented\") }\n  /**\n   * show developer tool\n   */\n  openDevTools(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Promise<object>}\n   */\n  waitForDownload(action, options){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Promise<string>} resolved by confirm message\n   */\n  waitForConfirm(action, message, isClickOK){ throw new Error(\"Not Implemented\") }\n}\n\nBrowserPage.Events = {\n  Load: 'load',\n  LoadError: 'load-error',\n  Download: 'download',\n  NewWindow: 'new-window',\n  Confirm: 'confirm',\n  Alert: 'alert',\n  AjaxDone: 'ajax-done',\n  browserSocket: 'browser-socket',\n}\nmodule.exports = BrowserPage;\n",
+    "content": "const EventEmitter = require('events');\n\nclass BrowserPage extends EventEmitter {\n  /**\n   * @return {Window}\n   */\n  get window(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {object}\n   */\n  get nativeObject(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {BrowserSocket}\n   */\n  get socket(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Finder}\n   */\n  get FinderClass(){\n    return require(\"../../page/finder\");\n  }\n  /**\n   * @return {Promise<BrowserPage>}\n   */\n  loadURL(url, options = {}){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {string}\n   */\n  getURL(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Promise<object>}\n   */\n  reload(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Promise<string|number|boolean>}\n   */\n  executeJavaScript(code, ...args){ throw new Error(\"Not Implemented\") }\n  /**\n   * show developer tool\n   */\n  openDevTools(){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Promise<object>}\n   */\n  waitForDownload(action, options){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Promise<string>} resolved by confirm message\n   */\n  waitForConfirm(action, message, isClickOK){ throw new Error(\"Not Implemented\") }\n  /**\n   * @return {Promise<string>} resolved by alert message\n   */\n  waitForAlert(action, message){ throw new Error(\"Not Implemented\") }\n}\n\nBrowserPage.Events = {\n  Load: 'load',\n  LoadError: 'load-error',\n  Download: 'download',\n  NewWindow: 'new-window',\n  Confirm: 'confirm',\n  Alert: 'alert',\n  AjaxDone: 'ajax-done',\n  browserSocket: 'browser-socket',\n}\nmodule.exports = BrowserPage;\n",
     "static": true,
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/browser/interface/browser_page.js",
     "access": "public",
@@ -2045,7 +2156,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 110,
+    "__docId__": 113,
     "kind": "variable",
     "name": "EventEmitter",
     "memberof": "lib/browser/interface/browser_page.js",
@@ -2066,7 +2177,7 @@
     "ignore": true
   },
   {
-    "__docId__": 111,
+    "__docId__": 114,
     "kind": "class",
     "name": "BrowserPage",
     "memberof": "lib/browser/interface/browser_page.js",
@@ -2085,7 +2196,7 @@
     ]
   },
   {
-    "__docId__": 112,
+    "__docId__": 115,
     "kind": "get",
     "name": "window",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2107,7 +2218,7 @@
     "type": null
   },
   {
-    "__docId__": 113,
+    "__docId__": 116,
     "kind": "get",
     "name": "nativeObject",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2129,7 +2240,7 @@
     "type": null
   },
   {
-    "__docId__": 114,
+    "__docId__": 117,
     "kind": "get",
     "name": "socket",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2151,7 +2262,7 @@
     "type": null
   },
   {
-    "__docId__": 115,
+    "__docId__": 118,
     "kind": "get",
     "name": "FinderClass",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2177,7 +2288,7 @@
     }
   },
   {
-    "__docId__": 116,
+    "__docId__": 119,
     "kind": "method",
     "name": "loadURL",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2215,7 +2326,7 @@
     ]
   },
   {
-    "__docId__": 117,
+    "__docId__": 120,
     "kind": "method",
     "name": "getURL",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2237,7 +2348,29 @@
     "params": []
   },
   {
-    "__docId__": 118,
+    "__docId__": 121,
+    "kind": "method",
+    "name": "reload",
+    "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/browser/interface/browser_page.js~BrowserPage#reload",
+    "access": "public",
+    "description": "",
+    "lineNumber": 33,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<object>"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 122,
     "kind": "method",
     "name": "executeJavaScript",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2247,7 +2380,7 @@
     "longname": "lib/browser/interface/browser_page.js~BrowserPage#executeJavaScript",
     "access": "public",
     "description": "",
-    "lineNumber": 33,
+    "lineNumber": 37,
     "return": {
       "nullable": null,
       "types": [
@@ -2273,7 +2406,7 @@
     ]
   },
   {
-    "__docId__": 119,
+    "__docId__": 123,
     "kind": "method",
     "name": "openDevTools",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2283,12 +2416,12 @@
     "longname": "lib/browser/interface/browser_page.js~BrowserPage#openDevTools",
     "access": "public",
     "description": "show developer tool",
-    "lineNumber": 37,
+    "lineNumber": 41,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 120,
+    "__docId__": 124,
     "kind": "method",
     "name": "waitForDownload",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2298,7 +2431,7 @@
     "longname": "lib/browser/interface/browser_page.js~BrowserPage#waitForDownload",
     "access": "public",
     "description": "",
-    "lineNumber": 41,
+    "lineNumber": 45,
     "return": {
       "nullable": null,
       "types": [
@@ -2323,7 +2456,7 @@
     ]
   },
   {
-    "__docId__": 121,
+    "__docId__": 125,
     "kind": "method",
     "name": "waitForConfirm",
     "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
@@ -2333,7 +2466,7 @@
     "longname": "lib/browser/interface/browser_page.js~BrowserPage#waitForConfirm",
     "access": "public",
     "description": "",
-    "lineNumber": 45,
+    "lineNumber": 49,
     "return": {
       "nullable": null,
       "types": [
@@ -2364,7 +2497,42 @@
     ]
   },
   {
-    "__docId__": 122,
+    "__docId__": 126,
+    "kind": "method",
+    "name": "waitForAlert",
+    "memberof": "lib/browser/interface/browser_page.js~BrowserPage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/browser/interface/browser_page.js~BrowserPage#waitForAlert",
+    "access": "public",
+    "description": "",
+    "lineNumber": 53,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<string>"
+      ],
+      "spread": false,
+      "description": "resolved by alert message"
+    },
+    "params": [
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 127,
     "kind": "file",
     "name": "lib/browser/interface/browser_socket.js",
     "content": "\nclass BrowserSocket {\n  on(channel, callback){ throw new Error(\"Not Implemented\") }\n  once(channel, callback){ throw new Error(\"Not Implemented\") }\n  send(channel, ...args){ throw new Error(\"Not Implemented\") }\n  removeAllListeners(channel){ throw new Error(\"Not Implemented\") }\n}\n\nmodule.exports = BrowserSocket;\n",
@@ -2375,7 +2543,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 123,
+    "__docId__": 128,
     "kind": "class",
     "name": "BrowserSocket",
     "memberof": "lib/browser/interface/browser_socket.js",
@@ -2391,7 +2559,7 @@
     "interface": false
   },
   {
-    "__docId__": 124,
+    "__docId__": 129,
     "kind": "method",
     "name": "on",
     "memberof": "lib/browser/interface/browser_socket.js~BrowserSocket",
@@ -2420,7 +2588,7 @@
     "return": null
   },
   {
-    "__docId__": 125,
+    "__docId__": 130,
     "kind": "method",
     "name": "once",
     "memberof": "lib/browser/interface/browser_socket.js~BrowserSocket",
@@ -2449,7 +2617,7 @@
     "return": null
   },
   {
-    "__docId__": 126,
+    "__docId__": 131,
     "kind": "method",
     "name": "send",
     "memberof": "lib/browser/interface/browser_socket.js~BrowserSocket",
@@ -2479,7 +2647,7 @@
     "return": null
   },
   {
-    "__docId__": 127,
+    "__docId__": 132,
     "kind": "method",
     "name": "removeAllListeners",
     "memberof": "lib/browser/interface/browser_socket.js~BrowserSocket",
@@ -2502,7 +2670,7 @@
     "return": null
   },
   {
-    "__docId__": 128,
+    "__docId__": 133,
     "kind": "file",
     "name": "lib/browser/puppeteer/index.js",
     "content": "const puppeteer = require('puppeteer');\nconst Browser = require('../interface/browser');\nconst PuppeteerPage = require('./puppeteer_page');\n\nclass PuppeteerBrowser extends Browser {\n  constructor(options = {}){\n    super();\n    puppeteer.launch(options).then((browser)=>{\n      this._browser = browser;\n      this.emit(Browser.Events.Ready);\n    })\n    this.on(Browser.Events.Ready, ()=>{ this._ready = true });\n  }\n  isReady(){\n    return !!this._ready;\n  }\n  exit(...args){\n    this._browser && this._browser.close();\n    process.exit(...args);\n  }\n  createBrowserWindow(windowOptions, callbacks){\n    return new Promise((resolve, reject)=>{\n      if(this.isReady()){\n        this._browser.newPage().then(resolve);\n      }\n      this.on(Browser.Events.Ready, ()=>{\n        this._browser.newPage().then(resolve);\n      })\n    })\n    .then((browserPage)=>{\n      this._browserPage = browserPage;\n      this._browser.on('targetcreated', (target)=>{\n        if(target.type() != 'page') return;\n        target.page().then((page)=>{\n          return page.evaluate(()=>{ return window.name })\n        })\n        .then((frameName)=>{\n          callbacks['new-window'](frameName, target._targetInfo.targetId, {});\n        })\n      })\n      this._browser.on('targetdestroyed', (target)=>{\n        if(target.type() != 'page') return;\n        callbacks['closed'](target._targetInfo.targetId)\n      })\n      return { id: browserPage._client.targetId(), browserWindow: browserPage };\n    })\n  }\n  /**\n   * Get a browserWindow object by id if browserWindow given the id exist.\n   * @return {Promise<object>} - object is browserWindow object provided by each browser.\n   */\n  getBrowserWindowById(id){\n    if(id && this._browser){\n      return this._browser.pages()\n      .then((pages)=>{\n        return pages.filter(page => page._client.targetId() == id)[0];\n      })\n    }else{\n      return Promise.resolve()\n    }\n  }\n  createBrowserPage(window){\n    return new PuppeteerPage(window);\n  }\n}\n\nmodule.exports = PuppeteerBrowser;\n",
@@ -2513,7 +2681,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 129,
+    "__docId__": 134,
     "kind": "variable",
     "name": "puppeteer",
     "memberof": "lib/browser/puppeteer/index.js",
@@ -2534,7 +2702,7 @@
     "ignore": true
   },
   {
-    "__docId__": 130,
+    "__docId__": 135,
     "kind": "variable",
     "name": "Browser",
     "memberof": "lib/browser/puppeteer/index.js",
@@ -2555,7 +2723,7 @@
     "ignore": true
   },
   {
-    "__docId__": 131,
+    "__docId__": 136,
     "kind": "variable",
     "name": "PuppeteerPage",
     "memberof": "lib/browser/puppeteer/index.js",
@@ -2576,7 +2744,7 @@
     "ignore": true
   },
   {
-    "__docId__": 132,
+    "__docId__": 137,
     "kind": "class",
     "name": "PuppeteerBrowser",
     "memberof": "lib/browser/puppeteer/index.js",
@@ -2595,7 +2763,7 @@
     ]
   },
   {
-    "__docId__": 133,
+    "__docId__": 138,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2609,7 +2777,7 @@
     "undocument": true
   },
   {
-    "__docId__": 134,
+    "__docId__": 139,
     "kind": "member",
     "name": "_browser",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2626,7 +2794,7 @@
     }
   },
   {
-    "__docId__": 135,
+    "__docId__": 140,
     "kind": "member",
     "name": "_ready",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2643,7 +2811,7 @@
     }
   },
   {
-    "__docId__": 136,
+    "__docId__": 141,
     "kind": "method",
     "name": "isReady",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2663,7 +2831,7 @@
     }
   },
   {
-    "__docId__": 137,
+    "__docId__": 142,
     "kind": "method",
     "name": "exit",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2687,7 +2855,7 @@
     "return": null
   },
   {
-    "__docId__": 139,
+    "__docId__": 144,
     "kind": "method",
     "name": "createBrowserWindow",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2720,7 +2888,7 @@
     }
   },
   {
-    "__docId__": 140,
+    "__docId__": 145,
     "kind": "member",
     "name": "_browserPage",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2737,7 +2905,7 @@
     }
   },
   {
-    "__docId__": 141,
+    "__docId__": 146,
     "kind": "method",
     "name": "getBrowserWindowById",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2766,7 +2934,7 @@
     ]
   },
   {
-    "__docId__": 142,
+    "__docId__": 147,
     "kind": "method",
     "name": "createBrowserPage",
     "memberof": "lib/browser/puppeteer/index.js~PuppeteerBrowser",
@@ -2793,10 +2961,10 @@
     }
   },
   {
-    "__docId__": 143,
+    "__docId__": 148,
     "kind": "file",
     "name": "lib/browser/puppeteer/puppeteer_finder_extention.js",
-    "content": "const fs = require(\"fs\");\nconst path = require(\"path\");\nconst Finder = require(\"../../page/finder\");\n\nclass PuppeteerFinderExtention extends Finder {\n\n  /**\n   * Attach the file given with filePath.\n   * Now, it is not supported that you attach a file to input-elements in iframe .\n   * @param {string} filePath - Specify the path of the file to be attached\n   * @param {object} options\n   * @return {Promise}\n   */\n  attachFile(filePath, options = {}){\n    const firstSelector = this.conditions[0].constructor.name == \"Selector\" ? this.conditions[0].selector : \"*\";\n\n    return this.page.browserPage.nativeObject.$$(firstSelector)\n    .then((elementHandles)=>{\n      return this.conditions.reduce((prev, condition, i)=>{\n        return prev.then((elementHandles)=>{\n          if(condition.constructor.name == \"Selector\"){\n            return i == 0 ? elementHandles : elementHandles.$$(condition.selector);\n          }\n          if(condition.constructor.name == \"Filter\"){\n            return elementHandles.filter(eval(condition.code))\n          }\n        })\n      }, Promise.resolve(elementHandles));\n    })\n    .then((elementHandles)=>{\n      if(elementHandles.length == 0) return;//throw new Error('input element to attach file is not found')\n\n      return elementHandles[0].uploadFile(filePath);\n    })\n  }\n}\n\nmodule.exports = PuppeteerFinderExtention;\n",
+    "content": "const fs = require(\"fs\");\nconst path = require(\"path\");\nconst Finder = require(\"../../page/finder\");\n\nclass PuppeteerFinderExtention extends Finder {\n\n  /**\n   * Attach the file given with filePath.\n   * Now, it is not supported that you attach a file to input-elements in iframe .\n   * @param {string} filePath - Specify the path of the file to be attached\n   * @param {object} options\n   * @return {Promise}\n   */\n  attachFile(filePath, options = {}){\n    const firstSelector = this.conditions[0].constructor.name == \"Selector\" ? this.conditions[0].selector : \"*\";\n\n    return this.page.browserPage.nativeObject.$$(firstSelector)\n    .then((elementHandles)=>{\n      return this.conditions.reduce((prev, condition, i)=>{\n        return prev.then((elementHandles)=>{\n          if(condition.constructor.name == \"Selector\"){\n            return i == 0 ? elementHandles : elementHandles.$$(condition.selector);\n          }\n          if(condition.constructor.name == \"Filter\"){\n            return elementHandles.filter(eval(condition.code))\n          }\n        })\n      }, Promise.resolve(elementHandles));\n    })\n    .then((elementHandles)=>{\n      if(elementHandles.length == 0) throw new Error('input element to attach file is not found')\n\n      return elementHandles[0].uploadFile(filePath);\n    })\n  }\n}\n\nmodule.exports = PuppeteerFinderExtention;\n",
     "static": true,
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/browser/puppeteer/puppeteer_finder_extention.js",
     "access": "public",
@@ -2804,7 +2972,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 144,
+    "__docId__": 149,
     "kind": "variable",
     "name": "fs",
     "memberof": "lib/browser/puppeteer/puppeteer_finder_extention.js",
@@ -2825,7 +2993,7 @@
     "ignore": true
   },
   {
-    "__docId__": 145,
+    "__docId__": 150,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/browser/puppeteer/puppeteer_finder_extention.js",
@@ -2846,7 +3014,7 @@
     "ignore": true
   },
   {
-    "__docId__": 146,
+    "__docId__": 151,
     "kind": "variable",
     "name": "Finder",
     "memberof": "lib/browser/puppeteer/puppeteer_finder_extention.js",
@@ -2867,7 +3035,7 @@
     "ignore": true
   },
   {
-    "__docId__": 147,
+    "__docId__": 152,
     "kind": "class",
     "name": "PuppeteerFinderExtention",
     "memberof": "lib/browser/puppeteer/puppeteer_finder_extention.js",
@@ -2886,7 +3054,7 @@
     ]
   },
   {
-    "__docId__": 148,
+    "__docId__": 153,
     "kind": "method",
     "name": "attachFile",
     "memberof": "lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention",
@@ -2929,10 +3097,10 @@
     }
   },
   {
-    "__docId__": 149,
+    "__docId__": 154,
     "kind": "file",
     "name": "lib/browser/puppeteer/puppeteer_page.js",
-    "content": "const path = require('path');\nconst fs = require('fs');\nconst EventEmitter = require('events');\nconst BrowserPage = require(\"../interface/browser_page\");\nconst BrowserSocket = require(\"../interface/browser_socket\");\nconst PuppeteerFinderExtention = require(\"./puppeteer_finder_extention\");\nconst {config} = require(\"../../utils/config\");\nconst DateFormat = require('../../utils/date_format');\n\nconst TIMEOUT_MSEC = config.mocha.timeout;\nconst DOWNLOAD_PATH = path.resolve(config.fileDownloadDir);\n\nclass PuppeteerPage extends BrowserPage {\n  constructor(window){\n    super();\n    this._window = window;\n    const browserSocket = this._browserSocket = new PuppeteerSocket();\n\n    this._window.on('ready', ()=>{\n      this.nativeObject.exposeFunction('invokeBrowserSocket', (...args)=>{\n        const argArray = JSON.parse(args.join(\"\"))\n        return browserSocket[argArray[0]](...(argArray.slice(1)));\n      })\n      this.nativeObject.evaluateOnNewDocument(()=>{\n        window.browserSocket = {\n          on: (...args)=>{ window.invokeBrowserSocket('on', ...args) },\n          once: (...args)=>{ window.invokeBrowserSocket('once', ...args) },\n          removeAllListeners: (...args)=>{ window.invokeBrowserSocket('removeAllListeners', ...args) },\n          send: (...args)=>{ window.invokeBrowserSocket('send', ...args) },\n        }\n      });\n      this._setDownloadPath(DOWNLOAD_PATH);\n    })\n  }\n  on(eventName, callback){\n    this._addEventListener(eventName, callback, fasle)\n  }\n  once(eventName, callback){\n    this._addEventListener(eventName, callback, true)\n  }\n  _addEventListener(eventName, callback, once = true){\n    if(eventName in PuppeteerPage.EventMappings){\n      this.nativeObject[once ? 'once' : 'on'](PuppeteerPage.EventMappings[eventName], callback)\n    }else{\n      super[once ? 'once' : 'on'](evnetName, callback)\n    }\n  }\n  removeAllListeners(eventName){\n    if(eventName in PuppeteerPage.EventMappings){\n      this.nativeObject.removeAllListeners(PuppeteerPage.EventMappings[eventName])\n    }else{\n      super.removeAllListeners(eventName);\n    }\n  }\n  /**\n   * @return {Window}\n   */\n  get window(){\n    return this._window;\n  }\n  /**\n   * @return {object}\n   */\n  get nativeObject(){\n    return this._window.browserWindow;\n  }\n  /**\n   * @return {BrowserSocket}\n   */\n  get socket(){\n    return this._browserSocket;\n  }\n  /**\n   * @return {Finder}\n   */\n  get FinderClass(){\n    return PuppeteerFinderExtention;\n  }\n  /**\n   * @return {Promise<BrowserPage>}\n   */\n  loadURL(url, options = {}){\n    return this.nativeObject.goto(url);\n  }\n  /**\n   * @return {string}\n   */\n  getURL(){\n    return this.nativeObject.url();\n  }\n  /**\n   * @return {Promise<string|number|boolean>}\n   */\n  executeJavaScript(code, ...args){\n    return this.nativeObject.evaluate(code, ...args);\n  }\n  /**\n   * show developer tool\n   */\n  openDevTools(){ /*ignoe*/ }\n  /**\n   * @private\n   */\n  _setDownloadPath(downloadPath){\n    return this.nativeObject._client.send(\n      'Page.setDownloadBehavior', {　behavior: 'allow', downloadPath: downloadPath }\n    );\n  }\n  /**\n   * @return {Promise<object>}\n   */\n  waitForDownload(action, options){\n    const isDownloadComplete = (path)=>{\n      return new Promise((resolve, reject)=>{\n        fs.readdir(path, (err, files)=>{ err ? reject(err) : resolve(files) })\n      })\n      .then((files)=>{\n        if (files.length === 0) return false;\n        // .crdownloadがあればダウンロード中\n        const nowDownloading = Array.from(files).some(file => /.*\\.crdownload$/.test(file))\n        return !nowDownloading\n      });\n    };\n\n    const waitResponse = ()=>{\n      return new Promise((resolve, reject)=>{\n        let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n        this.nativeObject.removeAllListeners('response');\n        this.nativeObject.on('response', (response)=>{\n          let contentDisposition = response.headers[\"content-disposition\"];\n          if(contentDisposition){\n            clearTimeout(timeoutId);\n            let matched = contentDisposition.match(/filename=\\\"(.*)\\\"$/);\n            resolve(matched ? matched[1] : \"\");\n          }\n        })\n        action();\n      })\n    };\n    const downloadPath = options.downloadPath || DOWNLOAD_PATH;\n    const waitTimeSpanMs = 100;\n\n    return (options.downloadPath ? this._setDownloadPath(options.downloadPath) : Promise.resolve())\n// patch start:\n// page.on('response') do not happen in puppeteer v0.13, so check saved file.\n//    .then(waitResponse)\n//    .then((filename)=>{\n    .then(()=>{\n      return new Promise((resolve, reject)=>{\n        fs.readdir(downloadPath, (err, files)=>{ err ? reject(err) : resolve(files) })\n      })\n    })\n    .then((filenames)=>{\n      action();\n// patch end\n      return new Promise((resolve, reject)=>{\n        let totalWaitTimeMs = 0;\n        const waitAndCheck = ()=>{\n          if(totalWaitTimeMs > TIMEOUT_MSEC) return reject(new Error('timeout'));\n\n          setTimeout(()=>{\n            totalWaitTimeMs += waitTimeSpanMs;\n            isDownloadComplete(downloadPath).catch(reject).then((completed)=>{\n              if(!completed) return waitAndCheck();\n\n// patch start\n              return new Promise((resolve, reject)=>{\n                const findDownloadedFile = ()=>{\n                  fs.readdir(downloadPath, (err, files)=>{\n                    if(err) return reject(err);\n                    let filename = files.filter(file => !filenames.includes(file))[0];\n                    if(!filename) return findDownloadedFile();\n                    resolve(filename);\n                  })\n                };\n                findDownloadedFile();\n              })\n              .then((filename)=>{\n// patch end\n                resolve({ filename: filename, savedFilePath: path.resolve(path.join(downloadPath, filename)) });\n              });\n            })\n          }, waitTimeSpanMs);\n        };\n        waitAndCheck();\n      });\n    });\n  }\n\n  /**\n   * @return {Promise<string>} resolved by confirm message\n   */\n  waitForConfirm(action, message = undefined, isClickOK = false){\n    return new Promise((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n      this.nativeObject.once('dialog', (dialog)=>{\n        if(dialog.type != 'confirm') return;\n\n        clearTimeout(timeoutId);\n        if(message && message != dialog.message()){\n          return reject(new Error(`expected message is \"${message}\", but actual is \"${dialog.message()}\"`));\n        }\n        dialog.accept().then(resolve);\n      })\n      action();\n    })\n  }\n}\n\nclass PuppeteerSocket extends BrowserSocket {\n  constructor(){\n    super();\n    this.emitter = new EventEmitter();\n  }\n  on(channel, callback){\n    return this.emitter.on(channel, callback);\n  }\n  once(channel, callback){\n    return this.emitter.once(channel, callback);\n  }\n  removeAllListeners(channel){\n    return this.emitter.removeAllListeners(channel);\n  }\n  send(channel, ...args){\n    return this.emitter.emit(channel, ...args)\n  }\n}\n\nPuppeteerPage.EventMappings = {\n  [BrowserPage.Events.Load]: 'load',\n  [BrowserPage.Events.LoadError]: 'requestfailed',\n//  [BrowserPage.Events.NewWindow]: 'did-fail-load',\n}\n\nmodule.exports = PuppeteerPage;\n",
+    "content": "const path = require('path');\nconst fs = require('fs');\nconst EventEmitter = require('events');\nconst BrowserPage = require(\"../interface/browser_page\");\nconst BrowserSocket = require(\"../interface/browser_socket\");\nconst PuppeteerFinderExtention = require(\"./puppeteer_finder_extention\");\nconst {config} = require(\"../../utils/config\");\nconst DateFormat = require('../../utils/date_format');\n\nconst TIMEOUT_MSEC = config.mocha.timeout;\nconst DOWNLOAD_PATH = path.resolve(config.fileDownloadDir);\n\nclass PuppeteerPage extends BrowserPage {\n  constructor(window){\n    super();\n    this._window = window;\n    const browserSocket = this._browserSocket = new PuppeteerSocket();\n\n    this._window.on('ready', ()=>{\n      this.nativeObject.exposeFunction('invokeBrowserSocket', (...args)=>{\n        return browserSocket[args[0]](...(args.slice(1)));\n      })\n      this.nativeObject.evaluateOnNewDocument(()=>{\n        window.browserSocket = {\n          on: (...args)=>{ window.invokeBrowserSocket('on', ...args) },\n          once: (...args)=>{ window.invokeBrowserSocket('once', ...args) },\n          removeAllListeners: (...args)=>{ window.invokeBrowserSocket('removeAllListeners', ...args) },\n          send: (...args)=>{ window.invokeBrowserSocket('send', ...args) },\n        }\n      });\n      this._setDownloadPath(DOWNLOAD_PATH);\n    })\n  }\n  on(eventName, callback){\n    this._addEventListener(eventName, callback, false)\n  }\n  once(eventName, callback){\n    this._addEventListener(eventName, callback, true)\n  }\n  _addEventListener(eventName, callback, once = true){\n    if(eventName in PuppeteerPage.EventMappings){\n      this.nativeObject[once ? 'once' : 'on'](PuppeteerPage.EventMappings[eventName], callback)\n    }else{\n      super[once ? 'once' : 'on'](eventName, callback)\n    }\n  }\n  removeAllListeners(eventName){\n    if(eventName in PuppeteerPage.EventMappings){\n      this.nativeObject.removeAllListeners(PuppeteerPage.EventMappings[eventName])\n    }else{\n      super.removeAllListeners(eventName);\n    }\n  }\n  /**\n   * @return {Window}\n   */\n  get window(){\n    return this._window;\n  }\n  /**\n   * @return {object}\n   */\n  get nativeObject(){\n    return this._window.browserWindow;\n  }\n  /**\n   * @return {BrowserSocket}\n   */\n  get socket(){\n    return this._browserSocket;\n  }\n  /**\n   * @return {Finder}\n   */\n  get FinderClass(){\n    return PuppeteerFinderExtention;\n  }\n  /**\n   * @return {Promise<BrowserPage>}\n   */\n  loadURL(url, options = {}){\n    return this.nativeObject.goto(url);\n  }\n  /**\n   * @return {string}\n   */\n  getURL(){\n    return this.nativeObject.url();\n  }\n  /**\n   * @return {Promise<object>}\n   */\n  reload(){\n    return this.nativeObject.reload();\n  }\n  /**\n   * @return {Promise<string|number|boolean>}\n   */\n  executeJavaScript(code, ...args){\n    return this.nativeObject.evaluate(code, ...args);\n  }\n  /**\n   * show developer tool, not supported yet.\n   */\n  openDevTools(){ /*ignoe*/ }\n  /**\n   * @private\n   */\n  _setDownloadPath(downloadPath){\n    return this.nativeObject._client.send(\n      'Page.setDownloadBehavior', {　behavior: 'allow', downloadPath: downloadPath }\n    );\n  }\n  /**\n   * @return {Promise<object>}\n   */\n  waitForDownload(action, options){\n    const isDownloadComplete = (path)=>{\n      return new Promise((resolve, reject)=>{\n        fs.readdir(path, (err, files)=>{ err ? reject(err) : resolve(files) })\n      })\n      .then((files)=>{\n        if (files.length === 0) return false;\n        // now downloading file have name to match for /.crdownload/\n        const nowDownloading = Array.from(files).some(file => /.*\\.crdownload$/.test(file))\n        return !nowDownloading\n      });\n    };\n\n    const waitResponse = ()=>{\n      return new Promise((resolve, reject)=>{\n        let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n        this.nativeObject.removeAllListeners('response');\n        this.nativeObject.on('response', (response)=>{\n          let contentDisposition = response.headers[\"content-disposition\"];\n          if(contentDisposition){\n            clearTimeout(timeoutId);\n            let matched = contentDisposition.match(/filename=\\\"(.*)\\\"$/);\n            resolve(matched ? matched[1] : \"\");\n          }\n        })\n        action();\n      })\n    };\n    const waitTimeSpanMs = 100;\n    const downloadPath = options.downloadPath || path.join(DOWNLOAD_PATH, DateFormat.toTimepstampMsecString(new Date()))\n    if(!options.downloadPath){\n      fs.mkdirSync(downloadPath)\n    }\n    return this._setDownloadPath(downloadPath)\n// patch start: ( TODO )\n// page.on('response') do not happen in puppeteer v0.13, so check saved file.\n//    .then(waitResponse)\n//    .then((filename)=>{\n    .then(()=>{\n      action();\n// patch end\n      return new Promise((resolve, reject)=>{\n        let totalWaitTimeMs = 0;\n        const waitAndCheck = ()=>{\n          if(totalWaitTimeMs > TIMEOUT_MSEC) return reject(new Error('timeout'));\n\n          setTimeout(()=>{\n            totalWaitTimeMs += waitTimeSpanMs;\n            isDownloadComplete(downloadPath).catch(reject).then((completed)=>{\n              if(!completed) return waitAndCheck();\n\n// patch start\n              return new Promise((resolve, reject)=>{\n                const findDownloadedFile = ()=>{\n                  fs.readdir(downloadPath, (err, files)=>{\n                    if(err) reject(err);\n                    if(!files[0]) return setTimeout(findDownloadedFile, waitTimeSpanMs);\n                    resolve(files[0]);\n                  })\n                };\n                findDownloadedFile();\n              })\n              .then((filename)=>{\n// patch end\n                resolve({ filename: filename, savedFilePath: path.resolve(path.join(downloadPath, filename)) });\n              });\n            })\n          }, waitTimeSpanMs);\n        };\n        waitAndCheck();\n      });\n    });\n  }\n\n  /**\n   * @return {Promise<string>} resolved by confirm message\n   */\n  _waitForDialog(dialogType, action, message = undefined, isClickOK = false){\n    return new Promise((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n      this.nativeObject.once('dialog', (dialog)=>{\n        if(dialog.type != dialogType) return;\n\n        clearTimeout(timeoutId);\n        if(message && message != dialog.message()){\n          return reject(new Error(`expected message is \"${message}\", but actual is \"${dialog.message()}\"`));\n        }\n        (isClickOK ? dialog.accept() : dialog.dismiss()).then(resolve);\n      })\n      action();\n    })\n  }\n  waitForConfirm(action, message = undefined, isClickOK = false){\n    return this._waitForDialog('confirm', action, message, isClickOK);\n  }\n\n  /**\n   * @return {Promise<string>} resolved by alert message\n   */\n  waitForAlert(action, message = undefined){\n    return this._waitForDialog('alert', action, message, true);\n  }\n}\n\nclass PuppeteerSocket extends BrowserSocket {\n  constructor(){\n    super();\n    this.emitter = new EventEmitter();\n  }\n  on(channel, callback){\n    return this.emitter.on(channel, callback);\n  }\n  once(channel, callback){\n    return this.emitter.once(channel, callback);\n  }\n  removeAllListeners(channel){\n    return this.emitter.removeAllListeners(channel);\n  }\n  send(channel, ...args){\n    return this.emitter.emit(channel, ...args)\n  }\n}\n\nPuppeteerPage.EventMappings = {\n  [BrowserPage.Events.Load]: 'load',\n  [BrowserPage.Events.LoadError]: 'requestfailed',\n}\n\nmodule.exports = PuppeteerPage;\n",
     "static": true,
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/browser/puppeteer/puppeteer_page.js",
     "access": "public",
@@ -2940,7 +3108,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 150,
+    "__docId__": 155,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -2961,7 +3129,7 @@
     "ignore": true
   },
   {
-    "__docId__": 151,
+    "__docId__": 156,
     "kind": "variable",
     "name": "fs",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -2982,7 +3150,7 @@
     "ignore": true
   },
   {
-    "__docId__": 152,
+    "__docId__": 157,
     "kind": "variable",
     "name": "EventEmitter",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3003,7 +3171,7 @@
     "ignore": true
   },
   {
-    "__docId__": 153,
+    "__docId__": 158,
     "kind": "variable",
     "name": "BrowserPage",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3024,7 +3192,7 @@
     "ignore": true
   },
   {
-    "__docId__": 154,
+    "__docId__": 159,
     "kind": "variable",
     "name": "BrowserSocket",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3045,7 +3213,7 @@
     "ignore": true
   },
   {
-    "__docId__": 155,
+    "__docId__": 160,
     "kind": "variable",
     "name": "PuppeteerFinderExtention",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3066,7 +3234,7 @@
     "ignore": true
   },
   {
-    "__docId__": 156,
+    "__docId__": 161,
     "kind": "variable",
     "name": "config",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3087,7 +3255,7 @@
     "ignore": true
   },
   {
-    "__docId__": 157,
+    "__docId__": 162,
     "kind": "variable",
     "name": "DateFormat",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3108,7 +3276,7 @@
     "ignore": true
   },
   {
-    "__docId__": 158,
+    "__docId__": 163,
     "kind": "variable",
     "name": "TIMEOUT_MSEC",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3129,7 +3297,7 @@
     "ignore": true
   },
   {
-    "__docId__": 159,
+    "__docId__": 164,
     "kind": "variable",
     "name": "DOWNLOAD_PATH",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3150,7 +3318,7 @@
     "ignore": true
   },
   {
-    "__docId__": 160,
+    "__docId__": 165,
     "kind": "class",
     "name": "PuppeteerSocket",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3161,7 +3329,7 @@
     "importPath": "pagewalker/lib/browser/puppeteer/puppeteer_page.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 210,
+    "lineNumber": 221,
     "undocument": true,
     "interface": false,
     "extends": [
@@ -3170,7 +3338,7 @@
     "ignore": true
   },
   {
-    "__docId__": 161,
+    "__docId__": 166,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket",
@@ -3180,11 +3348,11 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 211,
+    "lineNumber": 222,
     "undocument": true
   },
   {
-    "__docId__": 162,
+    "__docId__": 167,
     "kind": "member",
     "name": "emitter",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket",
@@ -3192,7 +3360,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket#emitter",
     "access": "public",
     "description": null,
-    "lineNumber": 213,
+    "lineNumber": 224,
     "undocument": true,
     "type": {
       "types": [
@@ -3201,7 +3369,7 @@
     }
   },
   {
-    "__docId__": 163,
+    "__docId__": 168,
     "kind": "method",
     "name": "on",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket",
@@ -3211,7 +3379,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket#on",
     "access": "public",
     "description": null,
-    "lineNumber": 215,
+    "lineNumber": 226,
     "undocument": true,
     "params": [
       {
@@ -3234,7 +3402,7 @@
     }
   },
   {
-    "__docId__": 164,
+    "__docId__": 169,
     "kind": "method",
     "name": "once",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket",
@@ -3244,7 +3412,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket#once",
     "access": "public",
     "description": null,
-    "lineNumber": 218,
+    "lineNumber": 229,
     "undocument": true,
     "params": [
       {
@@ -3267,7 +3435,7 @@
     }
   },
   {
-    "__docId__": 165,
+    "__docId__": 170,
     "kind": "method",
     "name": "removeAllListeners",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket",
@@ -3277,7 +3445,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket#removeAllListeners",
     "access": "public",
     "description": null,
-    "lineNumber": 221,
+    "lineNumber": 232,
     "undocument": true,
     "params": [
       {
@@ -3294,7 +3462,7 @@
     }
   },
   {
-    "__docId__": 166,
+    "__docId__": 171,
     "kind": "method",
     "name": "send",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket",
@@ -3304,7 +3472,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerSocket#send",
     "access": "public",
     "description": null,
-    "lineNumber": 224,
+    "lineNumber": 235,
     "undocument": true,
     "params": [
       {
@@ -3328,7 +3496,7 @@
     }
   },
   {
-    "__docId__": 167,
+    "__docId__": 172,
     "kind": "class",
     "name": "PuppeteerPage",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js",
@@ -3347,7 +3515,7 @@
     ]
   },
   {
-    "__docId__": 168,
+    "__docId__": 173,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3361,7 +3529,7 @@
     "undocument": true
   },
   {
-    "__docId__": 169,
+    "__docId__": 174,
     "kind": "member",
     "name": "_window",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3378,7 +3546,7 @@
     }
   },
   {
-    "__docId__": 170,
+    "__docId__": 175,
     "kind": "method",
     "name": "on",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3388,7 +3556,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#on",
     "access": "public",
     "description": null,
-    "lineNumber": 35,
+    "lineNumber": 34,
     "undocument": true,
     "params": [
       {
@@ -3407,7 +3575,7 @@
     "return": null
   },
   {
-    "__docId__": 171,
+    "__docId__": 176,
     "kind": "method",
     "name": "once",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3417,7 +3585,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#once",
     "access": "public",
     "description": null,
-    "lineNumber": 38,
+    "lineNumber": 37,
     "undocument": true,
     "params": [
       {
@@ -3436,7 +3604,7 @@
     "return": null
   },
   {
-    "__docId__": 172,
+    "__docId__": 177,
     "kind": "method",
     "name": "_addEventListener",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3446,7 +3614,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#_addEventListener",
     "access": "private",
     "description": null,
-    "lineNumber": 41,
+    "lineNumber": 40,
     "undocument": true,
     "params": [
       {
@@ -3474,7 +3642,7 @@
     "return": null
   },
   {
-    "__docId__": 173,
+    "__docId__": 178,
     "kind": "method",
     "name": "removeAllListeners",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3484,7 +3652,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#removeAllListeners",
     "access": "public",
     "description": null,
-    "lineNumber": 48,
+    "lineNumber": 47,
     "undocument": true,
     "params": [
       {
@@ -3497,7 +3665,7 @@
     "return": null
   },
   {
-    "__docId__": 174,
+    "__docId__": 179,
     "kind": "get",
     "name": "window",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3507,7 +3675,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#window",
     "access": "public",
     "description": "",
-    "lineNumber": 58,
+    "lineNumber": 57,
     "return": {
       "nullable": null,
       "types": [
@@ -3523,7 +3691,7 @@
     }
   },
   {
-    "__docId__": 175,
+    "__docId__": 180,
     "kind": "get",
     "name": "nativeObject",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3533,7 +3701,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#nativeObject",
     "access": "public",
     "description": "",
-    "lineNumber": 64,
+    "lineNumber": 63,
     "return": {
       "nullable": null,
       "types": [
@@ -3549,7 +3717,7 @@
     }
   },
   {
-    "__docId__": 176,
+    "__docId__": 181,
     "kind": "get",
     "name": "socket",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3559,7 +3727,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#socket",
     "access": "public",
     "description": "",
-    "lineNumber": 70,
+    "lineNumber": 69,
     "return": {
       "nullable": null,
       "types": [
@@ -3575,7 +3743,7 @@
     }
   },
   {
-    "__docId__": 177,
+    "__docId__": 182,
     "kind": "get",
     "name": "FinderClass",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3585,7 +3753,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#FinderClass",
     "access": "public",
     "description": "",
-    "lineNumber": 76,
+    "lineNumber": 75,
     "return": {
       "nullable": null,
       "types": [
@@ -3601,7 +3769,7 @@
     }
   },
   {
-    "__docId__": 178,
+    "__docId__": 183,
     "kind": "method",
     "name": "loadURL",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3611,7 +3779,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#loadURL",
     "access": "public",
     "description": "",
-    "lineNumber": 82,
+    "lineNumber": 81,
     "return": {
       "nullable": null,
       "types": [
@@ -3639,7 +3807,7 @@
     ]
   },
   {
-    "__docId__": 179,
+    "__docId__": 184,
     "kind": "method",
     "name": "getURL",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3649,7 +3817,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#getURL",
     "access": "public",
     "description": "",
-    "lineNumber": 88,
+    "lineNumber": 87,
     "return": {
       "nullable": null,
       "types": [
@@ -3661,7 +3829,29 @@
     "params": []
   },
   {
-    "__docId__": 180,
+    "__docId__": 185,
+    "kind": "method",
+    "name": "reload",
+    "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#reload",
+    "access": "public",
+    "description": "",
+    "lineNumber": 93,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<object>"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 186,
     "kind": "method",
     "name": "executeJavaScript",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3671,7 +3861,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#executeJavaScript",
     "access": "public",
     "description": "",
-    "lineNumber": 94,
+    "lineNumber": 99,
     "return": {
       "nullable": null,
       "types": [
@@ -3697,7 +3887,7 @@
     ]
   },
   {
-    "__docId__": 181,
+    "__docId__": 187,
     "kind": "method",
     "name": "openDevTools",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3706,13 +3896,13 @@
     "static": false,
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#openDevTools",
     "access": "public",
-    "description": "show developer tool",
-    "lineNumber": 100,
+    "description": "show developer tool, not supported yet.",
+    "lineNumber": 105,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 182,
+    "__docId__": 188,
     "kind": "method",
     "name": "_setDownloadPath",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3722,7 +3912,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#_setDownloadPath",
     "access": "private",
     "description": "",
-    "lineNumber": 104,
+    "lineNumber": 109,
     "params": [
       {
         "name": "downloadPath",
@@ -3738,7 +3928,7 @@
     }
   },
   {
-    "__docId__": 183,
+    "__docId__": 189,
     "kind": "method",
     "name": "waitForDownload",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
@@ -3748,7 +3938,7 @@
     "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#waitForDownload",
     "access": "public",
     "description": "",
-    "lineNumber": 112,
+    "lineNumber": 117,
     "return": {
       "nullable": null,
       "types": [
@@ -3773,17 +3963,17 @@
     ]
   },
   {
-    "__docId__": 184,
+    "__docId__": 190,
     "kind": "method",
-    "name": "waitForConfirm",
+    "name": "_waitForDialog",
     "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#waitForConfirm",
-    "access": "public",
+    "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#_waitForDialog",
+    "access": "private",
     "description": "",
-    "lineNumber": 193,
+    "lineNumber": 194,
     "return": {
       "nullable": null,
       "types": [
@@ -3793,6 +3983,12 @@
       "description": "resolved by confirm message"
     },
     "params": [
+      {
+        "name": "dialogType",
+        "types": [
+          "*"
+        ]
+      },
       {
         "name": "action",
         "types": [
@@ -3820,7 +4016,90 @@
     ]
   },
   {
-    "__docId__": 185,
+    "__docId__": 191,
+    "kind": "method",
+    "name": "waitForConfirm",
+    "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#waitForConfirm",
+    "access": "public",
+    "description": null,
+    "lineNumber": 209,
+    "undocument": true,
+    "params": [
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "optional": true,
+        "types": [
+          "*"
+        ],
+        "defaultRaw": "undefined",
+        "defaultValue": "undefined"
+      },
+      {
+        "name": "isClickOK",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": false,
+        "defaultValue": "false"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 192,
+    "kind": "method",
+    "name": "waitForAlert",
+    "memberof": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#waitForAlert",
+    "access": "public",
+    "description": "",
+    "lineNumber": 216,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<string>"
+      ],
+      "spread": false,
+      "description": "resolved by alert message"
+    },
+    "params": [
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "message",
+        "optional": true,
+        "types": [
+          "*"
+        ],
+        "defaultRaw": "undefined",
+        "defaultValue": "undefined"
+      }
+    ]
+  },
+  {
+    "__docId__": 193,
     "kind": "file",
     "name": "lib/page/finder.js",
     "content": "const FinderBase = require('./finder_base');\nconst FinderAction = require('./finder_action');\nconst FinderFilter = require('./finder_filter');\n\n/**\n * @extends {FinderBase}\n * @extends {FinderAction}\n * @extends {FinderFilter}\n */\nclass Finder extends FinderBase {\n  constructor(page, ...args){\n    super(page, ...args)\n  }\n  /**\n   * Set \"selected\" property true on option element whose textContent match the given string.\n   * This method is assumed to be called on a select element\n   * @return {Promise}\n   */\n  selectOption(content){\n    return this.find(\"option\", FinderFilter.haveContent(content.trim())).select();\n  }\n  /**\n   * Alias of \"selectOption\"\n   * @return {Promise}\n   */\n  choose(content){\n    return this.selectOption(content);\n  }\n  /**\n   * Attach the file given with filePath.\n   * This method implemented at FinderExtentions by Browser. so please read api-document of FinderExtentions you use.\n   * @param {string} filePath - Specify the path of the file to be attached\n   * @param {object} options - options given to FinderExtentions\n   * @return {Promise}\n   */\n  attachFile(filePath, options = {}){\n    throw new Error(\"not implemented\")\n  }\n  /**\n   * execute \"JavaScript code\" given as argument\n   * @return {Promise}\n   */\n  executeJs(code){\n    return this.withAction(code).evaluate();\n  }\n  /**\n   * @return {Promise} Promise which resolved with array of finder, that array length is matched number\n   */\n  toArray(){\n    return this.count()\n    .then((count)=>{\n      let array = [];\n      for(let i = 0; i < count; i++){\n        array.push(this.clone().find(`(node, idx)=>{ return idx == ${i} }`));\n      }\n      return array;\n    })\n  }\n  /**\n   * return true if all elements which is found by Finder satisfied given filter\n   * @example\n   * await page.find(\"input\").every(FinderFilter.haveValue(\"123\")) // return true or false\n   */\n  every(code){\n    let filtered = this.clone().find(code);\n    return Promise.all([ this.count(), filtered.count() ])\n    .then((beforeAndAfter)=>{ return beforeAndAfter[0] == beforeAndAfter[1] })\n  }\n\n  /**\n   * Make this finder object executed in given iframe.\n   * @param {Finder} finderForIframe - finder object for iframe\n   * @return {Finder}\n   * @example\n   *   await page.find(\"h3\").inIframe(page.find(\"iframe\").getFirst()).text()\n   */\n  inIframe(finderForIframe){\n    return this.withContext(finderForIframe.toContextString());\n  }\n  /**\n   * @private\n   */\n  toContextString(){\n    let codeToFindIframeObject = this.clone().withAction(elements => elements).toJsCode();\n    return `(()=>{ ${codeToFindIframeObject} })()[0].contentWindow`;\n  }\n  /**\n   * this is same for `page.waitForPageLoad(async ()=>{ await this.click() })`\n   */\n  clickAndWaitLoading(){\n    return this.page.waitForPageLoad(()=>{ this.click() });\n  }\n  /**\n   * this is same for `page.waitForAjaxDone(async ()=>{ await this.click() })`\n   */\n  clickAndWaitAjaxDone(){\n    return this.page.waitForAjaxDone(()=>{ this.click() });\n  }\n}\n\nfunction mixin(dest, source){\n  for(let key of Reflect.ownKeys(source)){\n    if(key === \"constructor\") continue;\n\n    let descriptor = Object.getOwnPropertyDescriptor(source, key);\n    descriptor.configurable = true;\n    descriptor.enumerable   = false;\n    if(descriptor.hasOwnProperty(\"writable\")){\n      descriptor.writable = true;\n    }\n    Object.defineProperty(dest, key, descriptor);\n  }\n}\n\nmixin(Finder.prototype, FinderAction.prototype);\nmixin(Finder.prototype, FinderFilter.prototype);\n\nmodule.exports = Finder;\n",
@@ -3831,7 +4110,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 186,
+    "__docId__": 194,
     "kind": "variable",
     "name": "FinderBase",
     "memberof": "lib/page/finder.js",
@@ -3852,7 +4131,7 @@
     "ignore": true
   },
   {
-    "__docId__": 187,
+    "__docId__": 195,
     "kind": "variable",
     "name": "FinderAction",
     "memberof": "lib/page/finder.js",
@@ -3873,7 +4152,7 @@
     "ignore": true
   },
   {
-    "__docId__": 188,
+    "__docId__": 196,
     "kind": "variable",
     "name": "FinderFilter",
     "memberof": "lib/page/finder.js",
@@ -3894,7 +4173,7 @@
     "ignore": true
   },
   {
-    "__docId__": 189,
+    "__docId__": 197,
     "kind": "function",
     "name": "mixin",
     "memberof": "lib/page/finder.js",
@@ -3927,7 +4206,7 @@
     "ignore": true
   },
   {
-    "__docId__": 190,
+    "__docId__": 198,
     "kind": "class",
     "name": "Finder",
     "memberof": "lib/page/finder.js",
@@ -3947,7 +4226,7 @@
     ]
   },
   {
-    "__docId__": 191,
+    "__docId__": 199,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page/finder.js~Finder",
@@ -3961,7 +4240,7 @@
     "undocument": true
   },
   {
-    "__docId__": 192,
+    "__docId__": 200,
     "kind": "method",
     "name": "selectOption",
     "memberof": "lib/page/finder.js~Finder",
@@ -3990,7 +4269,7 @@
     ]
   },
   {
-    "__docId__": 193,
+    "__docId__": 201,
     "kind": "method",
     "name": "choose",
     "memberof": "lib/page/finder.js~Finder",
@@ -4019,7 +4298,7 @@
     ]
   },
   {
-    "__docId__": 194,
+    "__docId__": 202,
     "kind": "method",
     "name": "attachFile",
     "memberof": "lib/page/finder.js~Finder",
@@ -4062,7 +4341,7 @@
     }
   },
   {
-    "__docId__": 195,
+    "__docId__": 203,
     "kind": "method",
     "name": "executeJs",
     "memberof": "lib/page/finder.js~Finder",
@@ -4091,7 +4370,7 @@
     ]
   },
   {
-    "__docId__": 196,
+    "__docId__": 204,
     "kind": "method",
     "name": "toArray",
     "memberof": "lib/page/finder.js~Finder",
@@ -4113,7 +4392,7 @@
     "params": []
   },
   {
-    "__docId__": 197,
+    "__docId__": 205,
     "kind": "method",
     "name": "every",
     "memberof": "lib/page/finder.js~Finder",
@@ -4142,7 +4421,7 @@
     }
   },
   {
-    "__docId__": 198,
+    "__docId__": 206,
     "kind": "method",
     "name": "inIframe",
     "memberof": "lib/page/finder.js~Finder",
@@ -4178,7 +4457,7 @@
     }
   },
   {
-    "__docId__": 199,
+    "__docId__": 207,
     "kind": "method",
     "name": "toContextString",
     "memberof": "lib/page/finder.js~Finder",
@@ -4197,7 +4476,7 @@
     }
   },
   {
-    "__docId__": 200,
+    "__docId__": 208,
     "kind": "method",
     "name": "clickAndWaitLoading",
     "memberof": "lib/page/finder.js~Finder",
@@ -4216,7 +4495,7 @@
     }
   },
   {
-    "__docId__": 201,
+    "__docId__": 209,
     "kind": "method",
     "name": "clickAndWaitAjaxDone",
     "memberof": "lib/page/finder.js~Finder",
@@ -4235,10 +4514,10 @@
     }
   },
   {
-    "__docId__": 202,
+    "__docId__": 210,
     "kind": "file",
     "name": "lib/page/finder_action.js",
-    "content": "\n/**\n * This class provides action methods for Finder.\n * This class is Mixined to \"Finder\" class\n */\nclass FinderAction {\n  static get count(){\n    return (elements)=>{ return elements ? elements.length : 0 }\n  }\n  static get text(){\n    return (elements)=>{ return elements && elements[0].textContent }\n  }\n  static attribute(attrName){\n    return `(elements)=>{ return elements && elements[0].attributes[\"${attrName}\"].value }`;\n  }\n  static setText(text){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].textContent = \"${text}\" } }`\n  }\n  static get value(){\n    return (elements)=>{ return elements && elements[0].value }\n  }\n  static setValue(val){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].value = \"${val}\" } }`\n  }\n  static get click(){\n    return (elements)=>{\n      if(elements && elements[0]){\n        let event = document.createEvent('MouseEvent');\n        event.initMouseEvent(\"click\", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);\n        elements[0].dispatchEvent(event);\n      }\n    }\n  }\n  static setChecked(bool){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].checked = ${bool}; } }`\n  }\n  static setSelected(bool){\n    return `(elements)=>{ elements && elements[0].selected = ${bool} }`\n  }\n\n  ////// instance methods //////////////////////////////////////////////////////////////////\n\n  /*\n   * Get a textContent of element which is found first by Finder.\n   * @return {Promise} Promise resolved with element.textContent\n   */\n  text(){\n    return this.withAction(FinderAction.text).evaluate()\n  }\n  /**\n   * Get a value of element which is found first by Finder.\n   * @return {Promise} Promise resolved with element.value\n   */\n  value(){\n    return this.withAction(FinderAction.value).evaluate()\n  }\n  /**\n   * Get a attribute of element which is found first by Finder.\n   * @return {Promise} Promise resolved with element.attributes[attrName].value\n   */\n  attribute(attrName){\n    return this.withAction(FinderAction.attribute(attrName)).evaluate()\n  }\n  /**\n   * Click an element which is found first by Finder\n   * @return {Promise} Promise resolved after click event\n   */\n  click(){\n    return this.withAction(FinderAction.click).evaluate()\n  }\n  /**\n   * Get a count of elements which is found by Finder.\n   * @return {Promise} Promise resolved with matched number\n   */\n  count(){\n    return this.withAction(FinderAction.count).evaluate()\n  }\n  /**\n   * @return {Promise} return true if count of elements which is found by Finder is over one.\n   */\n  exist(){\n    return this.count().then(count => count >= 1)\n  }\n  /**\n   * @return {Promise} return true if count of elements which is found by Finder is zero.\n   */\n  notExist(){\n    return this.exist().then(exist => !exist)\n  }\n  /**\n   * Set given value to value of all elements which is found by Finder\n   * @return {Promise} Promise resolved after setting value\n   */\n  setValue(val){\n    return this.withAction(FinderAction.setValue(val)).evaluate()\n  }\n  /**\n   * Alias of \"setValue\"\n   */\n  fillIn(val){\n    return this.setValue(val)\n  }\n  /**\n   * Set given text to textContent of all elements which is found by Finder\n   * @return {Promise} Promise resolved after setting textContent\n   */\n  setText(text){\n    return this.withAction(FinderAction.setText(text)).evaluate()\n  }\n  /**\n   * Set \"checked\" property true on all elements which is found by Finder\n   * @return {Promise}\n   */\n  check(){\n    // TODO target is all elements\n    return this.withAction(FinderAction.setChecked(true)).evaluate()\n  }\n  /**\n   * Set \"checked\" property true on all elements which is found by Finder\n   * @return {Promise}\n   */\n  uncheck(){\n    // TODO target is all elements\n    return this.withAction(FinderAction.setChecked(false)).evaluate()\n  }\n  /**\n   * Alias of \"click\"\n   * @return {Promise}\n   */\n  chooseRadioButton(){\n    return this.click();\n  }\n  /**\n   * Set \"selected\" property true on element which is found by Finder\n   * @return {Promise}\n   */\n  select(){\n    return this.withAction(FinderAction.setSelected(true)).evaluate();\n  }\n}\n\nmodule.exports = FinderAction;\n",
+    "content": "\n/**\n * This class provides action methods for Finder.\n * This class is Mixined to \"Finder\" class\n */\nclass FinderAction {\n  static get count(){\n    return (elements)=>{ return elements ? elements.length : 0 }\n  }\n  static get text(){\n    return (elements)=>{ return elements && elements[0].textContent }\n  }\n  static attribute(attrName){\n    return `(elements)=>{ return elements && elements[0].attributes[\"${attrName}\"].value }`;\n  }\n  static setText(text){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].textContent = \"${text}\" } }`\n  }\n  static get value(){\n    return (elements)=>{ return elements && elements[0].value }\n  }\n  static setValue(val){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].value = \"${val}\" } }`\n  }\n  static get click(){\n    return (elements)=>{\n      if(elements && elements[0]){\n        let event = document.createEvent('MouseEvent');\n        event.initMouseEvent(\"click\", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);\n        elements[0].dispatchEvent(event);\n      }\n    }\n  }\n  static setChecked(bool){\n    return `(elements)=>{ for(let i = 0; i < elements.length; i++){ elements[i].checked = ${bool}; } }`\n  }\n  static setSelected(bool){\n    return `(elements)=>{\n      if(elements && elements[0]){\n        if(elements[0].selected !== ${bool}) {\n          let event = document.createEvent('HTMLEvents');\n          event.initEvent(\"change\", true, true);\n          elements[0].dispatchEvent(event);\n        }\n\n        elements[0].selected = ${bool};\n      }\n    }`\n  }\n\n  ////// instance methods //////////////////////////////////////////////////////////////////\n\n  /*\n   * Get a textContent of element which is found first by Finder.\n   * @return {Promise} Promise resolved with element.textContent\n   */\n  text(){\n    return this.withAction(FinderAction.text).evaluate()\n  }\n  /**\n   * Get a value of element which is found first by Finder.\n   * @return {Promise} Promise resolved with element.value\n   */\n  value(){\n    return this.withAction(FinderAction.value).evaluate()\n  }\n  /**\n   * Get a attribute of element which is found first by Finder.\n   * @return {Promise} Promise resolved with element.attributes[attrName].value\n   */\n  attribute(attrName){\n    return this.withAction(FinderAction.attribute(attrName)).evaluate()\n  }\n  /**\n   * Click an element which is found first by Finder\n   * @return {Promise} Promise resolved after click event\n   */\n  click(){\n    return this.withAction(FinderAction.click).evaluate()\n  }\n  /**\n   * Get a count of elements which is found by Finder.\n   * @return {Promise} Promise resolved with matched number\n   */\n  count(){\n    return this.withAction(FinderAction.count).evaluate()\n  }\n  /**\n   * @return {Promise} return true if count of elements which is found by Finder is over one.\n   */\n  exist(){\n    return this.count().then(count => count >= 1)\n  }\n  /**\n   * @return {Promise} return true if count of elements which is found by Finder is zero.\n   */\n  notExist(){\n    return this.exist().then(exist => !exist)\n  }\n  /**\n   * Set given value to value of all elements which is found by Finder\n   * @return {Promise} Promise resolved after setting value\n   */\n  setValue(val){\n    return this.withAction(FinderAction.setValue(val)).evaluate()\n  }\n  /**\n   * Alias of \"setValue\"\n   */\n  fillIn(val){\n    return this.setValue(val)\n  }\n  /**\n   * Set given text to textContent of all elements which is found by Finder\n   * @return {Promise} Promise resolved after setting textContent\n   */\n  setText(text){\n    return this.withAction(FinderAction.setText(text)).evaluate()\n  }\n  /**\n   * Set \"checked\" property true on all elements which is found by Finder\n   * @return {Promise}\n   */\n  check(){\n    // TODO target is all elements\n    return this.withAction(FinderAction.setChecked(true)).evaluate()\n  }\n  /**\n   * Set \"checked\" property true on all elements which is found by Finder\n   * @return {Promise}\n   */\n  uncheck(){\n    // TODO target is all elements\n    return this.withAction(FinderAction.setChecked(false)).evaluate()\n  }\n  /**\n   * Alias of \"click\"\n   * @return {Promise}\n   */\n  chooseRadioButton(){\n    return this.click();\n  }\n  /**\n   * Set \"selected\" property true on element which is found by Finder\n   * @return {Promise}\n   */\n  select(){\n    return this.withAction(FinderAction.setSelected(true)).evaluate();\n  }\n}\n\nmodule.exports = FinderAction;\n",
     "static": true,
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/finder_action.js",
     "access": "public",
@@ -4246,7 +4525,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 203,
+    "__docId__": 211,
     "kind": "class",
     "name": "FinderAction",
     "memberof": "lib/page/finder_action.js",
@@ -4261,7 +4540,7 @@
     "interface": false
   },
   {
-    "__docId__": 204,
+    "__docId__": 212,
     "kind": "get",
     "name": "count",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4280,7 +4559,7 @@
     }
   },
   {
-    "__docId__": 205,
+    "__docId__": 213,
     "kind": "get",
     "name": "text",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4299,7 +4578,7 @@
     }
   },
   {
-    "__docId__": 206,
+    "__docId__": 214,
     "kind": "method",
     "name": "attribute",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4326,7 +4605,7 @@
     }
   },
   {
-    "__docId__": 207,
+    "__docId__": 215,
     "kind": "method",
     "name": "setText",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4353,7 +4632,7 @@
     }
   },
   {
-    "__docId__": 208,
+    "__docId__": 216,
     "kind": "get",
     "name": "value",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4372,7 +4651,7 @@
     }
   },
   {
-    "__docId__": 209,
+    "__docId__": 217,
     "kind": "method",
     "name": "setValue",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4399,7 +4678,7 @@
     }
   },
   {
-    "__docId__": 210,
+    "__docId__": 218,
     "kind": "get",
     "name": "click",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4418,7 +4697,7 @@
     }
   },
   {
-    "__docId__": 211,
+    "__docId__": 219,
     "kind": "method",
     "name": "setChecked",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4445,7 +4724,7 @@
     }
   },
   {
-    "__docId__": 212,
+    "__docId__": 220,
     "kind": "method",
     "name": "setSelected",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4472,7 +4751,7 @@
     }
   },
   {
-    "__docId__": 213,
+    "__docId__": 221,
     "kind": "method",
     "name": "text",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4482,7 +4761,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#text",
     "access": "public",
     "description": null,
-    "lineNumber": 47,
+    "lineNumber": 57,
     "undocument": true,
     "params": [],
     "return": {
@@ -4492,7 +4771,7 @@
     }
   },
   {
-    "__docId__": 214,
+    "__docId__": 222,
     "kind": "method",
     "name": "value",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4502,7 +4781,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#value",
     "access": "public",
     "description": "Get a value of element which is found first by Finder.",
-    "lineNumber": 54,
+    "lineNumber": 64,
     "return": {
       "nullable": null,
       "types": [
@@ -4514,7 +4793,7 @@
     "params": []
   },
   {
-    "__docId__": 215,
+    "__docId__": 223,
     "kind": "method",
     "name": "attribute",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4524,7 +4803,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#attribute",
     "access": "public",
     "description": "Get a attribute of element which is found first by Finder.",
-    "lineNumber": 61,
+    "lineNumber": 71,
     "return": {
       "nullable": null,
       "types": [
@@ -4543,7 +4822,7 @@
     ]
   },
   {
-    "__docId__": 216,
+    "__docId__": 224,
     "kind": "method",
     "name": "click",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4553,7 +4832,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#click",
     "access": "public",
     "description": "Click an element which is found first by Finder",
-    "lineNumber": 68,
+    "lineNumber": 78,
     "return": {
       "nullable": null,
       "types": [
@@ -4565,7 +4844,7 @@
     "params": []
   },
   {
-    "__docId__": 217,
+    "__docId__": 225,
     "kind": "method",
     "name": "count",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4575,7 +4854,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#count",
     "access": "public",
     "description": "Get a count of elements which is found by Finder.",
-    "lineNumber": 75,
+    "lineNumber": 85,
     "return": {
       "nullable": null,
       "types": [
@@ -4587,7 +4866,7 @@
     "params": []
   },
   {
-    "__docId__": 218,
+    "__docId__": 226,
     "kind": "method",
     "name": "exist",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4597,7 +4876,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#exist",
     "access": "public",
     "description": "",
-    "lineNumber": 81,
+    "lineNumber": 91,
     "return": {
       "nullable": null,
       "types": [
@@ -4609,7 +4888,7 @@
     "params": []
   },
   {
-    "__docId__": 219,
+    "__docId__": 227,
     "kind": "method",
     "name": "notExist",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4619,7 +4898,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#notExist",
     "access": "public",
     "description": "",
-    "lineNumber": 87,
+    "lineNumber": 97,
     "return": {
       "nullable": null,
       "types": [
@@ -4631,7 +4910,7 @@
     "params": []
   },
   {
-    "__docId__": 220,
+    "__docId__": 228,
     "kind": "method",
     "name": "setValue",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4641,7 +4920,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#setValue",
     "access": "public",
     "description": "Set given value to value of all elements which is found by Finder",
-    "lineNumber": 94,
+    "lineNumber": 104,
     "return": {
       "nullable": null,
       "types": [
@@ -4660,7 +4939,7 @@
     ]
   },
   {
-    "__docId__": 221,
+    "__docId__": 229,
     "kind": "method",
     "name": "fillIn",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4670,7 +4949,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#fillIn",
     "access": "public",
     "description": "Alias of \"setValue\"",
-    "lineNumber": 100,
+    "lineNumber": 110,
     "params": [
       {
         "name": "val",
@@ -4686,7 +4965,7 @@
     }
   },
   {
-    "__docId__": 222,
+    "__docId__": 230,
     "kind": "method",
     "name": "setText",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4696,7 +4975,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#setText",
     "access": "public",
     "description": "Set given text to textContent of all elements which is found by Finder",
-    "lineNumber": 107,
+    "lineNumber": 117,
     "return": {
       "nullable": null,
       "types": [
@@ -4715,7 +4994,7 @@
     ]
   },
   {
-    "__docId__": 223,
+    "__docId__": 231,
     "kind": "method",
     "name": "check",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4725,7 +5004,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#check",
     "access": "public",
     "description": "Set \"checked\" property true on all elements which is found by Finder",
-    "lineNumber": 114,
+    "lineNumber": 124,
     "return": {
       "nullable": null,
       "types": [
@@ -4737,7 +5016,7 @@
     "params": []
   },
   {
-    "__docId__": 224,
+    "__docId__": 232,
     "kind": "method",
     "name": "uncheck",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4747,7 +5026,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#uncheck",
     "access": "public",
     "description": "Set \"checked\" property true on all elements which is found by Finder",
-    "lineNumber": 122,
+    "lineNumber": 132,
     "return": {
       "nullable": null,
       "types": [
@@ -4759,7 +5038,7 @@
     "params": []
   },
   {
-    "__docId__": 225,
+    "__docId__": 233,
     "kind": "method",
     "name": "chooseRadioButton",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4769,7 +5048,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#chooseRadioButton",
     "access": "public",
     "description": "Alias of \"click\"",
-    "lineNumber": 130,
+    "lineNumber": 140,
     "return": {
       "nullable": null,
       "types": [
@@ -4781,7 +5060,7 @@
     "params": []
   },
   {
-    "__docId__": 226,
+    "__docId__": 234,
     "kind": "method",
     "name": "select",
     "memberof": "lib/page/finder_action.js~FinderAction",
@@ -4791,7 +5070,7 @@
     "longname": "lib/page/finder_action.js~FinderAction#select",
     "access": "public",
     "description": "Set \"selected\" property true on element which is found by Finder",
-    "lineNumber": 137,
+    "lineNumber": 147,
     "return": {
       "nullable": null,
       "types": [
@@ -4803,7 +5082,7 @@
     "params": []
   },
   {
-    "__docId__": 227,
+    "__docId__": 235,
     "kind": "file",
     "name": "lib/page/finder_base.js",
     "content": "const debug = require(\"../utils/debug\").getLogger(\"app\");\n\nclass FinderBase {\n  static convertArgumentsToConditions(...args){\n    return args.map((arg)=>{\n      if(typeof arg == 'function'){\n        return new Filter(arg.toString());\n      }\n      if(typeof arg == 'string'){\n        if(arg.match(/\\)\\s*=>\\s*\\{/) || arg.trim().match(/^function/)){\n          return new Filter(arg);\n        }else{\n          return new Selector(arg);\n        }\n      }\n      throw `Condition parameter is unexpected value, [${arg}]`;\n    })\n  }\n  constructor(page, ...args){\n    this._page = page;\n    this._conditions = FinderBase.convertArgumentsToConditions(...args);\n    this._allowNotFound = false;\n    this._context = undefined;\n    this._action = undefined;\n  }\n  get page(){ return this._page }\n  get conditions(){ return this._conditions }\n  get action(){ return this._action }\n  get context(){ return this._context }\n  get allowNotFound(){ return this._allowNotFound }\n  allowNotFound(val){ this._allowNotFound = val }\n  /**\n   * @return {Object} cloned object\n   */\n  clone(){\n    return Object.assign(new this.constructor(this.page), {\n      _conditions: this.conditions.concat(),\n      allowNotFound: this.allowNotFound,\n      _action: this.action,\n      _context: this.context\n    });\n  }\n  /**\n   * @return {FinderBase} self which have added conditions\n   */\n  find(...args){\n    this._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditions(...args));\n    return this;\n  }\n  withAction(action){\n    this._action = typeof action == \"function\" ?  action.toString() : action;\n    return this;\n  }\n  withContext(context){\n    this._context = context;\n    return this;\n  }\n  /**\n   * generate and return javascript code for finding element by this finder object\n   * @return {string}\n   */\n  toJsCode(){\n    let conditions = this.conditions;\n    if(!conditions || !(conditions[0] instanceof Selector)){\n      conditions = [new Selector(\"*\")];\n    }\n\n    let jsCode = `\n      let _document = ${this.context ? this.context : 'window'}.document;\n      var elements = Array.from(_document.querySelectorAll(\"${conditions[0].selector}\"));\n    `;\n    jsCode += conditions.slice(1).map((condition)=>{\n      return condition instanceof Selector ?\n        `{\n          elements = elements.reduce((arr, e, idx)=>{\n            return arr.concat(Array.from(e.querySelectorAll(\"${condition.selector}\")));\n          }, []);\n        }` :\n        `{\n          let func = ${condition.code};\n          elements = elements.filter((e, idx)=>{ return func(e, idx) });\n        }`;\n    }).join(\"\\n\");\n\n    if(!this.allowNotFound){\n      jsCode += `\n        if(elements.length == 0){\n          return Promise.reject('not found');\n        }\n      `\n    }\n    if(this.action){\n      jsCode += `\n        return (${this.action})(elements);\n      `;\n    }\n    else{\n      jsCode += `return elements.length;`\n    }\n    return jsCode;\n  }\n\n  /**\n   * @return {Promise} Promise resolved in evaluated JavaScript code\n   */\n  evaluate(){\n    let jsCode = this.toJsCode();\n    debug(`Evaluate Javascript \"${jsCode}\"`)\n\n    return this.page.executeJs(`(()=>{ try{ ${jsCode} }catch(e){ return Promise.reject(e.toString()) } })()`)\n    .catch((err)=>{\n      debug(`Error occurred in Evaluating Javascript: ${err}`);\n      throw err\n    })\n  }\n}\n\nclass Filter {\n  constructor(code){\n    this.code = code;\n  }\n}\nclass Selector {\n  constructor(selector){\n    this.selector = selector;\n  }\n}\n\nmodule.exports = FinderBase;\n",
@@ -4814,7 +5093,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 228,
+    "__docId__": 236,
     "kind": "variable",
     "name": "debug",
     "memberof": "lib/page/finder_base.js",
@@ -4835,7 +5114,7 @@
     "ignore": true
   },
   {
-    "__docId__": 229,
+    "__docId__": 237,
     "kind": "class",
     "name": "Filter",
     "memberof": "lib/page/finder_base.js",
@@ -4852,7 +5131,7 @@
     "ignore": true
   },
   {
-    "__docId__": 230,
+    "__docId__": 238,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page/finder_base.js~Filter",
@@ -4866,7 +5145,7 @@
     "undocument": true
   },
   {
-    "__docId__": 231,
+    "__docId__": 239,
     "kind": "member",
     "name": "code",
     "memberof": "lib/page/finder_base.js~Filter",
@@ -4883,7 +5162,7 @@
     }
   },
   {
-    "__docId__": 232,
+    "__docId__": 240,
     "kind": "class",
     "name": "Selector",
     "memberof": "lib/page/finder_base.js",
@@ -4900,7 +5179,7 @@
     "ignore": true
   },
   {
-    "__docId__": 233,
+    "__docId__": 241,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page/finder_base.js~Selector",
@@ -4914,7 +5193,7 @@
     "undocument": true
   },
   {
-    "__docId__": 234,
+    "__docId__": 242,
     "kind": "member",
     "name": "selector",
     "memberof": "lib/page/finder_base.js~Selector",
@@ -4931,7 +5210,7 @@
     }
   },
   {
-    "__docId__": 235,
+    "__docId__": 243,
     "kind": "class",
     "name": "FinderBase",
     "memberof": "lib/page/finder_base.js",
@@ -4947,7 +5226,7 @@
     "interface": false
   },
   {
-    "__docId__": 236,
+    "__docId__": 244,
     "kind": "method",
     "name": "convertArgumentsToConditions",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -4975,7 +5254,7 @@
     }
   },
   {
-    "__docId__": 237,
+    "__docId__": 245,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -4989,7 +5268,7 @@
     "undocument": true
   },
   {
-    "__docId__": 238,
+    "__docId__": 246,
     "kind": "member",
     "name": "_page",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5006,7 +5285,7 @@
     }
   },
   {
-    "__docId__": 239,
+    "__docId__": 247,
     "kind": "member",
     "name": "_conditions",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5023,7 +5302,7 @@
     }
   },
   {
-    "__docId__": 240,
+    "__docId__": 248,
     "kind": "member",
     "name": "_allowNotFound",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5040,7 +5319,7 @@
     }
   },
   {
-    "__docId__": 241,
+    "__docId__": 249,
     "kind": "member",
     "name": "_context",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5057,7 +5336,7 @@
     }
   },
   {
-    "__docId__": 242,
+    "__docId__": 250,
     "kind": "member",
     "name": "_action",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5074,7 +5353,7 @@
     }
   },
   {
-    "__docId__": 243,
+    "__docId__": 251,
     "kind": "get",
     "name": "page",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5093,7 +5372,7 @@
     }
   },
   {
-    "__docId__": 244,
+    "__docId__": 252,
     "kind": "get",
     "name": "conditions",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5112,7 +5391,7 @@
     }
   },
   {
-    "__docId__": 245,
+    "__docId__": 253,
     "kind": "get",
     "name": "action",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5131,7 +5410,7 @@
     }
   },
   {
-    "__docId__": 246,
+    "__docId__": 254,
     "kind": "get",
     "name": "context",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5150,7 +5429,7 @@
     }
   },
   {
-    "__docId__": 247,
+    "__docId__": 255,
     "kind": "get",
     "name": "allowNotFound",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5169,7 +5448,7 @@
     }
   },
   {
-    "__docId__": 248,
+    "__docId__": 256,
     "kind": "method",
     "name": "allowNotFound",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5192,7 +5471,7 @@
     "return": null
   },
   {
-    "__docId__": 250,
+    "__docId__": 258,
     "kind": "method",
     "name": "clone",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5214,7 +5493,7 @@
     "params": []
   },
   {
-    "__docId__": 251,
+    "__docId__": 259,
     "kind": "method",
     "name": "find",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5244,7 +5523,7 @@
     ]
   },
   {
-    "__docId__": 253,
+    "__docId__": 261,
     "kind": "method",
     "name": "withAction",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5271,7 +5550,7 @@
     }
   },
   {
-    "__docId__": 255,
+    "__docId__": 263,
     "kind": "method",
     "name": "withContext",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5298,7 +5577,7 @@
     }
   },
   {
-    "__docId__": 257,
+    "__docId__": 265,
     "kind": "method",
     "name": "toJsCode",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5320,7 +5599,7 @@
     "params": []
   },
   {
-    "__docId__": 258,
+    "__docId__": 266,
     "kind": "method",
     "name": "evaluate",
     "memberof": "lib/page/finder_base.js~FinderBase",
@@ -5342,7 +5621,7 @@
     "params": []
   },
   {
-    "__docId__": 259,
+    "__docId__": 267,
     "kind": "file",
     "name": "lib/page/finder_filter.js",
     "content": "\nclass Private {\n  static haveContent(content, haveContent = true){\n    return `(elm, i)=>{ return elm.textContent && (elm.textContent.trim() == \"${content.trim()}\") === ${haveContent} }`;\n  }\n  static haveValue(value, haveValue = true){\n    return `(elm, i)=>{ return elm.value && (elm.value.trim() == \"${value.trim()}\") === ${haveValue} }`;\n  }\n  static haveClass(classname, haveClass = true){\n    return `(elm, i)=>{ return elm && (elm.classList.contains(\"${classname}\")) === ${haveClass} }`;\n  }\n  static haveStyle(styleName, value, haveStyle = true){\n    return `(elm, i)=>{ let style = getComputeStyle(elm); return style && (style[\"${styleName}\"] == \"${value}\") === ${haveStyle} }`\n  }\n  static be(propName, bool){\n    return `(elm, i)=>{ return elm && elm.${propName} === ${bool} }`;\n  }\n  static isClickable(){\n    return \"a,button,input[type=button],input[type=submit]\";\n  }\n  static indexOf(index){\n    return `(elm, i)=>{ return i == ${index} }`;\n  }\n}\n\n/**\n * This class provides filtering methods for Finder.\n * This class is Mixined to \"Finder\" class\n */\nclass FinderFilter {\n  /**\n   * @return {string} return function code to select elements which have given content as element.textContent\n   */\n  static haveContent(content){\n    return Private.haveContent(content, true);\n  }\n  /**\n   * @return {string} return function code to select elements which do not have given content as element.textContent\n   */\n  static notHaveContent(content){\n    return Private.haveContent(content, false);\n  }\n  /**\n  * Alias of haveContent\n   * @return {string} return function code to select elements which have given content as element.textContent\n   */\n  static haveText(text){\n    return this.haveContent(text)\n  }\n  /**\n   * Alias of notHaveContent\n   * @return {string} return function code to select elements which do not have given content as element.textContent\n   */\n  static notHaveText(text){\n    return this.notHaveContent(text)\n  }\n  /**\n   * @return {string} return function code to select elements which have given value as element.value\n   */\n  static haveValue(value){\n    return Private.haveValue(value, true);\n  }\n  /**\n   * @return {string} return function code to select elements which do not have given value as element.value\n   */\n  static notHaveValue(value){\n    return Private.haveValue(value, false);\n  }\n  /**\n   * @return {string} return function code to select elements which has given value as element.checked attribute.\n   */\n  static beChecked(bool){\n    return Private.be(\"checked\", bool)\n  }\n  /**\n   * @return {string} return function code to select elements which has given value as element.selected attribute.\n   */\n  static beSelected(bool){\n    return Private.be(\"selected\", bool)\n  }\n  /**\n   * @return {string} return function code to select elements which has given value as element.disabled attribute.\n   */\n  static beDisabled(bool){\n    return Private.be(\"disabled\", bool)\n  }\n  /**\n   * @return {string} return function code to select elements which has given value in element.classList attribute.\n   */\n  static haveClass(classname){\n    return Private.haveClass(classname, true);\n  }\n  /**\n   * @return {string} return function code to select elements which do not has given value in element.classList attribute.\n   */\n  static notHaveClass(classname){\n    return Private.haveClass(classname, false);\n  }\n  /**\n   * @return {string} return function code to select elements which has given value in window.getComputedStyle(element)\n   */\n  static haveStyle(styleName, value){\n    return Private.haveStyle(styleName, value, true);\n  }\n  /**\n   * @return {string} return function code to select elements which do not has given value in window.getComputedStyle(element)\n   */\n  static notHaveStyle(styleName, value){\n    return Private.haveStyle(styleName, value, false);\n  }\n\n  /**\n   * return css selector string to select clickable elements like a, button, input[type=button]\n   * @return {string}\n   */\n  static isClickable(){\n    return Private.isClickable()\n  }\n\n  /**\n   * return function code to select elements which is in given index in elements\n   * @return {string}\n   */\n  static indexOf(i){\n    return Private.indexOf(i);\n  }\n\n  ////// instance methods /////////////////////////////////////////////////////////////////////\n\n  /**\n   * @return {Finder} return filtered Finder object which has the specified value\n   */\n  haveValue(val){\n    return this.find(FinderFilter.haveValue(val))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which does not have the specified value\n   */\n  notHaveValue(val){\n    return this.find(FinderFilter.notHaveValue(val))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has the specified text\n   */\n  haveContent(content){\n    return this.find(FinderFilter.haveContent(content))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which does not have the specified text\n   */\n  notHaveContent(content){\n    return this.find(FinderFilter.notHaveContent(content))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has the specified text\n   */\n  haveText(text){\n    return this.find(FinderFilter.haveContent(text))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which does not have the specified text\n   */\n  notHaveText(text){\n    return this.find(FinderFilter.notHaveContent(text))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has been checked\n   */\n  beChecked(){\n    return this.find(FinderFilter.beChecked(true))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which do not has been checked\n   */\n  notBeChecked(){\n    return this.find(FinderFilter.beChecked(false))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has been selected\n   */\n  beSelected(){\n    return this.find(FinderFilter.beSelected(true))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which do not has been selected\n   */\n  notBeSelected(){\n    return this.find(FinderFilter.beSelected(false))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has specified CssClass\n   */\n  haveCssClass(classname){\n    return this.find(FinderFilter.haveClass(classname))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which do not has specified CssClass\n   */\n  notHaveCssClass(classname){\n    return this.find(FinderFilter.notHaveClass(classname))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which has specified CssProperty\n   */\n  haveCssProperty(propName, value){\n    return this.find(FinderFilter.haveStyle(propName, value))\n  }\n  /**\n   * @return {Finder} return filtered Finder object which do not has specified CssProperty\n   */\n  notHaveCssProperty(propName, value){\n    return this.find(FinderFilter.notHaveStyle(propName, value))\n  }\n\n  /**\n   * @return {Finder} return filtered Finder object which is clickable like a, button, input[type=button]\n   */\n  isClickable(){\n    return this.find(FinderFilter.isClickable())\n  }\n  /**\n   * @return {Finder} return filtered Finder object which is in given index in elements\n   */\n  indexOf(i){\n    return this.find(FinderFilter.indexOf(i));\n  }\n  /**\n   * @return {Finder} return Finder for the first matched element. this is same to \"indexOf(0)\"\n   */\n  first(){\n    return this.indexOf(0);\n  }\n\n}\n\nmodule.exports = FinderFilter;\n",
@@ -5353,7 +5632,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 260,
+    "__docId__": 268,
     "kind": "class",
     "name": "Private",
     "memberof": "lib/page/finder_filter.js",
@@ -5370,7 +5649,7 @@
     "ignore": true
   },
   {
-    "__docId__": 261,
+    "__docId__": 269,
     "kind": "method",
     "name": "haveContent",
     "memberof": "lib/page/finder_filter.js~Private",
@@ -5406,7 +5685,7 @@
     }
   },
   {
-    "__docId__": 262,
+    "__docId__": 270,
     "kind": "method",
     "name": "haveValue",
     "memberof": "lib/page/finder_filter.js~Private",
@@ -5442,7 +5721,7 @@
     }
   },
   {
-    "__docId__": 263,
+    "__docId__": 271,
     "kind": "method",
     "name": "haveClass",
     "memberof": "lib/page/finder_filter.js~Private",
@@ -5478,7 +5757,7 @@
     }
   },
   {
-    "__docId__": 264,
+    "__docId__": 272,
     "kind": "method",
     "name": "haveStyle",
     "memberof": "lib/page/finder_filter.js~Private",
@@ -5520,7 +5799,7 @@
     }
   },
   {
-    "__docId__": 265,
+    "__docId__": 273,
     "kind": "method",
     "name": "be",
     "memberof": "lib/page/finder_filter.js~Private",
@@ -5553,7 +5832,7 @@
     }
   },
   {
-    "__docId__": 266,
+    "__docId__": 274,
     "kind": "method",
     "name": "isClickable",
     "memberof": "lib/page/finder_filter.js~Private",
@@ -5573,7 +5852,7 @@
     }
   },
   {
-    "__docId__": 267,
+    "__docId__": 275,
     "kind": "method",
     "name": "indexOf",
     "memberof": "lib/page/finder_filter.js~Private",
@@ -5600,7 +5879,7 @@
     }
   },
   {
-    "__docId__": 268,
+    "__docId__": 276,
     "kind": "class",
     "name": "FinderFilter",
     "memberof": "lib/page/finder_filter.js",
@@ -5615,7 +5894,7 @@
     "interface": false
   },
   {
-    "__docId__": 269,
+    "__docId__": 277,
     "kind": "method",
     "name": "haveContent",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5644,7 +5923,7 @@
     ]
   },
   {
-    "__docId__": 270,
+    "__docId__": 278,
     "kind": "method",
     "name": "notHaveContent",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5673,7 +5952,7 @@
     ]
   },
   {
-    "__docId__": 271,
+    "__docId__": 279,
     "kind": "method",
     "name": "haveText",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5702,7 +5981,7 @@
     ]
   },
   {
-    "__docId__": 272,
+    "__docId__": 280,
     "kind": "method",
     "name": "notHaveText",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5731,7 +6010,7 @@
     ]
   },
   {
-    "__docId__": 273,
+    "__docId__": 281,
     "kind": "method",
     "name": "haveValue",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5760,7 +6039,7 @@
     ]
   },
   {
-    "__docId__": 274,
+    "__docId__": 282,
     "kind": "method",
     "name": "notHaveValue",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5789,7 +6068,7 @@
     ]
   },
   {
-    "__docId__": 275,
+    "__docId__": 283,
     "kind": "method",
     "name": "beChecked",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5818,7 +6097,7 @@
     ]
   },
   {
-    "__docId__": 276,
+    "__docId__": 284,
     "kind": "method",
     "name": "beSelected",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5847,7 +6126,7 @@
     ]
   },
   {
-    "__docId__": 277,
+    "__docId__": 285,
     "kind": "method",
     "name": "beDisabled",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5876,7 +6155,7 @@
     ]
   },
   {
-    "__docId__": 278,
+    "__docId__": 286,
     "kind": "method",
     "name": "haveClass",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5905,7 +6184,7 @@
     ]
   },
   {
-    "__docId__": 279,
+    "__docId__": 287,
     "kind": "method",
     "name": "notHaveClass",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5934,7 +6213,7 @@
     ]
   },
   {
-    "__docId__": 280,
+    "__docId__": 288,
     "kind": "method",
     "name": "haveStyle",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -5969,7 +6248,7 @@
     ]
   },
   {
-    "__docId__": 281,
+    "__docId__": 289,
     "kind": "method",
     "name": "notHaveStyle",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6004,7 +6283,7 @@
     ]
   },
   {
-    "__docId__": 282,
+    "__docId__": 290,
     "kind": "method",
     "name": "isClickable",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6026,7 +6305,7 @@
     "params": []
   },
   {
-    "__docId__": 283,
+    "__docId__": 291,
     "kind": "method",
     "name": "indexOf",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6055,7 +6334,7 @@
     ]
   },
   {
-    "__docId__": 284,
+    "__docId__": 292,
     "kind": "method",
     "name": "haveValue",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6084,7 +6363,7 @@
     ]
   },
   {
-    "__docId__": 285,
+    "__docId__": 293,
     "kind": "method",
     "name": "notHaveValue",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6113,7 +6392,7 @@
     ]
   },
   {
-    "__docId__": 286,
+    "__docId__": 294,
     "kind": "method",
     "name": "haveContent",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6142,7 +6421,7 @@
     ]
   },
   {
-    "__docId__": 287,
+    "__docId__": 295,
     "kind": "method",
     "name": "notHaveContent",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6171,7 +6450,7 @@
     ]
   },
   {
-    "__docId__": 288,
+    "__docId__": 296,
     "kind": "method",
     "name": "haveText",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6200,7 +6479,7 @@
     ]
   },
   {
-    "__docId__": 289,
+    "__docId__": 297,
     "kind": "method",
     "name": "notHaveText",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6229,7 +6508,7 @@
     ]
   },
   {
-    "__docId__": 290,
+    "__docId__": 298,
     "kind": "method",
     "name": "beChecked",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6251,7 +6530,7 @@
     "params": []
   },
   {
-    "__docId__": 291,
+    "__docId__": 299,
     "kind": "method",
     "name": "notBeChecked",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6273,7 +6552,7 @@
     "params": []
   },
   {
-    "__docId__": 292,
+    "__docId__": 300,
     "kind": "method",
     "name": "beSelected",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6295,7 +6574,7 @@
     "params": []
   },
   {
-    "__docId__": 293,
+    "__docId__": 301,
     "kind": "method",
     "name": "notBeSelected",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6317,7 +6596,7 @@
     "params": []
   },
   {
-    "__docId__": 294,
+    "__docId__": 302,
     "kind": "method",
     "name": "haveCssClass",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6346,7 +6625,7 @@
     ]
   },
   {
-    "__docId__": 295,
+    "__docId__": 303,
     "kind": "method",
     "name": "notHaveCssClass",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6375,7 +6654,7 @@
     ]
   },
   {
-    "__docId__": 296,
+    "__docId__": 304,
     "kind": "method",
     "name": "haveCssProperty",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6410,7 +6689,7 @@
     ]
   },
   {
-    "__docId__": 297,
+    "__docId__": 305,
     "kind": "method",
     "name": "notHaveCssProperty",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6445,7 +6724,7 @@
     ]
   },
   {
-    "__docId__": 298,
+    "__docId__": 306,
     "kind": "method",
     "name": "isClickable",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6467,7 +6746,7 @@
     "params": []
   },
   {
-    "__docId__": 299,
+    "__docId__": 307,
     "kind": "method",
     "name": "indexOf",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6496,7 +6775,7 @@
     ]
   },
   {
-    "__docId__": 300,
+    "__docId__": 308,
     "kind": "method",
     "name": "first",
     "memberof": "lib/page/finder_filter.js~FinderFilter",
@@ -6518,10 +6797,10 @@
     "params": []
   },
   {
-    "__docId__": 301,
+    "__docId__": 309,
     "kind": "file",
     "name": "lib/page/page.js",
-    "content": "const path = require('path');\nconst Finder = require('./finder');\nconst pageWalker = require('../page_walker');\nconst {config} = pageWalker;\nconst BrowserPage = require('../browser/interface/browser_page');\n\nconst TIMEOUT_MSEC = pageWalker.config.mocha.timeout;\n\nclass Page {\n  constructor(browserPage, context = undefined){\n    this._browserPage = browserPage;\n    this._context = context;\n  }\n  /**\n   * @return {BrowserPage} BrowserPage Object(Instance will be relayed on Browser used)\n   */\n  get browserPage(){ return this._browserPage }\n  /**\n   * @private\n   */\n  get context(){ return this._context }\n  /**\n   * @return {Window} Window Object which contains this page.\n   */\n  get window(){ return this._browserPage.window }\n  /**\n   * @return {object} Page Object provided by Each Browser\n   */\n  get webContents(){ return this._browserPage.nativeObject }\n  /**\n   * @private\n   */\n  checkReady(){\n    if(!this.window.isReady()) throw \"PageContent is not ready!, Please call the 'load' method first\"\n  }\n  /**\n   * Load new page which is URL given, and returned Promise is resolved when finished load.\n   * @return {Promise}\n   */\n  load(url, options = {}){\n    let loadURLFunction = ()=>{\n      return this.waitForPageLoad(()=>{ if(url) this.browserPage.loadURL(url, options) })\n    };\n    if(this.window.isReady()){\n      return loadURLFunction()\n    }else{\n      return new Promise((resolve, reject)=>{\n        this.window.on('ready', ()=>{ loadURLFunction().then(resolve).catch(reject) });\n      });\n    }\n  }\n  /**\n   * When string given, load given URL page. Otherwise, wait for finish page load.\n   * This is same for `page.load()` or `page.waitForPageLoad()`\n   * @return {Promise}\n   */\n  waitLoading(...args){\n    if(typeof args[0] == 'undefined' || typeof args[0] == 'function'){\n      return this.waitForPageLoad(...args)\n    }else{\n      return this.load(...args)\n    }\n  }\n  /**\n   * URL of current page\n   * @return {string}\n   */\n  get url(){\n    return this.browserPage.getURL();\n  }\n  /**\n   * Wait loading for contents in new page.\n   * @param {function} action - A function representing the operation of loading new page.\n   * @return {Promise}\n   */\n  waitForPageLoad(action){\n    if(this._context){\n      return this.waitForBrowserSocket('iframe-page-load', ()=>{\n        return this.executeJs(`{\n          ${this._context}.addEventListener('DOMContentLoaded', ()=>{\n            window.browserSocket.send('iframe-page-load', 'loaded');\n          })\n        }`);\n      })\n    }\n    return this.invokeAfterReady((resolve, reject)=>{\n      this.browserPage.removeAllListeners(BrowserPage.Events.Load);\n      this.browserPage.removeAllListeners(BrowserPage.Events.LoadError);\n\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n      this.browserPage.once(BrowserPage.Events.Load, (event)=>{\n        clearTimeout(timeoutId)\n        resolve(this)\n      })\n      this.browserPage.once(BrowserPage.Events.LoadError, (event)=>{\n        clearTimeout(timeoutId)\n        reject(event)\n      })\n      this.invokeAction(action, reject);\n    })\n  }\n  /**\n   * Wait file-download completed and resolve the promise with result object(contains filename, savedFilePath)\n   * A File is saved in config.fileDownloadDir with timestamp string like '20171225002540_print.pdf'\n   * @param {function} action - A function representing the operation of file download\n   * @param {object} options - options for downloading\n   * @return {Promise<object>} object have property \"filename\" and \"savedFilePath\"\n   * @example\n   *   const item = await page.waitForDownload(()=>{\n   *     ...\n   *   })\n   *   assert.equal(await (util.promisify(fs.readFile))(item.savedFilePath, 'utf-8'), ...);\n   */\n  waitForDownload(action, options = {}){\n    return this.invokeAfterReady((resolve, reject)=>{\n      return this.browserPage.waitForDownload(()=>{\n        this.invokeAction(action, reject);\n      }, options)\n      .then(resolve).catch(reject);\n    })\n  }\n  /**\n   * Wait new-window opend and resolve the promise with Window object.\n   * @param {function} action - A function representing the operation of open new window\n   * @return {Promise}\n   * @example\n   *   const newWin = await page.waitForNewWindow(()=>{\n   *     ...\n   *   })\n   *   newWin.page.find(...).click();\n   *   newWin.close();\n   */\n  waitForNewWindow(action){\n    return this.invokeAfterReady((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n      this.browserPage.removeAllListeners(BrowserPage.Events.NewWindow);\n      this.browserPage.once(BrowserPage.Events.NewWindow, (frameName)=>{\n        clearTimeout(timeoutId);\n        if(pageWalker.getWindow(frameName)){\n          resolve(pageWalker.getWindow(frameName));\n        }else{\n          reject(new Error(`no window opened! [${frameName}]`));\n        }\n      })\n      this.invokeAction(action, reject);\n    })\n  }\n  /**\n   * @param {string} channel - string of representing the channel of Browser Socket Message. default is 'asynchronous-message-channel'.\n   * @param {function} action - A function representing the operation of sending Browser Socket Message\n   * @return {Promise}\n   */\n  waitForBrowserSocket(channel, action){\n    if(!action && typeof channel === 'function'){\n      action = channel;\n      channel = 'asynchronous-message-channel'\n    }\n    return this.invokeAfterReady((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n      this.browserPage.socket.removeAllListeners(channel);\n      this.browserPage.socket.once(channel, (arg)=>{\n        clearTimeout(timeoutId);\n\n        resolve(arg);\n      });\n      this.invokeAction(action, reject);\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of sending Ajax request\n   * @return {Promise}\n   */\n  waitForAjaxDone(action){\n    return this.waitForBrowserSocket(\"notify-ajax-done\", ()=>{\n      return this.executeJs(`{\n        let _XMLHttpRequest = ${this.context ? this.context : 'window'}.XMLHttpRequest;\n        let _browserSocket = ${this.context ? 'parent' : 'window'}.browserSocket;\n        let __original_open = _XMLHttpRequest.prototype.open;\n\n        _XMLHttpRequest.prototype.open = function(){\n          let timeoutId = setTimeout(()=>{ _browserSocket.send('notify-ajax-done', 'timeout') }, ${TIMEOUT_MSEC})\n          this.addEventListener('readystatechange', function(){\n            if(this.readyState == 4){\n              clearTimeout(timeoutId);\n              setTimeout(()=>{ _browserSocket.send('notify-ajax-done', 'ajaxComplete') }, 0);\n            }\n          });\n          __original_open.apply(this, arguments);\n        };\n      }`)\n      .then(()=>{ return action && action() })\n    })\n    .then((result)=>{\n      if(result == 'ajaxComplete') return;\n      throw result;\n    });\n  }\n  /**\n   * @param {object} confirmOption - specify message property(default undefined), and isClickOK property(default true)\n   * @param {function} action - A function representing the operation of open confirm dialog\n   * @return {Promise}\n   * @example\n   *   await page.waitConfirmDialog({ message: \"Are you OK?\", isClickOK: false }, ()=>{\n   *     page.find(\"button.submit-form\").click()\n   *   })\n   *\n   *   await page.waitLoading(async ()=>{\n   *     await page.waitForConfirm(async ()=>{\n   *       await page.find(\"button.submit-form\").click()\n   *     })\n   *   })\n   */\n  waitForConfirm(confirmOption, action){\n    const defaultOption = { message: \"\", isClickOK: true };\n    if(typeof action == \"undefined\" && typeof confirmOption == \"function\"){\n      action = confirmOption\n      confirmOption = defaultOption;\n    }\n    let message = confirmOption.message || defaultOption.message;\n    let isClickOK = ('isClickOK' in confirmOption)? confirmOption.isClickOK : defaultOption.isClickOK;\n\n    return this.invokeAfterReady((resolve, reject)=>{\n      this.browserPage.waitForConfirm(action, message, isClickOK)\n      .then(resolve).catch(reject);\n    })\n  }\n  /**\n   * @private\n   */\n  invokeAfterReady(func){\n    return new Promise((resolve, reject)=>{\n      try{\n        this.checkReady()\n        func && func(resolve, reject);\n      }\n      catch(err){ return reject(err) }\n    })\n  }\n  /**\n   * @private\n   */\n  invokeAction(action, reject){\n    let actionResult = action && action()\n    if(actionResult instanceof Promise){\n      actionResult.catch(reject)\n    }\n    return actionResult;\n  }\n  /**\n   * @param {string} code - JavaScript Code for executing this page.\n   * @return {Promise}\n   */\n  executeJs(code){\n    try{ this.checkReady() }catch(err){ return Promise.reject(err) }\n    return this.browserPage.executeJavaScript(code, true)\n  }\n  /**\n   * Create and Return new Finder object with given finder-condition\n   * @override\n   * @return {Finder}\n   */\n  find(...args){\n    let finder = new (this.browserPage.FinderClass)(this, ...args)\n    return this.context ? finder.withContext(this.context) : finder;\n  }\n  /**\n   * Create and Return new Page object in given iframe context.\n   * @param {Finder} finderForIframe - finder object for iframe\n   * @return {Page}\n   * @example\n   *   const pageInIframe = page.inIframe(page.find(\"iframe\").first());\n   *   await pageInIframe.find(\"h3\").text()\n   */\n  inIframe(finderForIframe){\n    return new Page(this._browserPage, finderForIframe.toContextString());\n  }\n  /**\n   * Get the HTML source of current page.\n   * @return {Promise} resolved by current HTML source.\n   */\n  getSourceHTML(){\n    return this.executeJs(`document.getElementsByTagName(\"html\")[0].outerHTML`);\n  }\n\n  findClickable(){\n    return this.find().isClickable()\n  }\n\n  openDevTools(){\n    return this._browserPage.openDevTools();\n  }\n}\n\nmodule.exports = Page;\n",
+    "content": "const path = require('path');\nconst Finder = require('./finder');\nconst pageWalker = require('../page_walker');\nconst {config} = pageWalker;\nconst BrowserPage = require('../browser/interface/browser_page');\n\nconst TIMEOUT_MSEC = pageWalker.config.mocha.timeout;\n\nclass Page {\n  constructor(browserPage, context = undefined){\n    this._browserPage = browserPage;\n    this._context = context;\n  }\n  /**\n   * @return {BrowserPage} BrowserPage Object(Instance will be relayed on Browser used)\n   */\n  get browserPage(){ return this._browserPage }\n  /**\n   * @private\n   */\n  get context(){ return this._context }\n  /**\n   * @return {Window} Window Object which contains this page.\n   */\n  get window(){ return this._browserPage.window }\n  /**\n   * @return {object} Page Object provided by Each Browser\n   */\n  get webContents(){ return this._browserPage.nativeObject }\n  /**\n   * @private\n   */\n  checkReady(){\n    if(!this.window.isReady()) throw \"PageContent is not ready!, Please call the 'load' method first\"\n  }\n  /**\n   * Load new page which is URL given, and returned Promise is resolved when finished load.\n   * @return {Promise}\n   */\n  load(url, options = {}){\n    let loadURLFunction = ()=>{\n      return this.waitForPageLoad(()=>{ if(url) this.browserPage.loadURL(url, options) })\n    };\n    if(this.window.isReady()){\n      return loadURLFunction()\n    }else{\n      return new Promise((resolve, reject)=>{\n        this.window.on('ready', ()=>{ loadURLFunction().then(resolve).catch(reject) });\n      });\n    }\n  }\n  /**\n   * When string given, load given URL page. Otherwise, wait for finish page load.\n   * This is same for `page.load()` or `page.waitForPageLoad()`\n   * @return {Promise}\n   */\n  waitLoading(...args){\n    if(typeof args[0] == 'undefined' || typeof args[0] == 'function'){\n      return this.waitForPageLoad(...args)\n    }else{\n      return this.load(...args)\n    }\n  }\n  /**\n   * URL of current page\n   * @return {string}\n   */\n  get url(){\n    return this.browserPage.getURL();\n  }\n  /**\n   * Reload current page.\n   * @return {Promise<object}\n   */\n  reload(){\n    return this.browserPage.reload();\n  }\n  /**\n   * Wait loading for contents in new page.\n   * @param {function} action - A function representing the operation of loading new page.\n   * @return {Promise}\n   */\n  waitForPageLoad(action){\n    if(this._context){\n      return this.waitForBrowserSocket('iframe-page-load', ()=>{\n        return this.executeJs(`{\n          ${this._context}.addEventListener('DOMContentLoaded', ()=>{\n            window.browserSocket.send('iframe-page-load', 'loaded');\n          })\n        }`);\n      })\n    }\n    return this.invokeAfterReady((resolve, reject)=>{\n      this.browserPage.removeAllListeners(BrowserPage.Events.Load);\n      this.browserPage.removeAllListeners(BrowserPage.Events.LoadError);\n\n      let timeoutId = setTimeout(()=>{ reject(new Error('timeout')) }, TIMEOUT_MSEC);\n      this.browserPage.once(BrowserPage.Events.Load, (event)=>{\n        clearTimeout(timeoutId)\n        resolve(this)\n      })\n      this.browserPage.once(BrowserPage.Events.LoadError, (event)=>{\n        clearTimeout(timeoutId)\n        reject(event)\n      })\n      this.invokeAction(action, reject);\n    })\n  }\n  /**\n   * Wait file-download completed and resolve the promise with result object(contains filename, savedFilePath)\n   * A File is saved in config.fileDownloadDir with timestamp string like '20171225002540_print.pdf'\n   * @param {function} action - A function representing the operation of file download\n   * @param {object} options - options for downloading\n   * @return {Promise<object>} object have property \"filename\" and \"savedFilePath\"\n   * @example\n   *   const item = await page.waitForDownload(()=>{\n   *     ...\n   *   })\n   *   assert.equal(await (util.promisify(fs.readFile))(item.savedFilePath, 'utf-8'), ...);\n   */\n  waitForDownload(action, options = {}){\n    return this.invokeAfterReady((resolve, reject)=>{\n      return this.browserPage.waitForDownload(()=>{\n        this.invokeAction(action, reject);\n      }, options)\n      .then(resolve).catch(reject);\n    })\n  }\n  /**\n   * Wait new-window opend and resolve the promise with Window object.\n   * @param {function} action - A function representing the operation of open new window\n   * @return {Promise}\n   * @example\n   *   const newWin = await page.waitForNewWindow(()=>{\n   *     ...\n   *   })\n   *   newWin.page.find(...).click();\n   *   newWin.close();\n   */\n  waitForNewWindow(action){\n    return this.invokeAfterReady((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n      this.browserPage.removeAllListeners(BrowserPage.Events.NewWindow);\n      this.browserPage.once(BrowserPage.Events.NewWindow, (frameName)=>{\n        clearTimeout(timeoutId);\n        if(pageWalker.getWindow(frameName)){\n          resolve(pageWalker.getWindow(frameName));\n        }else{\n          reject(new Error(`no window opened! [${frameName}]`));\n        }\n      })\n      this.invokeAction(action, reject);\n    })\n  }\n  /**\n   * @param {string} channel - string of representing the channel of Browser Socket Message. default is 'asynchronous-message-channel'.\n   * @param {function} action - A function representing the operation of sending Browser Socket Message\n   * @return {Promise}\n   */\n  waitForBrowserSocket(channel, action){\n    if(!action && typeof channel === 'function'){\n      action = channel;\n      channel = 'asynchronous-message-channel'\n    }\n    return this.invokeAfterReady((resolve, reject)=>{\n      let timeoutId = setTimeout(()=>{ reject('timeout') }, TIMEOUT_MSEC);\n      this.browserPage.socket.removeAllListeners(channel);\n      this.browserPage.socket.once(channel, (arg)=>{\n        clearTimeout(timeoutId);\n\n        resolve(arg);\n      });\n      this.invokeAction(action, reject);\n    })\n  }\n  /**\n   * @param {function} action - A function representing the operation of sending Ajax request\n   * @return {Promise}\n   */\n  waitForAjaxDone(action){\n    return this.waitForBrowserSocket(\"notify-ajax-done\", ()=>{\n      return this.executeJs(`{\n        let _XMLHttpRequest = ${this.context ? this.context : 'window'}.XMLHttpRequest;\n        let _browserSocket = ${this.context ? 'parent' : 'window'}.browserSocket;\n        let __original_open = _XMLHttpRequest.prototype.open;\n\n        _XMLHttpRequest.prototype.open = function(){\n          let timeoutId = setTimeout(()=>{ _browserSocket.send('notify-ajax-done', 'timeout') }, ${TIMEOUT_MSEC})\n          this.addEventListener('readystatechange', function(){\n            if(this.readyState == 4){\n              clearTimeout(timeoutId);\n              setTimeout(()=>{ _browserSocket.send('notify-ajax-done', 'ajaxComplete') }, 0);\n            }\n          });\n          __original_open.apply(this, arguments);\n        };\n      }`)\n      .then(()=>{ return action && action() })\n    })\n    .then((result)=>{\n      if(result == 'ajaxComplete') return;\n      throw result;\n    });\n  }\n  /**\n   * @param {object} confirmOption - specify message property(default undefined), and isClickOK property(default true)\n   * @param {function} action - A function representing the operation of open confirm dialog\n   * @return {Promise}\n   * @example\n   *   await page.waitConfirmDialog({ message: \"Are you OK?\", isClickOK: false }, ()=>{\n   *     page.find(\"button.submit-form\").click()\n   *   })\n   *\n   *   await page.waitLoading(async ()=>{\n   *     await page.waitForConfirm(async ()=>{\n   *       await page.find(\"button.submit-form\").click()\n   *     })\n   *   })\n   */\n  waitForConfirm(confirmOption, action){\n    const defaultOption = { message: \"\", isClickOK: true };\n    if(typeof action == \"undefined\" && typeof confirmOption == \"function\"){\n      action = confirmOption\n      confirmOption = defaultOption;\n    }\n    let message = confirmOption.message || defaultOption.message;\n    let isClickOK = ('isClickOK' in confirmOption)? confirmOption.isClickOK : defaultOption.isClickOK;\n\n    return this.invokeAfterReady((resolve, reject)=>{\n      this.browserPage.waitForConfirm(action, message, isClickOK)\n      .then(resolve).catch(reject);\n    })\n  }\n  /**\n   * @param {object} alertOptioin - specify message property(default undefined)\n   * @param {function} action - A function representing the operation of open alert dialog\n   * @return {Promise}\n   * @example\n   *   await page.waitAlertDialog({ message: \"You are wrong!\" }, ()=>{\n   *     page.find(\"button.submit-form\").click()\n   *   })\n   */\n  waitForAlert(alertOptioin, action){\n    const defaultOption = { message: \"\" };\n    if(typeof action == \"undefined\" && typeof alertOptioin == \"function\"){\n      action = alertOptioin\n      alertOptioin = defaultOption;\n    }\n\n    return this.invokeAfterReady((resolve, reject)=>{\n      this.browserPage.waitForAlert(action, alertOptioin.message)\n      .then(resolve).catch(reject);\n    })\n  }\n  /**\n   * @private\n   */\n  invokeAfterReady(func){\n    return new Promise((resolve, reject)=>{\n      try{\n        this.checkReady()\n        func && func(resolve, reject);\n      }\n      catch(err){ return reject(err) }\n    })\n  }\n  /**\n   * @private\n   */\n  invokeAction(action, reject){\n    let actionResult = action && action()\n    if(actionResult instanceof Promise){\n      actionResult.catch(reject)\n    }\n    return actionResult;\n  }\n  /**\n   * @param {string} code - JavaScript Code for executing this page.\n   * @return {Promise}\n   */\n  executeJs(code){\n    try{ this.checkReady() }catch(err){ return Promise.reject(err) }\n    return this.browserPage.executeJavaScript(code, true)\n  }\n  /**\n   * Create and Return new Finder object with given finder-condition\n   * @override\n   * @return {Finder}\n   */\n  find(...args){\n    let finder = new (this.browserPage.FinderClass)(this, ...args)\n    return this.context ? finder.withContext(this.context) : finder;\n  }\n  /**\n   * Create and Return new Page object in given iframe context.\n   * @param {Finder} finderForIframe - finder object for iframe\n   * @return {Page}\n   * @example\n   *   const pageInIframe = page.inIframe(page.find(\"iframe\").first());\n   *   await pageInIframe.find(\"h3\").text()\n   */\n  inIframe(finderForIframe){\n    return new Page(this._browserPage, finderForIframe.toContextString());\n  }\n  /**\n   * Get the HTML source of current page.\n   * @return {Promise} resolved by current HTML source.\n   */\n  getSourceHTML(){\n    return this.executeJs(`document.getElementsByTagName(\"html\")[0].outerHTML`);\n  }\n\n  findClickable(){\n    return this.find().isClickable()\n  }\n\n  openDevTools(){\n    return this._browserPage.openDevTools();\n  }\n}\n\nmodule.exports = Page;\n",
     "static": true,
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/page/page.js",
     "access": "public",
@@ -6529,7 +6808,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 302,
+    "__docId__": 310,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/page/page.js",
@@ -6550,7 +6829,7 @@
     "ignore": true
   },
   {
-    "__docId__": 303,
+    "__docId__": 311,
     "kind": "variable",
     "name": "Finder",
     "memberof": "lib/page/page.js",
@@ -6571,7 +6850,7 @@
     "ignore": true
   },
   {
-    "__docId__": 304,
+    "__docId__": 312,
     "kind": "variable",
     "name": "pageWalker",
     "memberof": "lib/page/page.js",
@@ -6592,7 +6871,7 @@
     "ignore": true
   },
   {
-    "__docId__": 305,
+    "__docId__": 313,
     "kind": "variable",
     "name": "config",
     "memberof": "lib/page/page.js",
@@ -6613,7 +6892,7 @@
     "ignore": true
   },
   {
-    "__docId__": 306,
+    "__docId__": 314,
     "kind": "variable",
     "name": "BrowserPage",
     "memberof": "lib/page/page.js",
@@ -6634,7 +6913,7 @@
     "ignore": true
   },
   {
-    "__docId__": 307,
+    "__docId__": 315,
     "kind": "variable",
     "name": "TIMEOUT_MSEC",
     "memberof": "lib/page/page.js",
@@ -6655,7 +6934,7 @@
     "ignore": true
   },
   {
-    "__docId__": 308,
+    "__docId__": 316,
     "kind": "class",
     "name": "Page",
     "memberof": "lib/page/page.js",
@@ -6671,7 +6950,7 @@
     "interface": false
   },
   {
-    "__docId__": 309,
+    "__docId__": 317,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page/page.js~Page",
@@ -6685,7 +6964,7 @@
     "undocument": true
   },
   {
-    "__docId__": 310,
+    "__docId__": 318,
     "kind": "member",
     "name": "_browserPage",
     "memberof": "lib/page/page.js~Page",
@@ -6702,7 +6981,7 @@
     }
   },
   {
-    "__docId__": 311,
+    "__docId__": 319,
     "kind": "member",
     "name": "_context",
     "memberof": "lib/page/page.js~Page",
@@ -6719,7 +6998,7 @@
     }
   },
   {
-    "__docId__": 312,
+    "__docId__": 320,
     "kind": "get",
     "name": "browserPage",
     "memberof": "lib/page/page.js~Page",
@@ -6745,7 +7024,7 @@
     }
   },
   {
-    "__docId__": 313,
+    "__docId__": 321,
     "kind": "get",
     "name": "context",
     "memberof": "lib/page/page.js~Page",
@@ -6763,7 +7042,7 @@
     }
   },
   {
-    "__docId__": 314,
+    "__docId__": 322,
     "kind": "get",
     "name": "window",
     "memberof": "lib/page/page.js~Page",
@@ -6789,7 +7068,7 @@
     }
   },
   {
-    "__docId__": 315,
+    "__docId__": 323,
     "kind": "get",
     "name": "webContents",
     "memberof": "lib/page/page.js~Page",
@@ -6815,7 +7094,7 @@
     }
   },
   {
-    "__docId__": 316,
+    "__docId__": 324,
     "kind": "method",
     "name": "checkReady",
     "memberof": "lib/page/page.js~Page",
@@ -6830,7 +7109,7 @@
     "return": null
   },
   {
-    "__docId__": 317,
+    "__docId__": 325,
     "kind": "method",
     "name": "load",
     "memberof": "lib/page/page.js~Page",
@@ -6868,7 +7147,7 @@
     ]
   },
   {
-    "__docId__": 318,
+    "__docId__": 326,
     "kind": "method",
     "name": "waitLoading",
     "memberof": "lib/page/page.js~Page",
@@ -6898,7 +7177,7 @@
     ]
   },
   {
-    "__docId__": 319,
+    "__docId__": 327,
     "kind": "get",
     "name": "url",
     "memberof": "lib/page/page.js~Page",
@@ -6924,7 +7203,29 @@
     }
   },
   {
-    "__docId__": 320,
+    "__docId__": 328,
+    "kind": "method",
+    "name": "reload",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#reload",
+    "access": "public",
+    "description": "Reload current page.",
+    "lineNumber": 75,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 329,
     "kind": "method",
     "name": "waitForPageLoad",
     "memberof": "lib/page/page.js~Page",
@@ -6934,7 +7235,7 @@
     "longname": "lib/page/page.js~Page#waitForPageLoad",
     "access": "public",
     "description": "Wait loading for contents in new page.",
-    "lineNumber": 76,
+    "lineNumber": 83,
     "params": [
       {
         "nullable": null,
@@ -6957,7 +7258,7 @@
     }
   },
   {
-    "__docId__": 321,
+    "__docId__": 330,
     "kind": "method",
     "name": "waitForDownload",
     "memberof": "lib/page/page.js~Page",
@@ -6970,7 +7271,7 @@
     "examples": [
       "  const item = await page.waitForDownload(()=>{\n    ...\n  })\n  assert.equal(await (util.promisify(fs.readFile))(item.savedFilePath, 'utf-8'), ...);"
     ],
-    "lineNumber": 114,
+    "lineNumber": 121,
     "params": [
       {
         "nullable": null,
@@ -7003,7 +7304,7 @@
     }
   },
   {
-    "__docId__": 322,
+    "__docId__": 331,
     "kind": "method",
     "name": "waitForNewWindow",
     "memberof": "lib/page/page.js~Page",
@@ -7016,7 +7317,7 @@
     "examples": [
       "  const newWin = await page.waitForNewWindow(()=>{\n    ...\n  })\n  newWin.page.find(...).click();\n  newWin.close();"
     ],
-    "lineNumber": 133,
+    "lineNumber": 140,
     "params": [
       {
         "nullable": null,
@@ -7039,7 +7340,7 @@
     }
   },
   {
-    "__docId__": 323,
+    "__docId__": 332,
     "kind": "method",
     "name": "waitForBrowserSocket",
     "memberof": "lib/page/page.js~Page",
@@ -7049,7 +7350,7 @@
     "longname": "lib/page/page.js~Page#waitForBrowserSocket",
     "access": "public",
     "description": "",
-    "lineNumber": 153,
+    "lineNumber": 160,
     "params": [
       {
         "nullable": null,
@@ -7082,7 +7383,7 @@
     }
   },
   {
-    "__docId__": 324,
+    "__docId__": 333,
     "kind": "method",
     "name": "waitForAjaxDone",
     "memberof": "lib/page/page.js~Page",
@@ -7092,7 +7393,7 @@
     "longname": "lib/page/page.js~Page#waitForAjaxDone",
     "access": "public",
     "description": "",
-    "lineNumber": 173,
+    "lineNumber": 180,
     "params": [
       {
         "nullable": null,
@@ -7115,7 +7416,7 @@
     }
   },
   {
-    "__docId__": 325,
+    "__docId__": 334,
     "kind": "method",
     "name": "waitForConfirm",
     "memberof": "lib/page/page.js~Page",
@@ -7128,7 +7429,7 @@
     "examples": [
       "  await page.waitConfirmDialog({ message: \"Are you OK?\", isClickOK: false }, ()=>{\n    page.find(\"button.submit-form\").click()\n  })\n\n  await page.waitLoading(async ()=>{\n    await page.waitForConfirm(async ()=>{\n      await page.find(\"button.submit-form\").click()\n    })\n  })"
     ],
-    "lineNumber": 213,
+    "lineNumber": 220,
     "params": [
       {
         "nullable": null,
@@ -7161,7 +7462,53 @@
     }
   },
   {
-    "__docId__": 326,
+    "__docId__": 335,
+    "kind": "method",
+    "name": "waitForAlert",
+    "memberof": "lib/page/page.js~Page",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/page/page.js~Page#waitForAlert",
+    "access": "public",
+    "description": "",
+    "examples": [
+      "  await page.waitAlertDialog({ message: \"You are wrong!\" }, ()=>{\n    page.find(\"button.submit-form\").click()\n  })"
+    ],
+    "lineNumber": 243,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "alertOptioin",
+        "description": "specify message property(default undefined)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "action",
+        "description": "A function representing the operation of open alert dialog"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 336,
     "kind": "method",
     "name": "invokeAfterReady",
     "memberof": "lib/page/page.js~Page",
@@ -7171,7 +7518,7 @@
     "longname": "lib/page/page.js~Page#invokeAfterReady",
     "access": "private",
     "description": "",
-    "lineNumber": 230,
+    "lineNumber": 258,
     "params": [
       {
         "name": "func",
@@ -7187,7 +7534,7 @@
     }
   },
   {
-    "__docId__": 327,
+    "__docId__": 337,
     "kind": "method",
     "name": "invokeAction",
     "memberof": "lib/page/page.js~Page",
@@ -7197,7 +7544,7 @@
     "longname": "lib/page/page.js~Page#invokeAction",
     "access": "private",
     "description": "",
-    "lineNumber": 242,
+    "lineNumber": 270,
     "params": [
       {
         "name": "action",
@@ -7219,7 +7566,7 @@
     }
   },
   {
-    "__docId__": 328,
+    "__docId__": 338,
     "kind": "method",
     "name": "executeJs",
     "memberof": "lib/page/page.js~Page",
@@ -7229,7 +7576,7 @@
     "longname": "lib/page/page.js~Page#executeJs",
     "access": "public",
     "description": "",
-    "lineNumber": 253,
+    "lineNumber": 281,
     "params": [
       {
         "nullable": null,
@@ -7252,7 +7599,7 @@
     }
   },
   {
-    "__docId__": 329,
+    "__docId__": 339,
     "kind": "method",
     "name": "find",
     "memberof": "lib/page/page.js~Page",
@@ -7262,7 +7609,7 @@
     "longname": "lib/page/page.js~Page#find",
     "access": "public",
     "description": "Create and Return new Finder object with given finder-condition",
-    "lineNumber": 262,
+    "lineNumber": 290,
     "return": {
       "nullable": null,
       "types": [
@@ -7283,7 +7630,7 @@
     ]
   },
   {
-    "__docId__": 330,
+    "__docId__": 340,
     "kind": "method",
     "name": "inIframe",
     "memberof": "lib/page/page.js~Page",
@@ -7296,7 +7643,7 @@
     "examples": [
       "  const pageInIframe = page.inIframe(page.find(\"iframe\").first());\n  await pageInIframe.find(\"h3\").text()"
     ],
-    "lineNumber": 274,
+    "lineNumber": 302,
     "params": [
       {
         "nullable": null,
@@ -7319,7 +7666,7 @@
     }
   },
   {
-    "__docId__": 331,
+    "__docId__": 341,
     "kind": "method",
     "name": "getSourceHTML",
     "memberof": "lib/page/page.js~Page",
@@ -7329,7 +7676,7 @@
     "longname": "lib/page/page.js~Page#getSourceHTML",
     "access": "public",
     "description": "Get the HTML source of current page.",
-    "lineNumber": 281,
+    "lineNumber": 309,
     "return": {
       "nullable": null,
       "types": [
@@ -7341,7 +7688,7 @@
     "params": []
   },
   {
-    "__docId__": 332,
+    "__docId__": 342,
     "kind": "method",
     "name": "findClickable",
     "memberof": "lib/page/page.js~Page",
@@ -7351,7 +7698,7 @@
     "longname": "lib/page/page.js~Page#findClickable",
     "access": "public",
     "description": null,
-    "lineNumber": 285,
+    "lineNumber": 313,
     "undocument": true,
     "params": [],
     "return": {
@@ -7361,7 +7708,7 @@
     }
   },
   {
-    "__docId__": 333,
+    "__docId__": 343,
     "kind": "method",
     "name": "openDevTools",
     "memberof": "lib/page/page.js~Page",
@@ -7371,7 +7718,7 @@
     "longname": "lib/page/page.js~Page#openDevTools",
     "access": "public",
     "description": null,
-    "lineNumber": 289,
+    "lineNumber": 317,
     "undocument": true,
     "params": [],
     "return": {
@@ -7381,7 +7728,7 @@
     }
   },
   {
-    "__docId__": 334,
+    "__docId__": 344,
     "kind": "file",
     "name": "lib/page/window.js",
     "content": "const EventEmitter = require('events');\nconst path = require('path');\nconst {config} = require('../utils/config');\nconst Page = require('./page');\nconst pageWalker = require('../page_walker');\n\nclass Window extends EventEmitter {\n  constructor(id, name, browser, options = {}){\n    super();\n    this.id = id; // unless window exists, id is undefined\n    this.name = name;\n    // setup now or later\n    let configCloned = config.clone();\n    configCloned.merge({ [config.browser]: options });\n\n    let windowSetup = ()=>{\n      pageWalker.browser.createBrowserWindow(configCloned[config.browser], {\n        'new-window': (frameName, id, options) => {\n          return pageWalker.getWindow(frameName) || pageWalker.createWindow(frameName, id, options);\n        },\n        'closed': (id)=>{\n          pageWalker.removeWindowById(id);\n        }\n      })\n      .then((result)=>{\n        this._browserWindow = result.browserWindow;\n        this.id = result.id;\n        this.emit('ready');\n      });\n    };\n    if(browser && browser.isReady()){\n      browser.getBrowserWindowById(id)\n      .then((browserWindow)=>{\n        if(browserWindow){\n          this._browserWindow = browserWindow;\n          this.emit('ready');\n        }else{\n          windowSetup();\n        }\n      })\n    }else{\n      browser.on('ready', windowSetup);\n    }\n  }\n  /**\n   * @return {object} BrowserWindow Object(Provided by Each Browser)\n   * @see Browser#createWindow\n   */\n  get browserWindow(){ return this._browserWindow }\n  /**\n   * close this BrowserWindow();\n   */\n  close(){\n    // Each browserWindow object have close() method.\n    this._browserWindow.close();\n  }\n  /**\n   * @private\n   */\n  isReady(){ return !!this._browserWindow }\n  /**\n   * get Page object in this window.\n   * @return {Page}\n   */\n  get page(){\n    if(!this._page){\n      this._page = new Page(pageWalker.browser.createBrowserPage(this));\n    }\n    return this._page;\n  }\n}\n\nmodule.exports = Window;\n",
@@ -7392,7 +7739,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 335,
+    "__docId__": 345,
     "kind": "variable",
     "name": "EventEmitter",
     "memberof": "lib/page/window.js",
@@ -7413,7 +7760,7 @@
     "ignore": true
   },
   {
-    "__docId__": 336,
+    "__docId__": 346,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/page/window.js",
@@ -7434,7 +7781,7 @@
     "ignore": true
   },
   {
-    "__docId__": 337,
+    "__docId__": 347,
     "kind": "variable",
     "name": "config",
     "memberof": "lib/page/window.js",
@@ -7455,7 +7802,7 @@
     "ignore": true
   },
   {
-    "__docId__": 338,
+    "__docId__": 348,
     "kind": "variable",
     "name": "Page",
     "memberof": "lib/page/window.js",
@@ -7476,7 +7823,7 @@
     "ignore": true
   },
   {
-    "__docId__": 339,
+    "__docId__": 349,
     "kind": "variable",
     "name": "pageWalker",
     "memberof": "lib/page/window.js",
@@ -7497,7 +7844,7 @@
     "ignore": true
   },
   {
-    "__docId__": 340,
+    "__docId__": 350,
     "kind": "class",
     "name": "Window",
     "memberof": "lib/page/window.js",
@@ -7516,7 +7863,7 @@
     ]
   },
   {
-    "__docId__": 341,
+    "__docId__": 351,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page/window.js~Window",
@@ -7530,7 +7877,7 @@
     "undocument": true
   },
   {
-    "__docId__": 342,
+    "__docId__": 352,
     "kind": "member",
     "name": "id",
     "memberof": "lib/page/window.js~Window",
@@ -7547,7 +7894,7 @@
     }
   },
   {
-    "__docId__": 343,
+    "__docId__": 353,
     "kind": "member",
     "name": "name",
     "memberof": "lib/page/window.js~Window",
@@ -7564,7 +7911,7 @@
     }
   },
   {
-    "__docId__": 344,
+    "__docId__": 354,
     "kind": "member",
     "name": "_browserWindow",
     "memberof": "lib/page/window.js~Window",
@@ -7581,7 +7928,7 @@
     }
   },
   {
-    "__docId__": 347,
+    "__docId__": 357,
     "kind": "get",
     "name": "browserWindow",
     "memberof": "lib/page/window.js~Window",
@@ -7610,7 +7957,7 @@
     }
   },
   {
-    "__docId__": 348,
+    "__docId__": 358,
     "kind": "method",
     "name": "close",
     "memberof": "lib/page/window.js~Window",
@@ -7625,7 +7972,7 @@
     "return": null
   },
   {
-    "__docId__": 349,
+    "__docId__": 359,
     "kind": "method",
     "name": "isReady",
     "memberof": "lib/page/window.js~Window",
@@ -7644,7 +7991,7 @@
     }
   },
   {
-    "__docId__": 350,
+    "__docId__": 360,
     "kind": "get",
     "name": "page",
     "memberof": "lib/page/window.js~Window",
@@ -7670,7 +8017,7 @@
     }
   },
   {
-    "__docId__": 351,
+    "__docId__": 361,
     "kind": "member",
     "name": "_page",
     "memberof": "lib/page/window.js~Window",
@@ -7687,7 +8034,7 @@
     }
   },
   {
-    "__docId__": 352,
+    "__docId__": 362,
     "kind": "file",
     "name": "lib/page_walker.js",
     "content": "const electron = require('electron');\nconst Config = require('./utils/config');\nconst LoadWalkerModule = ()=>{ return require('./walker/walker') }; // for Lazy loading\nconst LoadWindowModudle = ()=>{ return require('./page/window') }; // for Lazy loading\n\nclass PageWalker {\n  constructor(){\n    this.windows = {};\n  }\n  start(config){\n    this._config = config;\n\n    this._browser = new (require(`./browser/${config.browser}`))(config[config.browser]);\n\n    const Walker = LoadWalkerModule();\n    this._walker = new Walker(config);\n\n    this._browser.on('ready', ()=>{\n      this._walker.walk((failures)=>{\n        console.log(`[${failures == 0? 'SUCCESS': 'FAILURE'}!] finished with status:${failures}`);\n        if(this.config.exitImmediately){\n          this._browser.exit(failures);  // exit with non-zero status if there were failures\n        }else{\n          Object.values(this.windows).forEach((window)=>{ window.page.openDevTools() });;\n        }\n      })\n    })\n  }\n  /**\n   * @return {Browser} Browser Object(Instance will be relayed on Browser used)\n   */\n  get browser(){\n    return this._browser;\n  }\n  get config(){\n    return this._config;\n  }\n  get page(){\n    return this.getWindow().page;\n  }\n  getWindow(name = \"__default__\"){\n    if(name == \"__default__\" && !this.windows[name]){\n      this.createWindow(\"__default__\", { title: \"MainWindow - PageWalker\" });\n    }\n    return this.windows[name]\n  }\n  getWindowById(id){\n    return Object.values(this.windows).filter(window => window.id && window.id == id )[0];\n  }\n  createWindow(name, windowOptions = {}){\n    return this.createWindowWithId(name, undefined, windowOptions);\n  }\n  createWindowWithId(name, id, windowOptions = {}){\n    const Window = LoadWindowModudle();\n    this.windows[name] = new Window(id, name, this._browser, windowOptions);\n    return this.windows[name];\n  }\n  /**\n   * remove window referrence, but not destroy window object.\n   */\n  removeWindow(name){\n    this.windows[name] = undefined;\n  }\n  /**\n   * remove window referrence, but not destroy window object.\n   */\n  removeWindowById(id){\n    let window = this.getWindowById(id);\n    if(window && window.name){\n      this.windows[window.name] = undefined;\n    }\n\n  }\n\n}\n\nmodule.exports = new PageWalker();\n",
@@ -7698,7 +8045,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 353,
+    "__docId__": 363,
     "kind": "variable",
     "name": "electron",
     "memberof": "lib/page_walker.js",
@@ -7719,7 +8066,7 @@
     "ignore": true
   },
   {
-    "__docId__": 354,
+    "__docId__": 364,
     "kind": "variable",
     "name": "Config",
     "memberof": "lib/page_walker.js",
@@ -7740,7 +8087,7 @@
     "ignore": true
   },
   {
-    "__docId__": 355,
+    "__docId__": 365,
     "kind": "function",
     "name": "LoadWalkerModule",
     "memberof": "lib/page_walker.js",
@@ -7764,7 +8111,7 @@
     "ignore": true
   },
   {
-    "__docId__": 356,
+    "__docId__": 366,
     "kind": "function",
     "name": "LoadWindowModudle",
     "memberof": "lib/page_walker.js",
@@ -7788,7 +8135,7 @@
     "ignore": true
   },
   {
-    "__docId__": 357,
+    "__docId__": 367,
     "kind": "class",
     "name": "PageWalker",
     "memberof": "lib/page_walker.js",
@@ -7805,7 +8152,7 @@
     "interface": false
   },
   {
-    "__docId__": 358,
+    "__docId__": 368,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7819,7 +8166,7 @@
     "undocument": true
   },
   {
-    "__docId__": 359,
+    "__docId__": 369,
     "kind": "member",
     "name": "windows",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7836,7 +8183,7 @@
     }
   },
   {
-    "__docId__": 360,
+    "__docId__": 370,
     "kind": "method",
     "name": "start",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7859,7 +8206,7 @@
     "return": null
   },
   {
-    "__docId__": 361,
+    "__docId__": 371,
     "kind": "member",
     "name": "_config",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7876,7 +8223,7 @@
     }
   },
   {
-    "__docId__": 362,
+    "__docId__": 372,
     "kind": "member",
     "name": "_browser",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7893,7 +8240,7 @@
     }
   },
   {
-    "__docId__": 363,
+    "__docId__": 373,
     "kind": "member",
     "name": "_walker",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7910,7 +8257,7 @@
     }
   },
   {
-    "__docId__": 364,
+    "__docId__": 374,
     "kind": "get",
     "name": "browser",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7936,7 +8283,7 @@
     }
   },
   {
-    "__docId__": 365,
+    "__docId__": 375,
     "kind": "get",
     "name": "config",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7955,7 +8302,7 @@
     }
   },
   {
-    "__docId__": 366,
+    "__docId__": 376,
     "kind": "get",
     "name": "page",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -7974,7 +8321,7 @@
     }
   },
   {
-    "__docId__": 367,
+    "__docId__": 377,
     "kind": "method",
     "name": "getWindow",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -8004,7 +8351,7 @@
     }
   },
   {
-    "__docId__": 368,
+    "__docId__": 378,
     "kind": "method",
     "name": "getWindowById",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -8031,7 +8378,7 @@
     }
   },
   {
-    "__docId__": 369,
+    "__docId__": 379,
     "kind": "method",
     "name": "createWindow",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -8067,7 +8414,7 @@
     }
   },
   {
-    "__docId__": 370,
+    "__docId__": 380,
     "kind": "method",
     "name": "createWindowWithId",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -8109,7 +8456,7 @@
     }
   },
   {
-    "__docId__": 371,
+    "__docId__": 381,
     "kind": "method",
     "name": "removeWindow",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -8131,7 +8478,7 @@
     "return": null
   },
   {
-    "__docId__": 372,
+    "__docId__": 382,
     "kind": "method",
     "name": "removeWindowById",
     "memberof": "lib/page_walker.js~PageWalker",
@@ -8153,7 +8500,7 @@
     "return": null
   },
   {
-    "__docId__": 373,
+    "__docId__": 383,
     "kind": "variable",
     "name": "pageWalker",
     "memberof": "lib/page_walker.js",
@@ -8173,7 +8520,7 @@
     }
   },
   {
-    "__docId__": 374,
+    "__docId__": 384,
     "kind": "file",
     "name": "lib/utils/config.js",
     "content": "const fs = require(\"fs\");\nconst path = require(\"path\");\nconst OptParser = require(\"./opt_parser\");\n\n/**\n * this class have configuratin information.\n */\nclass Config {\n  static get CONFIG_FILE_PATH(){\n    return \"config.json\";\n  }\n  static get DEFAULT_CONFIG(){\n    return {\n      browser: \"electron\",\n      scenarioDir: \"scenario\",\n      scenarioFile: undefined,\n      ignoreDir: \"supports\",\n      successSaveFile: \"success-scenario.log\",\n      silentMode: false,\n      startFromFirst: false,\n      exitImmediately: false,\n      fileDownloadDir: \"downloads\",\n      mocha: {\n        ui: \"bdd\",\n        bail: true,\n        reporter: \"spec\",\n        timeout: 5000,\n        slow: false,\n      },\n      electron: {\n        width: 1024,\n        height: 768,\n        show: true,\n        webPreferences: {\n          nodeIntegration: false,\n          preload: path.join(__dirname, \"../browser/electron/window_preloaded.js\"),\n          allowRunningInsecureContent: true\n        }\n      },\n      puppeteer: {\n        headless: false\n      }\n    }\n  }\n  static create(commandLineArgs){\n    this.instance = new Config();\n    this.instance.merge(Config.DEFAULT_CONFIG)\n    this.instance.loadConfigFile(this.CONFIG_FILE_PATH);\n    this.instance.loadConfigFile(this.CONFIG_FILE_PATH + \".local\");\n\n    let optParser = new OptParser(commandLineArgs);\n    this.instance.merge(optParser.parse((config, cmdOpt)=>{\n      switch(cmdOpt.option()){\n        case \"-r\":\n        case \"--reset\":           config.startFromFirst = true; break;\n        case \"-s\":\n        case \"--silent\":          config.silentMode     = true; break;\n        default:\n          if(this.instance.isExists(cmdOpt.option(true))){\n            Config.assign(config, cmdOpt.option(true), cmdOpt.getValueOrFail())\n          }else{\n            throw new Error(\"Unexpected CommandLine Argument, [\" + cmdOpt.option() + \"]\");\n          }\n      }\n    }));\n\n    optParser.scriptArguments().forEach((args)=>{\n      let filePath = args[0] == \"/\" ? args : path.join(process.cwd(), args);\n      let stat = fs.statSync(filePath)\n      let keyName = stat.isDirectory() ? \"scenarioDir\" : \"scenarioFile\";\n      if(!(this.instance[keyName] instanceof Array)){\n        this.instance[keyName] = []\n      }\n      this.instance[keyName].push(args);\n    })\n\n    // apply options\n    if(this.instance.silentMode){\n      this.instance.electron.show = false;\n      this.instance.puppeteer.headless = true;\n      this.instance.mocha.reporter = \"dot\";\n      this.instance.exitImmediately = true;\n    }\n    // validates\n    if(![\"electron\", \"puppeteer\"].includes(this.instance.browser)){\n      throw new Error(`config.browser is not allowed! [${this.instance.browser}]`)\n    }\n    return this.instance;\n  }\n  static get config(){\n    return this.instance;\n  }\n  /**\n   * @private\n   */\n  loadConfigFile(filePath){\n    if(fs.existsSync(filePath)){\n      this.merge(JSON.parse(fs.readFileSync(filePath, 'utf8')));\n    }\n  }\n  clone(){\n    let cloned = new Config();\n    cloned.merge(this);\n    return cloned;\n  }\n  merge(source){\n    Config.merge(this, source);\n  }\n  static merge(dest, source){\n    Object.keys(source).forEach((key)=>{\n      if(typeof source[key] == \"object\" && typeof dest[key] == \"object\"){\n        this.merge(dest[key], source[key]);\n      }else{\n        dest[key] = source[key];\n      }\n    });\n  }\n  isExists(key){\n    return !!key.split(\".\").reduce((result, k)=>{ return Config.isExists(result, k) })\n  }\n  static isExists(object, key){\n    if(typeof object != \"object\") return false;\n    if(key in object){\n      return typeof object[key] == \"object\" ? object[key] : true;\n    }\n  }\n  static assign(config, key, value){\n    let keys = key.split(\".\");\n    keys.reduce((object, key, index)=>{\n      if(index < keys.length - 1){\n        return object[key];\n      }\n      switch(typeof object[key]){\n        case 'number':  object[key] = new Number(value);\n        case 'boolean': object[key] = new Boolean(value);\n        default:        object[key] = value;\n      }\n    }, config);\n  }\n}\n\nmodule.exports = Config;\n",
@@ -8184,7 +8531,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 375,
+    "__docId__": 385,
     "kind": "variable",
     "name": "fs",
     "memberof": "lib/utils/config.js",
@@ -8205,7 +8552,7 @@
     "ignore": true
   },
   {
-    "__docId__": 376,
+    "__docId__": 386,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/utils/config.js",
@@ -8226,7 +8573,7 @@
     "ignore": true
   },
   {
-    "__docId__": 377,
+    "__docId__": 387,
     "kind": "variable",
     "name": "OptParser",
     "memberof": "lib/utils/config.js",
@@ -8247,7 +8594,7 @@
     "ignore": true
   },
   {
-    "__docId__": 378,
+    "__docId__": 388,
     "kind": "class",
     "name": "Config",
     "memberof": "lib/utils/config.js",
@@ -8262,7 +8609,7 @@
     "interface": false
   },
   {
-    "__docId__": 379,
+    "__docId__": 389,
     "kind": "get",
     "name": "CONFIG_FILE_PATH",
     "memberof": "lib/utils/config.js~Config",
@@ -8281,7 +8628,7 @@
     }
   },
   {
-    "__docId__": 380,
+    "__docId__": 390,
     "kind": "get",
     "name": "DEFAULT_CONFIG",
     "memberof": "lib/utils/config.js~Config",
@@ -8300,7 +8647,7 @@
     }
   },
   {
-    "__docId__": 381,
+    "__docId__": 391,
     "kind": "method",
     "name": "create",
     "memberof": "lib/utils/config.js~Config",
@@ -8327,7 +8674,7 @@
     }
   },
   {
-    "__docId__": 382,
+    "__docId__": 392,
     "kind": "member",
     "name": "instance",
     "memberof": "lib/utils/config.js~Config",
@@ -8344,7 +8691,7 @@
     }
   },
   {
-    "__docId__": 383,
+    "__docId__": 393,
     "kind": "get",
     "name": "config",
     "memberof": "lib/utils/config.js~Config",
@@ -8363,7 +8710,7 @@
     }
   },
   {
-    "__docId__": 384,
+    "__docId__": 394,
     "kind": "method",
     "name": "loadConfigFile",
     "memberof": "lib/utils/config.js~Config",
@@ -8385,7 +8732,7 @@
     "return": null
   },
   {
-    "__docId__": 385,
+    "__docId__": 395,
     "kind": "method",
     "name": "clone",
     "memberof": "lib/utils/config.js~Config",
@@ -8405,7 +8752,7 @@
     }
   },
   {
-    "__docId__": 386,
+    "__docId__": 396,
     "kind": "method",
     "name": "merge",
     "memberof": "lib/utils/config.js~Config",
@@ -8428,7 +8775,7 @@
     "return": null
   },
   {
-    "__docId__": 387,
+    "__docId__": 397,
     "kind": "method",
     "name": "merge",
     "memberof": "lib/utils/config.js~Config",
@@ -8457,7 +8804,7 @@
     "return": null
   },
   {
-    "__docId__": 388,
+    "__docId__": 398,
     "kind": "method",
     "name": "isExists",
     "memberof": "lib/utils/config.js~Config",
@@ -8484,7 +8831,7 @@
     }
   },
   {
-    "__docId__": 389,
+    "__docId__": 399,
     "kind": "method",
     "name": "isExists",
     "memberof": "lib/utils/config.js~Config",
@@ -8517,7 +8864,7 @@
     }
   },
   {
-    "__docId__": 390,
+    "__docId__": 400,
     "kind": "method",
     "name": "assign",
     "memberof": "lib/utils/config.js~Config",
@@ -8552,10 +8899,10 @@
     "return": null
   },
   {
-    "__docId__": 391,
+    "__docId__": 401,
     "kind": "file",
     "name": "lib/utils/date_format.js",
-    "content": "class DateFormat {\n  static format(date, formatString){\n    let [ yyyy, mm, dd, HH, MM, ss, ...rest ] = date.toISOString().split(/[-T:.]/);\n    let replacement = { yyyy: yyyy, mm: mm, dd: dd, HH: HH, MM: MM, ss: ss };\n\n    for(let key in replacement){\n      formatString = formatString.replace(new RegExp(key), replacement[key])\n    }\n    return formatString;\n  }\n  static toTimepstampString(date){\n    return this.format(date, 'yyyymmddHHMMss')\n  }\n}\n\nmodule.exports = DateFormat;\n",
+    "content": "class DateFormat {\n  static format(date, formatString){\n    let [ yyyy, mm, dd, HH, MM, ss, SS ] = date.toISOString().split(/[-T:.]/);\n    let replacement = { yyyy: yyyy, mm: mm, dd: dd, HH: HH, MM: MM, ss: ss, SS: SS };\n\n    for(let key in replacement){\n      formatString = formatString.replace(new RegExp(key), replacement[key])\n    }\n    return formatString;\n  }\n  static toTimepstampString(date){\n    return this.format(date, 'yyyymmddHHMMss')\n  }\n  static toTimepstampMsecString(date){\n    return this.format(date, 'yyyymmddHHMMssSS')\n  }\n}\n\nmodule.exports = DateFormat;\n",
     "static": true,
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/lib/utils/date_format.js",
     "access": "public",
@@ -8563,7 +8910,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 392,
+    "__docId__": 402,
     "kind": "class",
     "name": "DateFormat",
     "memberof": "lib/utils/date_format.js",
@@ -8579,7 +8926,7 @@
     "interface": false
   },
   {
-    "__docId__": 393,
+    "__docId__": 403,
     "kind": "method",
     "name": "format",
     "memberof": "lib/utils/date_format.js~DateFormat",
@@ -8612,7 +8959,7 @@
     }
   },
   {
-    "__docId__": 394,
+    "__docId__": 404,
     "kind": "method",
     "name": "toTimepstampString",
     "memberof": "lib/utils/date_format.js~DateFormat",
@@ -8639,7 +8986,34 @@
     }
   },
   {
-    "__docId__": 395,
+    "__docId__": 405,
+    "kind": "method",
+    "name": "toTimepstampMsecString",
+    "memberof": "lib/utils/date_format.js~DateFormat",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "lib/utils/date_format.js~DateFormat.toTimepstampMsecString",
+    "access": "public",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [
+      {
+        "name": "date",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 406,
     "kind": "file",
     "name": "lib/utils/debug.js",
     "content": "\nfunction getEmptyLogger(){ return (msg)=>{ /* ignore */ }; }\nfunction getPrefixedLogger(prefix){ return (msg)=>{ console.log(`[${prefix}] ${msg}`) }; }\n\nfunction Debug(){\n  console.log(...arguments);\n}\n\nDebug.getLogger = (name)=>{\n  if(Debug.loggers[name]) return Debug.loggers[name];\n\n  if(Debug.target.includes(name)){\n    return Debug.loggers[name] = getPrefixedLogger(name);\n  }else{\n    return Debug.loggers[name] = getEmptyLogger();\n  }\n}\nDebug.target  = (process.env[\"DEBUG_LOG\"] || \"\").split(\",\").map(v => v.trim()).filter(v => v);\nDebug.loggers = {};\n\nmodule.exports = Debug;\n",
@@ -8650,7 +9024,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 396,
+    "__docId__": 407,
     "kind": "function",
     "name": "getEmptyLogger",
     "memberof": "lib/utils/debug.js",
@@ -8674,7 +9048,7 @@
     "ignore": true
   },
   {
-    "__docId__": 397,
+    "__docId__": 408,
     "kind": "function",
     "name": "getPrefixedLogger",
     "memberof": "lib/utils/debug.js",
@@ -8705,7 +9079,7 @@
     "ignore": true
   },
   {
-    "__docId__": 398,
+    "__docId__": 409,
     "kind": "function",
     "name": "Debug",
     "memberof": "lib/utils/debug.js",
@@ -8724,7 +9098,7 @@
     "return": null
   },
   {
-    "__docId__": 399,
+    "__docId__": 410,
     "kind": "file",
     "name": "lib/utils/opt_parser.js",
     "content": "\nclass CommandLineOption {\n  constructor(optString){\n    this._option = optString;\n  }\n  option(removeHyphen = false){\n    if(removeHyphen){\n      return this._option.slice(this._option[1] == \"-\" ? 2 : 1);\n    }\n    return this._option;\n  }\n  setValue(val){ this._value = val }\n  getValueOrFail(){\n    if(this._value == undefined) throw new Error(\"CommandLine Argument [\" + this.option() + \"] is missing.\");\n    this.valueIsOption = true;\n    return this._value;\n  }\n}\n\nclass OptParser {\n  constructor(commandLineArgs){\n    this._commandLineOptions = [];\n    this._scriptArguments = [];\n    commandLineArgs.forEach((arg, i)=>{\n      if(arg[0] == \"-\"){\n        this._commandLineOptions.push(new CommandLineOption(arg));\n      }else{\n        if(i > 0 && commandLineArgs[i-1][0] == \"-\"){\n          let commandLineOption = this._commandLineOptions[this._commandLineOptions.length - 1];\n          commandLineOption.setValue(arg)\n          this._scriptArguments.push(commandLineOption);\n        }else{\n          this._scriptArguments.push(arg);\n        }\n      }\n    });\n  }\n  parse(callback){\n    return this._commandLineOptions.reduce((result, cmdOpt, index, array)=>{\n      callback(result, cmdOpt, index, array);\n      return result;\n    }, {});\n  }\n  scriptArguments(){\n    return this._scriptArguments.filter(v => !(v instanceof CommandLineOption && v.valueIsOption))\n    .map(v => (v instanceof CommandLineOption ? v._value : v))\n  }\n}\n\nmodule.exports = OptParser;\n",
@@ -8735,7 +9109,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 400,
+    "__docId__": 411,
     "kind": "class",
     "name": "CommandLineOption",
     "memberof": "lib/utils/opt_parser.js",
@@ -8752,7 +9126,7 @@
     "ignore": true
   },
   {
-    "__docId__": 401,
+    "__docId__": 412,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -8766,7 +9140,7 @@
     "undocument": true
   },
   {
-    "__docId__": 402,
+    "__docId__": 413,
     "kind": "member",
     "name": "_option",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -8783,7 +9157,7 @@
     }
   },
   {
-    "__docId__": 403,
+    "__docId__": 414,
     "kind": "method",
     "name": "option",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -8813,7 +9187,7 @@
     }
   },
   {
-    "__docId__": 404,
+    "__docId__": 415,
     "kind": "method",
     "name": "setValue",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -8836,7 +9210,7 @@
     "return": null
   },
   {
-    "__docId__": 405,
+    "__docId__": 416,
     "kind": "member",
     "name": "_value",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -8853,7 +9227,7 @@
     }
   },
   {
-    "__docId__": 406,
+    "__docId__": 417,
     "kind": "method",
     "name": "getValueOrFail",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -8873,7 +9247,7 @@
     }
   },
   {
-    "__docId__": 407,
+    "__docId__": 418,
     "kind": "member",
     "name": "valueIsOption",
     "memberof": "lib/utils/opt_parser.js~CommandLineOption",
@@ -8890,7 +9264,7 @@
     }
   },
   {
-    "__docId__": 408,
+    "__docId__": 419,
     "kind": "class",
     "name": "OptParser",
     "memberof": "lib/utils/opt_parser.js",
@@ -8906,7 +9280,7 @@
     "interface": false
   },
   {
-    "__docId__": 409,
+    "__docId__": 420,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -8920,7 +9294,7 @@
     "undocument": true
   },
   {
-    "__docId__": 410,
+    "__docId__": 421,
     "kind": "member",
     "name": "_commandLineOptions",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -8937,7 +9311,7 @@
     }
   },
   {
-    "__docId__": 411,
+    "__docId__": 422,
     "kind": "member",
     "name": "_scriptArguments",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -8954,7 +9328,7 @@
     }
   },
   {
-    "__docId__": 412,
+    "__docId__": 423,
     "kind": "method",
     "name": "parse",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -8981,7 +9355,7 @@
     }
   },
   {
-    "__docId__": 413,
+    "__docId__": 424,
     "kind": "method",
     "name": "scriptArguments",
     "memberof": "lib/utils/opt_parser.js~OptParser",
@@ -9001,7 +9375,7 @@
     }
   },
   {
-    "__docId__": 414,
+    "__docId__": 425,
     "kind": "file",
     "name": "lib/walker/result_store.js",
     "content": "const fs = require(\"fs\");\nconst {promisify} = require('util');\nconst {config} = require(\"../utils/config\");\n\nclass ResultStore {\n  // ファイルから前回の結果をロードし、それを格納した配列で解決されるPromiseを返す\n  static loadPreviousResults(){\n    if(!fs.existsSync(config.successSaveFile))\n      return Promise.resolve([]);\n\n    return new Promise((resolve, reject)=>{\n      fs.readFile(config.successSaveFile, 'utf-8', (err, data)=>{ err ? reject(err) : resolve(data) })\n    })\n    .then((data)=>{\n      return data.split(\"\\n\")\n    })\n  }\n  // すべてのテストが成功した場合に、すべてのテストタイトルをファイルに書き出す\n  // ファイル書込みが終わると解決するPromiseを返す\n  static saveAll(suite){\n    return this.write(suite, []);\n  }\n  // 失敗したときに呼ばれる結果保存メソッド\n  // failtest までのテストを保存する\n  // ファイル書込みが終わると解決するPromiseを返す\n  static saveSucceeded(suite, failtest){\n    let noSucceeded = [];\n    let failedTitle = failtest.fullTitle().replace(/\"before each\" hook for \"(.+)\"/, \"$1\");\n    suite.eachTest((test)=>{\n      if(noSucceeded.length > 0 || test.fullTitle() == failedTitle){\n        noSucceeded.push(test.fullTitle());\n      }\n    });\n    if(noSucceeded.length > 0){\n      return this.write(suite, noSucceeded);\n    }\n  };\n\n  /**\n   * 引数で指定された noSucceeded 以外のテスト名をファイルに書き込む\n   * @private:\n   */\n  static write(suite, noSucceeded){\n    let succeededs = [];\n    suite.eachTest((test)=>{\n      if(noSucceeded.indexOf(test.fullTitle()) == -1)\n        succeededs.push(test.fullTitle())\n    })\n    return new Promise((resolve, reject)=>{\n      fs.writeFile(config.successSaveFile, succeededs.join(\"\\n\")+\"\\n\", (err)=>{\n        err ? reject(err) : resolve();\n      })\n    })\n  }\n}\n\nmodule.exports = ResultStore;\n",
@@ -9012,7 +9386,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 415,
+    "__docId__": 426,
     "kind": "variable",
     "name": "fs",
     "memberof": "lib/walker/result_store.js",
@@ -9033,7 +9407,7 @@
     "ignore": true
   },
   {
-    "__docId__": 416,
+    "__docId__": 427,
     "kind": "variable",
     "name": "promisify",
     "memberof": "lib/walker/result_store.js",
@@ -9054,7 +9428,7 @@
     "ignore": true
   },
   {
-    "__docId__": 417,
+    "__docId__": 428,
     "kind": "variable",
     "name": "config",
     "memberof": "lib/walker/result_store.js",
@@ -9075,7 +9449,7 @@
     "ignore": true
   },
   {
-    "__docId__": 418,
+    "__docId__": 429,
     "kind": "class",
     "name": "ResultStore",
     "memberof": "lib/walker/result_store.js",
@@ -9091,7 +9465,7 @@
     "interface": false
   },
   {
-    "__docId__": 419,
+    "__docId__": 430,
     "kind": "method",
     "name": "loadPreviousResults",
     "memberof": "lib/walker/result_store.js~ResultStore",
@@ -9111,7 +9485,7 @@
     }
   },
   {
-    "__docId__": 420,
+    "__docId__": 431,
     "kind": "method",
     "name": "saveAll",
     "memberof": "lib/walker/result_store.js~ResultStore",
@@ -9138,7 +9512,7 @@
     }
   },
   {
-    "__docId__": 421,
+    "__docId__": 432,
     "kind": "method",
     "name": "saveSucceeded",
     "memberof": "lib/walker/result_store.js~ResultStore",
@@ -9171,7 +9545,7 @@
     }
   },
   {
-    "__docId__": 422,
+    "__docId__": 433,
     "kind": "method",
     "name": "write",
     "memberof": "lib/walker/result_store.js~ResultStore",
@@ -9203,7 +9577,7 @@
     }
   },
   {
-    "__docId__": 423,
+    "__docId__": 434,
     "kind": "file",
     "name": "lib/walker/walker.js",
     "content": "const Mocha = require('mocha');\nconst fs = require('fs');\nconst path = require('path');\nconst ResultStore = require(\"./result_store\");\n\nclass Walker {\n  constructor(config){\n    this.config = config;\n    this.mocha = new Mocha(config.mocha);\n\n    if(this.config.scenarioFile){\n      let scenarioFiles = Walker.toArray(this.config.scenarioFile);\n      scenarioFiles.sort().forEach((file)=>{ this.mocha.addFile(file) })\n    }else{\n      let scenarioDirs = Walker.toArray(this.config.scenarioDir);\n      let ignoreDirs = Walker.toArray(this.config.ignoreDir);\n      scenarioDirs.map(dir => path.join(process.cwd(), dir)).forEach((scenarioDir)=>{\n        if(!Walker.isDir(scenarioDir)){\n          throw `Scenario Directory(${scenarioDir}) is not found or not directory!`;\n        }\n        Walker.findAllFilesSync(scenarioDir, ignoreDirs)\n        .filter(file => file.substr(-3) === '.js')\n        .forEach((file)=>{ this.mocha.addFile(file) })\n      })\n    }\n    this.loadFiles();\n  }\n  loadFiles(){\n    let originalFunctions = {};\n    let delayedFunctions = [];\n    this.mocha.suite.on('pre-require', (context)=>{\n      originalFunctions.describe = context.describe;\n      originalFunctions.xdescribe = context.xdescribe;\n      originalFunctions.describeOnly = context.describe.only;\n      context.describe = function(title, fn, ...args){\n        delayedFunctions.push([\"describe\", this, title, fn, args]);\n      }\n      context.xdescribe = function(title, fn, ...args){\n        delayedFunctions.push([\"xdescribe\", this, title, fn, args]);\n      }\n      context.describe.only = function(title, fn, ...args){\n        delayedFunctions.push([\"describeOnly\", this, title, fn, args]);\n      }\n      // set to aliases\n      context.context = context.suite = context.describe;\n      context.xcontext = context.describe.skip = context.xdescribe;\n    })\n    this.mocha.suite.on('post-require', (context)=>{\n      // restore desctibe, xdescribe, describe.only with object property function support\n      // object property function support is describe(\"title\", { \"title\": function(){...} }, ...args)\n      [\"describe\", \"xdescribe\", \"describeOnly\"].forEach((key)=>{\n        originalFunctions[key] = Walker.objectPropertySupport(originalFunctions[key]);\n      })\n      context.context = context.suite = context.describe = originalFunctions.describe;\n      context.xcontext = context.xdescribe = originalFunctions.xdescribe;\n      context.describe.only = originalFunctions.describeOnly;\n      // hook function allows object property support.\n      [\"before\", \"after\", \"beforeEach\", \"afterEach\"].filter(key => context[key]).forEach((key)=>{\n        context[key] = Walker.objectPropertySupport(context[key]);\n      })\n    })\n    this.mocha.loadFiles();\n    delayedFunctions.forEach((array)=>{\n      let func = originalFunctions[array[0]];\n      func.call(array[1], array[2], array[3], ...array[4]); // this, title, fn, args\n    })\n  }\n  /**\n   * @private\n   */\n  static objectPropertySupport(originalFunc){\n    let newFunc = function(title, fn, ...args){\n      if(typeof title == \"function\"){\n        originalFunc.call(this, title);\n      }\n      if(typeof fn == \"function\"){\n        originalFunc.call(this, title, fn);\n      }\n      if(typeof fn == \"object\"){\n        if(typeof fn[title] != \"function\") throw new Error(`Property missing! \"${title}\" on object [${fn}]`)\n        originalFunc.call(this, title, ()=>{ return (fn[title])(...args) });\n      }\n    };\n    for(var prop in originalFunc){\n      if(originalFunc.hasOwnProperty(prop)) newFunc[prop] = originalFunc[prop];\n    }\n    return newFunc;\n  }\n  walk(callback){\n    Promise.resolve().then(()=>{\n      return this.config.startFromFirst ? [] : ResultStore.loadPreviousResults();\n    })\n    .then((succeeded)=>{\n      if(succeeded && succeeded.length > 0){\n        let regexp = succeeded.map(s => s.replace(/[()|]/g, \"\\\\$&\")).join(\"|\");\n        this.mocha.options.grep = new RegExp(\"^(\"+ regexp +\")$\");\n        this.mocha.options.invert = true;\n      }\n    })\n    .then(()=>{\n      let runner = this.mocha.run((failures)=>{\n        if(failures==0){\n          ResultStore.saveAll(this.mocha.suite).then(()=>{ callback(failures) })\n        }else{\n          callback(failures);\n        }\n      });\n      runner.on('fail', (failtest, error)=>{\n        ResultStore.saveSucceeded(this.mocha.suite, failtest);\n      })\n    })\n  }\n\n  static isDir(path){\n    let stat = fs.statSync(path);\n    return stat && stat.isDirectory();\n  }\n  static findAllFilesSync(dir, ignorePattern){\n    let results = [];\n    fs.readdirSync(dir)\n    .filter(file => !ignorePattern.includes(file))\n    .map(file => path.join(dir, file))\n    .forEach((file)=>{\n      if (this.isDir(file)){\n        results = results.concat(Walker.findAllFilesSync(file, ignorePattern))\n      }else{\n        results.push(file)\n      }\n    })\n    return results\n  }\n  static toArray(value){\n    return (value instanceof Array) ? value : [ value ];\n  }\n}\n\nmodule.exports = Walker;\n",
@@ -9214,7 +9588,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 424,
+    "__docId__": 435,
     "kind": "variable",
     "name": "Mocha",
     "memberof": "lib/walker/walker.js",
@@ -9235,7 +9609,7 @@
     "ignore": true
   },
   {
-    "__docId__": 425,
+    "__docId__": 436,
     "kind": "variable",
     "name": "fs",
     "memberof": "lib/walker/walker.js",
@@ -9256,7 +9630,7 @@
     "ignore": true
   },
   {
-    "__docId__": 426,
+    "__docId__": 437,
     "kind": "variable",
     "name": "path",
     "memberof": "lib/walker/walker.js",
@@ -9277,7 +9651,7 @@
     "ignore": true
   },
   {
-    "__docId__": 427,
+    "__docId__": 438,
     "kind": "variable",
     "name": "ResultStore",
     "memberof": "lib/walker/walker.js",
@@ -9298,7 +9672,7 @@
     "ignore": true
   },
   {
-    "__docId__": 428,
+    "__docId__": 439,
     "kind": "class",
     "name": "Walker",
     "memberof": "lib/walker/walker.js",
@@ -9314,7 +9688,7 @@
     "interface": false
   },
   {
-    "__docId__": 429,
+    "__docId__": 440,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9328,7 +9702,7 @@
     "undocument": true
   },
   {
-    "__docId__": 430,
+    "__docId__": 441,
     "kind": "member",
     "name": "config",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9345,7 +9719,7 @@
     }
   },
   {
-    "__docId__": 431,
+    "__docId__": 442,
     "kind": "member",
     "name": "mocha",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9362,7 +9736,7 @@
     }
   },
   {
-    "__docId__": 432,
+    "__docId__": 443,
     "kind": "method",
     "name": "loadFiles",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9378,7 +9752,7 @@
     "return": null
   },
   {
-    "__docId__": 433,
+    "__docId__": 444,
     "kind": "method",
     "name": "objectPropertySupport",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9404,7 +9778,7 @@
     }
   },
   {
-    "__docId__": 434,
+    "__docId__": 445,
     "kind": "method",
     "name": "walk",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9427,7 +9801,7 @@
     "return": null
   },
   {
-    "__docId__": 435,
+    "__docId__": 446,
     "kind": "method",
     "name": "isDir",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9454,7 +9828,7 @@
     }
   },
   {
-    "__docId__": 436,
+    "__docId__": 447,
     "kind": "method",
     "name": "findAllFilesSync",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9487,7 +9861,7 @@
     }
   },
   {
-    "__docId__": 437,
+    "__docId__": 448,
     "kind": "method",
     "name": "toArray",
     "memberof": "lib/walker/walker.js~Walker",
@@ -9523,7 +9897,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"pagewalker\",\n  \"version\": \"0.2.3\",\n  \"main\": \"index.js\",\n  \"bin\": \"bin/pagewalker\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/xketanaka/pagewalker.git\"\n  },\n  \"license\": \"MIT\",\n  \"scripts\": {\n    \"start\": \"electron .\",\n    \"debug\": \"DEBUG_LOG=query,app electron .\",\n    \"esdoc\": \"esdoc\"\n  },\n  \"esdoc\": {\n    \"source\": \"./lib\",\n    \"destination\": \"./docs\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\"\n      },\n      {\n        \"name\": \"esdoc-node\"\n      }\n    ]\n  },\n  \"dependencies\": {\n    \"mocha\": \"*\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"*\",\n    \"esdoc-node\": \"*\",\n    \"esdoc-standard-plugin\": \"*\"\n  },\n  \"optionalDependencies\": {\n    \"electron\": \"1.7.5\",\n    \"puppeteer\": \"^0.13.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"pagewalker\",\n  \"version\": \"0.3.4\",\n  \"main\": \"index.js\",\n  \"bin\": \"bin/pagewalker\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/xketanaka/pagewalker.git\"\n  },\n  \"license\": \"MIT\",\n  \"scripts\": {\n    \"start\": \"electron .\",\n    \"debug\": \"DEBUG_LOG=query,app electron .\",\n    \"esdoc\": \"esdoc\"\n  },\n  \"esdoc\": {\n    \"source\": \"./lib\",\n    \"destination\": \"./docs\",\n    \"plugins\": [\n      {\n        \"name\": \"esdoc-standard-plugin\"\n      },\n      {\n        \"name\": \"esdoc-node\"\n      }\n    ]\n  },\n  \"dependencies\": {\n    \"mocha\": \"*\"\n  },\n  \"devDependencies\": {\n    \"esdoc\": \"*\",\n    \"esdoc-node\": \"*\",\n    \"esdoc-standard-plugin\": \"*\"\n  },\n  \"optionalDependencies\": {\n    \"electron\": \"^1.7.9\",\n    \"puppeteer\": \"^0.13.0\"\n  }\n}\n",
     "longname": "/Users/ketanaka/Toolspace/electron/pagewalker/package.json",
     "name": "package.json",
     "static": true,

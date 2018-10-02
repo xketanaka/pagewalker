@@ -82,8 +82,7 @@ class PuppeteerPage extends BrowserPage {
 
     this._window.on(&apos;ready&apos;, ()=&gt;{
       this.nativeObject.exposeFunction(&apos;invokeBrowserSocket&apos;, (...args)=&gt;{
-        const argArray = JSON.parse(args.join(&quot;&quot;))
-        return browserSocket[argArray[0]](...(argArray.slice(1)));
+        return browserSocket[args[0]](...(args.slice(1)));
       })
       this.nativeObject.evaluateOnNewDocument(()=&gt;{
         window.browserSocket = {
@@ -97,7 +96,7 @@ class PuppeteerPage extends BrowserPage {
     })
   }
   on(eventName, callback){
-    this._addEventListener(eventName, callback, fasle)
+    this._addEventListener(eventName, callback, false)
   }
   once(eventName, callback){
     this._addEventListener(eventName, callback, true)
@@ -106,7 +105,7 @@ class PuppeteerPage extends BrowserPage {
     if(eventName in PuppeteerPage.EventMappings){
       this.nativeObject[once ? &apos;once&apos; : &apos;on&apos;](PuppeteerPage.EventMappings[eventName], callback)
     }else{
-      super[once ? &apos;once&apos; : &apos;on&apos;](evnetName, callback)
+      super[once ? &apos;once&apos; : &apos;on&apos;](eventName, callback)
     }
   }
   removeAllListeners(eventName){
@@ -153,13 +152,19 @@ class PuppeteerPage extends BrowserPage {
     return this.nativeObject.url();
   }
   /**
+   * @return {Promise&lt;object&gt;}
+   */
+  reload(){
+    return this.nativeObject.reload();
+  }
+  /**
    * @return {Promise&lt;string|number|boolean&gt;}
    */
   executeJavaScript(code, ...args){
     return this.nativeObject.evaluate(code, ...args);
   }
   /**
-   * show developer tool
+   * show developer tool, not supported yet.
    */
   openDevTools(){ /*ignoe*/ }
   /**
@@ -180,7 +185,7 @@ class PuppeteerPage extends BrowserPage {
       })
       .then((files)=&gt;{
         if (files.length === 0) return false;
-        // .crdownload&#x304C;&#x3042;&#x308C;&#x3070;&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;&#x4E2D;
+        // now downloading file have name to match for /.crdownload/
         const nowDownloading = Array.from(files).some(file =&gt; /.*\.crdownload$/.test(file))
         return !nowDownloading
       });
@@ -201,20 +206,17 @@ class PuppeteerPage extends BrowserPage {
         action();
       })
     };
-    const downloadPath = options.downloadPath || DOWNLOAD_PATH;
     const waitTimeSpanMs = 100;
-
-    return (options.downloadPath ? this._setDownloadPath(options.downloadPath) : Promise.resolve())
-// patch start:
+    const downloadPath = options.downloadPath || path.join(DOWNLOAD_PATH, DateFormat.toTimepstampMsecString(new Date()))
+    if(!options.downloadPath){
+      fs.mkdirSync(downloadPath)
+    }
+    return this._setDownloadPath(downloadPath)
+// patch start: ( TODO )
 // page.on(&apos;response&apos;) do not happen in puppeteer v0.13, so check saved file.
 //    .then(waitResponse)
 //    .then((filename)=&gt;{
     .then(()=&gt;{
-      return new Promise((resolve, reject)=&gt;{
-        fs.readdir(downloadPath, (err, files)=&gt;{ err ? reject(err) : resolve(files) })
-      })
-    })
-    .then((filenames)=&gt;{
       action();
 // patch end
       return new Promise((resolve, reject)=&gt;{
@@ -231,10 +233,9 @@ class PuppeteerPage extends BrowserPage {
               return new Promise((resolve, reject)=&gt;{
                 const findDownloadedFile = ()=&gt;{
                   fs.readdir(downloadPath, (err, files)=&gt;{
-                    if(err) return reject(err);
-                    let filename = files.filter(file =&gt; !filenames.includes(file))[0];
-                    if(!filename) return findDownloadedFile();
-                    resolve(filename);
+                    if(err) reject(err);
+                    if(!files[0]) return setTimeout(findDownloadedFile, waitTimeSpanMs);
+                    resolve(files[0]);
                   })
                 };
                 findDownloadedFile();
@@ -254,20 +255,30 @@ class PuppeteerPage extends BrowserPage {
   /**
    * @return {Promise&lt;string&gt;} resolved by confirm message
    */
-  waitForConfirm(action, message = undefined, isClickOK = false){
+  _waitForDialog(dialogType, action, message = undefined, isClickOK = false){
     return new Promise((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
       this.nativeObject.once(&apos;dialog&apos;, (dialog)=&gt;{
-        if(dialog.type != &apos;confirm&apos;) return;
+        if(dialog.type != dialogType) return;
 
         clearTimeout(timeoutId);
         if(message &amp;&amp; message != dialog.message()){
           return reject(new Error(`expected message is &quot;${message}&quot;, but actual is &quot;${dialog.message()}&quot;`));
         }
-        dialog.accept().then(resolve);
+        (isClickOK ? dialog.accept() : dialog.dismiss()).then(resolve);
       })
       action();
     })
+  }
+  waitForConfirm(action, message = undefined, isClickOK = false){
+    return this._waitForDialog(&apos;confirm&apos;, action, message, isClickOK);
+  }
+
+  /**
+   * @return {Promise&lt;string&gt;} resolved by alert message
+   */
+  waitForAlert(action, message = undefined){
+    return this._waitForDialog(&apos;alert&apos;, action, message, true);
   }
 }
 
@@ -293,7 +304,6 @@ class PuppeteerSocket extends BrowserSocket {
 PuppeteerPage.EventMappings = {
   [BrowserPage.Events.Load]: &apos;load&apos;,
   [BrowserPage.Events.LoadError]: &apos;requestfailed&apos;,
-//  [BrowserPage.Events.NewWindow]: &apos;did-fail-load&apos;,
 }
 
 module.exports = PuppeteerPage;

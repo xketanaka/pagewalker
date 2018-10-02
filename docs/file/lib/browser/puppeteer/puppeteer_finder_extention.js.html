@@ -92,7 +92,7 @@ class PuppeteerFinderExtention extends Finder {
       }, Promise.resolve(elementHandles));
     })
     .then((elementHandles)=&gt;{
-      if(elementHandles.length == 0) return;//throw new Error(&apos;input element to attach file is not found&apos;)
+      if(elementHandles.length == 0) throw new Error(&apos;input element to attach file is not found&apos;)
 
       return elementHandles[0].uploadFile(filePath);
     })

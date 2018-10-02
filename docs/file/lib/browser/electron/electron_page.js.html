@@ -90,7 +90,7 @@ class ElectronPage extends BrowserPage {
     return this._window.browserWindow.webContents;
   }
   on(eventName, callback){
-    this._addEventListener(eventName, callback, fasle)
+    this._addEventListener(eventName, callback, false)
   }
   once(eventName, callback){
     this._addEventListener(eventName, callback, true)
@@ -99,7 +99,7 @@ class ElectronPage extends BrowserPage {
     if(eventName in ElectronPage.EventMappings){
       this.nativeObject[once ? &apos;once&apos; : &apos;on&apos;](ElectronPage.EventMappings[eventName], callback)
     }else{
-      super[once ? &apos;once&apos; : &apos;on&apos;](evnetName, callback)
+      super[once ? &apos;once&apos; : &apos;on&apos;](eventName, callback)
     }
   }
   removeAllListeners(eventName){
@@ -119,8 +119,17 @@ class ElectronPage extends BrowserPage {
   loadURL(url, options = {}){
     return this.nativeObject.loadURL(url)
   }
+  /**
+   * @return {string}
+   */
   getURL(){
     return this.nativeObject.getURL();
+  }
+  /**
+   * @return {Promise&lt;object}
+   */
+  reload(){
+    return this.nativeObject.reload();
   }
   executeJavaScript(code, ...args){
     return this.nativeObject.executeJavaScript(code, ...args);
@@ -154,9 +163,9 @@ class ElectronPage extends BrowserPage {
       action();
     });
   }
-  waitForConfirm(action, message = undefined, isClickOK = false){
+  _waitForDialog(dialogType, action, message = undefined, isClickOK = false){
     return new Promise((resolve, reject)=&gt;{
-      const channel = &apos;confirm-synchronous&apos;;
+      const channel = &apos;dialog-synchronous&apos;;
       let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
       this.socket.once(channel, (arg, event)=&gt;{
         clearTimeout(timeoutId);
@@ -167,16 +176,22 @@ class ElectronPage extends BrowserPage {
         resolve(message);
       });
       return this.executeJavaScript(`{
-        let __original_confirm = window.confirm;
-        window.confirm = function(message){
+        let __original_dialog_func = window.${dialogType};
+        window.${dialogType} = function(message){
           var ret = browserSocket.sendSync(&apos;${channel}&apos;, message);
-          window.confirm = __original_confirm;
+          window.${dialogType} = __original_dialog_func;
           return ret;
         };
       }`, true)
       .then(()=&gt;{ return action &amp;&amp; action() })
       .catch(reject)
     });
+  }
+  waitForConfirm(action, message = undefined, isClickOK = false){
+    return this._waitForDialog(&apos;confirm&apos;, action, message, isClickOK);
+  }
+  waitForAlert(action, message = undefined){
+    return this._waitForDialog(&apos;alert&apos;, action, message, true);
   }
 }
 

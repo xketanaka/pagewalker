@@ -92,6 +92,10 @@ class BrowserPage extends EventEmitter {
    */
   getURL(){ throw new Error(&quot;Not Implemented&quot;) }
   /**
+   * @return {Promise&lt;object&gt;}
+   */
+  reload(){ throw new Error(&quot;Not Implemented&quot;) }
+  /**
    * @return {Promise&lt;string|number|boolean&gt;}
    */
   executeJavaScript(code, ...args){ throw new Error(&quot;Not Implemented&quot;) }
@@ -107,6 +111,10 @@ class BrowserPage extends EventEmitter {
    * @return {Promise&lt;string&gt;} resolved by confirm message
    */
   waitForConfirm(action, message, isClickOK){ throw new Error(&quot;Not Implemented&quot;) }
+  /**
+   * @return {Promise&lt;string&gt;} resolved by alert message
+   */
+  waitForAlert(action, message){ throw new Error(&quot;Not Implemented&quot;) }
 }
 
 BrowserPage.Events = {

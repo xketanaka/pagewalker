@@ -64,8 +64,8 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/utils/date_format.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">class DateFormat {
   static format(date, formatString){
-    let [ yyyy, mm, dd, HH, MM, ss, ...rest ] = date.toISOString().split(/[-T:.]/);
-    let replacement = { yyyy: yyyy, mm: mm, dd: dd, HH: HH, MM: MM, ss: ss };
+    let [ yyyy, mm, dd, HH, MM, ss, SS ] = date.toISOString().split(/[-T:.]/);
+    let replacement = { yyyy: yyyy, mm: mm, dd: dd, HH: HH, MM: MM, ss: ss, SS: SS };
 
     for(let key in replacement){
       formatString = formatString.replace(new RegExp(key), replacement[key])
@@ -74,6 +74,9 @@
   }
   static toTimepstampString(date){
     return this.format(date, &apos;yyyymmddHHMMss&apos;)
+  }
+  static toTimepstampMsecString(date){
+    return this.format(date, &apos;yyyymmddHHMMssSS&apos;)
   }
 }
 

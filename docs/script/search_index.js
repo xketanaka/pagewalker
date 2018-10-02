@@ -492,6 +492,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/browser/electron/electron_page.js~electronpage#_waitfordialog",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-_waitForDialog",
+    "lib/browser/electron/electron_page.js~ElectronPage#_waitForDialog",
+    "method"
+  ],
+  [
     "lib/browser/electron/electron_page.js~electronpage#_window",
     "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-member-_window",
     "lib/browser/electron/electron_page.js~ElectronPage#_window",
@@ -546,6 +552,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/electron/electron_page.js~electronpage#reload",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-reload",
+    "lib/browser/electron/electron_page.js~ElectronPage#reload",
+    "method"
+  ],
+  [
     "lib/browser/electron/electron_page.js~electronpage#removealllisteners",
     "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-removeAllListeners",
     "lib/browser/electron/electron_page.js~ElectronPage#removeAllListeners",
@@ -556,6 +568,12 @@ window.esdocSearchIndex = [
     "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-get-socket",
     "lib/browser/electron/electron_page.js~ElectronPage#socket",
     "member"
+  ],
+  [
+    "lib/browser/electron/electron_page.js~electronpage#waitforalert",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-waitForAlert",
+    "lib/browser/electron/electron_page.js~ElectronPage#waitForAlert",
+    "method"
   ],
   [
     "lib/browser/electron/electron_page.js~electronpage#waitforconfirm",
@@ -708,10 +726,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/interface/browser_page.js~browserpage#reload",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-reload",
+    "lib/browser/interface/browser_page.js~BrowserPage#reload",
+    "method"
+  ],
+  [
     "lib/browser/interface/browser_page.js~browserpage#socket",
     "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-get-socket",
     "lib/browser/interface/browser_page.js~BrowserPage#socket",
     "member"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#waitforalert",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-waitForAlert",
+    "lib/browser/interface/browser_page.js~BrowserPage#waitForAlert",
+    "method"
   ],
   [
     "lib/browser/interface/browser_page.js~browserpage#waitforconfirm",
@@ -858,6 +888,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#_waitfordialog",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-_waitForDialog",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#_waitForDialog",
+    "method"
+  ],
+  [
     "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#_window",
     "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-member-_window",
     "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#_window",
@@ -912,6 +948,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#reload",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-reload",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#reload",
+    "method"
+  ],
+  [
     "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#removealllisteners",
     "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-removeAllListeners",
     "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#removeAllListeners",
@@ -922,6 +964,12 @@ window.esdocSearchIndex = [
     "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-get-socket",
     "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#socket",
     "member"
+  ],
+  [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#waitforalert",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-waitForAlert",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#waitForAlert",
+    "method"
   ],
   [
     "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#waitforconfirm",
@@ -1572,6 +1620,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#reload",
+    "class/lib/page/page.js~Page.html#instance-method-reload",
+    "lib/page/page.js~Page#reload",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#url",
     "class/lib/page/page.js~Page.html#instance-get-url",
     "lib/page/page.js~Page#url",
@@ -1581,6 +1635,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#waitforajaxdone",
     "class/lib/page/page.js~Page.html#instance-method-waitForAjaxDone",
     "lib/page/page.js~Page#waitForAjaxDone",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#waitforalert",
+    "class/lib/page/page.js~Page.html#instance-method-waitForAlert",
+    "lib/page/page.js~Page#waitForAlert",
     "method"
   ],
   [
@@ -1875,6 +1935,12 @@ window.esdocSearchIndex = [
     "lib/utils/date_format.js~dateformat.format",
     "class/lib/utils/date_format.js~DateFormat.html#static-method-format",
     "lib/utils/date_format.js~DateFormat.format",
+    "method"
+  ],
+  [
+    "lib/utils/date_format.js~dateformat.totimepstampmsecstring",
+    "class/lib/utils/date_format.js~DateFormat.html#static-method-toTimepstampMsecString",
+    "lib/utils/date_format.js~DateFormat.toTimepstampMsecString",
     "method"
   ],
   [

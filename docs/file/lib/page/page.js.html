@@ -133,6 +133,13 @@ class Page {
     return this.browserPage.getURL();
   }
   /**
+   * Reload current page.
+   * @return {Promise&lt;object}
+   */
+  reload(){
+    return this.browserPage.reload();
+  }
+  /**
    * Wait loading for contents in new page.
    * @param {function} action - A function representing the operation of loading new page.
    * @return {Promise}
@@ -285,6 +292,27 @@ class Page {
 
     return this.invokeAfterReady((resolve, reject)=&gt;{
       this.browserPage.waitForConfirm(action, message, isClickOK)
+      .then(resolve).catch(reject);
+    })
+  }
+  /**
+   * @param {object} alertOptioin - specify message property(default undefined)
+   * @param {function} action - A function representing the operation of open alert dialog
+   * @return {Promise}
+   * @example
+   *   await page.waitAlertDialog({ message: &quot;You are wrong!&quot; }, ()=&gt;{
+   *     page.find(&quot;button.submit-form&quot;).click()
+   *   })
+   */
+  waitForAlert(alertOptioin, action){
+    const defaultOption = { message: &quot;&quot; };
+    if(typeof action == &quot;undefined&quot; &amp;&amp; typeof alertOptioin == &quot;function&quot;){
+      action = alertOptioin
+      alertOptioin = defaultOption;
+    }
+
+    return this.invokeAfterReady((resolve, reject)=&gt;{
+      this.browserPage.waitForAlert(action, alertOptioin.message)
       .then(resolve).catch(reject);
     })
   }
