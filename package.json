@@ -1,6 +1,6 @@
 {
   "name": "pagewalker",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "main": "index.js",
   "bin": "bin/pagewalker",
   "repository": {
@@ -34,7 +34,7 @@
     "esdoc-standard-plugin": "*"
   },
   "optionalDependencies": {
-    "electron": "^2.0.9",
+    "electron": "^2.0.11",
     "puppeteer": "^0.13.0"
   }
 }
