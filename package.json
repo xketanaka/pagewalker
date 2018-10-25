@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/xketanaka/pagewalker.git"
   },
-  "license": "MIT",
+  "license": "ISC",
   "scripts": {
     "start": "electron .",
     "debug": "DEBUG_LOG=query,app electron .",
