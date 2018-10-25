@@ -26,7 +26,8 @@
     ]
   },
   "dependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "pixelmatch": "file:local_modules/pixelmatch"
   },
   "devDependencies": {
     "esdoc": "*",
