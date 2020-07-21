@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "mocha": "*",
+    "bluebird": "*",
     "pixelmatch": "xketanaka/pixelmatch"
   },
   "devDependencies": {
