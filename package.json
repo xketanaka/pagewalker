@@ -28,6 +28,7 @@
   "dependencies": {
     "mocha": "*",
     "bluebird": "*",
+    "uuid": "*",
     "pixelmatch": "xketanaka/pixelmatch"
   },
   "devDependencies": {
@@ -36,7 +37,7 @@
     "esdoc-standard-plugin": "*"
   },
   "optionalDependencies": {
-    "electron": "^2.0.11",
-    "puppeteer": "^0.13.0"
+    "electron": "^3.0.0",
+    "puppeteer": "^1.0.0"
   }
 }
