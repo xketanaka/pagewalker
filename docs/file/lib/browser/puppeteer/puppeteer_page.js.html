@@ -44,15 +44,18 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -80,9 +83,15 @@ class PuppeteerPage extends BrowserPage {
     this._window = window;
     const browserSocket = this._browserSocket = new PuppeteerSocket();
 
-    this._window.on(&apos;ready&apos;, ()=&gt;{
-      this.nativeObject.exposeFunction(&apos;invokeBrowserSocket&apos;, (...args)=&gt;{
-        return browserSocket[args[0]](...(args.slice(1)));
+    this._window.on(&apos;readyForPage&apos;, ()=&gt;{
+      this.nativeObject.exposeFunction(&apos;invokeBrowserSocket&apos;, (method, ...args)=&gt;{
+        // TODO
+        // arguments may be given as [&apos;[&apos;,&apos;&quot;&apos;,&apos;s&apos;,&apos;e&apos;,&apos;n&apos;,&apos;d&apos;,,,,,
+        if(method == &quot;[&quot;){
+           args = JSON.parse(method + args.join(&quot;&quot;));
+           method = args.shift();
+        }
+        return browserSocket[method](...args);
       })
       this.nativeObject.evaluateOnNewDocument(()=&gt;{
         window.browserSocket = {
@@ -259,13 +268,14 @@ class PuppeteerPage extends BrowserPage {
     return new Promise((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
       this.nativeObject.once(&apos;dialog&apos;, (dialog)=&gt;{
-        if(dialog.type != dialogType) return;
+
+        if(dialog.type() != dialogType) return reject(`Unexpected dialog type: ${dialog.type()}`);
 
         clearTimeout(timeoutId);
         if(message &amp;&amp; message != dialog.message()){
           return reject(new Error(`expected message is &quot;${message}&quot;, but actual is &quot;${dialog.message()}&quot;`));
         }
-        (isClickOK ? dialog.accept() : dialog.dismiss()).then(resolve);
+        (isClickOK ? dialog.accept() : dialog.dismiss()).then(resolve).catch(reject);
       })
       action();
     })
@@ -279,6 +289,10 @@ class PuppeteerPage extends BrowserPage {
    */
   waitForAlert(action, message = undefined){
     return this._waitForDialog(&apos;alert&apos;, action, message, true);
+  }
+
+  takeScreenshot(filename){
+    return this.nativeObject.screenshot({ path: filename, type: &quot;png&quot; });
   }
 }
 
@@ -312,7 +326,7 @@ module.exports = PuppeteerPage;
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

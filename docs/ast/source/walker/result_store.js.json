@@ -511,6 +511,7 @@
                   "column": 3
                 }
               },
+              "static": true,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -529,7 +530,6 @@
                 },
                 "name": "loadPreviousResults"
               },
-              "static": true,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -1577,6 +1577,7 @@
                   "column": 3
                 }
               },
+              "static": true,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -1595,7 +1596,6 @@
                 },
                 "name": "saveAll"
               },
-              "static": true,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -1851,6 +1851,7 @@
                   "column": 3
                 }
               },
+              "static": true,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -1869,7 +1870,6 @@
                 },
                 "name": "saveSucceeded"
               },
-              "static": true,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -3021,6 +3021,7 @@
                   "column": 3
                 }
               },
+              "static": true,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -3039,7 +3040,6 @@
                 },
                 "name": "write"
               },
-              "static": true,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -4355,6 +4355,7 @@
                     "column": 3
                   }
                 },
+                "static": true,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -4373,7 +4374,6 @@
                   },
                   "name": "loadPreviousResults"
                 },
-                "static": true,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -5421,6 +5421,7 @@
                     "column": 3
                   }
                 },
+                "static": true,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -5439,7 +5440,6 @@
                   },
                   "name": "saveAll"
                 },
-                "static": true,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -5695,6 +5695,7 @@
                     "column": 3
                   }
                 },
+                "static": true,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -5713,7 +5714,6 @@
                   },
                   "name": "saveSucceeded"
                 },
-                "static": true,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -6865,6 +6865,7 @@
                     "column": 3
                   }
                 },
+                "static": true,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -6883,7 +6884,6 @@
                   },
                   "name": "write"
                 },
-                "static": true,
                 "kind": "method",
                 "id": null,
                 "generator": false,

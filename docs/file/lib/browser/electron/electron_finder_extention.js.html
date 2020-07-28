@@ -44,15 +44,18 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -70,96 +73,44 @@ class ElectronFinderExtention extends Finder {
 
   /**
    * Attach the file given with filePath.
-   * Rather than setting it to the files attribute of the specified input element,
-   * set it as the data-file-object attribute of the input element.
-   * This is because the files attribute can not be rewritten by script
    * @param {string} filePath - Specify the path of the file to be attached
-   * @param {object} options
-   * @param {object} options.fileType - type attribute of the File (see HTML5 File API)
-   * @param {object} options.replaceSubmitWithAjax - whether replace form-submit with ajax request, default is true.
    * @return {Promise}
    */
-  attachFile(filePath, options = {}){
-    const fileType = options.fileType || &quot;&quot;;
-    options.replaceSubmitWithAjax = options.replaceSubmitWithAjax || true;
+  attachFile(filePath){
+    let uniqueString = ((strong = 100000)=&gt;{
+      return &quot;s&quot; + new Date().getTime().toString(16) + Math.floor(strong*Math.random()).toString(16);
+    })();
 
-    return (options.replaceSubmitWithAjax ? this.clone().replaceSubmitWithAjax() : Promise.resove())
-    .then(()=&gt;{
-      return this.executeJs(`(elements)=&gt;{
-        const input = elements[0];
-        browserSocket.once(&apos;file-body-transfer&apos;, (event, data)=&gt;{
-          input.attributes[&quot;data-file-object&quot;] = new File([data], &apos;${path.basename(filePath)}&apos;, { type: &quot;${fileType}&quot; });
-          browserSocket.send(&apos;file-body-transfer-end&apos;, &apos;done&apos;);
-        });
-      }`);
-    })
-    .then(()=&gt;{
-      let data = fs.readFileSync(filePath);
-      return this.page.waitForBrowserSocket(&apos;file-body-transfer-end&apos;, ()=&gt;{
-        this.page.browserPage.nativeObject.send(&apos;file-body-transfer&apos;, data);
-      })
-    });
-  }
-  /**
-   * Replace the behavior when form is submitted with ajax. And The behavior is below,
-   * Send the request by including the File object specified in the data-file-object attribute of
-   * the input element of type=file in the form.
-   * When submit request get response 200:OK, call onSuccess callback with response object,
-   * by default replace document.body by response.text() and message send with browserSocket on channel &apos;submit-ajax-done&apos;.
-   * When submit request get response 302:Redirect, call onRedirect callback with response object,
-   * by default load the page of response.url, and pageLoaded event occur.
-   * When submit request get response neither 200:OK or 302:Redirect, call onRespoinse callback with response object,
-   * by default throw Error
-   * @param {object} callbacks - An object with callback with each attribute name
-   * @param {function,string} callbacks.onSuccess - callback function for handling response when status 200.
-   * @param {function,string} callbacks.onRedirect - callback function for handling response when status 302.
-   * @param {function,string} callbacks.onResponse - callback function for handling response when status is not 200 and 302.
-   * @return {Promise}
-   */
-  replaceSubmitWithAjax(callbacks = {}){
-    const callbacksDefault = {
-      onSuccess: (response)=&gt;{ response.text().then((text)=&gt;{ document.body.innerHTML = text; browserSocket.send(&apos;submit-ajax-done&apos;, &apos;done&apos;); }) },
-      onRedirect: (response)=&gt;{ window.location.href = response.url },
-      onResponse: (response)=&gt;{ throw new Error(response.status + &quot; &quot; + response.statusText) }
-    };
-    callbacks.onSuccess  = callbacks.onSuccess  || callbacksDefault.onSuccess;
-    callbacks.onRedirect = callbacks.onRedirect || callbacksDefault.onRedirect;
-    callbacks.onResponse = callbacks.onResponse || callbacksDefault.onResponse;
+    if(!path.isAbsolute(filePath)){
+      filePath = path.resolve(filePath);
+    }
+
+    let nativeObject = this.page.browserPage.nativeObject;
+    try{
+      if(!nativeObject.debugger.isAttached()){
+        nativeObject.debugger.attach(&quot;1.1&quot;);
+      }
+    }catch(err){ throw new Error(&quot;Debugger attach failed : &quot; + err) }
 
     return this.executeJs(`(elements)=&gt;{
-        let searchTag = (el, tag)=&gt;{ return el == null || el.tagName == tag ? el : searchTag(el.parentElement, tag) };
-        let form = searchTag(elements[0].parentElement, &quot;FORM&quot;);
-        if(!form || form.attributes[&quot;data-upload-file-event-listener-added&quot;]) return;
+      const input = elements[0];
+      input.classList.add(&apos;${uniqueString}&apos;);
+    }`)
+    .then(()=&gt;{
+      let selectorParams = (res)=&gt;{ return { nodeId: res.root.nodeId, selector: `input.${uniqueString}` } };
+      let attachParams = (res)=&gt;{ return { nodeId: res.nodeId, files: [filePath] } };
 
-        form.attributes[&quot;data-upload-file-event-listener-added&quot;] = true;
-        form.addEventListener(&apos;submit&apos;, (event)=&gt;{
-          event.preventDefault();
-
-          const formData = new FormData(form);
-          for(let i = 0; i &lt; form.elements.length; i++){
-            let input = form.elements[i];
-            if(input &amp;&amp; input.type == &quot;file&quot; &amp;&amp; input.attributes[&quot;data-file-object&quot;]){
-              formData.append(input.name, input.attributes[&quot;data-file-object&quot;]);
-            }
-          }
-          fetch(form.action, {
-            method: form.method, body: formData, credentials: &apos;same-origin&apos;,
-          })
-          .then((response)=&gt;{
-            const callbacks = {
-              redirect: ${callbacks.onRedirect.toString()},
-              success: ${callbacks.onSuccess.toString()},
-              response: ${callbacks.onResponse.toString()}
-            }
-            switch(response.status){
-              case 200: return response.redirected ? callbacks.redirect(response) : callbacks.success(response);
-              case 302: return callbacks.redirect(response);
-              default:  return callbacks.response(response);
-            }
-          })
+      return new Promise((resolve, reject)=&gt;{
+        nativeObject.debugger.sendCommand(&quot;DOM.getDocument&quot;, {}, (err, res)=&gt;{
+          nativeObject.debugger.sendCommand(&quot;DOM.querySelector&quot;, selectorParams(res), (err, res)=&gt;{
+            nativeObject.debugger.sendCommand(&quot;DOM.setFileInputFiles&quot;, attachParams(res), (err, res)=&gt;{
+              nativeObject.debugger.detach();
+              err &amp;&amp; err.code ? reject(err.toString()) : resolve();
+            });
+          });
         })
-      }`
-    );
+      });
+    });
   }
 }
 
@@ -169,7 +120,7 @@ module.exports = ElectronFinderExtention;
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

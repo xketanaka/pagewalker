@@ -89,6 +89,7 @@
                   "column": 3
                 }
               },
+              "static": true,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -107,7 +108,6 @@
                 },
                 "name": "format"
               },
-              "static": true,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -1267,6 +1267,7 @@
                   "column": 3
                 }
               },
+              "static": true,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -1285,7 +1286,6 @@
                 },
                 "name": "toTimepstampString"
               },
-              "static": true,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -1460,6 +1460,7 @@
                   "column": 3
                 }
               },
+              "static": true,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -1478,7 +1479,6 @@
                 },
                 "name": "toTimepstampMsecString"
               },
-              "static": true,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -1755,6 +1755,7 @@
                     "column": 3
                   }
                 },
+                "static": true,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -1773,7 +1774,6 @@
                   },
                   "name": "format"
                 },
-                "static": true,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -2933,6 +2933,7 @@
                     "column": 3
                   }
                 },
+                "static": true,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -2951,7 +2952,6 @@
                   },
                   "name": "toTimepstampString"
                 },
-                "static": true,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -3126,6 +3126,7 @@
                     "column": 3
                   }
                 },
+                "static": true,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -3144,7 +3145,6 @@
                   },
                   "name": "toTimepstampMsecString"
                 },
-                "static": true,
                 "kind": "method",
                 "id": null,
                 "generator": false,

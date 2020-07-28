@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">lib/utils/debug.js | pagewalker</title>
+  <title data-ice="title">lib/page/assert.js | pagewalker</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -64,28 +64,91 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/utils/debug.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
-function getEmptyLogger(){ return (msg)=&gt;{ /* ignore */ }; }
-function getPrefixedLogger(prefix){ return (msg)=&gt;{ console.log(`[${prefix}] ${msg}`) }; }
+<div class="content" data-ice="content"><h1 data-ice="title">lib/page/assert.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const fs = require(&apos;fs&apos;);
+const path = require(&apos;path&apos;);
+const pixelmatch = require(&apos;pixelmatch&apos;);
+const { PNG } = require(&apos;pngjs&apos;);
 
-function Debug(){
-  console.log(...arguments);
-}
+class Assert {
+  constructor(page, config){
+    this._page = page;
+    this._config = config;
+  }
+  equal(identifier, options){
+    options = Object.assign({}, this._config.assertion.png, options);
 
-Debug.getLogger = (name)=&gt;{
-  if(Debug.loggers[name]) return Debug.loggers[name];
+    identifier = this.normalizeFilename(identifier);
+    if(!identifier.match(/\.(png|PNG)/)){
+      identifier = identifier + &quot;.png&quot;;
+    }
+    let actualFilePath = path.resolve(path.join(this._config.screenshotsDir, `actual/${identifier}`));
+    let expectedFilePath = path.resolve(path.join(this._config.screenshotsDir, `expected/${identifier}`));
+    return this._page.takeScreenshot(actualFilePath)
+    .then(()=&gt;{
+      return new Promise((resolve, reject)=&gt;{
+        fs.stat(expectedFilePath, (err, stat)=&gt;{
+          if(err &amp;&amp; err.code == &apos;ENOENT&apos;) return resolve(false);
+          if(err) return reject(err);
+          if(stat.isFile()) return resolve(true);
+          else return reject(`FAIL: ${expectedFilePath} is a Directory!`);
+        });
+      })
+      .then((exists)=&gt;{
+        return exists || this.copyFile(actualFilePath, expectedFilePath);
+      })
+    })
+    .then(()=&gt;{
+      let expectedImage = fs.createReadStream(expectedFilePath).pipe(new PNG());
+      let actualImage = fs.createReadStream(actualFilePath).pipe(new PNG());
+      return Promise.all([
+        new Promise((resolve, _)=&gt;{ expectedImage.on(&apos;parsed&apos;, ()=&gt;{ resolve(expectedImage) }) }),
+        new Promise((resolve, _)=&gt;{ actualImage.on(&apos;parsed&apos;, ()=&gt;{ resolve(actualImage) }) }),
+      ]);
+    })
+    .then((images)=&gt;{
+      let diff = new PNG({ width: images[0].width, height: images[0].height });
+      let results = pixelmatch(images[0].data, images[1].data, diff.data, diff.width, diff.height, {
+        returnPositions: true,
+        threshold: options.threshold,
+        ignoreRects: options.ignoreRects
+      }).toBoundingRects(options.ksize);
 
-  if(Debug.target.includes(name)){
-    return Debug.loggers[name] = getPrefixedLogger(name);
-  }else{
-    return Debug.loggers[name] = getEmptyLogger();
+      if(results.length == 0) return;
+
+      return new Promise((resolve, _)=&gt;{
+        diff.pack().pipe(fs.createWriteStream(&quot;error-screenshot.png&quot;)).on(&apos;finish&apos;, resolve);
+      })
+      .then(()=&gt;{
+        let indent = &apos;\t\t\t&apos;
+        let rectangles = results.map(v =&gt; JSON.stringify(v)).join(`\n${indent}${&apos;&apos;.padStart(24)}\t`);
+        throw new Error(
+`[ERR_ASSERTION]: &quot;actual/${identifier}&quot; is different to &quot;expected/${identifier}&quot;.
+${indent}Saved the difference between the two images As &quot;error-screenshot.png&quot;
+${indent}Different ${results.length == 1 ? &apos;rectangle is&apos; : &apos;rectangles are&apos;}\t${rectangles}`
+        );
+      })
+    })
+  }
+  copyFile(src, dest){
+    return new Promise((resolve, reject)=&gt;{
+      let doneFlg = false;
+      let done = (isSuccess, v)=&gt;{ if(doneFlg) return; doneFlg = true; isSuccess ? resolve(v) : reject(v) }
+
+      let rstream = fs.createReadStream(src);
+      let wstream = fs.createWriteStream(dest);
+      rstream.on(&quot;error&quot;, (err)=&gt;{ done(false, err) });
+      wstream.on(&quot;error&quot;, (err)=&gt;{ done(false, err) });
+      wstream.on(&quot;close&quot;, ()=&gt;{ done(true) });
+      rstream.pipe(wstream);
+    })
+  }
+  normalizeFilename(identifier){
+    return identifier.replace(/[\ \/\:\*\?\\]/g, &quot;_&quot;).replace(/\&quot;/g, &quot;&apos;&quot;).replace(/&lt;/g, &quot;(&quot;).replace(/&gt;/, &quot;)&quot;);
   }
 }
-Debug.target  = (process.env[&quot;DEBUG_LOG&quot;] || &quot;&quot;).split(&quot;,&quot;).map(v =&gt; v.trim()).filter(v =&gt; v);
-Debug.loggers = {};
 
-module.exports = Debug;
+module.exports = Assert;
 </code></pre>
 
 </div>
