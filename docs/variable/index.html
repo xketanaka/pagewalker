@@ -44,15 +44,18 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -220,6 +223,35 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span><span class="code" data-ice="signature">: {&quot;waitLoading&quot;: <span>*</span>, &quot;waitFor&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>, &quot;findClickable&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>}</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>This is a Mixin object to extend for Page class.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-pageWalker">pageWalker</a></span></span><span class="code" data-ice="signature">: <span><a href="class/lib/page_walker.js~PageWalker.html">PageWalker</a></span></span>
         </p>
       </div>
@@ -294,7 +326,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber3">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber4">source</a></span></span>
     </span>
   </h3>
 
@@ -455,6 +487,51 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-PageMethods">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">PageMethods</span><span class="code" data-ice="signature">: {&quot;waitLoading&quot;: <span>*</span>, &quot;waitFor&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>, &quot;findClickable&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>}</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/page_methods.js.html#lineNumber5">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import PageMethods from &apos;<span><a href="file/lib/page/page_methods.js.html#lineNumber5">pagewalker/lib/page/page_methods.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>This is a Mixin object to extend for Page class.
+Define the Alias method for methods that is defined in Page class, or define any other convinience methods.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-variable-pageWalker">
     <span class="access" data-ice="access">public</span>
     
@@ -466,11 +543,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber77">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber86">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import pageWalker from &apos;<span><a href="file/lib/page_walker.js.html#lineNumber77">pagewalker/lib/page_walker.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import pageWalker from &apos;<span><a href="file/lib/page_walker.js.html#lineNumber86">pagewalker/lib/page_walker.js</a></span>&apos;</code></pre></div>
   
   
   
@@ -501,7 +578,7 @@
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

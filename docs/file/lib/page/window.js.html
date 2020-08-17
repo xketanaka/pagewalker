@@ -44,15 +44,18 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -69,41 +72,33 @@ const Page = require(&apos;./page&apos;);
 const pageWalker = require(&apos;../page_walker&apos;);
 
 class Window extends EventEmitter {
-  constructor(id, name, browser, options = {}){
+  constructor(id, browser, browserWindow, options = {}){
     super();
-    this.id = id; // unless window exists, id is undefined
-    this.name = name;
-    // setup now or later
+    this.id = id;
+
     let configCloned = config.clone();
     configCloned.merge({ [config.browser]: options });
 
-    let windowSetup = ()=&gt;{
-      pageWalker.browser.createBrowserWindow(configCloned[config.browser], {
-        &apos;new-window&apos;: (frameName, id, options) =&gt; {
-          return pageWalker.getWindow(frameName) || pageWalker.createWindow(frameName, id, options);
-        },
-        &apos;closed&apos;: (id)=&gt;{
-          pageWalker.removeWindowById(id);
-        }
-      })
-      .then((result)=&gt;{
-        this._browserWindow = result.browserWindow;
-        this.id = result.id;
-        this.emit(&apos;ready&apos;);
+    let windowSetupAfterReady = ()=&gt;{
+      pageWalker.browser.createBrowserWindow(configCloned[config.browser])
+      .then((createdBrowserWindow)=&gt;{
+        this._browserWindow = createdBrowserWindow;
+        this.emit(&apos;readyForPage&apos;);
       });
     };
+
+    // if browserWindow has been ready
+    if(browserWindow){
+      this._browserWindow = browserWindow;
+      this.emit(&apos;readyForPage&apos;);
+      return;
+    }
+
+    // if Browser has been ready
     if(browser &amp;&amp; browser.isReady()){
-      browser.getBrowserWindowById(id)
-      .then((browserWindow)=&gt;{
-        if(browserWindow){
-          this._browserWindow = browserWindow;
-          this.emit(&apos;ready&apos;);
-        }else{
-          windowSetup();
-        }
-      })
+      windowSetupAfterReady();
     }else{
-      browser.on(&apos;ready&apos;, windowSetup);
+      browser.on(&apos;ready&apos;, windowSetupAfterReady);
     }
   }
   /**
@@ -115,13 +110,13 @@ class Window extends EventEmitter {
    * close this BrowserWindow();
    */
   close(){
-    // Each browserWindow object have close() method.
+    // Each browserWindow object must have close() method.
     this._browserWindow.close();
   }
   /**
    * @private
    */
-  isReady(){ return !!this._browserWindow }
+  isReadyForPage(){ return !!this._browserWindow }
   /**
    * get Page object in this window.
    * @return {Page}
@@ -140,7 +135,7 @@ module.exports = Window;
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

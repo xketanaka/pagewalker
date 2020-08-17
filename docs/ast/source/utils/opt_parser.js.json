@@ -89,6 +89,7 @@
                   "column": 3
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -107,7 +108,6 @@
                 },
                 "name": "constructor"
               },
-              "static": false,
               "kind": "constructor",
               "id": null,
               "generator": false,
@@ -261,6 +261,7 @@
                   "column": 3
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -279,7 +280,6 @@
                 },
                 "name": "option"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -770,6 +770,7 @@
                   "column": 36
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -788,7 +789,6 @@
                 },
                 "name": "setValue"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -942,6 +942,7 @@
                   "column": 3
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -960,7 +961,6 @@
                 },
                 "name": "getValueOrFail"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -1490,6 +1490,7 @@
                   "column": 3
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -1508,7 +1509,6 @@
                 },
                 "name": "constructor"
               },
-              "static": false,
               "kind": "constructor",
               "id": null,
               "generator": false,
@@ -3083,6 +3083,7 @@
                   "column": 3
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -3101,7 +3102,6 @@
                 },
                 "name": "parse"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -3544,6 +3544,7 @@
                   "column": 3
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -3562,7 +3563,6 @@
                 },
                 "name": "scriptArguments"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -4219,6 +4219,7 @@
                     "column": 3
                   }
                 },
+                "static": false,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -4237,7 +4238,6 @@
                   },
                   "name": "constructor"
                 },
-                "static": false,
                 "kind": "constructor",
                 "id": null,
                 "generator": false,
@@ -5812,6 +5812,7 @@
                     "column": 3
                   }
                 },
+                "static": false,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -5830,7 +5831,6 @@
                   },
                   "name": "parse"
                 },
-                "static": false,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -6273,6 +6273,7 @@
                     "column": 3
                   }
                 },
+                "static": false,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -6291,7 +6292,6 @@
                   },
                   "name": "scriptArguments"
                 },
-                "static": false,
                 "kind": "method",
                 "id": null,
                 "generator": false,

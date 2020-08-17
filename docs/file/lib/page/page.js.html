@@ -44,15 +44,18 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -64,8 +67,11 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/page/page.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
 const Finder = require(&apos;./finder&apos;);
+const Assert = require(&apos;./assert&apos;);
+const PageMethods = require(&apos;./page_methods&apos;);
 const pageWalker = require(&apos;../page_walker&apos;);
 const {config} = pageWalker;
+const Browser = require(&apos;../browser/interface/browser&apos;);
 const BrowserPage = require(&apos;../browser/interface/browser_page&apos;);
 
 const TIMEOUT_MSEC = pageWalker.config.mocha.timeout;
@@ -92,39 +98,9 @@ class Page {
    */
   get webContents(){ return this._browserPage.nativeObject }
   /**
-   * @private
+   * @return {Assert} Assert Object
    */
-  checkReady(){
-    if(!this.window.isReady()) throw &quot;PageContent is not ready!, Please call the &apos;load&apos; method first&quot;
-  }
-  /**
-   * Load new page which is URL given, and returned Promise is resolved when finished load.
-   * @return {Promise}
-   */
-  load(url, options = {}){
-    let loadURLFunction = ()=&gt;{
-      return this.waitForPageLoad(()=&gt;{ if(url) this.browserPage.loadURL(url, options) })
-    };
-    if(this.window.isReady()){
-      return loadURLFunction()
-    }else{
-      return new Promise((resolve, reject)=&gt;{
-        this.window.on(&apos;ready&apos;, ()=&gt;{ loadURLFunction().then(resolve).catch(reject) });
-      });
-    }
-  }
-  /**
-   * When string given, load given URL page. Otherwise, wait for finish page load.
-   * This is same for `page.load()` or `page.waitForPageLoad()`
-   * @return {Promise}
-   */
-  waitLoading(...args){
-    if(typeof args[0] == &apos;undefined&apos; || typeof args[0] == &apos;function&apos;){
-      return this.waitForPageLoad(...args)
-    }else{
-      return this.load(...args)
-    }
-  }
+  get assert(){ return this._assert = this._assert || new Assert(this, config) }
   /**
    * URL of current page
    * @return {string}
@@ -134,10 +110,26 @@ class Page {
   }
   /**
    * Reload current page.
-   * @return {Promise&lt;object}
+   * @return {Promise&lt;object&gt;}
    */
   reload(){
     return this.browserPage.reload();
+  }
+  /**
+   * Load new page which is URL given, and returned Promise is resolved when finished load.
+   * @return {Promise}
+   */
+  load(url, options = {}){
+    let loadURL = ()=&gt;{
+      return this.waitForPageLoad(()=&gt;{ if(url) this.browserPage.loadURL(url, options) })
+    };
+    if(this.window.isReadyForPage()){
+      return loadURL()
+    }else{
+      return new Promise((resolve, reject)=&gt;{
+        this.window.once(&apos;readyForPage&apos;, ()=&gt;{ loadURL().then(resolve).catch(reject) });
+      });
+    }
   }
   /**
    * Wait loading for contents in new page.
@@ -158,7 +150,7 @@ class Page {
       this.browserPage.removeAllListeners(BrowserPage.Events.Load);
       this.browserPage.removeAllListeners(BrowserPage.Events.LoadError);
 
-      let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
+      let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout in waitForPageLoad&apos;)) }, TIMEOUT_MSEC);
       this.browserPage.once(BrowserPage.Events.Load, (event)=&gt;{
         clearTimeout(timeoutId)
         resolve(this)
@@ -203,14 +195,14 @@ class Page {
    */
   waitForNewWindow(action){
     return this.invokeAfterReady((resolve, reject)=&gt;{
-      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout in waitForNewWindow&apos;) }, TIMEOUT_MSEC);
       this.browserPage.removeAllListeners(BrowserPage.Events.NewWindow);
-      this.browserPage.once(BrowserPage.Events.NewWindow, (frameName)=&gt;{
+      pageWalker.browser.once(Browser.Events.NewWindow, (browserWindow)=&gt;{
         clearTimeout(timeoutId);
-        if(pageWalker.getWindow(frameName)){
-          resolve(pageWalker.getWindow(frameName));
+        if(pageWalker.getWindowByBrowserWindow(browserWindow)){
+          resolve(pageWalker.getWindowByBrowserWindow(browserWindow));
         }else{
-          reject(new Error(`no window opened! [${frameName}]`));
+          reject(new Error(`no window found!`));
         }
       })
       this.invokeAction(action, reject);
@@ -227,7 +219,7 @@ class Page {
       channel = &apos;asynchronous-message-channel&apos;
     }
     return this.invokeAfterReady((resolve, reject)=&gt;{
-      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout&apos;) }, TIMEOUT_MSEC);
+      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout in waitForBrowserSocket&apos;) }, TIMEOUT_MSEC);
       this.browserPage.socket.removeAllListeners(channel);
       this.browserPage.socket.once(channel, (arg)=&gt;{
         clearTimeout(timeoutId);
@@ -263,7 +255,8 @@ class Page {
     })
     .then((result)=&gt;{
       if(result == &apos;ajaxComplete&apos;) return;
-      throw result;
+      if(result == &apos;timeout&apos;) throw new Error(&apos;timeout in waitForAjaxDone&apos;);
+      throw new Error(`unknown error: ${result}`);
     });
   }
   /**
@@ -319,13 +312,16 @@ class Page {
   /**
    * @private
    */
-  invokeAfterReady(func){
+  invokeAfterReady(func, tryTimes = 0){
     return new Promise((resolve, reject)=&gt;{
-      try{
-        this.checkReady()
-        func &amp;&amp; func(resolve, reject);
+      if(!this.window.isReadyForPage()){
+        return reject(&quot;PageContent is not ready!, Please call the &apos;load&apos; method first&quot;);
       }
-      catch(err){ return reject(err) }
+      try{
+        return (func &amp;&amp; func(resolve, reject));
+      }catch(err){
+        return reject(err)
+      }
     })
   }
   /**
@@ -343,8 +339,9 @@ class Page {
    * @return {Promise}
    */
   executeJs(code){
-    try{ this.checkReady() }catch(err){ return Promise.reject(err) }
-    return this.browserPage.executeJavaScript(code, true)
+    return this.invokeAfterReady((resolve, reject)=&gt;{
+      return this.browserPage.executeJavaScript(code, true).then(resolve);
+    })
   }
   /**
    * Create and Return new Finder object with given finder-condition
@@ -373,15 +370,27 @@ class Page {
   getSourceHTML(){
     return this.executeJs(`document.getElementsByTagName(&quot;html&quot;)[0].outerHTML`);
   }
-
-  findClickable(){
-    return this.find().isClickable()
-  }
-
   openDevTools(){
     return this._browserPage.openDevTools();
   }
+  /**
+   * Take a screenshot of this page.
+   * @param {String} fileName - fileName for saving as it in config.screentshotsDir. If absolutePath is given, save to it.
+   * @return {Promise} resolved when taken, the value is absolute filePath
+   */
+  takeScreenshot(fileName){
+    if(!fileName){
+      throw new Error(&apos;fileName is missing!&apos;)
+    }
+    if(!path.isAbsolute(fileName)){
+      fileName = path.resolve(path.join(config.screenshotsDir, fileName));
+    }
+    return this.browserPage.takeScreenshot(fileName);
+  }
 }
+
+// Mixin
+Object.assign(Page.prototype, PageMethods);
 
 module.exports = Page;
 </code></pre>
@@ -389,7 +398,7 @@ module.exports = Page;
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

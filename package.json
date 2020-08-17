@@ -32,7 +32,7 @@
     "pixelmatch": "xketanaka/pixelmatch"
   },
   "devDependencies": {
-    "esdoc": "*",
+    "esdoc": "^1.1.0",
     "esdoc-node": "*",
     "esdoc-standard-plugin": "*"
   },

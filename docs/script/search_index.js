@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "pagewalker/lib/page/assert.js~assert",
+    "class/lib/page/assert.js~Assert.html",
+    "<span>Assert</span> <span class=\"search-result-import-path\">pagewalker/lib/page/assert.js</span>",
+    "class"
+  ],
+  [
     "pagewalker/lib/browser/electron/index.js~browser",
     "variable/index.html#static-variable-Browser",
     "<span>Browser</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/electron/index.js</span>",
@@ -108,6 +114,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "pagewalker/lib/utils/fs_ext.js~fsext",
+    "class/lib/utils/fs_ext.js~FsExt.html",
+    "<span>FsExt</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/fs_ext.js</span>",
+    "class"
+  ],
+  [
     "pagewalker/lib/utils/opt_parser.js~optparser",
     "class/lib/utils/opt_parser.js~OptParser.html",
     "<span>OptParser</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/opt_parser.js</span>",
@@ -118,6 +130,12 @@ window.esdocSearchIndex = [
     "class/lib/page/page.js~Page.html",
     "<span>Page</span> <span class=\"search-result-import-path\">pagewalker/lib/page/page.js</span>",
     "class"
+  ],
+  [
+    "pagewalker/lib/page/page_methods.js~pagemethods",
+    "variable/index.html#static-variable-PageMethods",
+    "<span>PageMethods</span> <span class=\"search-result-import-path\">pagewalker/lib/page/page_methods.js</span>",
+    "variable"
   ],
   [
     "pagewalker/lib/page_walker.js~pagewalker",
@@ -462,12 +480,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/browser/electron/electron_finder_extention.js~electronfinderextention#replacesubmitwithajax",
-    "class/lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention.html#instance-method-replaceSubmitWithAjax",
-    "lib/browser/electron/electron_finder_extention.js~ElectronFinderExtention#replaceSubmitWithAjax",
-    "method"
-  ],
-  [
     "lib/browser/electron/electron_page.js",
     "file/lib/browser/electron/electron_page.js.html",
     "lib/browser/electron/electron_page.js",
@@ -570,6 +582,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/browser/electron/electron_page.js~electronpage#takescreenshot",
+    "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-takeScreenshot",
+    "lib/browser/electron/electron_page.js~ElectronPage#takeScreenshot",
+    "method"
+  ],
+  [
     "lib/browser/electron/electron_page.js~electronpage#waitforalert",
     "class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-waitForAlert",
     "lib/browser/electron/electron_page.js~ElectronPage#waitForAlert",
@@ -624,15 +642,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/browser/electron/index.js~electronbrowser#exit",
-    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-exit",
-    "lib/browser/electron/index.js~ElectronBrowser#exit",
+    "lib/browser/electron/index.js~electronbrowser#createbrowserwindownotpromise",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-createBrowserWindowNotPromise",
+    "lib/browser/electron/index.js~ElectronBrowser#createBrowserWindowNotPromise",
     "method"
   ],
   [
-    "lib/browser/electron/index.js~electronbrowser#getbrowserwindowbyid",
-    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-getBrowserWindowById",
-    "lib/browser/electron/index.js~ElectronBrowser#getBrowserWindowById",
+    "lib/browser/electron/index.js~electronbrowser#exit",
+    "class/lib/browser/electron/index.js~ElectronBrowser.html#instance-method-exit",
+    "lib/browser/electron/index.js~ElectronBrowser#exit",
     "method"
   ],
   [
@@ -669,12 +687,6 @@ window.esdocSearchIndex = [
     "lib/browser/interface/browser.js~browser#exit",
     "class/lib/browser/interface/browser.js~Browser.html#instance-method-exit",
     "lib/browser/interface/browser.js~Browser#exit",
-    "method"
-  ],
-  [
-    "lib/browser/interface/browser.js~browser#getbrowserwindowbyid",
-    "class/lib/browser/interface/browser.js~Browser.html#instance-method-getBrowserWindowById",
-    "lib/browser/interface/browser.js~Browser#getBrowserWindowById",
     "method"
   ],
   [
@@ -736,6 +748,12 @@ window.esdocSearchIndex = [
     "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-get-socket",
     "lib/browser/interface/browser_page.js~BrowserPage#socket",
     "member"
+  ],
+  [
+    "lib/browser/interface/browser_page.js~browserpage#takescreenshot",
+    "class/lib/browser/interface/browser_page.js~BrowserPage.html#instance-method-takeScreenshot",
+    "lib/browser/interface/browser_page.js~BrowserPage#takeScreenshot",
+    "method"
   ],
   [
     "lib/browser/interface/browser_page.js~browserpage#waitforalert",
@@ -804,12 +822,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/browser/puppeteer/index.js~puppeteerbrowser#_browserpage",
-    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-member-_browserPage",
-    "lib/browser/puppeteer/index.js~PuppeteerBrowser#_browserPage",
-    "member"
-  ],
-  [
     "lib/browser/puppeteer/index.js~puppeteerbrowser#_ready",
     "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-member-_ready",
     "lib/browser/puppeteer/index.js~PuppeteerBrowser#_ready",
@@ -837,12 +849,6 @@ window.esdocSearchIndex = [
     "lib/browser/puppeteer/index.js~puppeteerbrowser#exit",
     "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-method-exit",
     "lib/browser/puppeteer/index.js~PuppeteerBrowser#exit",
-    "method"
-  ],
-  [
-    "lib/browser/puppeteer/index.js~puppeteerbrowser#getbrowserwindowbyid",
-    "class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html#instance-method-getBrowserWindowById",
-    "lib/browser/puppeteer/index.js~PuppeteerBrowser#getBrowserWindowById",
     "method"
   ],
   [
@@ -966,6 +972,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#takescreenshot",
+    "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-takeScreenshot",
+    "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#takeScreenshot",
+    "method"
+  ],
+  [
     "lib/browser/puppeteer/puppeteer_page.js~puppeteerpage#waitforalert",
     "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-waitForAlert",
     "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#waitForAlert",
@@ -988,6 +1000,48 @@ window.esdocSearchIndex = [
     "class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-get-window",
     "lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage#window",
     "member"
+  ],
+  [
+    "lib/page/assert.js",
+    "file/lib/page/assert.js.html",
+    "lib/page/assert.js",
+    "file"
+  ],
+  [
+    "lib/page/assert.js~assert#_config",
+    "class/lib/page/assert.js~Assert.html#instance-member-_config",
+    "lib/page/assert.js~Assert#_config",
+    "member"
+  ],
+  [
+    "lib/page/assert.js~assert#_page",
+    "class/lib/page/assert.js~Assert.html#instance-member-_page",
+    "lib/page/assert.js~Assert#_page",
+    "member"
+  ],
+  [
+    "lib/page/assert.js~assert#constructor",
+    "class/lib/page/assert.js~Assert.html#instance-constructor-constructor",
+    "lib/page/assert.js~Assert#constructor",
+    "method"
+  ],
+  [
+    "lib/page/assert.js~assert#copyfile",
+    "class/lib/page/assert.js~Assert.html#instance-method-copyFile",
+    "lib/page/assert.js~Assert#copyFile",
+    "method"
+  ],
+  [
+    "lib/page/assert.js~assert#equal",
+    "class/lib/page/assert.js~Assert.html#instance-method-equal",
+    "lib/page/assert.js~Assert#equal",
+    "method"
+  ],
+  [
+    "lib/page/assert.js~assert#normalizefilename",
+    "class/lib/page/assert.js~Assert.html#instance-method-normalizeFilename",
+    "lib/page/assert.js~Assert#normalizeFilename",
+    "method"
   ],
   [
     "lib/page/finder.js",
@@ -1249,15 +1303,15 @@ window.esdocSearchIndex = [
   ],
   [
     "lib/page/finder_base.js~finderbase#allownotfound",
-    "class/lib/page/finder_base.js~FinderBase.html#instance-method-allowNotFound",
-    "lib/page/finder_base.js~FinderBase#allowNotFound",
-    "method"
-  ],
-  [
-    "lib/page/finder_base.js~finderbase#allownotfound",
     "class/lib/page/finder_base.js~FinderBase.html#instance-get-allowNotFound",
     "lib/page/finder_base.js~FinderBase#allowNotFound",
     "member"
+  ],
+  [
+    "lib/page/finder_base.js~finderbase#allownotfound",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-method-allowNotFound",
+    "lib/page/finder_base.js~FinderBase#allowNotFound",
+    "method"
   ],
   [
     "lib/page/finder_base.js~finderbase#clone",
@@ -1542,16 +1596,16 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/page/page.js~page#assert",
+    "class/lib/page/page.js~Page.html#instance-get-assert",
+    "lib/page/page.js~Page#assert",
+    "member"
+  ],
+  [
     "lib/page/page.js~page#browserpage",
     "class/lib/page/page.js~Page.html#instance-get-browserPage",
     "lib/page/page.js~Page#browserPage",
     "member"
-  ],
-  [
-    "lib/page/page.js~page#checkready",
-    "class/lib/page/page.js~Page.html#instance-method-checkReady",
-    "lib/page/page.js~Page#checkReady",
-    "method"
   ],
   [
     "lib/page/page.js~page#constructor",
@@ -1575,12 +1629,6 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#find",
     "class/lib/page/page.js~Page.html#instance-method-find",
     "lib/page/page.js~Page#find",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#findclickable",
-    "class/lib/page/page.js~Page.html#instance-method-findClickable",
-    "lib/page/page.js~Page#findClickable",
     "method"
   ],
   [
@@ -1623,6 +1671,12 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#reload",
     "class/lib/page/page.js~Page.html#instance-method-reload",
     "lib/page/page.js~Page#reload",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#takescreenshot",
+    "class/lib/page/page.js~Page.html#instance-method-takeScreenshot",
+    "lib/page/page.js~Page#takeScreenshot",
     "method"
   ],
   [
@@ -1674,12 +1728,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/page.js~page#waitloading",
-    "class/lib/page/page.js~Page.html#instance-method-waitLoading",
-    "lib/page/page.js~Page#waitLoading",
-    "method"
-  ],
-  [
     "lib/page/page.js~page#webcontents",
     "class/lib/page/page.js~Page.html#instance-get-webContents",
     "lib/page/page.js~Page#webContents",
@@ -1690,6 +1738,12 @@ window.esdocSearchIndex = [
     "class/lib/page/page.js~Page.html#instance-get-window",
     "lib/page/page.js~Page#window",
     "member"
+  ],
+  [
+    "lib/page/page_methods.js",
+    "file/lib/page/page_methods.js.html",
+    "lib/page/page_methods.js",
+    "file"
   ],
   [
     "lib/page/window.js",
@@ -1734,16 +1788,10 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/page/window.js~window#isready",
-    "class/lib/page/window.js~Window.html#instance-method-isReady",
-    "lib/page/window.js~Window#isReady",
+    "lib/page/window.js~window#isreadyforpage",
+    "class/lib/page/window.js~Window.html#instance-method-isReadyForPage",
+    "lib/page/window.js~Window#isReadyForPage",
     "method"
-  ],
-  [
-    "lib/page/window.js~window#name",
-    "class/lib/page/window.js~Window.html#instance-member-name",
-    "lib/page/window.js~Window#name",
-    "member"
   ],
   [
     "lib/page/window.js~window#page",
@@ -1756,6 +1804,12 @@ window.esdocSearchIndex = [
     "file/lib/page_walker.js.html",
     "lib/page_walker.js",
     "file"
+  ],
+  [
+    "lib/page_walker.js~pagewalker#__defaultwindowid__",
+    "class/lib/page_walker.js~PageWalker.html#instance-member-__defaultWindowId__",
+    "lib/page_walker.js~PageWalker#__defaultWindowId__",
+    "member"
   ],
   [
     "lib/page_walker.js~pagewalker#_browser",
@@ -1800,21 +1854,27 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page_walker.js~pagewalker#createwindowwithid",
-    "class/lib/page_walker.js~PageWalker.html#instance-method-createWindowWithId",
-    "lib/page_walker.js~PageWalker#createWindowWithId",
-    "method"
-  ],
-  [
-    "lib/page_walker.js~pagewalker#getwindow",
-    "class/lib/page_walker.js~PageWalker.html#instance-method-getWindow",
-    "lib/page_walker.js~PageWalker#getWindow",
+    "lib/page_walker.js~pagewalker#getwindowbybrowserwindow",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-getWindowByBrowserWindow",
+    "lib/page_walker.js~PageWalker#getWindowByBrowserWindow",
     "method"
   ],
   [
     "lib/page_walker.js~pagewalker#getwindowbyid",
     "class/lib/page_walker.js~PageWalker.html#instance-method-getWindowById",
     "lib/page_walker.js~PageWalker#getWindowById",
+    "method"
+  ],
+  [
+    "lib/page_walker.js~pagewalker#getwindowbyname",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-getWindowByName",
+    "lib/page_walker.js~PageWalker#getWindowByName",
+    "method"
+  ],
+  [
+    "lib/page_walker.js~pagewalker#getwindowidbyname",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-getWindowIdByName",
+    "lib/page_walker.js~PageWalker#getWindowIdByName",
     "method"
   ],
   [
@@ -1827,12 +1887,6 @@ window.esdocSearchIndex = [
     "lib/page_walker.js~pagewalker#removewindow",
     "class/lib/page_walker.js~PageWalker.html#instance-method-removeWindow",
     "lib/page_walker.js~PageWalker#removeWindow",
-    "method"
-  ],
-  [
-    "lib/page_walker.js~pagewalker#removewindowbyid",
-    "class/lib/page_walker.js~PageWalker.html#instance-method-removeWindowById",
-    "lib/page_walker.js~PageWalker#removeWindowById",
     "method"
   ],
   [
@@ -1954,6 +2008,36 @@ window.esdocSearchIndex = [
     "file/lib/utils/debug.js.html",
     "lib/utils/debug.js",
     "file"
+  ],
+  [
+    "lib/utils/fs_ext.js",
+    "file/lib/utils/fs_ext.js.html",
+    "lib/utils/fs_ext.js",
+    "file"
+  ],
+  [
+    "lib/utils/fs_ext.js~fsext.defaultmask",
+    "class/lib/utils/fs_ext.js~FsExt.html#static-method-defaultMask",
+    "lib/utils/fs_ext.js~FsExt.defaultMask",
+    "method"
+  ],
+  [
+    "lib/utils/fs_ext.js~fsext.mkdirprivate",
+    "class/lib/utils/fs_ext.js~FsExt.html#static-method-mkdirPrivate",
+    "lib/utils/fs_ext.js~FsExt.mkdirPrivate",
+    "method"
+  ],
+  [
+    "lib/utils/fs_ext.js~fsext.mkdirp",
+    "class/lib/utils/fs_ext.js~FsExt.html#static-method-mkdirp",
+    "lib/utils/fs_ext.js~FsExt.mkdirp",
+    "method"
+  ],
+  [
+    "lib/utils/fs_ext.js~fsext.mkdirpsync",
+    "class/lib/utils/fs_ext.js~FsExt.html#static-method-mkdirpSync",
+    "lib/utils/fs_ext.js~FsExt.mkdirpSync",
+    "method"
   ],
   [
     "lib/utils/opt_parser.js",

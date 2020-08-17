@@ -44,15 +44,18 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -62,13 +65,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import ElectronPage from &apos;<span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber11">pagewalker/lib/browser/electron/electron_page.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import ElectronPage from &apos;<span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber12">pagewalker/lib/browser/electron/electron_page.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber11">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber12">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -560,6 +563,34 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-takeScreenshot">takeScreenshot</a></span></span><span class="code" data-ice="signature">(filename: <span>*</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/lib/browser/electron/electron_page.js~ElectronPage.html#instance-method-waitForAlert">waitForAlert</a></span></span><span class="code" data-ice="signature">(action: <span>*</span>, message: <span>*</span>): <span>*</span></span>
         </p>
       </div>
@@ -714,7 +745,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber12">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber13">source</a></span></span>
     </span>
   </h3>
 
@@ -760,7 +791,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber47">source</a></span></span>
     </span>
   </h3>
 
@@ -803,7 +834,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber25">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber20">source</a></span></span>
     </span>
   </h3>
 
@@ -846,7 +877,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber48">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber43">source</a></span></span>
     </span>
   </h3>
 
@@ -889,7 +920,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber22">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber17">source</a></span></span>
     </span>
   </h3>
 
@@ -934,7 +965,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber49">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 
@@ -977,7 +1008,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber14">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber15">source</a></span></span>
     </span>
   </h3>
 
@@ -1023,7 +1054,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber70">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
@@ -1100,7 +1131,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber56">source</a></span></span>
     </span>
   </h3>
 
@@ -1155,7 +1186,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber50">source</a></span></span>
     </span>
   </h3>
 
@@ -1233,7 +1264,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber23">source</a></span></span>
     </span>
   </h3>
 
@@ -1298,7 +1329,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber31">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
@@ -1363,7 +1394,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber73">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber68">source</a></span></span>
     </span>
   </h3>
 
@@ -1418,7 +1449,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -1473,7 +1504,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber41">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
@@ -1521,6 +1552,77 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-takeScreenshot">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">takeScreenshot</span><span class="code" data-ice="signature">(filename: <span>*</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber127">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">filename</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-waitForAlert">
     <span class="access" data-ice="access">public</span>
     
@@ -1532,7 +1634,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber129">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber124">source</a></span></span>
     </span>
   </h3>
 
@@ -1610,7 +1712,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber126">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber121">source</a></span></span>
     </span>
   </h3>
 
@@ -1695,7 +1797,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber76">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber71">source</a></span></span>
     </span>
   </h3>
 
@@ -1774,7 +1876,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber34">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber29">source</a></span></span>
     </span>
   </h3>
 
@@ -1846,7 +1948,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber102">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/electron/electron_page.js.html#lineNumber97">source</a></span></span>
     </span>
   </h3>
 
@@ -1929,7 +2031,7 @@
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

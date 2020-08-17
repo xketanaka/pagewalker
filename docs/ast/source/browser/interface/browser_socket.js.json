@@ -89,6 +89,7 @@
                   "column": 61
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -107,7 +108,6 @@
                 },
                 "name": "on"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -251,6 +251,7 @@
                   "column": 63
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -269,7 +270,6 @@
                 },
                 "name": "once"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -413,6 +413,7 @@
                   "column": 62
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -431,7 +432,6 @@
                 },
                 "name": "send"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -590,6 +590,7 @@
                   "column": 67
                 }
               },
+              "static": false,
               "computed": false,
               "key": {
                 "type": "Identifier",
@@ -608,7 +609,6 @@
                 },
                 "name": "removeAllListeners"
               },
-              "static": false,
               "kind": "method",
               "id": null,
               "generator": false,
@@ -837,6 +837,7 @@
                     "column": 61
                   }
                 },
+                "static": false,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -855,7 +856,6 @@
                   },
                   "name": "on"
                 },
-                "static": false,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -999,6 +999,7 @@
                     "column": 63
                   }
                 },
+                "static": false,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -1017,7 +1018,6 @@
                   },
                   "name": "once"
                 },
-                "static": false,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -1161,6 +1161,7 @@
                     "column": 62
                   }
                 },
+                "static": false,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -1179,7 +1180,6 @@
                   },
                   "name": "send"
                 },
-                "static": false,
                 "kind": "method",
                 "id": null,
                 "generator": false,
@@ -1338,6 +1338,7 @@
                     "column": 67
                   }
                 },
+                "static": false,
                 "computed": false,
                 "key": {
                   "type": "Identifier",
@@ -1356,7 +1357,6 @@
                   },
                   "name": "removeAllListeners"
                 },
-                "static": false,
                 "kind": "method",
                 "id": null,
                 "generator": false,

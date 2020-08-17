@@ -44,15 +44,18 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#browser-puppeteer">browser/puppeteer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/index.js~PuppeteerBrowser.html">PuppeteerBrowser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_finder_extention.js~PuppeteerFinderExtention.html">PuppeteerFinderExtention</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html">PuppeteerPage</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#page">page</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder.js~Finder.html">Finder</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -68,7 +71,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/page_walker.js.html#lineNumber6">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/page_walker.js.html#lineNumber8">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -277,6 +280,34 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-member-__defaultWindowId__">__defaultWindowId__</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">private</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-member-_browser">_browser</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
@@ -368,7 +399,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-createWindow">createWindow</a></span></span><span class="code" data-ice="signature">(name: <span>*</span>, windowOptions: {}): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-createWindow">createWindow</a></span></span><span class="code" data-ice="signature">(name: <span>*</span>, browserWindow: <span>*</span>, windowOptions: {}): <span>*</span></span>
         </p>
       </div>
       <div>
@@ -396,35 +427,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-createWindowWithId">createWindowWithId</a></span></span><span class="code" data-ice="signature">(name: <span>*</span>, id: <span>*</span>, windowOptions: {}): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-getWindow">getWindow</a></span></span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-getWindowByBrowserWindow">getWindowByBrowserWindow</a></span></span><span class="code" data-ice="signature">(browserWindow: <span>*</span>): <span>*</span></span>
         </p>
       </div>
       <div>
@@ -480,14 +483,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-removeWindow">removeWindow</a></span></span><span class="code" data-ice="signature">(name: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-getWindowByName">getWindowByName</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>remove window referrence, but not destroy window object.</p>
-</div>
+        
       </div>
     </td>
     <td>
@@ -509,7 +511,35 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-removeWindowById">removeWindowById</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-getWindowIdByName">getWindowIdByName</a></span></span><span class="code" data-ice="signature">(name: <span>*</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/page_walker.js~PageWalker.html#instance-method-removeWindow">removeWindow</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>)</span>
         </p>
       </div>
       <div>
@@ -574,7 +604,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber7">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber9">source</a></span></span>
     </span>
   </h3>
 
@@ -620,7 +650,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber32">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
@@ -676,7 +706,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber35">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber45">source</a></span></span>
     </span>
   </h3>
 
@@ -719,7 +749,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber38">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber48">source</a></span></span>
     </span>
   </h3>
 
@@ -762,7 +792,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber8">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber10">source</a></span></span>
     </span>
   </h3>
 
@@ -796,6 +826,49 @@
 <h2 data-ice="title">Private Members</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-__defaultWindowId__">
+    <span class="access" data-ice="access">private</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">__defaultWindowId__</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber50">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-_browser">
     <span class="access" data-ice="access">private</span>
     
@@ -807,7 +880,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber13">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber15">source</a></span></span>
     </span>
   </h3>
 
@@ -850,7 +923,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber11">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber13">source</a></span></span>
     </span>
   </h3>
 
@@ -893,7 +966,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber16">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
@@ -935,11 +1008,11 @@
     
     
     
-    <span class="code" data-ice="name">createWindow</span><span class="code" data-ice="signature">(name: <span>*</span>, windowOptions: {}): <span>*</span></span>
+    <span class="code" data-ice="name">createWindow</span><span class="code" data-ice="signature">(name: <span>*</span>, browserWindow: <span>*</span>, windowOptions: {}): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber63">source</a></span></span>
     </span>
   </h3>
 
@@ -960,6 +1033,12 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">name</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">browserWindow</td>
       <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
@@ -1006,18 +1085,18 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-createWindowWithId">
+  <h3 data-ice="anchor" id="instance-method-getWindowByBrowserWindow">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">createWindowWithId</span><span class="code" data-ice="signature">(name: <span>*</span>, id: <span>*</span>, windowOptions: {}): <span>*</span></span>
+    <span class="code" data-ice="name">getWindowByBrowserWindow</span><span class="code" data-ice="signature">(browserWindow: <span>*</span>): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber53">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber57">source</a></span></span>
     </span>
   </h3>
 
@@ -1037,94 +1116,9 @@
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">name</td>
+      <td data-ice="name" class="code" data-depth="0">browserWindow</td>
       <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">windowOptions</td>
-      <td data-ice="type" class="code">{}</td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: {}</li></ul></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getWindow">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">getWindow</span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber41">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">name</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: __default__</li></ul></td>
       <td data-ice="description"></td>
     </tr>
 </tbody>
@@ -1173,7 +1167,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber47">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
@@ -1233,26 +1227,80 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-removeWindow">
+  <h3 data-ice="anchor" id="instance-method-getWindowByName">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">removeWindow</span><span class="code" data-ice="signature">(name: <span>*</span>)</span>
+    <span class="code" data-ice="name">getWindowByName</span><span class="code" data-ice="signature">(): <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>remove window referrence, but not destroy window object.</p>
+  
+
+  
+
+  <div data-ice="properties">
 </div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getWindowIdByName">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getWindowIdByName</span><span class="code" data-ice="signature">(name: <span>*</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber81">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
 
   
 
@@ -1275,7 +1323,19 @@
 </div>
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -1293,18 +1353,18 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-removeWindowById">
+  <h3 data-ice="anchor" id="instance-method-removeWindow">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">removeWindowById</span><span class="code" data-ice="signature">(id: <span>*</span>)</span>
+    <span class="code" data-ice="name">removeWindow</span><span class="code" data-ice="signature">(id: <span>*</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber75">source</a></span></span>
     </span>
   </h3>
 
@@ -1364,7 +1424,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber10">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber12">source</a></span></span>
     </span>
   </h3>
 
@@ -1415,7 +1475,7 @@
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.1)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>
