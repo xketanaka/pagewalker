@@ -29,6 +29,7 @@
     "mocha": "^3.5.0",
     "bluebird": "^3.7.0",
     "uuid": "^3.1.0",
+    "log4js": "^6.3.0",
     "pixelmatch": "xketanaka/pixelmatch"
   },
   "devDependencies": {

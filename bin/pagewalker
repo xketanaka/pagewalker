@@ -12,6 +12,6 @@ if(config.browser == "electron"){
   const child = proc.spawn(electron, args, { stdio: 'inherit' });
   child.on('close', (code =>  process.exit(code)));
 }else{
-  const pageWalker = require("../lib/page_walker");
-  pageWalker.start(config);
+  const main = require("../index.js");
+  main(config);
 }
