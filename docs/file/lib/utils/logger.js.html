@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/browser/puppeteer/puppeteer_finder_extention.js | pagewalker</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/utils/logger.js | pagewalker</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -66,45 +66,79 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/browser/puppeteer/puppeteer_finder_extention.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const fs = require(&quot;fs&quot;);
-const path = require(&quot;path&quot;);
-const Finder = require(&quot;../../page/finder&quot;);
+<div class="content" data-ice="content"><h1 data-ice="title">lib/utils/logger.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
+const log4js = require (&apos;log4js&apos;);
 
-class PuppeteerFinderExtention extends Finder {
+/**
+ * Usage:
+ *   const Logger = require(&apos;path/to/logger&apos;);
+ *
+ *   Logger.info &quot;message&quot;   (alias of Logger.default.info)
+ *   Logger.category.info &quot;message&quot;   (&quot;category&quot; must be defined on log4js settings)
+ */
+class Logger {
 
-  /**
-   * Attach the file given with filePath.
-   * Now, it is not supported that you attach a file to input-elements in iframe .
-   * @param {string} filePath - Specify the path of the file to be attached
-   * @param {object} options
-   * @return {Promise}
-   */
-  attachFile(filePath, options = {}){
-    const firstSelector = this.conditions[0].constructor.name == &quot;Selector&quot; ? this.conditions[0].selector : &quot;*&quot;;
+  static trace(str){
+    Logger.defaultLogger().trace(str);
+  }
+  static debug(str){
+    Logger.defaultLogger().debug(str);
+  }
+  static warn(str){
+    Logger.defaultLogger().warn(str);
+  }
+  static info(str){
+    Logger.defaultLogger().info(str);
+  }
+  static error(str){
+    Logger.defaultLogger().error(str);
+  }
+  static fatal(str){
+    Logger.defaultLogger().fatal(str);
+  }
 
-    return this.page.browserPage.nativeObject.$$(firstSelector)
-    .then((elementHandles)=&gt;{
-      return this.conditions.reduce((prev, condition, i)=&gt;{
-        return prev.then((elementHandles)=&gt;{
-          if(condition.constructor.name == &quot;Selector&quot;){
-            return i == 0 ? elementHandles : elementHandles.$$(condition.selector);
-          }
-          if(condition.constructor.name == &quot;Filter&quot;){
-            return elementHandles.filter(eval(condition.code))
-          }
-        })
-      }, Promise.resolve(elementHandles));
-    })
-    .then((elementHandles)=&gt;{
-      if(elementHandles.length == 0) throw new Error(&apos;input element to attach file is not found&apos;)
+  static initialize(config){
+    log4js.configure(config.logger || {});
+    if(config.logger &amp;&amp; config.logger.categories &amp;&amp; typeof config.logger.categories){
+      Object.keys(config.logger.categories).forEach((category)=&gt;{
+        this[category] = log4js.getLogger(category);
+      })
+    }
+  }
 
-      return elementHandles[0].uploadFile(filePath);
-    })
+  static defaultLogger(){
+    if(this.default){
+      return this.default;
+    }
+    // return defaultLogger if not initialized.
+    if(!this.__defaultLogger__){
+      this.__defaultLogger__ = new Logger();
+    }
+    return this.__defaultLogger__;
+  }
+
+  trace(str){
+    console.log(`TRACE: #{str}`);
+  }
+  debug(str){
+    console.log(`DEBUG: #{str}`);
+  }
+  warn(str){
+    console.log(`WARN: #{str}`);
+  }
+  info(str){
+    console.log(`INFO: #{str}`);
+  }
+  error(str){
+    console.log(`ERROR: #{str}`);
+  }
+  fatal(str){
+    console.log(`FATAL: #{str}`);
   }
 }
 
-module.exports = PuppeteerFinderExtention;
+module.exports = Logger;
 </code></pre>
 
 </div>

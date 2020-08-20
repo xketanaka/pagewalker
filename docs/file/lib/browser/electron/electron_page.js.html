@@ -49,6 +49,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
@@ -56,6 +57,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -73,6 +75,7 @@ const BrowserSocket = require(&quot;../interface/browser_socket&quot;);
 const ElectronFinderExtention = require(&quot;./electron_finder_extention&quot;);
 const {config} = require(&quot;../../utils/config&quot;);
 const DateFormat = require(&apos;../../utils/date_format&apos;);
+const Logger = require(&apos;../../utils/logger&apos;);
 
 const TIMEOUT_MSEC = config.mocha.timeout;
 
@@ -164,23 +167,37 @@ class ElectronPage extends BrowserPage {
   _waitForDialog(dialogType, action, message = undefined, isClickOK = false){
     return new Promise((resolve, reject)=&gt;{
       const channel = &apos;dialog-synchronous&apos;;
-      let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
-      this.socket.once(channel, (arg, event)=&gt;{
-        clearTimeout(timeoutId);
+
+      let dialogCallback;
+
+      let timeoutId = setTimeout(()=&gt;{
+        this.socket.removeListener(channel, dialogCallback);
+        reject(new Error(&apos;timeout&apos;));
+      }, TIMEOUT_MSEC);
+
+      dialogCallback = (arg, event)=&gt;{
         if(message &amp;&amp; message != arg){
-          return reject(new Error(`expected message is &quot;${message}&quot;, but actual is &quot;${arg}&quot;`));
+          Logger.warn(`expected message is &quot;${message}&quot;, but actual is &quot;${arg}&quot;`);
+          event.returnValue = &quot;skip&quot;;
+        }else{
+          clearTimeout(timeoutId);
+          this.socket.removeListener(channel, dialogCallback);
+          event.returnValue = isClickOK;
+          resolve(message);
         }
-        event.returnValue = isClickOK;
-        resolve(message);
-      });
+      };
+      this.socket.on(channel, dialogCallback);
+
       return this.executeJavaScript(`{
         let __original_dialog_func = window.${dialogType};
         window.${dialogType} = function(message){
           var ret = browserSocket.sendSync(&apos;${channel}&apos;, message);
-          window.${dialogType} = __original_dialog_func;
+          if(ret != &apos;skip&apos;){
+            window.${dialogType} = __original_dialog_func;
+          }
           return ret;
         };
-      }`, true)
+      };0`, true)
       .then(()=&gt;{ return action &amp;&amp; action() })
       .catch(reject)
     });
@@ -223,6 +240,9 @@ class ElectronSocket extends BrowserSocket {
   }
   removeAllListeners(channel){
     return ipcMain.removeAllListeners(channel);
+  }
+  removeListener(channel, callback){
+    return ipcMain.removeListener(channel, callback);
   }
   send(channel, ...args){ throw new Error(&quot;Not Implemented&quot;) }
 }

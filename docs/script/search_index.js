@@ -114,9 +114,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "pagewalker/lib/page/finder_methods.js~findermethods",
+    "class/lib/page/finder_methods.js~FinderMethods.html",
+    "<span>FinderMethods</span> <span class=\"search-result-import-path\">pagewalker/lib/page/finder_methods.js</span>",
+    "class"
+  ],
+  [
     "pagewalker/lib/utils/fs_ext.js~fsext",
     "class/lib/utils/fs_ext.js~FsExt.html",
     "<span>FsExt</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/fs_ext.js</span>",
+    "class"
+  ],
+  [
+    "pagewalker/lib/utils/logger.js~logger",
+    "class/lib/utils/logger.js~Logger.html",
+    "<span>Logger</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/logger.js</span>",
     "class"
   ],
   [
@@ -1056,24 +1068,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/finder.js~finder#choose",
-    "class/lib/page/finder.js~Finder.html#instance-method-choose",
-    "lib/page/finder.js~Finder#choose",
-    "method"
-  ],
-  [
-    "lib/page/finder.js~finder#clickandwaitajaxdone",
-    "class/lib/page/finder.js~Finder.html#instance-method-clickAndWaitAjaxDone",
-    "lib/page/finder.js~Finder#clickAndWaitAjaxDone",
-    "method"
-  ],
-  [
-    "lib/page/finder.js~finder#clickandwaitloading",
-    "class/lib/page/finder.js~Finder.html#instance-method-clickAndWaitLoading",
-    "lib/page/finder.js~Finder#clickAndWaitLoading",
-    "method"
-  ],
-  [
     "lib/page/finder.js~finder#constructor",
     "class/lib/page/finder.js~Finder.html#instance-constructor-constructor",
     "lib/page/finder.js~Finder#constructor",
@@ -1578,6 +1572,30 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_methods.js",
+    "file/lib/page/finder_methods.js.html",
+    "lib/page/finder_methods.js",
+    "file"
+  ],
+  [
+    "lib/page/finder_methods.js~findermethods#choose",
+    "class/lib/page/finder_methods.js~FinderMethods.html#instance-method-choose",
+    "lib/page/finder_methods.js~FinderMethods#choose",
+    "method"
+  ],
+  [
+    "lib/page/finder_methods.js~findermethods#clickandwaitajaxdone",
+    "class/lib/page/finder_methods.js~FinderMethods.html#instance-method-clickAndWaitAjaxDone",
+    "lib/page/finder_methods.js~FinderMethods#clickAndWaitAjaxDone",
+    "method"
+  ],
+  [
+    "lib/page/finder_methods.js~findermethods#clickandwaitloading",
+    "class/lib/page/finder_methods.js~FinderMethods.html#instance-method-clickAndWaitLoading",
+    "lib/page/finder_methods.js~FinderMethods#clickAndWaitLoading",
+    "method"
+  ],
+  [
     "lib/page/page.js",
     "file/lib/page/page.js.html",
     "lib/page/page.js",
@@ -1650,15 +1668,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/page.js~page#invokeafterready",
-    "class/lib/page/page.js~Page.html#instance-method-invokeAfterReady",
-    "lib/page/page.js~Page#invokeAfterReady",
-    "method"
-  ],
-  [
     "lib/page/page.js~page#load",
     "class/lib/page/page.js~Page.html#instance-method-load",
     "lib/page/page.js~Page#load",
+    "method"
+  ],
+  [
+    "lib/page/page.js~page#newpromisewithcheckready",
+    "class/lib/page/page.js~Page.html#instance-method-newPromiseWithCheckReady",
+    "lib/page/page.js~Page#newPromiseWithCheckReady",
     "method"
   ],
   [
@@ -2037,6 +2055,108 @@ window.esdocSearchIndex = [
     "lib/utils/fs_ext.js~fsext.mkdirpsync",
     "class/lib/utils/fs_ext.js~FsExt.html#static-method-mkdirpSync",
     "lib/utils/fs_ext.js~FsExt.mkdirpSync",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js",
+    "file/lib/utils/logger.js.html",
+    "lib/utils/logger.js",
+    "file"
+  ],
+  [
+    "lib/utils/logger.js~logger#debug",
+    "class/lib/utils/logger.js~Logger.html#instance-method-debug",
+    "lib/utils/logger.js~Logger#debug",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger#error",
+    "class/lib/utils/logger.js~Logger.html#instance-method-error",
+    "lib/utils/logger.js~Logger#error",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger#fatal",
+    "class/lib/utils/logger.js~Logger.html#instance-method-fatal",
+    "lib/utils/logger.js~Logger#fatal",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger#info",
+    "class/lib/utils/logger.js~Logger.html#instance-method-info",
+    "lib/utils/logger.js~Logger#info",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger#trace",
+    "class/lib/utils/logger.js~Logger.html#instance-method-trace",
+    "lib/utils/logger.js~Logger#trace",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger#warn",
+    "class/lib/utils/logger.js~Logger.html#instance-method-warn",
+    "lib/utils/logger.js~Logger#warn",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger.[category]",
+    "class/lib/utils/logger.js~Logger.html#static-member-[category]",
+    "lib/utils/logger.js~Logger.[category]",
+    "member"
+  ],
+  [
+    "lib/utils/logger.js~logger.__defaultlogger__",
+    "class/lib/utils/logger.js~Logger.html#static-member-__defaultLogger__",
+    "lib/utils/logger.js~Logger.__defaultLogger__",
+    "member"
+  ],
+  [
+    "lib/utils/logger.js~logger.debug",
+    "class/lib/utils/logger.js~Logger.html#static-method-debug",
+    "lib/utils/logger.js~Logger.debug",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger.defaultlogger",
+    "class/lib/utils/logger.js~Logger.html#static-method-defaultLogger",
+    "lib/utils/logger.js~Logger.defaultLogger",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger.error",
+    "class/lib/utils/logger.js~Logger.html#static-method-error",
+    "lib/utils/logger.js~Logger.error",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger.fatal",
+    "class/lib/utils/logger.js~Logger.html#static-method-fatal",
+    "lib/utils/logger.js~Logger.fatal",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger.info",
+    "class/lib/utils/logger.js~Logger.html#static-method-info",
+    "lib/utils/logger.js~Logger.info",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger.initialize",
+    "class/lib/utils/logger.js~Logger.html#static-method-initialize",
+    "lib/utils/logger.js~Logger.initialize",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger.trace",
+    "class/lib/utils/logger.js~Logger.html#static-method-trace",
+    "lib/utils/logger.js~Logger.trace",
+    "method"
+  ],
+  [
+    "lib/utils/logger.js~logger.warn",
+    "class/lib/utils/logger.js~Logger.html#static-method-warn",
+    "lib/utils/logger.js~Logger.warn",
     "method"
   ],
   [

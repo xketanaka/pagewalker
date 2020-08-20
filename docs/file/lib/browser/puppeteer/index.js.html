@@ -49,6 +49,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
@@ -56,6 +57,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -99,10 +101,13 @@ class PuppeteerBrowser extends Browser {
       })
       // trigger closed
       this._browser.on(&apos;targetdestroyed&apos;, (target)=&gt;{
-        if(target.type() != &apos;page&apos;) return;
-        target.page().then((page)=&gt;{
-          this.emit(Browser.Events.Closed, page)
-        })
+        // https://github.com/puppeteer/puppeteer/issues/5500
+        // target.type() &#x304C; other &#x3068;&#x306A;&#x308B;&#x6A21;&#x69D8;
+        if(target.type() == &apos;page&apos; || target.type() == &apos;other&apos;){
+          target.page().then((page)=&gt;{
+            this.emit(Browser.Events.Closed, page)
+          })
+        }
       })
     })
   }
@@ -116,10 +121,10 @@ class PuppeteerBrowser extends Browser {
   createBrowserWindow(windowOptions){
     return new Promise((resolve, reject)=&gt;{
       if(this.isReady()){
-        this._browser.newPage().then(resolve);
+        this._browser.newPage().then(resolve).catch(reject);
       }
       this.on(Browser.Events.Ready, ()=&gt;{
-        this._browser.newPage().then(resolve);
+        this._browser.newPage().then(resolve).catch(reject);
       })
     })
   }

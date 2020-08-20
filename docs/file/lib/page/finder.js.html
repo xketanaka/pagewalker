@@ -49,6 +49,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
@@ -56,6 +57,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -68,6 +70,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const FinderBase = require(&apos;./finder_base&apos;);
 const FinderAction = require(&apos;./finder_action&apos;);
 const FinderFilter = require(&apos;./finder_filter&apos;);
+const FinderMethods = require(&apos;./finder_methods&apos;);
 
 /**
  * @extends {FinderBase}
@@ -85,13 +88,6 @@ class Finder extends FinderBase {
    */
   selectOption(content){
     return this.find(&quot;option&quot;, FinderFilter.haveContent(content.trim())).select();
-  }
-  /**
-   * Alias of &quot;selectOption&quot;
-   * @return {Promise}
-   */
-  choose(content){
-    return this.selectOption(content);
   }
   /**
    * Attach the file given with filePath.
@@ -151,18 +147,6 @@ class Finder extends FinderBase {
     let codeToFindIframeObject = this.clone().withAction(elements =&gt; elements).toJsCode();
     return `(()=&gt;{ ${codeToFindIframeObject} })()[0].contentWindow`;
   }
-  /**
-   * this is same for `page.waitForPageLoad(async ()=&gt;{ await this.click() })`
-   */
-  clickAndWaitLoading(){
-    return this.page.waitForPageLoad(()=&gt;{ this.click() });
-  }
-  /**
-   * this is same for `page.waitForAjaxDone(async ()=&gt;{ await this.click() })`
-   */
-  clickAndWaitAjaxDone(){
-    return this.page.waitForAjaxDone(()=&gt;{ this.click() });
-  }
 }
 
 function mixin(dest, source){
@@ -181,6 +165,7 @@ function mixin(dest, source){
 
 mixin(Finder.prototype, FinderAction.prototype);
 mixin(Finder.prototype, FinderFilter.prototype);
+mixin(Finder.prototype, FinderMethods.prototype);
 
 module.exports = Finder;
 </code></pre>

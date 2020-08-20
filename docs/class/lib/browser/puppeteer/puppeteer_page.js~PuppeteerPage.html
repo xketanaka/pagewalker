@@ -49,6 +49,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
@@ -56,6 +57,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -65,13 +67,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import PuppeteerPage from &apos;<span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber13">pagewalker/lib/browser/puppeteer/puppeteer_page.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import PuppeteerPage from &apos;<span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber14">pagewalker/lib/browser/puppeteer/puppeteer_page.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber13">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber14">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -592,7 +594,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-waitForConfirm">waitForConfirm</a></span></span><span class="code" data-ice="signature">(action: <span>*</span>, message: <span>*</span>, isClickOK: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/browser/puppeteer/puppeteer_page.js~PuppeteerPage.html#instance-method-waitForConfirm">waitForConfirm</a></span></span><span class="code" data-ice="signature">(action: <span>*</span>, message: <span>*</span>, isClickOK: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -746,7 +748,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber14">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber15">source</a></span></span>
     </span>
   </h3>
 
@@ -792,7 +794,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber81">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber82">source</a></span></span>
     </span>
   </h3>
 
@@ -847,7 +849,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber69">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber70">source</a></span></span>
     </span>
   </h3>
 
@@ -902,7 +904,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber76">source</a></span></span>
     </span>
   </h3>
 
@@ -957,7 +959,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
@@ -1014,7 +1016,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber16">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber17">source</a></span></span>
     </span>
   </h3>
 
@@ -1060,7 +1062,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber105">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber106">source</a></span></span>
     </span>
   </h3>
 
@@ -1137,7 +1139,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber93">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber94">source</a></span></span>
     </span>
   </h3>
 
@@ -1192,7 +1194,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber87">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber88">source</a></span></span>
     </span>
   </h3>
 
@@ -1270,7 +1272,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber40">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber41">source</a></span></span>
     </span>
   </h3>
 
@@ -1335,7 +1337,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber43">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 
@@ -1400,7 +1402,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber111">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber112">source</a></span></span>
     </span>
   </h3>
 
@@ -1444,7 +1446,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber99">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber100">source</a></span></span>
     </span>
   </h3>
 
@@ -1499,7 +1501,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber53">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
@@ -1558,7 +1560,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber227">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber250">source</a></span></span>
     </span>
   </h3>
 
@@ -1629,7 +1631,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber223">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber246">source</a></span></span>
     </span>
   </h3>
 
@@ -1704,11 +1706,11 @@
     
     
     
-    <span class="code" data-ice="name">waitForConfirm</span><span class="code" data-ice="signature">(action: <span>*</span>, message: <span>*</span>, isClickOK: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">waitForConfirm</span><span class="code" data-ice="signature">(action: <span>*</span>, message: <span>*</span>, isClickOK: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber216">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber239">source</a></span></span>
     </span>
   </h3>
 
@@ -1757,8 +1759,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>resolved by confirm message</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1793,7 +1796,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber124">source</a></span></span>
     </span>
   </h3>
 
@@ -1872,7 +1875,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber46">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber47">source</a></span></span>
     </span>
   </h3>
 
@@ -1944,7 +1947,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber115">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 
@@ -2015,7 +2018,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber200">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/browser/puppeteer/puppeteer_page.js.html#lineNumber201">source</a></span></span>
     </span>
   </h3>
 

@@ -49,6 +49,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
@@ -56,6 +57,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -73,6 +75,7 @@ const BrowserSocket = require(&quot;../interface/browser_socket&quot;);
 const PuppeteerFinderExtention = require(&quot;./puppeteer_finder_extention&quot;);
 const {config} = require(&quot;../../utils/config&quot;);
 const DateFormat = require(&apos;../../utils/date_format&apos;);
+const Logger = require(&apos;../../utils/logger&apos;)
 
 const TIMEOUT_MSEC = config.mocha.timeout;
 const DOWNLOAD_PATH = path.resolve(config.fileDownloadDir);
@@ -266,20 +269,42 @@ class PuppeteerPage extends BrowserPage {
    */
   _waitForDialog(dialogType, action, message = undefined, isClickOK = false){
     return new Promise((resolve, reject)=&gt;{
-      let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
-      this.nativeObject.once(&apos;dialog&apos;, (dialog)=&gt;{
 
-        if(dialog.type() != dialogType) return reject(`Unexpected dialog type: ${dialog.type()}`);
+      let dialogCallback;
 
-        clearTimeout(timeoutId);
-        if(message &amp;&amp; message != dialog.message()){
-          return reject(new Error(`expected message is &quot;${message}&quot;, but actual is &quot;${dialog.message()}&quot;`));
-        }
-        (isClickOK ? dialog.accept() : dialog.dismiss()).then(resolve).catch(reject);
-      })
+      let timeoutId = setTimeout(()=&gt;{
+        this.nativeObject.removeListener(&apos;dialog&apos;, dialogCallback);
+        reject(new Error(&apos;timeout&apos;));
+      }, TIMEOUT_MSEC);
+
+      dialogCallback = (dialog)=&gt;{
+
+        let actualType = dialog.type();
+        let actualMessage = dialog.message();
+
+        (isClickOK ? dialog.accept() : dialog.dismiss())
+        .then(()=&gt;{
+          if(dialogType != actualType){
+            return Logger.warn(`Unexpected dialog type: ${actualType}`);
+          }
+          if(message &amp;&amp; message != actualMessage){
+            return Logger.warn(`expected message is &quot;${message}&quot;, but actual is &quot;${actualMessage}&quot;`);
+          }
+          clearTimeout(timeoutId);
+          this.nativeObject.removeListener(&apos;dialog&apos;, dialogCallback);
+          resolve(actualMessage);
+        })
+        .catch(reject);
+      };
+
+      this.nativeObject.on(&apos;dialog&apos;, dialogCallback);
       action();
-    })
+    });
   }
+
+  /**
+   * @return {Promise&lt;string&gt;} resolved by confirm message
+   */
   waitForConfirm(action, message = undefined, isClickOK = false){
     return this._waitForDialog(&apos;confirm&apos;, action, message, isClickOK);
   }
@@ -316,7 +341,7 @@ class PuppeteerSocket extends BrowserSocket {
 }
 
 PuppeteerPage.EventMappings = {
-  [BrowserPage.Events.Load]: &apos;load&apos;,
+  [BrowserPage.Events.Load]: &apos;domcontentloaded&apos;,
   [BrowserPage.Events.LoadError]: &apos;requestfailed&apos;,
 }
 

@@ -49,6 +49,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
@@ -56,6 +57,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
@@ -120,14 +122,14 @@ class Page {
    * @return {Promise}
    */
   load(url, options = {}){
-    let loadURL = ()=&gt;{
-      return this.waitForPageLoad(()=&gt;{ if(url) this.browserPage.loadURL(url, options) })
+    let loadURL = (urlString)=&gt;{
+      return this.waitForPageLoad(()=&gt;{ if(urlString) return this.browserPage.loadURL(urlString, options) })
     };
     if(this.window.isReadyForPage()){
-      return loadURL()
+      return loadURL(url)
     }else{
       return new Promise((resolve, reject)=&gt;{
-        this.window.once(&apos;readyForPage&apos;, ()=&gt;{ loadURL().then(resolve).catch(reject) });
+        this.window.once(&apos;readyForPage&apos;, ()=&gt;{ loadURL(url).then(resolve).catch(reject) });
       });
     }
   }
@@ -146,21 +148,20 @@ class Page {
         }`);
       })
     }
-    return this.invokeAfterReady((resolve, reject)=&gt;{
-      this.browserPage.removeAllListeners(BrowserPage.Events.Load);
-      this.browserPage.removeAllListeners(BrowserPage.Events.LoadError);
-
+    return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout in waitForPageLoad&apos;)) }, TIMEOUT_MSEC);
+
+      let clearListenerAndTimer = ()=&gt;{
+        this.browserPage.removeAllListeners(BrowserPage.Events.Load);
+        this.browserPage.removeAllListeners(BrowserPage.Events.LoadError);
+        clearTimeout(timeoutId);
+      }
+
       this.browserPage.once(BrowserPage.Events.Load, (event)=&gt;{
-        clearTimeout(timeoutId)
+        clearListenerAndTimer();
         resolve(this)
       })
-      this.browserPage.once(BrowserPage.Events.LoadError, (event)=&gt;{
-        clearTimeout(timeoutId)
-        reject(event)
-      })
-      this.invokeAction(action, reject);
-    })
+    }, action)
   }
   /**
    * Wait file-download completed and resolve the promise with result object(contains filename, savedFilePath)
@@ -175,12 +176,9 @@ class Page {
    *   assert.equal(await (util.promisify(fs.readFile))(item.savedFilePath, &apos;utf-8&apos;), ...);
    */
   waitForDownload(action, options = {}){
-    return this.invokeAfterReady((resolve, reject)=&gt;{
-      return this.browserPage.waitForDownload(()=&gt;{
-        this.invokeAction(action, reject);
-      }, options)
-      .then(resolve).catch(reject);
-    })
+    return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
+      this.browserPage.waitForDownload(()=&gt;{}, options).then(resolve).catch(reject);
+    }, action)
   }
   /**
    * Wait new-window opend and resolve the promise with Window object.
@@ -194,19 +192,23 @@ class Page {
    *   newWin.close();
    */
   waitForNewWindow(action){
-    return this.invokeAfterReady((resolve, reject)=&gt;{
-      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout in waitForNewWindow&apos;) }, TIMEOUT_MSEC);
-      this.browserPage.removeAllListeners(BrowserPage.Events.NewWindow);
-      pageWalker.browser.once(Browser.Events.NewWindow, (browserWindow)=&gt;{
+    return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
+      let windowOpenCallback;
+      let timeoutId = setTimeout(()=&gt;{
+        pageWalker.browser.removeListener(Browser.Events.NewWindow, windowOpenCallback);
+        reject(&apos;timeout in waitForNewWindow&apos;);
+      }, TIMEOUT_MSEC);
+
+      windowOpenCallback = (browserWindow)=&gt;{
         clearTimeout(timeoutId);
         if(pageWalker.getWindowByBrowserWindow(browserWindow)){
           resolve(pageWalker.getWindowByBrowserWindow(browserWindow));
         }else{
           reject(new Error(`no window found!`));
         }
-      })
-      this.invokeAction(action, reject);
-    })
+      };
+      pageWalker.browser.once(Browser.Events.NewWindow, windowOpenCallback);
+    }, action)
   }
   /**
    * @param {string} channel - string of representing the channel of Browser Socket Message. default is &apos;asynchronous-message-channel&apos;.
@@ -218,7 +220,7 @@ class Page {
       action = channel;
       channel = &apos;asynchronous-message-channel&apos;
     }
-    return this.invokeAfterReady((resolve, reject)=&gt;{
+    return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout in waitForBrowserSocket&apos;) }, TIMEOUT_MSEC);
       this.browserPage.socket.removeAllListeners(channel);
       this.browserPage.socket.once(channel, (arg)=&gt;{
@@ -226,8 +228,7 @@ class Page {
 
         resolve(arg);
       });
-      this.invokeAction(action, reject);
-    })
+    }, action)
   }
   /**
    * @param {function} action - A function representing the operation of sending Ajax request
@@ -283,7 +284,7 @@ class Page {
     let message = confirmOption.message || defaultOption.message;
     let isClickOK = (&apos;isClickOK&apos; in confirmOption)? confirmOption.isClickOK : defaultOption.isClickOK;
 
-    return this.invokeAfterReady((resolve, reject)=&gt;{
+    return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
       this.browserPage.waitForConfirm(action, message, isClickOK)
       .then(resolve).catch(reject);
     })
@@ -304,7 +305,7 @@ class Page {
       alertOptioin = defaultOption;
     }
 
-    return this.invokeAfterReady((resolve, reject)=&gt;{
+    return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
       this.browserPage.waitForAlert(action, alertOptioin.message)
       .then(resolve).catch(reject);
     })
@@ -312,8 +313,8 @@ class Page {
   /**
    * @private
    */
-  invokeAfterReady(func, tryTimes = 0){
-    return new Promise((resolve, reject)=&gt;{
+  newPromiseWithCheckReady(func, action){
+    let promise1 = new Promise((resolve, reject)=&gt;{
       if(!this.window.isReadyForPage()){
         return reject(&quot;PageContent is not ready!, Please call the &apos;load&apos; method first&quot;);
       }
@@ -322,7 +323,21 @@ class Page {
       }catch(err){
         return reject(err)
       }
-    })
+    });
+
+    let promise2 = new Promise((resolve, reject)=&gt;{
+      try {
+        let result = action &amp;&amp; action();
+        if(result instanceof Promise){
+          result.then(resolve).catch(reject)
+        }else{
+          resolve(result);
+        }
+      }catch(e){
+        reject(e);
+      }
+    });
+    return Promise.all([promise1, action &amp;&amp; promise2]).then((values)=&gt;{ values[1] });
   }
   /**
    * @private
@@ -339,8 +354,8 @@ class Page {
    * @return {Promise}
    */
   executeJs(code){
-    return this.invokeAfterReady((resolve, reject)=&gt;{
-      return this.browserPage.executeJavaScript(code, true).then(resolve);
+    return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
+      return this.browserPage.executeJavaScript(code, true).then(resolve).catch(reject);
     })
   }
   /**
