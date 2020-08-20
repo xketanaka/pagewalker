@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+
+const readJson = require('read-package-json')
+const init = require('init-package-json')
+const path = require('path')
+const fs = require('fs')
+const prompts = require('prompts')
+const Config = require('../lib/utils/config')
+
+const ContentDefault = { scripts: { test: "pagewalker" } }
+
+// the dir where we're doin stuff.
+const dir = process.cwd()
+const packageFile = path.resolve(dir, 'package.json')
+const scenarioDir = path.resolve(dir, 'scenario');
+
+const packageFileExists = fs.existsSync(packageFile);
+
+new Promise((resolve, reject)=>{
+
+  if(!packageFileExists){
+    resolve(ContentDefault);
+  }else{
+    readJson(packageFile, (err, data)=>{
+      if(err){
+        reject(new Error(`The file["package.json"] is not found. Abort!`));
+      }
+      if(!data.scripts){
+        Object.assign(data, ContentDefault)
+      }
+      else if(!data.scripts.test){
+        Object.assign(data.scripts, ContentDefault.scripts)
+      }
+      else {
+        data.scripts.test = ContentDefault.scripts.test;
+      }
+      resolve(data);
+    })
+  }
+})
+.then((content)=>{
+
+  fs.writeFileSync(packageFile, (JSON.stringify(content, null, 2) + '\n'), 'utf8');
+
+  if(!packageFileExists){
+    return new Promise((resolve, reject)=>{
+      const initFile = path.resolve(__dirname, 'not_found_file')
+      const configData = { }
+      init(dir, initFile, configData, (err, data)=>{ err ? reject(err) : resolve() });
+    })
+  }
+})
+.then(()=>{
+  console.log(`package.json is ${packageFileExists ? 'overwitten' : 'created'}.  [${packageFile}]`)
+
+  if(!fs.existsSync(scenarioDir)){
+    fs.mkdirSync(scenarioDir);
+    console.log(`Done creating scenario directory. [${scenarioDir}]`)
+  }
+
+  // prompt and save sample.scripts
+  return prompts({
+    type: 'text',
+    name: 'yesOrNo',
+    message: 'Do you want to create a sample scenario file?(y/N) ',
+  })
+})
+.then((answer)=>{
+
+  if(answer.yesOrNo == 'y' || answer.yesOrNo == 'Y'){
+    const destFile = path.resolve(scenarioDir, '01_sample_scenario.js')
+    fs.copyFileSync(path.resolve(__dirname, '../example/01_sample_scenario.js'), destFile);
+    console.log(`Done createing sample scenario file. [${destFile}]`);
+  }else{
+    console.log(`Skipped createing sample scenario file. `);
+  }
+
+  // save config.json
+  fs.writeFileSync(path.resolve(dir, 'config.json'), (JSON.stringify(Config.DEFAULT_CONFIG, null, 2) + '\n'), 'utf8');
+  console.log(`Done createing configuration file. [${path.resolve(dir, 'config.json')}]`);
+})
+.catch((err)=>{
+  console.log(`Failure: ${err}`);
+  process.exit(1);
+})

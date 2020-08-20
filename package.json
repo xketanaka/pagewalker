@@ -2,7 +2,10 @@
   "name": "pagewalker",
   "version": "0.4.1",
   "main": "index.js",
-  "bin": "bin/pagewalker",
+  "bin": [
+    "bin/pagewalker",
+    "bin/init-pagewalker-project"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/xketanaka/pagewalker.git"
@@ -26,11 +29,14 @@
     ]
   },
   "dependencies": {
-    "mocha": "^3.5.0",
     "bluebird": "^3.7.0",
-    "uuid": "^3.1.0",
+    "init-package-json": "^1.10.3",
     "log4js": "^6.3.0",
-    "pixelmatch": "xketanaka/pixelmatch"
+    "mocha": "^3.5.0",
+    "pixelmatch": "xketanaka/pixelmatch",
+    "prompts": "^2.3.2",
+    "read-package-json": "^2.1.1",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "esdoc": "^1.1.0",
