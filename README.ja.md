@@ -32,7 +32,7 @@ $ npm test
 
 実行するとブラウザが起動し、pagewalkerのGitHubページに遷移する様子が確認できます。
 
-スクリーンショット
+<img src="https://xketanaka.github.io/pagewalker/image/pagewalker_example.png" width="700px" >
 
 ## シナリオ作成
 
