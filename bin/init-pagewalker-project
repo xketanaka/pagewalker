@@ -12,7 +12,8 @@ const ContentDefault = { scripts: { test: "pagewalker" } }
 // the dir where we're doin stuff.
 const dir = process.cwd()
 const packageFile = path.resolve(dir, 'package.json')
-const scenarioDir = path.resolve(dir, 'scenario');
+const scenarioDir = path.resolve(dir, 'test');
+const downloadDir = path.resolve(dir, 'downloads');
 
 const packageFileExists = fs.existsSync(packageFile);
 
@@ -56,6 +57,11 @@ new Promise((resolve, reject)=>{
   if(!fs.existsSync(scenarioDir)){
     fs.mkdirSync(scenarioDir);
     console.log(`Done creating scenario directory. [${scenarioDir}]`)
+  }
+
+  if(!fs.existsSync(downloadDir)){
+    fs.mkdirSync(downloadDir);
+    console.log(`Done creating downloads directory. [${downloadDir}]`)
   }
 
   // prompt and save sample.scripts
