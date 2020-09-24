@@ -1,6 +1,6 @@
 {
   "name": "pagewalker",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "main": "index.js",
   "bin": [
     "bin/pagewalker",
@@ -36,6 +36,7 @@
     "pixelmatch": "xketanaka/pixelmatch",
     "prompts": "^2.3.2",
     "read-package-json": "^2.1.1",
+    "mkdirp": "^1.0.4",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
