@@ -45,7 +45,7 @@
     "esdoc-standard-plugin": "*"
   },
   "optionalDependencies": {
-    "electron": "^9.1.0",
+    "electron": "^9.3.1",
     "puppeteer": "^5.2.0"
   }
 }
