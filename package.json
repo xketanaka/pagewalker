@@ -31,7 +31,7 @@
   "dependencies": {
     "bluebird": "^3.7.0",
     "init-package-json": "^1.10.3",
-    "log4js": "^6.3.0",
+    "log4js": "^6.4.0",
     "mocha": "^8.4.0",
     "pixelmatch": "xketanaka/pixelmatch",
     "prompts": "^2.3.2",
