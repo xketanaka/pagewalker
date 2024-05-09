@@ -31,8 +31,8 @@
   "dependencies": {
     "bluebird": "^3.7.0",
     "init-package-json": "^1.10.3",
-    "log4js": "^6.3.0",
-    "mocha": "^8.1.3",
+    "log4js": "^6.4.0",
+    "mocha": "^10.3.0",
     "pixelmatch": "xketanaka/pixelmatch",
     "prompts": "^2.3.2",
     "read-package-json": "^2.1.1",
@@ -45,7 +45,7 @@
     "esdoc-standard-plugin": "*"
   },
   "optionalDependencies": {
-    "electron": "^9.1.0",
+    "electron": "^22.3.25",
     "puppeteer": "^5.2.0"
   }
 }
