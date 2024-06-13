@@ -7,13 +7,13 @@ describe('First example', ()=>{
 
     await page.load('https://www.google.com')
 
-    await page.find('input[name=q]').setValue('pagewalker');
+    await page.find('textarea[name=q]').setValue('pagewalker');
 
     await page.find('input[type=submit]').haveValue('Google 検索').click();
 
     await page.waitForPageLoad();
 
-    await page.find('a h3').haveText('xketanaka/pagewalker - GitHub').click();
+    await page.find('a h3').haveText('xketanaka/pagewalker').click();
 
     await page.waitForPageLoad();
 
