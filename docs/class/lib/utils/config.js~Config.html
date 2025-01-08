@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -152,7 +151,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/utils/config.js~Config.html#static-get-DEFAULT_CONFIG">DEFAULT_CONFIG</a></span></span><span class="code" data-ice="signature">: {&quot;browser&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;scenarioDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;scenarioFile&quot;: <span>*</span>, &quot;ignoreDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;successSaveFile&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;silentMode&quot;: <span>*</span>, &quot;startFromFirst&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, &quot;exitImmediately&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>, &quot;fileDownloadDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;screenshotsDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;width&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;height&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;mocha&quot;: <span>*</span>, &quot;assertion&quot;: <span>*</span>, &quot;logger&quot;: <span>*</span>, &quot;electron&quot;: <span>*</span>, &quot;puppeteer&quot;: <span>*</span>}</span>
+          <span class="code" data-ice="name"><span><a href="class/lib/utils/config.js~Config.html#static-get-DEFAULT_CONFIG">DEFAULT_CONFIG</a></span></span><span class="code" data-ice="signature">: {&quot;browser&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;scenarioDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;scenarioFile&quot;: <span>*</span>, &quot;ignoreDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;silentMode&quot;: <span>*</span>, &quot;exitImmediately&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>, &quot;fileDownloadDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;screenshotsDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;width&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;height&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;mocha&quot;: <span>*</span>, &quot;assertion&quot;: <span>*</span>, &quot;logger&quot;: <span>*</span>, &quot;electron&quot;: <span>*</span>, &quot;puppeteer&quot;: <span>*</span>}</span>
         </p>
       </div>
       <div>
@@ -527,7 +526,7 @@
     
     
     
-    <span class="code" data-ice="name">DEFAULT_CONFIG</span><span class="code" data-ice="signature">: {&quot;browser&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;scenarioDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;scenarioFile&quot;: <span>*</span>, &quot;ignoreDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;successSaveFile&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;silentMode&quot;: <span>*</span>, &quot;startFromFirst&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>, &quot;exitImmediately&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>, &quot;fileDownloadDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;screenshotsDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;width&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;height&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;mocha&quot;: <span>*</span>, &quot;assertion&quot;: <span>*</span>, &quot;logger&quot;: <span>*</span>, &quot;electron&quot;: <span>*</span>, &quot;puppeteer&quot;: <span>*</span>}</span>
+    <span class="code" data-ice="name">DEFAULT_CONFIG</span><span class="code" data-ice="signature">: {&quot;browser&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;scenarioDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;scenarioFile&quot;: <span>*</span>, &quot;ignoreDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;silentMode&quot;: <span>*</span>, &quot;exitImmediately&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>, &quot;fileDownloadDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;screenshotsDir&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;width&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;height&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, &quot;mocha&quot;: <span>*</span>, &quot;assertion&quot;: <span>*</span>, &quot;logger&quot;: <span>*</span>, &quot;electron&quot;: <span>*</span>, &quot;puppeteer&quot;: <span>*</span>}</span>
     <span class="right-info">
       
       
@@ -574,7 +573,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber111">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber110">source</a></span></span>
     </span>
   </h3>
 
@@ -617,7 +616,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber62">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -663,7 +662,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber148">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber152">source</a></span></span>
     </span>
   </h3>
 
@@ -734,7 +733,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
@@ -805,7 +804,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber142">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber146">source</a></span></span>
     </span>
   </h3>
 
@@ -882,7 +881,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber130">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber129">source</a></span></span>
     </span>
   </h3>
 
@@ -952,7 +951,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber122">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber121">source</a></span></span>
     </span>
   </h3>
 
@@ -1007,7 +1006,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber139">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber138">source</a></span></span>
     </span>
   </h3>
 
@@ -1078,7 +1077,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber127">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber126">source</a></span></span>
     </span>
   </h3>
 
@@ -1139,7 +1138,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber117">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/utils/config.js.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 

@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -70,8 +69,8 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const Mocha = require(&apos;mocha&apos;);
 const fs = require(&apos;fs&apos;);
 const path = require(&apos;path&apos;);
-const ResultStore = require(&quot;./result_store&quot;);
-const FsExt = require(&quot;../utils/fs_ext&quot;);
+const ResultStore = {} // require(&quot;./result_store&quot;);
+const mkdirp = require(&quot;mkdirp&quot;);
 
 class Walker {
   constructor(config){
@@ -79,8 +78,8 @@ class Walker {
     this.mocha = new Mocha(Object.assign({}, config.mocha, { timeout: config.mocha.timeout * 2 }));
 
     if(this.config.screenshotsDir){
-      FsExt.mkdirpSync(path.join(this.config.screenshotsDir, &apos;actual&apos;));
-      FsExt.mkdirpSync(path.join(this.config.screenshotsDir, &apos;expected&apos;));
+      mkdirp.sync(path.join(this.config.screenshotsDir, &apos;actual&apos;));
+      mkdirp.sync(path.join(this.config.screenshotsDir, &apos;expected&apos;));
     }
 
     if(this.config.scenarioFile){
@@ -100,6 +99,34 @@ class Walker {
     }
     this.loadFiles();
   }
+  walk(callback){
+    this.mocha.run(callback);
+  }
+  static isDir(path){
+    let stat = fs.statSync(path);
+    return stat &amp;&amp; stat.isDirectory();
+  }
+  static findAllFilesSync(dir, ignorePattern){
+    let results = [];
+    fs.readdirSync(dir)
+    .filter(file =&gt; !ignorePattern.includes(file))
+    .map(file =&gt; path.join(dir, file))
+    .forEach((file)=&gt;{
+      if (this.isDir(file)){
+        results = results.concat(Walker.findAllFilesSync(file, ignorePattern))
+      }else{
+        results.push(file)
+      }
+    })
+    return results
+  }
+  static toArray(value){
+    return (value instanceof Array) ? value : [ value ];
+  }
+
+  /**
+   * @private
+   */
   loadFiles(){
     let originalFunctions = {};
     let delayedFunctions = [];
@@ -107,6 +134,7 @@ class Walker {
       originalFunctions.describe = context.describe;
       originalFunctions.xdescribe = context.xdescribe;
       originalFunctions.describeOnly = context.describe.only;
+      // override
       context.describe = function(title, fn, ...args){
         delayedFunctions.push([&quot;describe&quot;, this, title, fn, args]);
       }
@@ -121,26 +149,33 @@ class Walker {
       context.xcontext = context.describe.skip = context.xdescribe;
     })
     this.mocha.suite.on(&apos;post-require&apos;, (context)=&gt;{
+      /* Do not support! **
       // restore desctibe, xdescribe, describe.only with object property function support
       // object property function support is describe(&quot;title&quot;, { &quot;title&quot;: function(){...} }, ...args)
       [&quot;describe&quot;, &quot;xdescribe&quot;, &quot;describeOnly&quot;].forEach((key)=&gt;{
         originalFunctions[key] = Walker.objectPropertySupport(originalFunctions[key]);
       })
+      */
+      // Revert override.
       context.context = context.suite = context.describe = originalFunctions.describe;
       context.xcontext = context.xdescribe = originalFunctions.xdescribe;
       context.describe.only = originalFunctions.describeOnly;
+      /* Do not support! **
       // hook function allows object property support.
       [&quot;before&quot;, &quot;after&quot;, &quot;beforeEach&quot;, &quot;afterEach&quot;].filter(key =&gt; context[key]).forEach((key)=&gt;{
         context[key] = Walker.objectPropertySupport(context[key]);
       })
+      */
     })
     this.mocha.loadFiles();
+    // Delayed evaluation.
     delayedFunctions.forEach((array)=&gt;{
       let func = originalFunctions[array[0]];
       func.call(array[1], array[2], array[3], ...array[4]); // this, title, fn, args
     })
   }
   /**
+   * @deprecated
    * @private
    */
   static objectPropertySupport(originalFunc){
@@ -161,7 +196,10 @@ class Walker {
     }
     return newFunc;
   }
-  walk(callback){
+  /**
+   * @deprecated
+   */
+  _walk_(callback){
     Promise.resolve().then(()=&gt;{
       return this.config.startFromFirst ? [] : ResultStore.loadPreviousResults();
     })
@@ -184,28 +222,6 @@ class Walker {
         ResultStore.saveSucceeded(this.mocha.suite, failtest);
       })
     })
-  }
-
-  static isDir(path){
-    let stat = fs.statSync(path);
-    return stat &amp;&amp; stat.isDirectory();
-  }
-  static findAllFilesSync(dir, ignorePattern){
-    let results = [];
-    fs.readdirSync(dir)
-    .filter(file =&gt; !ignorePattern.includes(file))
-    .map(file =&gt; path.join(dir, file))
-    .forEach((file)=&gt;{
-      if (this.isDir(file)){
-        results = results.concat(Walker.findAllFilesSync(file, ignorePattern))
-      }else{
-        results.push(file)
-      }
-    })
-    return results
-  }
-  static toArray(value){
-    return (value instanceof Array) ? value : [ value ];
   }
 }
 

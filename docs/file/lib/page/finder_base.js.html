@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -71,13 +70,19 @@
 
 class FinderBase {
   static convertArgumentsToConditions(...args){
+    return this.convertArgumentsToConditionsImpl(Filter, ...args);
+  }
+  static convertArgumentsToConditionsAsMapper(...args){
+    return this.convertArgumentsToConditionsImpl(Mapper, ...args);
+  }
+  static convertArgumentsToConditionsImpl(conditionKlass, ...args){
     return args.map((arg)=&gt;{
       if(typeof arg == &apos;function&apos;){
-        return new Filter(arg.toString());
+        return new conditionKlass(arg.toString());
       }
       if(typeof arg == &apos;string&apos;){
         if(arg.match(/\)\s*=&gt;\s*\{/) || arg.trim().match(/^function/)){
-          return new Filter(arg);
+          return new conditionKlass(arg);
         }else{
           return new Selector(arg);
         }
@@ -116,6 +121,13 @@ class FinderBase {
     this._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditions(...args));
     return this;
   }
+  /**
+   * @return {FinderBase} self with added mapping function
+   */
+  map(...args){
+    this._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditionsAsMapper(...args));
+    return this;
+  }
   withAction(action){
     this._action = typeof action == &quot;function&quot; ?  action.toString() : action;
     return this;
@@ -134,21 +146,30 @@ class FinderBase {
       conditions = [new Selector(&quot;*&quot;)];
     }
 
+    const strEscape = (str =&gt; str.split(&apos;\\&quot;&apos;).map(s =&gt; s.replace(/&quot;/g, &apos;\\&quot;&apos;)).join(&apos;\\&quot;&apos;));
+
     let jsCode = `
       let _document = ${this.context ? this.context : &apos;window&apos;}.document;
-      var elements = Array.from(_document.querySelectorAll(&quot;${conditions[0].selector}&quot;));
+      var elements = Array.from(_document.querySelectorAll(&quot;${strEscape(conditions[0].selector)}&quot;));
     `;
     jsCode += conditions.slice(1).map((condition)=&gt;{
-      return condition instanceof Selector ?
-        `{
+      if(condition instanceof Selector)
+        return `{
           elements = elements.reduce((arr, e, idx)=&gt;{
-            return arr.concat(Array.from(e.querySelectorAll(&quot;${condition.selector}&quot;)));
+            return arr.concat(Array.from(e.querySelectorAll(&quot;${strEscape(condition.selector)}&quot;)));
           }, []);
-        }` :
-        `{
+        }`;
+      if(condition instanceof Mapper)
+        return `{
+          let func = ${condition.code};
+          elements = elements.map((e, idx)=&gt;{ return func(e, idx) });
+        }`;
+      else
+        return `{
           let func = ${condition.code};
           elements = elements.filter((e, idx)=&gt;{ return func(e, idx) });
         }`;
+
     }).join(&quot;\n&quot;);
 
     if(!this.allowNotFound){
@@ -185,6 +206,11 @@ class FinderBase {
 }
 
 class Filter {
+  constructor(code){
+    this.code = code;
+  }
+}
+class Mapper {
   constructor(code){
     this.code = code;
   }

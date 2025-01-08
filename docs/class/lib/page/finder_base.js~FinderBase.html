@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -125,6 +124,62 @@
           
           
           <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#static-method-convertArgumentsToConditions">convertArgumentsToConditions</a></span></span><span class="code" data-ice="signature">(args: ...<span>*</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#static-method-convertArgumentsToConditionsAsMapper">convertArgumentsToConditionsAsMapper</a></span></span><span class="code" data-ice="signature">(args: ...<span>*</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#static-method-convertArgumentsToConditionsImpl">convertArgumentsToConditionsImpl</a></span></span><span class="code" data-ice="signature">(conditionKlass: <span>*</span>, args: ...<span>*</span>): <span>*</span></span>
         </p>
       </div>
       <div>
@@ -599,6 +654,34 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-method-map">map</a></span></span><span class="code" data-ice="signature">(args: ...<span>*</span>): <span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-method-toJsCode">toJsCode</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
@@ -750,6 +833,154 @@
   
   
 </div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-convertArgumentsToConditionsAsMapper">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">convertArgumentsToConditionsAsMapper</span><span class="code" data-ice="signature">(args: ...<span>*</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber7">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">args</td>
+      <td data-ice="type" class="code">...<span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-convertArgumentsToConditionsImpl">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">convertArgumentsToConditionsImpl</span><span class="code" data-ice="signature">(conditionKlass: <span>*</span>, args: ...<span>*</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber10">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">conditionKlass</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">args</td>
+      <td data-ice="type" class="code">...<span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
 </div>
 <div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
 
@@ -765,7 +996,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber19">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber25">source</a></span></span>
     </span>
   </h3>
 
@@ -811,7 +1042,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber34">source</a></span></span>
     </span>
   </h3>
 
@@ -854,7 +1085,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber30">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
@@ -897,7 +1128,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber27">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
@@ -940,7 +1171,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber29">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber35">source</a></span></span>
     </span>
   </h3>
 
@@ -983,7 +1214,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber26">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber32">source</a></span></span>
     </span>
   </h3>
 
@@ -1028,7 +1259,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber24">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber30">source</a></span></span>
     </span>
   </h3>
 
@@ -1071,7 +1302,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber22">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
@@ -1114,7 +1345,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber21">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber27">source</a></span></span>
     </span>
   </h3>
 
@@ -1157,7 +1388,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber23">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber29">source</a></span></span>
     </span>
   </h3>
 
@@ -1200,7 +1431,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber20">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
@@ -1246,7 +1477,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber31">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber37">source</a></span></span>
     </span>
   </h3>
 
@@ -1305,7 +1536,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber35">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber41">source</a></span></span>
     </span>
   </h3>
 
@@ -1361,7 +1592,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber106">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber128">source</a></span></span>
     </span>
   </h3>
 
@@ -1417,7 +1648,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber46">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber52">source</a></span></span>
     </span>
   </h3>
 
@@ -1478,6 +1709,78 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-map">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">map</span><span class="code" data-ice="signature">(args: ...<span>*</span>): <span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber59">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">args</td>
+      <td data-ice="type" class="code">...<span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>self with added mapping function</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-toJsCode">
     <span class="access" data-ice="access">public</span>
     
@@ -1489,7 +1792,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber62">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber75">source</a></span></span>
     </span>
   </h3>
 
@@ -1545,7 +1848,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber63">source</a></span></span>
     </span>
   </h3>
 
@@ -1616,7 +1919,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber54">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 

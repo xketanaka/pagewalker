@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -81,12 +80,10 @@ class Config {
   static get DEFAULT_CONFIG(){
     return {
       browser: &quot;electron&quot;,
-      scenarioDir: &quot;scenario&quot;,
+      scenarioDir: &quot;test&quot;,
       scenarioFile: undefined,
       ignoreDir: &quot;supports&quot;,
-      successSaveFile: &quot;success-scenario.log&quot;,
       silentMode: false,
-      startFromFirst: true,
       exitImmediately: false,  // whether or not keep shows for browser window on failed
       takeScreenshotAuto: false,
       fileDownloadDir: &quot;downloads&quot;,
@@ -123,6 +120,7 @@ class Config {
         }
       },
       puppeteer: {
+        product: &apos;chrome&apos;,
         headless: false
       },
     }
@@ -136,16 +134,16 @@ class Config {
     let optParser = new OptParser(commandLineArgs);
     this.instance.merge(optParser.parse((config, cmdOpt)=&gt;{
       switch(cmdOpt.option()){
-        case &quot;-c&quot;:
-        case &quot;--continue&quot;:        config.startFromFirst = false; break;
         case &quot;-s&quot;:
         case &quot;--silent&quot;:          config.silentMode     = true; break;
         default:
           let optionKey = cmdOpt.option(true).replace(/--/, &apos;&apos;);
-          if(this.instance.isExists(cmdOpt.option(true))){
-            Config.assign(config, cmdOpt.option(true), cmdOpt.getValueOrFail())
+          if(this.instance.isExists(optionKey)){
+            Config.assign(config, optionKey, cmdOpt.getValueOrFail())
           }else{
-            throw new Error(&quot;Unexpected CommandLine Argument, [&quot; + cmdOpt.option() + &quot;]&quot;);
+            const msg = &quot;Unexpected CommandLine Argument, [&quot; + cmdOpt.option() + &quot;]&quot;
+            console.log(msg);
+            throw new Error(msg);
           }
       }
     }));
@@ -206,7 +204,12 @@ class Config {
     });
   }
   isExists(key){
-    return !!key.split(&quot;.&quot;).reduce((result, k)=&gt;{ return result &amp;&amp; result[k] }, this)
+    let parentObj = this;
+    return !!key.split(&quot;.&quot;).every((k)=&gt;{
+      let isExists = parentObj &amp;&amp; (k in parentObj);
+      parentObj = isExists &amp;&amp; parentObj[k];
+      return isExists;
+    })
   }
   static isExists(object, key){
     if(typeof object != &quot;object&quot;) return false;

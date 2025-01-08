@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -67,13 +66,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Finder from &apos;<span><a href="file/lib/page/finder.js.html#lineNumber11">pagewalker/lib/page/finder.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Finder from &apos;<span><a href="file/lib/page/finder.js.html#lineNumber12">pagewalker/lib/page/finder.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/page/finder.js.html#lineNumber11">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/page/finder.js.html#lineNumber12">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -376,7 +375,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber12">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber13">source</a></span></span>
     </span>
   </h3>
 
@@ -423,7 +422,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber30">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber31">source</a></span></span>
     </span>
   </h3>
 
@@ -504,7 +503,7 @@ This method implemented at FinderExtentions by Browser. so please read api-docum
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber58">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
@@ -583,7 +582,7 @@ This method implemented at FinderExtentions by Browser. so please read api-docum
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber37">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber38">source</a></span></span>
     </span>
   </h3>
 
@@ -655,7 +654,7 @@ This method implemented at FinderExtentions by Browser. so please read api-docum
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber71">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber72">source</a></span></span>
     </span>
   </h3>
 
@@ -735,7 +734,7 @@ This method implemented at FinderExtentions by Browser. so please read api-docum
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber20">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber21">source</a></span></span>
     </span>
   </h3>
 
@@ -808,7 +807,7 @@ This method is assumed to be called on a select element</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber43">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 
@@ -866,7 +865,7 @@ This method is assumed to be called on a select element</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber77">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder.js.html#lineNumber78">source</a></span></span>
     </span>
   </h3>
 

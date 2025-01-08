@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -183,85 +182,81 @@ class PuppeteerPage extends BrowserPage {
    * @private
    */
   _setDownloadPath(downloadPath){
-    return this.nativeObject._client.send(
-      &apos;Page.setDownloadBehavior&apos;, {&#x3000;behavior: &apos;allow&apos;, downloadPath: downloadPath }
-    );
+    if(config.puppeteer.product == &quot;chrome&quot;){
+      return this.nativeObject._client.send(
+        &apos;Page.setDownloadBehavior&apos;, {&#x3000;behavior: &apos;allow&apos;, downloadPath: downloadPath }
+      );
+    }else{
+      return Promise.resolve();
+    }
   }
   /**
    * @return {Promise&lt;object&gt;}
    */
-  waitForDownload(action, options){
-    const isDownloadComplete = (path)=&gt;{
-      return new Promise((resolve, reject)=&gt;{
-        fs.readdir(path, (err, files)=&gt;{ err ? reject(err) : resolve(files) })
-      })
-      .then((files)=&gt;{
-        if (files.length === 0) return false;
-        // now downloading file have name to match for /.crdownload/
-        const nowDownloading = Array.from(files).some(file =&gt; /.*\.crdownload$/.test(file))
-        return !nowDownloading
-      });
-    };
+   waitForDownload(action, options){
 
-    const waitResponse = ()=&gt;{
-      return new Promise((resolve, reject)=&gt;{
-        let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
-        this.nativeObject.removeAllListeners(&apos;response&apos;);
-        this.nativeObject.on(&apos;response&apos;, (response)=&gt;{
-          let contentDisposition = response.headers[&quot;content-disposition&quot;];
-          if(contentDisposition){
-            clearTimeout(timeoutId);
-            let matched = contentDisposition.match(/filename=\&quot;(.*)\&quot;$/);
-            resolve(matched ? matched[1] : &quot;&quot;);
-          }
-        })
-        action();
-      })
-    };
-    const waitTimeSpanMs = 100;
     const downloadPath = options.downloadPath || path.join(DOWNLOAD_PATH, DateFormat.toTimepstampMsecString(new Date()))
-    if(!options.downloadPath){
-      fs.mkdirSync(downloadPath)
+    const timerIds = {}
+    const callbacks = {};
+
+    const clearPageCallback = ()=&gt;{
+      if(callbacks[&apos;response&apos;]) this.nativeObject.removeListener(&apos;response&apos;, callbacks[&apos;response&apos;]);
+      if(callbacks[&apos;requestfinished&apos;]) this.nativeObject.removeListener(&apos;requestfinished&apos;, callbacks[&apos;requestfinished&apos;]);
+      clearTimeout(timerIds[&apos;timeout&apos;]);
+      clearInterval(timerIds[&apos;interval&apos;]);
+      return true;
     }
-    return this._setDownloadPath(downloadPath)
-// patch start: ( TODO )
-// page.on(&apos;response&apos;) do not happen in puppeteer v0.13, so check saved file.
-//    .then(waitResponse)
-//    .then((filename)=&gt;{
-    .then(()=&gt;{
-      action();
-// patch end
-      return new Promise((resolve, reject)=&gt;{
-        let totalWaitTimeMs = 0;
-        const waitAndCheck = ()=&gt;{
-          if(totalWaitTimeMs &gt; TIMEOUT_MSEC) return reject(new Error(&apos;timeout&apos;));
 
-          setTimeout(()=&gt;{
-            totalWaitTimeMs += waitTimeSpanMs;
-            isDownloadComplete(downloadPath).catch(reject).then((completed)=&gt;{
-              if(!completed) return waitAndCheck();
+    return new Promise((resolve, reject)=&gt;{
+      timerIds[&apos;timeout&apos;] = setTimeout(()=&gt;{ clearPageCallback() &amp;&amp; reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
 
-// patch start
-              return new Promise((resolve, reject)=&gt;{
-                const findDownloadedFile = ()=&gt;{
-                  fs.readdir(downloadPath, (err, files)=&gt;{
-                    if(err) reject(err);
-                    if(!files[0]) return setTimeout(findDownloadedFile, waitTimeSpanMs);
-                    resolve(files[0]);
-                  })
-                };
-                findDownloadedFile();
-              })
-              .then((filename)=&gt;{
-// patch end
-                resolve({ filename: filename, savedFilePath: path.resolve(path.join(downloadPath, filename)) });
-              });
-            })
-          }, waitTimeSpanMs);
-        };
-        waitAndCheck();
-      });
-    });
+      callbacks[&apos;response&apos;] = (response)=&gt;{
+        let contentDisposition = response.headers()[&quot;content-disposition&quot;];
+        if(!contentDisposition) return;
+
+        const matched1 = contentDisposition.match(/filename\*=(?:utf|UTF)-?8&apos;&apos;(.*)$/);
+        const matched2 = contentDisposition.match(/filename=\&quot;(.*)\&quot;$/);
+        if(!matched1 &amp;&amp; !matched2) {
+          Logger.warn(`Content-Disposition header don&apos;t include filename attribute. [${contentDisposition}]`);
+        }
+        const filename = matched1 ? matched1[1] : (matched2 ? matched2[1] : &quot;no name&quot;);
+        const fileInfo = { filename: filename, savedFilePath: path.resolve(path.join(downloadPath, filename)) };
+
+        // wait for having downloaded in downloadPath
+        if(contentDisposition.match(/^attachment;/)){
+
+          timerIds[&apos;interval&apos;] = setInterval(()=&gt;{
+            fs.readdir(downloadPath, (err, files)=&gt;{
+              if(err){
+                if(err.code === &apos;ENOENT&apos;) return; // have not created directory yet.
+                return clearPageCallback() &amp;&amp; reject(new Error(err));
+              }
+              if (files.length === 0) return; // no downloaded file
+              // In downloading, the file are given name to match for /.crdownload/
+              if(Array.from(files).some(file =&gt; /.*\.crdownload$/.test(file))) return;
+
+              // files exits, and not downloading now -&gt; completed
+              clearPageCallback() &amp;&amp; resolve(fileInfo);
+            });
+          }, 100); // 100msec
+        }
+        if(contentDisposition.match(/^inline;/)){
+
+          callbacks[&apos;requestfinished&apos;] = (request)=&gt;{
+            const response = request.response();
+            if(!response) return;
+            if(!request.response().headers()[&quot;content-disposition&quot;]) return;
+
+            delete fileInfo.savedFilePath;
+            clearPageCallback() &amp;&amp; resolve(fileInfo);
+          }
+          this.nativeObject.on(&apos;requestfinished&apos;, callbacks[&apos;requestfinished&apos;]);
+        }
+      };
+
+      this.nativeObject.on(&apos;response&apos;, callbacks[&apos;response&apos;]);
+      this._setDownloadPath(downloadPath).then(()=&gt;{ action &amp;&amp; action() })
+    })
   }
 
   /**

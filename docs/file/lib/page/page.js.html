@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -68,13 +67,17 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/page/page.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
+const {URL} = require(&apos;url&apos;);
+const fs = require(&apos;fs&apos;);
 const Finder = require(&apos;./finder&apos;);
 const Assert = require(&apos;./assert&apos;);
-const PageMethods = require(&apos;./page_methods&apos;);
+const PageMixin = require(&apos;./page_mixin&apos;);
 const pageWalker = require(&apos;../page_walker&apos;);
 const {config} = pageWalker;
 const Browser = require(&apos;../browser/interface/browser&apos;);
 const BrowserPage = require(&apos;../browser/interface/browser_page&apos;);
+const mixin = require(&apos;../utils/mixin&apos;);
+const DateFormat = require(&apos;../utils/date_format&apos;);
 
 const TIMEOUT_MSEC = pageWalker.config.mocha.timeout;
 
@@ -101,6 +104,7 @@ class Page {
   get webContents(){ return this._browserPage.nativeObject }
   /**
    * @return {Assert} Assert Object
+   * @deprecated
    */
   get assert(){ return this._assert = this._assert || new Assert(this, config) }
   /**
@@ -140,7 +144,7 @@ class Page {
    */
   waitForPageLoad(action){
     if(this._context){
-      return this.waitForBrowserSocket(&apos;iframe-page-load&apos;, ()=&gt;{
+      return this.waitForBrowserSocket({ channel: &apos;iframe-page-load&apos; }, ()=&gt;{
         return this.executeJs(`{
           ${this._context}.addEventListener(&apos;DOMContentLoaded&apos;, ()=&gt;{
             window.browserSocket.send(&apos;iframe-page-load&apos;, &apos;loaded&apos;);
@@ -177,8 +181,8 @@ class Page {
    */
   waitForDownload(action, options = {}){
     return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
-      this.browserPage.waitForDownload(()=&gt;{}, options).then(resolve).catch(reject);
-    }, action)
+      this.browserPage.waitForDownload(action, options).then(resolve).catch(reject);
+    })
   }
   /**
    * Wait new-window opend and resolve the promise with Window object.
@@ -211,21 +215,79 @@ class Page {
     }, action)
   }
   /**
-   * @param {string} channel - string of representing the channel of Browser Socket Message. default is &apos;asynchronous-message-channel&apos;.
+   * Wait for appearance of element specified by css-selector.
+   * @param {string} cssSelector - CSS Selector string for finding element.
+   * @param {function} action -  - A function representing the operation
+   * @return {Promise}
+   */
+  waitForSelector(cssSelector, action){
+    return this.waitForFinder(this.find(cssSelector), action);
+  }
+  /**
+   * Wait for appearance of element specified by Finder object.
+   * @param {Finder} finder - Finder object for finding element.
+   * @param {function} action -  - A function representing the operation
+   * @return {Promise}
+   */
+  waitForFinder(finder, action){
+    const channel = &apos;ch-finder-asynchronous&apos;;
+    finder.allowNotFound(true);
+
+    return this.waitForBrowserSocket({ channel: channel, timeout: TIMEOUT_MSEC + 1000 }, ()=&gt;{
+      return this.executeJs(`(()=&gt;{
+        function elementCountByFinder(){
+          ${finder.toJsCode()}
+        };
+        function sendIfExists(){
+          try{
+            if(elementCountByFinder() &gt; 0){
+              browserSocket.send(&apos;${channel}&apos;, &apos;found&apos;);
+              return true;
+            }
+          }catch(e){
+            browserSocket.send(&apos;${channel}&apos;, &apos;unknown error&apos;);
+            return true;
+          }
+        }
+
+        if(sendIfExists()) return;
+
+        let timerId = setTimeout(()=&gt;{
+          browserSocket.send(&apos;${channel}&apos;, &apos;timeout&apos;);
+          observer.disconnect();
+        }, ${TIMEOUT_MSEC});
+
+        const observer = new MutationObserver((mutations)=&gt;{
+          if(sendIfExists()) {
+            clearTimeout(timerId);
+            return observer.disconnect();
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+
+      })()`)
+      .then(()=&gt;{ action &amp;&amp; action() })
+    })
+    .then((socketResult)=&gt;{
+      if(socketResult == &apos;found&apos;) return;
+      throw new Error(socketResult == &apos;timeout&apos; ? &apos;timeout&apos; : &apos;unknown error&apos;);
+    });
+  }
+  /**
+   * @param {object} socketOption - specify channel property, and timeout property.
    * @param {function} action - A function representing the operation of sending Browser Socket Message
    * @return {Promise}
    */
-  waitForBrowserSocket(channel, action){
-    if(!action &amp;&amp; typeof channel === &apos;function&apos;){
+  waitForBrowserSocket(socketOption, action){
+    if(!action &amp;&amp; typeof socketOption === &apos;function&apos;){
       action = channel;
-      channel = &apos;asynchronous-message-channel&apos;
+      socketOption = { channel: &apos;asynchronous-message-channel&apos; };
     }
     return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
-      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout in waitForBrowserSocket&apos;) }, TIMEOUT_MSEC);
-      this.browserPage.socket.removeAllListeners(channel);
-      this.browserPage.socket.once(channel, (arg)=&gt;{
+      let timeoutId = setTimeout(()=&gt;{ reject(&apos;timeout in waitForBrowserSocket&apos;) }, socketOption.timeout || TIMEOUT_MSEC);
+      this.browserPage.socket.removeAllListeners(socketOption.channel);
+      this.browserPage.socket.once(socketOption.channel, (arg)=&gt;{
         clearTimeout(timeoutId);
-
         resolve(arg);
       });
     }, action)
@@ -235,8 +297,8 @@ class Page {
    * @return {Promise}
    */
   waitForAjaxDone(action){
-    return this.waitForBrowserSocket(&quot;notify-ajax-done&quot;, ()=&gt;{
-      return this.executeJs(`{
+    return this.waitForBrowserSocket({ channel: &quot;notify-ajax-done&quot; }, ()=&gt;{
+      return this.executeJs(`(()=&gt;{
         let _XMLHttpRequest = ${this.context ? this.context : &apos;window&apos;}.XMLHttpRequest;
         let _browserSocket = ${this.context ? &apos;parent&apos; : &apos;window&apos;}.browserSocket;
         let __original_open = _XMLHttpRequest.prototype.open;
@@ -251,7 +313,7 @@ class Page {
           });
           __original_open.apply(this, arguments);
         };
-      }`)
+      })();`)
       .then(()=&gt;{ return action &amp;&amp; action() })
     })
     .then((result)=&gt;{
@@ -337,17 +399,7 @@ class Page {
         reject(e);
       }
     });
-    return Promise.all([promise1, action &amp;&amp; promise2]).then((values)=&gt;{ values[1] });
-  }
-  /**
-   * @private
-   */
-  invokeAction(action, reject){
-    let actionResult = action &amp;&amp; action()
-    if(actionResult instanceof Promise){
-      actionResult.catch(reject)
-    }
-    return actionResult;
+    return Promise.all([promise1, action &amp;&amp; promise2]).then(values =&gt; values[0]);
   }
   /**
    * @param {string} code - JavaScript Code for executing this page.
@@ -402,10 +454,58 @@ class Page {
     }
     return this.browserPage.takeScreenshot(fileName);
   }
+  /**
+   * @return {Assert} Assert Object
+   */
+  assertScreen(identifier, options){
+    this._assert = this._assert || new Assert(this, config)
+    return this._assert.equal(identifier, options)
+  }
+
+  /**
+   * Download file that url given.
+   * This method operates outside of browser.
+   */
+  wget(url){
+    url = new URL(url);
+    const http = require(url.protocol.replace(/\:/, &apos;&apos;));
+
+    return new Promise((resolve, reject)=&gt;{
+      http.get(url.toString(),  (res) =&gt; {
+        if (res.statusCode != 200) {
+          return reject(new Error(`ERROR: download response with status code: ${res.statusCode}`))
+        }
+
+        let contentDisposition = res.headers[&quot;content-disposition&quot;];
+        let filename = &quot;unknown_file&quot;;
+        if (contentDisposition) {
+          const matched1 = contentDisposition.match(/filename\*=utf8&apos;&apos;(.*)$/);
+          const matched2 = contentDisposition.match(/filename=\&quot;(.*)\&quot;$/);
+          if (matched1 || matched2) {
+            filename = matched1 ? matched1[1] : matched2[1];
+          }
+        }
+        const saveFilename = `${DateFormat.toTimepstampMsecString(new Date())}_${filename}`;
+        const result = {
+          filename: filename,
+          savedFilePath: path.resolve(path.join(config.fileDownloadDir, saveFilename))
+        };
+
+        let fWriteStream = fs.createWriteStream(result.savedFilePath)
+        res.pipe(fWriteStream)
+
+        fWriteStream.on(&apos;close&apos;, ()=&gt;{
+          resolve(result);
+        });
+      })
+      .on(&apos;error&apos;, (err) =&gt; {
+        reject(new Error(`Failure on downloading url [${url.toString()}], reason: ${err}`))
+      });
+    })
+  }
 }
 
-// Mixin
-Object.assign(Page.prototype, PageMethods);
+mixin(Page.prototype, PageMixin);
 
 module.exports = Page;
 </code></pre>

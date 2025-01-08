@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -225,13 +224,42 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span><span class="code" data-ice="signature">: {&quot;waitLoading&quot;: <span>*</span>, &quot;waitFor&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>, &quot;findClickable&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>}</span>
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span><span class="code" data-ice="signature">: {&quot;waitLoading&quot;: <span>*</span>, &quot;waitFor&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>, &quot;findClickable&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>}</span>
         </p>
       </div>
       <div>
         
         
         <div data-ice="description"><p>This is a Mixin object to extend for Page class.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span><span class="code" data-ice="signature">: {&quot;choose&quot;: <span>*</span>, &quot;content&quot;: <span>*</span>, &quot;setContent&quot;: <span>*</span>, &quot;clickAndWaitLoading&quot;: <span>*</span>, &quot;clickAndWaitAjaxDone&quot;: <span>*</span>}</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>This is a Mixin object to extend for Finder class.</p>
 </div>
       </div>
     </td>
@@ -489,26 +517,71 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-variable-PageMethods">
+  <h3 data-ice="anchor" id="static-variable-PageMixin">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">PageMethods</span><span class="code" data-ice="signature">: {&quot;waitLoading&quot;: <span>*</span>, &quot;waitFor&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>, &quot;findClickable&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>}</span>
+    <span class="code" data-ice="name">PageMixin</span><span class="code" data-ice="signature">: {&quot;waitLoading&quot;: <span>*</span>, &quot;waitFor&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>, &quot;findClickable&quot;: <span>*</span>, &quot;takeScreenshotAuto&quot;: <span>*</span>}</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page_methods.js.html#lineNumber5">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page_mixin.js.html#lineNumber5">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import PageMethods from &apos;<span><a href="file/lib/page/page_methods.js.html#lineNumber5">pagewalker/lib/page/page_methods.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import PageMixin from &apos;<span><a href="file/lib/page/page_mixin.js.html#lineNumber5">pagewalker/lib/page/page_mixin.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>This is a Mixin object to extend for Page class.
 Define the Alias method for methods that is defined in Page class, or define any other convinience methods.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-finderMixin">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">finderMixin</span><span class="code" data-ice="signature">: {&quot;choose&quot;: <span>*</span>, &quot;content&quot;: <span>*</span>, &quot;setContent&quot;: <span>*</span>, &quot;clickAndWaitLoading&quot;: <span>*</span>, &quot;clickAndWaitAjaxDone&quot;: <span>*</span>}</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/finder_mixin.js.html#lineNumber5">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import finderMixin from &apos;<span><a href="file/lib/page/finder_mixin.js.html#lineNumber5">pagewalker/lib/page/finder_mixin.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>This is a Mixin object to extend for Finder class.
+Define the Alias method for methods that is defined in Finder class, or define any other convinience methods.</p>
 </div>
 
   
@@ -545,11 +618,11 @@ Define the Alias method for methods that is defined in Page class, or define any
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber88">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page_walker.js.html#lineNumber91">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import pageWalker from &apos;<span><a href="file/lib/page_walker.js.html#lineNumber88">pagewalker/lib/page_walker.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import pageWalker from &apos;<span><a href="file/lib/page_walker.js.html#lineNumber91">pagewalker/lib/page_walker.js</a></span>&apos;</code></pre></div>
   
   
   

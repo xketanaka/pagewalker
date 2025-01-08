@@ -48,12 +48,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "pagewalker/lib/utils/debug.js~debug",
-    "function/index.html#static-function-Debug",
-    "<span>Debug</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/debug.js</span>",
-    "function"
-  ],
-  [
     "pagewalker/lib/browser/electron/index.js~electronbrowser",
     "class/lib/browser/electron/index.js~ElectronBrowser.html",
     "<span>ElectronBrowser</span> <span class=\"search-result-import-path\">pagewalker/lib/browser/electron/index.js</span>",
@@ -114,18 +108,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "pagewalker/lib/page/finder_methods.js~findermethods",
-    "class/lib/page/finder_methods.js~FinderMethods.html",
-    "<span>FinderMethods</span> <span class=\"search-result-import-path\">pagewalker/lib/page/finder_methods.js</span>",
-    "class"
-  ],
-  [
-    "pagewalker/lib/utils/fs_ext.js~fsext",
-    "class/lib/utils/fs_ext.js~FsExt.html",
-    "<span>FsExt</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/fs_ext.js</span>",
-    "class"
-  ],
-  [
     "pagewalker/lib/utils/logger.js~logger",
     "class/lib/utils/logger.js~Logger.html",
     "<span>Logger</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/logger.js</span>",
@@ -144,9 +126,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "pagewalker/lib/page/page_methods.js~pagemethods",
-    "variable/index.html#static-variable-PageMethods",
-    "<span>PageMethods</span> <span class=\"search-result-import-path\">pagewalker/lib/page/page_methods.js</span>",
+    "pagewalker/lib/page/page_mixin.js~pagemixin",
+    "variable/index.html#static-variable-PageMixin",
+    "<span>PageMixin</span> <span class=\"search-result-import-path\">pagewalker/lib/page/page_mixin.js</span>",
     "variable"
   ],
   [
@@ -190,6 +172,18 @@ window.esdocSearchIndex = [
     "class/lib/page/window.js~Window.html",
     "<span>Window</span> <span class=\"search-result-import-path\">pagewalker/lib/page/window.js</span>",
     "class"
+  ],
+  [
+    "pagewalker/lib/page/finder_mixin.js~findermixin",
+    "variable/index.html#static-variable-finderMixin",
+    "<span>finderMixin</span> <span class=\"search-result-import-path\">pagewalker/lib/page/finder_mixin.js</span>",
+    "variable"
+  ],
+  [
+    "pagewalker/lib/utils/mixin.js~mixin",
+    "function/index.html#static-function-mixin",
+    "<span>mixin</span> <span class=\"search-result-import-path\">pagewalker/lib/utils/mixin.js</span>",
+    "function"
   ],
   [
     "pagewalker/lib/page_walker.js~pagewalker",
@@ -1344,6 +1338,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_base.js~finderbase#map",
+    "class/lib/page/finder_base.js~FinderBase.html#instance-method-map",
+    "lib/page/finder_base.js~FinderBase#map",
+    "method"
+  ],
+  [
     "lib/page/finder_base.js~finderbase#page",
     "class/lib/page/finder_base.js~FinderBase.html#instance-get-page",
     "lib/page/finder_base.js~FinderBase#page",
@@ -1371,6 +1371,18 @@ window.esdocSearchIndex = [
     "lib/page/finder_base.js~finderbase.convertargumentstoconditions",
     "class/lib/page/finder_base.js~FinderBase.html#static-method-convertArgumentsToConditions",
     "lib/page/finder_base.js~FinderBase.convertArgumentsToConditions",
+    "method"
+  ],
+  [
+    "lib/page/finder_base.js~finderbase.convertargumentstoconditionsasmapper",
+    "class/lib/page/finder_base.js~FinderBase.html#static-method-convertArgumentsToConditionsAsMapper",
+    "lib/page/finder_base.js~FinderBase.convertArgumentsToConditionsAsMapper",
+    "method"
+  ],
+  [
+    "lib/page/finder_base.js~finderbase.convertargumentstoconditionsimpl",
+    "class/lib/page/finder_base.js~FinderBase.html#static-method-convertArgumentsToConditionsImpl",
+    "lib/page/finder_base.js~FinderBase.convertArgumentsToConditionsImpl",
     "method"
   ],
   [
@@ -1482,6 +1494,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter#parent",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-parent",
+    "lib/page/finder_filter.js~FinderFilter#parent",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter.bechecked",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-beChecked",
     "lib/page/finder_filter.js~FinderFilter.beChecked",
@@ -1572,34 +1590,28 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/page/finder_methods.js",
-    "file/lib/page/finder_methods.js.html",
-    "lib/page/finder_methods.js",
+    "lib/page/finder_filter.js~finderfilter.parent",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-parent",
+    "lib/page/finder_filter.js~FinderFilter.parent",
+    "method"
+  ],
+  [
+    "lib/page/finder_mixin.js",
+    "file/lib/page/finder_mixin.js.html",
+    "lib/page/finder_mixin.js",
     "file"
-  ],
-  [
-    "lib/page/finder_methods.js~findermethods#choose",
-    "class/lib/page/finder_methods.js~FinderMethods.html#instance-method-choose",
-    "lib/page/finder_methods.js~FinderMethods#choose",
-    "method"
-  ],
-  [
-    "lib/page/finder_methods.js~findermethods#clickandwaitajaxdone",
-    "class/lib/page/finder_methods.js~FinderMethods.html#instance-method-clickAndWaitAjaxDone",
-    "lib/page/finder_methods.js~FinderMethods#clickAndWaitAjaxDone",
-    "method"
-  ],
-  [
-    "lib/page/finder_methods.js~findermethods#clickandwaitloading",
-    "class/lib/page/finder_methods.js~FinderMethods.html#instance-method-clickAndWaitLoading",
-    "lib/page/finder_methods.js~FinderMethods#clickAndWaitLoading",
-    "method"
   ],
   [
     "lib/page/page.js",
     "file/lib/page/page.js.html",
     "lib/page/page.js",
     "file"
+  ],
+  [
+    "lib/page/page.js~page#_assert",
+    "class/lib/page/page.js~Page.html#instance-member-_assert",
+    "lib/page/page.js~Page#_assert",
+    "member"
   ],
   [
     "lib/page/page.js~page#_browserpage",
@@ -1618,6 +1630,12 @@ window.esdocSearchIndex = [
     "class/lib/page/page.js~Page.html#instance-get-assert",
     "lib/page/page.js~Page#assert",
     "member"
+  ],
+  [
+    "lib/page/page.js~page#assertscreen",
+    "class/lib/page/page.js~Page.html#instance-method-assertScreen",
+    "lib/page/page.js~Page#assertScreen",
+    "method"
   ],
   [
     "lib/page/page.js~page#browserpage",
@@ -1659,12 +1677,6 @@ window.esdocSearchIndex = [
     "lib/page/page.js~page#iniframe",
     "class/lib/page/page.js~Page.html#instance-method-inIframe",
     "lib/page/page.js~Page#inIframe",
-    "method"
-  ],
-  [
-    "lib/page/page.js~page#invokeaction",
-    "class/lib/page/page.js~Page.html#instance-method-invokeAction",
-    "lib/page/page.js~Page#invokeAction",
     "method"
   ],
   [
@@ -1734,6 +1746,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#waitforfinder",
+    "class/lib/page/page.js~Page.html#instance-method-waitForFinder",
+    "lib/page/page.js~Page#waitForFinder",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#waitfornewwindow",
     "class/lib/page/page.js~Page.html#instance-method-waitForNewWindow",
     "lib/page/page.js~Page#waitForNewWindow",
@@ -1746,10 +1764,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/page.js~page#waitforselector",
+    "class/lib/page/page.js~Page.html#instance-method-waitForSelector",
+    "lib/page/page.js~Page#waitForSelector",
+    "method"
+  ],
+  [
     "lib/page/page.js~page#webcontents",
     "class/lib/page/page.js~Page.html#instance-get-webContents",
     "lib/page/page.js~Page#webContents",
     "member"
+  ],
+  [
+    "lib/page/page.js~page#wget",
+    "class/lib/page/page.js~Page.html#instance-method-wget",
+    "lib/page/page.js~Page#wget",
+    "method"
   ],
   [
     "lib/page/page.js~page#window",
@@ -1758,9 +1788,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/page/page_methods.js",
-    "file/lib/page/page_methods.js.html",
-    "lib/page/page_methods.js",
+    "lib/page/page_mixin.js",
+    "file/lib/page/page_mixin.js.html",
+    "lib/page/page_mixin.js",
     "file"
   ],
   [
@@ -1896,6 +1926,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page_walker.js~pagewalker#initialize",
+    "class/lib/page_walker.js~PageWalker.html#instance-method-initialize",
+    "lib/page_walker.js~PageWalker#initialize",
+    "method"
+  ],
+  [
     "lib/page_walker.js~pagewalker#page",
     "class/lib/page_walker.js~PageWalker.html#instance-get-page",
     "lib/page_walker.js~PageWalker#page",
@@ -2022,42 +2058,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/utils/debug.js",
-    "file/lib/utils/debug.js.html",
-    "lib/utils/debug.js",
-    "file"
-  ],
-  [
-    "lib/utils/fs_ext.js",
-    "file/lib/utils/fs_ext.js.html",
-    "lib/utils/fs_ext.js",
-    "file"
-  ],
-  [
-    "lib/utils/fs_ext.js~fsext.defaultmask",
-    "class/lib/utils/fs_ext.js~FsExt.html#static-method-defaultMask",
-    "lib/utils/fs_ext.js~FsExt.defaultMask",
-    "method"
-  ],
-  [
-    "lib/utils/fs_ext.js~fsext.mkdirprivate",
-    "class/lib/utils/fs_ext.js~FsExt.html#static-method-mkdirPrivate",
-    "lib/utils/fs_ext.js~FsExt.mkdirPrivate",
-    "method"
-  ],
-  [
-    "lib/utils/fs_ext.js~fsext.mkdirp",
-    "class/lib/utils/fs_ext.js~FsExt.html#static-method-mkdirp",
-    "lib/utils/fs_ext.js~FsExt.mkdirp",
-    "method"
-  ],
-  [
-    "lib/utils/fs_ext.js~fsext.mkdirpsync",
-    "class/lib/utils/fs_ext.js~FsExt.html#static-method-mkdirpSync",
-    "lib/utils/fs_ext.js~FsExt.mkdirpSync",
-    "method"
-  ],
-  [
     "lib/utils/logger.js",
     "file/lib/utils/logger.js.html",
     "lib/utils/logger.js",
@@ -2160,6 +2160,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/utils/mixin.js",
+    "file/lib/utils/mixin.js.html",
+    "lib/utils/mixin.js",
+    "file"
+  ],
+  [
     "lib/utils/opt_parser.js",
     "file/lib/utils/opt_parser.js.html",
     "lib/utils/opt_parser.js",
@@ -2230,6 +2236,12 @@ window.esdocSearchIndex = [
     "file/lib/walker/walker.js.html",
     "lib/walker/walker.js",
     "file"
+  ],
+  [
+    "lib/walker/walker.js~walker#_walk_",
+    "class/lib/walker/walker.js~Walker.html#instance-method-_walk_",
+    "lib/walker/walker.js~Walker#_walk_",
+    "method"
   ],
   [
     "lib/walker/walker.js~walker#config",

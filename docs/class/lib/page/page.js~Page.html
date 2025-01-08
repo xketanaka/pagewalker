@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -67,13 +66,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Page from &apos;<span><a href="file/lib/page/page.js.html#lineNumber12">pagewalker/lib/page/page.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Page from &apos;<span><a href="file/lib/page/page.js.html#lineNumber16">pagewalker/lib/page/page.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/page/page.js.html#lineNumber12">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/page/page.js.html#lineNumber16">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -164,7 +163,7 @@
         </p>
       </div>
       <div>
-        
+        <div class="deprecated" data-ice="deprecated">this get was deprecated.</div>
         
         
       </div>
@@ -307,6 +306,34 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-member-_assert">_assert</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">private</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-member-_browserPage">_browserPage</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
@@ -385,6 +412,34 @@
   <tbody>
   
   <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-method-assertScreen">assertScreen</a></span></span><span class="code" data-ice="signature">(identifier: <span>*</span>, options: <span>*</span>): <span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">public</span>
       
@@ -684,7 +739,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-method-waitForBrowserSocket">waitForBrowserSocket</a></span></span><span class="code" data-ice="signature">(channel: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-method-waitForBrowserSocket">waitForBrowserSocket</a></span></span><span class="code" data-ice="signature">(socketOption: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
@@ -770,6 +825,35 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-method-waitForFinder">waitForFinder</a></span></span><span class="code" data-ice="signature">(finder: <span><a href="variable/index.html#static-variable-Finder">Finder</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Wait for appearance of element specified by Finder object.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-method-waitForNewWindow">waitForNewWindow</a></span></span><span class="code" data-ice="signature">(action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
@@ -814,15 +898,9 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
       
     </td>
   </tr>
-</tbody>
-</table>
-<table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Private Methods</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
+<tr data-ice="target">
     <td>
-      <span class="access" data-ice="access">private</span>
+      <span class="access" data-ice="access">public</span>
       
       
       
@@ -834,13 +912,14 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-method-invokeAction">invokeAction</a></span></span><span class="code" data-ice="signature">(action: <span>*</span>, reject: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-method-waitForSelector">waitForSelector</a></span></span><span class="code" data-ice="signature">(cssSelector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Wait for appearance of element specified by css-selector.</p>
+</div>
       </div>
     </td>
     <td>
@@ -849,6 +928,41 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     </td>
   </tr>
 <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/page/page.js~Page.html#instance-method-wget">wget</a></span></span><span class="code" data-ice="signature">(url: <span>*</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Download file that url given.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+<table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Private Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
     <td>
       <span class="access" data-ice="access">private</span>
       
@@ -898,7 +1012,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber13">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber17">source</a></span></span>
     </span>
   </h3>
 
@@ -944,12 +1058,12 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber41">source</a></span></span>
     </span>
   </h3>
 
   
-  
+  <div class="deprecated" data-ice="deprecated">this get was deprecated.</div>
   
   
 
@@ -1000,7 +1114,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber20">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber24">source</a></span></span>
     </span>
   </h3>
 
@@ -1056,7 +1170,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber41">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber46">source</a></span></span>
     </span>
   </h3>
 
@@ -1112,7 +1226,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber32">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
@@ -1168,7 +1282,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber32">source</a></span></span>
     </span>
   </h3>
 
@@ -1215,6 +1329,49 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
 <h2 data-ice="title">Private Members</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-_assert">
+    <span class="access" data-ice="access">private</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">_assert</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber393">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-_browserPage">
     <span class="access" data-ice="access">private</span>
     
@@ -1226,7 +1383,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber14">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
@@ -1269,7 +1426,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber15">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber19">source</a></span></span>
     </span>
   </h3>
 
@@ -1312,7 +1469,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber24">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
@@ -1347,6 +1504,84 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-assertScreen">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">assertScreen</span><span class="code" data-ice="signature">(identifier: <span>*</span>, options: <span>*</span>): <span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber392">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">identifier</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">options</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/lib/page/assert.js~Assert.html">Assert</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Assert Object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-executeJs">
     <span class="access" data-ice="access">public</span>
     
@@ -1358,7 +1593,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber287">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber340">source</a></span></span>
     </span>
   </h3>
 
@@ -1430,7 +1665,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber297">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber350">source</a></span></span>
     </span>
   </h3>
 
@@ -1502,7 +1737,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber316">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber369">source</a></span></span>
     </span>
   </h3>
 
@@ -1559,7 +1794,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber309">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber362">source</a></span></span>
     </span>
   </h3>
 
@@ -1640,7 +1875,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
@@ -1719,7 +1954,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber319">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber372">source</a></span></span>
     </span>
   </h3>
 
@@ -1774,7 +2009,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber48">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber53">source</a></span></span>
     </span>
   </h3>
 
@@ -1830,7 +2065,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber327">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber380">source</a></span></span>
     </span>
   </h3>
 
@@ -1904,7 +2139,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber168">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber231">source</a></span></span>
     </span>
   </h3>
 
@@ -1976,7 +2211,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber232">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber295">source</a></span></span>
     </span>
   </h3>
 
@@ -2060,11 +2295,11 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     
     
     
-    <span class="code" data-ice="name">waitForBrowserSocket</span><span class="code" data-ice="signature">(channel: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="code" data-ice="name">waitForBrowserSocket</span><span class="code" data-ice="signature">(socketOption: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber149">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber213">source</a></span></span>
     </span>
   </h3>
 
@@ -2084,10 +2319,10 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">channel</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">socketOption</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>string of representing the channel of Browser Socket Message. default is &apos;asynchronous-message-channel&apos;.</p>
+      <td data-ice="description"><p>specify channel property, and timeout property.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -2143,7 +2378,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber209">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber272">source</a></span></span>
     </span>
   </h3>
 
@@ -2237,7 +2472,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber109">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber114">source</a></span></span>
     </span>
   </h3>
 
@@ -2318,6 +2553,88 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-waitForFinder">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">waitForFinder</span><span class="code" data-ice="signature">(finder: <span><a href="variable/index.html#static-variable-Finder">Finder</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber164">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Wait for appearance of element specified by Finder object.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">finder</td>
+      <td data-ice="type" class="code"><span><a href="variable/index.html#static-variable-Finder">Finder</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Finder object for finding element.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">action</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><ul>
+<li>A function representing the operation</li>
+</ul>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-waitForNewWindow">
     <span class="access" data-ice="access">public</span>
     
@@ -2329,7 +2646,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber125">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber130">source</a></span></span>
     </span>
   </h3>
 
@@ -2413,7 +2730,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber72">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber77">source</a></span></span>
     </span>
   </h3>
 
@@ -2474,28 +2791,27 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
   
   
 </div>
-<h2 data-ice="title">Private Methods</h2>
-
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-invokeAction">
-    <span class="access" data-ice="access">private</span>
+  <h3 data-ice="anchor" id="instance-method-waitForSelector">
+    <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">invokeAction</span><span class="code" data-ice="signature">(action: <span>*</span>, reject: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">waitForSelector</span><span class="code" data-ice="signature">(cssSelector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber276">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber155">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Wait for appearance of element specified by css-selector.</p>
+</div>
 
   
 
@@ -2508,13 +2824,90 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">action</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="name" class="code" data-depth="0">cssSelector</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>CSS Selector string for finding element.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">reject</td>
+      <td data-ice="name" class="code" data-depth="0">action</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><ul>
+<li>A function representing the operation</li>
+</ul>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-wget">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">wget</span><span class="code" data-ice="signature">(url: <span>*</span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber401">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Download file that url given.
+This method operates outside of browser.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">url</td>
       <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
@@ -2553,6 +2946,8 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
   
   
 </div>
+<h2 data-ice="title">Private Methods</h2>
+
 <div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-newPromiseWithCheckReady">
     <span class="access" data-ice="access">private</span>
@@ -2565,7 +2960,7 @@ A File is saved in config.fileDownloadDir with timestamp string like &apos;20171
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber247">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/page.js.html#lineNumber310">source</a></span></span>
     </span>
   </h3>
 

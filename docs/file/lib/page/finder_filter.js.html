@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_action.js~FinderAction.html">FinderAction</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html">FinderBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_filter.js~FinderFilter.html">FinderFilter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/finder_methods.js~FinderMethods.html">FinderMethods</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/page.js~Page.html">Page</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/page/window.js~Window.html">Window</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMethods">PageMethods</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-finderMixin">finderMixin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PageMixin">PageMixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/config.js~Config.html">Config</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/date_format.js~DateFormat.html">DateFormat</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/fs_ext.js~FsExt.html">FsExt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Debug">Debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
@@ -69,11 +68,16 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/page/finder_filter.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
 class Private {
+  static stringEscape(str){
+    return str.split(&apos;\\&quot;&apos;).map(s =&gt; s.replace(/&quot;/g, &apos;\\&quot;&apos;)).join(&apos;\\&quot;&apos;);
+  }
   static haveContent(content, haveContent = true){
-    return `(elm, i)=&gt;{ return elm.textContent &amp;&amp; (elm.textContent.trim() == &quot;${content.trim()}&quot;) === ${haveContent} }`;
+    content = this.stringEscape(content.trim());
+    return `(elm, i)=&gt;{ return elm.textContent &amp;&amp; (elm.textContent.trim() == &quot;${content}&quot;) === ${haveContent} }`;
   }
   static haveValue(value, haveValue = true){
-    return `(elm, i)=&gt;{ return elm.value &amp;&amp; (elm.value.trim() == &quot;${value.trim()}&quot;) === ${haveValue} }`;
+    value = this.stringEscape(value.trim());
+    return `(elm, i)=&gt;{ return elm.value &amp;&amp; (elm.value.trim() == &quot;${value}&quot;) === ${haveValue} }`;
   }
   static haveClass(classname, haveClass = true){
     return `(elm, i)=&gt;{ return elm &amp;&amp; (elm.classList.contains(&quot;${classname}&quot;)) === ${haveClass} }`;
@@ -89,6 +93,9 @@ class Private {
   }
   static indexOf(index){
     return `(elm, i)=&gt;{ return i == ${index} }`;
+  }
+  static parent(){
+    return `(elm, i)=&gt;{ return elm.parentNode }`;
   }
 }
 
@@ -192,6 +199,14 @@ class FinderFilter {
    */
   static indexOf(i){
     return Private.indexOf(i);
+  }
+
+  /**
+   * return function code to map parent node.
+   * @return {string}
+   */
+  static parent(){
+    return Private.parent();
   }
 
   ////// instance methods /////////////////////////////////////////////////////////////////////
@@ -299,7 +314,12 @@ class FinderFilter {
   first(){
     return this.indexOf(0);
   }
-
+  /**
+   * @return {Finder} return Finder for the parent element.
+   */
+  parent(){
+    return this.map(FinderFilter.parent())
+  }
 }
 
 module.exports = FinderFilter;
