@@ -46,6 +46,6 @@
   },
   "optionalDependencies": {
     "electron": "^22.3.25",
-    "puppeteer": "^5.2.0"
+    "puppeteer": "^19.0"
   }
 }
