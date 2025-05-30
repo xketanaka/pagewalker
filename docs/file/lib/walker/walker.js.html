@@ -59,8 +59,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -69,8 +68,6 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const Mocha = require(&apos;mocha&apos;);
 const fs = require(&apos;fs&apos;);
 const path = require(&apos;path&apos;);
-const ResultStore = {} // require(&quot;./result_store&quot;);
-const mkdirp = require(&quot;mkdirp&quot;);
 
 class Walker {
   constructor(config){
@@ -78,8 +75,8 @@ class Walker {
     this.mocha = new Mocha(Object.assign({}, config.mocha, { timeout: config.mocha.timeout * 2 }));
 
     if(this.config.screenshotsDir){
-      mkdirp.sync(path.join(this.config.screenshotsDir, &apos;actual&apos;));
-      mkdirp.sync(path.join(this.config.screenshotsDir, &apos;expected&apos;));
+      fs.mkdirSync(path.join(this.config.screenshotsDir, &apos;actual&apos;), { recursive: true });
+      fs.mkdirSync(path.join(this.config.screenshotsDir, &apos;expected&apos;), { recursive: true });
     }
 
     if(this.config.scenarioFile){
@@ -195,33 +192,6 @@ class Walker {
       if(originalFunc.hasOwnProperty(prop)) newFunc[prop] = originalFunc[prop];
     }
     return newFunc;
-  }
-  /**
-   * @deprecated
-   */
-  _walk_(callback){
-    Promise.resolve().then(()=&gt;{
-      return this.config.startFromFirst ? [] : ResultStore.loadPreviousResults();
-    })
-    .then((succeeded)=&gt;{
-      if(succeeded &amp;&amp; succeeded.length &gt; 0){
-        let regexp = succeeded.map(s =&gt; s.replace(/[()|]/g, &quot;\\$&amp;&quot;)).join(&quot;|&quot;);
-        this.mocha.options.grep = new RegExp(&quot;^(&quot;+ regexp +&quot;)$&quot;);
-        this.mocha.options.invert = true;
-      }
-    })
-    .then(()=&gt;{
-      let runner = this.mocha.run((failures)=&gt;{
-        if(failures==0){
-          ResultStore.saveAll(this.mocha.suite).then(()=&gt;{ callback(failures) })
-        }else{
-          callback(failures);
-        }
-      });
-      runner.on(&apos;fail&apos;, (failtest, error)=&gt;{
-        ResultStore.saveSucceeded(this.mocha.suite, failtest);
-      })
-    })
   }
 }
 

@@ -59,8 +59,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -81,7 +80,7 @@ class FinderBase {
         return new conditionKlass(arg.toString());
       }
       if(typeof arg == &apos;string&apos;){
-        if(arg.match(/\)\s*=&gt;\s*\{/) || arg.trim().match(/^function/)){
+        if(arg.match(/\)\s*=&gt;\s*\{/) || arg.match(/\w+\s*=&gt;/) || arg.trim().match(/^function/)){
           return new conditionKlass(arg);
         }else{
           return new Selector(arg);
@@ -104,37 +103,46 @@ class FinderBase {
   get allowNotFound(){ return this._allowNotFound }
   allowNotFound(val){ this._allowNotFound = val }
   /**
+   * @params {Function} callback - Optional. if callback function given, it is called with the cloned as argument
    * @return {Object} cloned object
    */
-  clone(){
-    return Object.assign(new this.constructor(this.page), {
-      _conditions: this.conditions.concat(),
+  clone(callback){
+    const cloned = Object.assign(new this.constructor(this.page), {
+      _conditions: this.conditions.concat([]),
       allowNotFound: this.allowNotFound,
       _action: this.action,
       _context: this.context
     });
+    if(callback &amp;&amp; typeof callback == &apos;function&apos;){
+      callback(cloned);
+    }
+    return cloned;
   }
   /**
-   * @return {FinderBase} self which have added conditions
+   * @return {FinderBase} new finder object which have added conditions
    */
   find(...args){
-    this._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditions(...args));
-    return this;
+    return this.clone((cloned) =&gt; {
+      cloned._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditions(...args));
+    });
   }
   /**
-   * @return {FinderBase} self with added mapping function
+   * @return {FinderBase} new finder object with added mapping function
    */
   map(...args){
-    this._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditionsAsMapper(...args));
-    return this;
+    return this.clone((cloned) =&gt; {
+      cloned._conditions = this.conditions.concat(FinderBase.convertArgumentsToConditionsAsMapper(...args));
+    });
   }
   withAction(action){
-    this._action = typeof action == &quot;function&quot; ?  action.toString() : action;
-    return this;
+    return this.clone((cloned) =&gt; {
+      cloned._action = typeof action == &quot;function&quot; ?  action.toString() : action;
+    });
   }
   withContext(context){
-    this._context = context;
-    return this;
+    return this.clone((cloned) =&gt; {
+      cloned._context = context;
+    })
   }
   /**
    * generate and return javascript code for finding element by this finder object

@@ -59,8 +59,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -183,7 +182,7 @@ class PuppeteerPage extends BrowserPage {
    */
   _setDownloadPath(downloadPath){
     if(config.puppeteer.product == &quot;chrome&quot;){
-      return this.nativeObject._client.send(
+      return this.nativeObject._client().send(
         &apos;Page.setDownloadBehavior&apos;, {&#x3000;behavior: &apos;allow&apos;, downloadPath: downloadPath }
       );
     }else{
@@ -219,6 +218,9 @@ class PuppeteerPage extends BrowserPage {
         if(!matched1 &amp;&amp; !matched2) {
           Logger.warn(`Content-Disposition header don&apos;t include filename attribute. [${contentDisposition}]`);
         }
+        if(matched1) {
+          matched1[1] = decodeURIComponent(matched1[1]);
+        }
         const filename = matched1 ? matched1[1] : (matched2 ? matched2[1] : &quot;no name&quot;);
         const fileInfo = { filename: filename, savedFilePath: path.resolve(path.join(downloadPath, filename)) };
 
@@ -241,22 +243,23 @@ class PuppeteerPage extends BrowserPage {
           }, 100); // 100msec
         }
         if(contentDisposition.match(/^inline;/)){
-
-          callbacks[&apos;requestfinished&apos;] = (request)=&gt;{
-            const response = request.response();
-            if(!response) return;
-            if(!request.response().headers()[&quot;content-disposition&quot;]) return;
-
-            delete fileInfo.savedFilePath;
+          return fs.promises.mkdir(downloadPath)
+          .then(()=&gt;{
+            return response.buffer()
+          })
+          .then((buffer)=&gt;{
+            return fs.promises.writeFile(fileInfo.savedFilePath, buffer);
+          })
+          .then(()=&gt;{
             clearPageCallback() &amp;&amp; resolve(fileInfo);
-          }
-          this.nativeObject.on(&apos;requestfinished&apos;, callbacks[&apos;requestfinished&apos;]);
+          })
+          .catch(reject);
         }
       };
 
       this.nativeObject.on(&apos;response&apos;, callbacks[&apos;response&apos;]);
       this._setDownloadPath(downloadPath).then(()=&gt;{ action &amp;&amp; action() })
-    })
+    }); // end Promise
   }
 
   /**

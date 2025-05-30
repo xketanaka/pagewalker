@@ -59,8 +59,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -101,16 +100,16 @@ class ElectronFinderExtention extends Finder {
       let selectorParams = (res)=&gt;{ return { nodeId: res.root.nodeId, selector: `input.${uniqueString}` } };
       let attachParams = (res)=&gt;{ return { nodeId: res.nodeId, files: [filePath] } };
 
-      return new Promise((resolve, reject)=&gt;{
-        nativeObject.debugger.sendCommand(&quot;DOM.getDocument&quot;, {}, (err, res)=&gt;{
-          nativeObject.debugger.sendCommand(&quot;DOM.querySelector&quot;, selectorParams(res), (err, res)=&gt;{
-            nativeObject.debugger.sendCommand(&quot;DOM.setFileInputFiles&quot;, attachParams(res), (err, res)=&gt;{
-              nativeObject.debugger.detach();
-              err &amp;&amp; err.code ? reject(err.toString()) : resolve();
-            });
-          });
-        })
-      });
+      return nativeObject.debugger.sendCommand(&quot;DOM.getDocument&quot;, {})
+      .then((res)=&gt;{
+        return nativeObject.debugger.sendCommand(&quot;DOM.querySelector&quot;, selectorParams(res))
+      })
+      .then((res)=&gt;{
+        return nativeObject.debugger.sendCommand(&quot;DOM.setFileInputFiles&quot;, attachParams(res))
+      })
+      .then((res)=&gt;{
+        return nativeObject.debugger.detach();
+      })
     });
   }
 }

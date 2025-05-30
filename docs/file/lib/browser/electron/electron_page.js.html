@@ -59,8 +59,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -142,25 +141,48 @@ class ElectronPage extends BrowserPage {
     return new Promise((resolve, reject)=&gt;{
       let timeoutId = setTimeout(()=&gt;{ reject(new Error(&apos;timeout&apos;)) }, TIMEOUT_MSEC);
 
-      this.nativeObject.session.once(&apos;will-download&apos;, (event, item, webContents) =&gt; {
-        const result = { filename: item.getFilename() };
-        // Set the save path, making Electron not to prompt a save dialog.
-        const saveFilename = `${DateFormat.toTimepstampMsecString(new Date())}_${item.getFilename()}`;
-        result.savedFilePath = path.resolve(path.join(config.fileDownloadDir, saveFilename));
+      this.nativeObject.session.webRequest.onResponseStarted((details)=&gt;{
+        let key = Object.keys(details.responseHeaders).find(key =&gt; key.toLowerCase() == &quot;content-disposition&quot;);
+        if (!key) return;
 
-        item.setSavePath(result.savedFilePath);
-        item.on(&apos;updated&apos;, (event, state)=&gt;{
-          if(state === &apos;interrupted&apos;) reject(new Error(&apos;Download is interrupted&apos;));
-        })
-        item.once(&apos;done&apos;, (event, state) =&gt; {
-          clearTimeout(timeoutId);
-          if(state == &apos;completed&apos;){
-            resolve(result)
-          }else{
-            reject(new Error(`Download failed: ${state}`))
+        const disposition = details.responseHeaders[key].find(value =&gt; value.match(/[\s]*inline/) || value.match(/[\s]*attachment/));
+        if (disposition.match(/[\s]*attachment/)) {
+
+          this.nativeObject.session.once(&apos;will-download&apos;, (event, item, webContents) =&gt; {
+
+            const result = { filename: item.getFilename() };
+            // Set the save path, making Electron not to prompt a save dialog.
+            const saveFilename = `${DateFormat.toTimepstampMsecString(new Date())}_${item.getFilename()}`;
+            result.savedFilePath = path.resolve(path.join(config.fileDownloadDir, saveFilename));
+
+            item.setSavePath(result.savedFilePath);
+            item.on(&apos;updated&apos;, (event, state)=&gt;{
+              if(state === &apos;interrupted&apos;) reject(new Error(&apos;Download is interrupted&apos;));
+            })
+            item.once(&apos;done&apos;, (event, state) =&gt; {
+              clearTimeout(timeoutId);
+              if(state == &apos;completed&apos;){
+                resolve(result)
+              }else{
+                reject(new Error(`Download failed: ${state}`))
+              }
+            })
+          });
+        }
+        else if (disposition.match(/[\s]*inline/)) {
+
+          const matched1 = disposition.match(/filename\*=(?:utf|UTF)-?8&apos;&apos;(.*)$/);
+          const matched2 = disposition.match(/filename=\&quot;(.*)\&quot;$/);
+          if(matched1) {
+            matched1[1] = decodeURIComponent(matched1[1]);
           }
-        })
-      })
+          this.nativeObject.once(&apos;did-navigate&apos;, (event, url, httpResponseCode) =&gt; {
+            clearTimeout(timeoutId);
+            resolve({ filename: (matched1 ? matched1[1] : (matched2 ? matched2[1] : &quot;no name&quot;)), saveedFilePaht: &apos;&apos; });
+          });
+        }
+      });
+
       action();
     });
   }

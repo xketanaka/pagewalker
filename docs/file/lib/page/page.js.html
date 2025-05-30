@@ -59,8 +59,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -145,11 +144,25 @@ class Page {
   waitForPageLoad(action){
     if(this._context){
       return this.waitForBrowserSocket({ channel: &apos;iframe-page-load&apos; }, ()=&gt;{
+        let invokeTrigger = action ?
+          `cw.addEventListener(&apos;unload&apos;, ()=&gt;{
+            setTimeout(()=&gt;{ cw.addEventListener(&apos;DOMContentLoaded&apos;, sendEventFunc) }, 0);
+          });` :
+          `setInterval(()=&gt; {
+            if (cw.document.readyState == &apos;complete&apos;) {
+              sendEventFunc();
+            }
+          }, 100);`;
         return this.executeJs(`{
-          ${this._context}.addEventListener(&apos;DOMContentLoaded&apos;, ()=&gt;{
-            window.browserSocket.send(&apos;iframe-page-load&apos;, &apos;loaded&apos;);
-          })
-        }`);
+          let cw = (${this._context});
+          let sendEventFunc = ()=&gt;{ window.browserSocket.send(&apos;iframe-page-load&apos;, &apos;loaded&apos;) };
+          ${invokeTrigger}
+        }`)
+        .then(()=&gt;{
+          if (action &amp;&amp; typeof action == &apos;function&apos;) {
+            return action();
+          }
+        })
       })
     }
     return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
@@ -280,7 +293,7 @@ class Page {
    */
   waitForBrowserSocket(socketOption, action){
     if(!action &amp;&amp; typeof socketOption === &apos;function&apos;){
-      action = channel;
+      action = socketOption;
       socketOption = { channel: &apos;asynchronous-message-channel&apos; };
     }
     return this.newPromiseWithCheckReady((resolve, reject)=&gt;{
@@ -373,6 +386,9 @@ class Page {
     })
   }
   /**
+   * if window.isReadyForPage is false, return failed promise.
+   * if window.isReadyForPage is true, invoke given &quot;func&quot;.
+   *   And &quot;resolve&quot; which is passed to &quot;func&quot; is resolved, &quot;action&quot; will be called.
    * @private
    */
   newPromiseWithCheckReady(func, action){

@@ -59,8 +59,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -570,7 +569,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-method-clone">clone</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/page/finder_base.js~FinderBase.html#instance-method-clone">clone</a></span></span><span class="code" data-ice="signature">(callback: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -1532,11 +1531,11 @@
     
     
     
-    <span class="code" data-ice="name">clone</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+    <span class="code" data-ice="name">clone</span><span class="code" data-ice="signature">(callback: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber41">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
@@ -1547,7 +1546,23 @@
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">callback</td>
+      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   <div class="return-params" data-ice="returnParams">
@@ -1592,7 +1607,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber128">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber137">source</a></span></span>
     </span>
   </h3>
 
@@ -1648,7 +1663,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber57">source</a></span></span>
     </span>
   </h3>
 
@@ -1684,7 +1699,7 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>self which have added conditions</p>
+          <td class="return-desc" data-ice="returnDescription"><p>new finder object which have added conditions</p>
 </td>
         </tr>
       </tbody>
@@ -1720,7 +1735,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
@@ -1756,7 +1771,7 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="variable/index.html#static-variable-FinderBase">FinderBase</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>self with added mapping function</p>
+          <td class="return-desc" data-ice="returnDescription"><p>new finder object with added mapping function</p>
 </td>
         </tr>
       </tbody>
@@ -1792,7 +1807,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber84">source</a></span></span>
     </span>
   </h3>
 
@@ -1848,7 +1863,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber70">source</a></span></span>
     </span>
   </h3>
 
@@ -1919,7 +1934,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/page/finder_base.js.html#lineNumber75">source</a></span></span>
     </span>
   </h3>
 

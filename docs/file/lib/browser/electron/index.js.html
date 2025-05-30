@@ -59,8 +59,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/logger.js~Logger.html">Logger</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/utils/opt_parser.js~OptParser.html">OptParser</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mixin">mixin</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/result_store.js~ResultStore.html">ResultStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#walker">walker</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/walker/walker.js~Walker.html">Walker</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -109,15 +108,8 @@ class ElectronBrowser extends Browser {
     browserWindow.webContents.on(&apos;context-menu&apos;, (e, params)=&gt;{
       browserWindow.webContents.inspectElement(params.x, params.y);
     })
-    browserWindow.webContents.on(&apos;new-window&apos;, (event, url, frameName, disposition, options, additionalFeatures)=&gt;{
-      event.preventDefault();
-      let newBrowserWindow = this.createBrowserWindowNotPromise(Object.assign(windowOptions, { parent: browserWindow }));
+    browserWindow.webContents.on(&apos;did-create-window&apos;, (newBrowserWindow, {url, frameName, disposition, options})=&gt;{
       this.emit(Browser.Events.NewWindow, newBrowserWindow, frameName);
-
-      event.newGuest = newBrowserWindow;
-      if(url &amp;&amp; url != &quot;about:blank&quot;){
-        newBrowserWindow.webContents.loadURL(url)
-      }
     })
     browserWindow.on(&apos;closed&apos;, (event)=&gt;{
       this.emit(Browser.Events.Closed, browserWindow);

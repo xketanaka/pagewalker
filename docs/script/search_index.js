@@ -156,12 +156,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "pagewalker/lib/walker/result_store.js~resultstore",
-    "class/lib/walker/result_store.js~ResultStore.html",
-    "<span>ResultStore</span> <span class=\"search-result-import-path\">pagewalker/lib/walker/result_store.js</span>",
-    "class"
-  ],
-  [
     "pagewalker/lib/walker/walker.js~walker",
     "class/lib/walker/walker.js~Walker.html",
     "<span>Walker</span> <span class=\"search-result-import-path\">pagewalker/lib/walker/walker.js</span>",
@@ -1404,9 +1398,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter#closest",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-closest",
+    "lib/page/finder_filter.js~FinderFilter#closest",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter#first",
     "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-first",
     "lib/page/finder_filter.js~FinderFilter#first",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter#haveattribute",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-haveAttribute",
+    "lib/page/finder_filter.js~FinderFilter#haveAttribute",
     "method"
   ],
   [
@@ -1464,6 +1470,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter#nothaveattribute",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-notHaveAttribute",
+    "lib/page/finder_filter.js~FinderFilter#notHaveAttribute",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter#nothavecontent",
     "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-notHaveContent",
     "lib/page/finder_filter.js~FinderFilter#notHaveContent",
@@ -1500,6 +1512,30 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter#textincludes",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-textIncludes",
+    "lib/page/finder_filter.js~FinderFilter#textIncludes",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter#textmatch",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-textMatch",
+    "lib/page/finder_filter.js~FinderFilter#textMatch",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter#valueincludes",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-valueIncludes",
+    "lib/page/finder_filter.js~FinderFilter#valueIncludes",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter#valuematch",
+    "class/lib/page/finder_filter.js~FinderFilter.html#instance-method-valueMatch",
+    "lib/page/finder_filter.js~FinderFilter#valueMatch",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter.bechecked",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-beChecked",
     "lib/page/finder_filter.js~FinderFilter.beChecked",
@@ -1515,6 +1551,18 @@ window.esdocSearchIndex = [
     "lib/page/finder_filter.js~finderfilter.beselected",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-beSelected",
     "lib/page/finder_filter.js~FinderFilter.beSelected",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter.closest",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-closest",
+    "lib/page/finder_filter.js~FinderFilter.closest",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter.haveattribute",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-haveAttribute",
+    "lib/page/finder_filter.js~FinderFilter.haveAttribute",
     "method"
   ],
   [
@@ -1560,6 +1608,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/page/finder_filter.js~finderfilter.nothaveattribute",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-notHaveAttribute",
+    "lib/page/finder_filter.js~FinderFilter.notHaveAttribute",
+    "method"
+  ],
+  [
     "lib/page/finder_filter.js~finderfilter.nothaveclass",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-notHaveClass",
     "lib/page/finder_filter.js~FinderFilter.notHaveClass",
@@ -1593,6 +1647,30 @@ window.esdocSearchIndex = [
     "lib/page/finder_filter.js~finderfilter.parent",
     "class/lib/page/finder_filter.js~FinderFilter.html#static-method-parent",
     "lib/page/finder_filter.js~FinderFilter.parent",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter.textincludes",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-textIncludes",
+    "lib/page/finder_filter.js~FinderFilter.textIncludes",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter.textmatch",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-textMatch",
+    "lib/page/finder_filter.js~FinderFilter.textMatch",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter.valueincludes",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-valueIncludes",
+    "lib/page/finder_filter.js~FinderFilter.valueIncludes",
+    "method"
+  ],
+  [
+    "lib/page/finder_filter.js~finderfilter.valuematch",
+    "class/lib/page/finder_filter.js~FinderFilter.html#static-method-valueMatch",
+    "lib/page/finder_filter.js~FinderFilter.valueMatch",
     "method"
   ],
   [
@@ -2202,46 +2280,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/walker/result_store.js",
-    "file/lib/walker/result_store.js.html",
-    "lib/walker/result_store.js",
-    "file"
-  ],
-  [
-    "lib/walker/result_store.js~resultstore.loadpreviousresults",
-    "class/lib/walker/result_store.js~ResultStore.html#static-method-loadPreviousResults",
-    "lib/walker/result_store.js~ResultStore.loadPreviousResults",
-    "method"
-  ],
-  [
-    "lib/walker/result_store.js~resultstore.saveall",
-    "class/lib/walker/result_store.js~ResultStore.html#static-method-saveAll",
-    "lib/walker/result_store.js~ResultStore.saveAll",
-    "method"
-  ],
-  [
-    "lib/walker/result_store.js~resultstore.savesucceeded",
-    "class/lib/walker/result_store.js~ResultStore.html#static-method-saveSucceeded",
-    "lib/walker/result_store.js~ResultStore.saveSucceeded",
-    "method"
-  ],
-  [
-    "lib/walker/result_store.js~resultstore.write",
-    "class/lib/walker/result_store.js~ResultStore.html#static-method-write",
-    "lib/walker/result_store.js~ResultStore.write",
-    "method"
-  ],
-  [
     "lib/walker/walker.js",
     "file/lib/walker/walker.js.html",
     "lib/walker/walker.js",
     "file"
-  ],
-  [
-    "lib/walker/walker.js~walker#_walk_",
-    "class/lib/walker/walker.js~Walker.html#instance-method-_walk_",
-    "lib/walker/walker.js~Walker#_walk_",
-    "method"
   ],
   [
     "lib/walker/walker.js~walker#config",
