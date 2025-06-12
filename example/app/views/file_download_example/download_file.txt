@@ -1,0 +1,120 @@
+2020/9/2
+
+xketanaka/pagewalker
+
+xketanaka/ pagewalker
+Code
+
+Issues
+master
+
+Pull requests
+1 branch
+
+Actions
+
+Projects
+
+Wiki
+
+Security 7
+
+0 tags
+
+Go to file
+
+xketanaka Merge pull request #13 from xketanaka/dependabot/npm_and_y… …
+bin
+docs
+example
+lib
+.gitignore
+LICENSE
+README.ja.md
+README.md
+index.js
+package-lock.json
+package.json
+
+Add file
+
+Settings
+Code
+
+2 minutes ago
+
+162 commits
+
+Add init-pagewalker-project command
+Add image for README
+Add init-pagewalker-project command
+fix for electron waitForDialog
+add gitignore
+change to ISC LISENCE
+Add screenshot to README.ja.md
+fix README (add apidoc link)
+Add Logger and fix waitForDialog
+Merge pull request #13 from xketanaka/dependabot/npm_and_yarn/n…
+ver up 0.4.3 -> 0.4.4
+
+13 days ago
+12 days ago
+13 days ago
+2 days ago
+3 years ago
+2 years ago
+12 days ago
+3 years ago
+14 days ago
+2 minutes ago
+2 days ago
+
+README.md
+
+pagewalker
+
+Pagewalker is a framework for scripting a browser.
+
+API Document
+
+https://xketanaka.github.io/pagewalker/
+
+https://github.com/xketanaka/pagewalker
+
+Insights
+
+79f3e3f
+
+About
+No description, website, or topics
+provided.
+Readme
+ISC License
+
+Releases
+No releases published
+Create a new release
+
+Packages
+No packages published
+Publish your first package
+
+Contributors
+
+3
+
+xketanaka
+TakuyaNoguchi Takuya Noguchi
+
+Environments
+
+1
+
+github-pages Active
+
+Languages
+JavaScript 100.0%
+
+1/1
+
+

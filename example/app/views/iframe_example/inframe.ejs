@@ -1,0 +1,80 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>This is a page In iframe</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="main" style="margin-left: 0">
+    <h1>This is a page In iframe</h1>
+    <div class="content">
+      <% if (params) { %>
+        <div>
+          <span class="label">text field</span>
+          <input name="field" type="text" class="long" value="<%= params.field %>" disabled>
+        </div>
+        <div>
+          <span class="label">other text field</span>
+          <textarea name="area" cols="80" rows="5" disabled><%= params.area %></textarea>
+        </div>
+        <div style="margin-top: 25px">
+          <a href="/iframe_example/inframe" class="btn btn-default" >back</a>
+        </div>
+      <% } else { %>
+      <form action="/iframe_example/inframe" method="POST" >
+        <div>
+          <span class="label">text field</span>
+          <input type="text" class="long" name="field" value="">
+        </div>
+        <div>
+          <span class="label">text area</span>
+          <textarea name="area" cols="80" rows="5"></textarea>
+        </div>
+        <div style="margin-top: 25px">
+          <button type="submit" class="btn-primary" >submit</button>
+        </div>
+      </form>
+      <% } %>
+
+      <hr style="margin:20px auto">
+
+      <form action="/iframe_example/inframe/ajax" >
+        <h3>Ajax form</h3>
+        <div>
+          <span class="label">field</span>
+          <input type="text" class="long" name="field" value="">
+        </div>
+        <div>
+          <span class="label">response area</span>
+        </div>
+        <div style="border: solid 1px #ccc; border-radius: 6px; margin: 5px 2px" >
+          <pre style="background-color: #f3f3f3; padding: 5px;"></pre>
+        </div>
+        <div style="margin-top: 25px">
+          <button type="submit on ajax" id="submit-on-ajax" class="btn-primary" >submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#submit-on-ajax").addEventListener("click", (e) => {
+      e.preventDefault();
+      const form = e.target.closest("form");
+
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", form.action, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          form.querySelector("input").value = "";
+          form.querySelector("pre").innerText = form.querySelector("pre").innerText + `OK: ${xhr.responseText}\n`;
+        }
+      };
+      xhr.send(`field=${form.querySelector("input").value}`);
+    });
+  });
+</script>
+</html>

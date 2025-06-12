@@ -1,0 +1,55 @@
+<style type="text/css">
+  div.content input.no-border { border: none; }
+</style>
+<h1>Confirmation</h1>
+<div class="content form-inputs">
+  <form action="/form_input" method="POST">
+  <div>
+    <span class="label">your email</span>
+    <p><%= params.profile.email %></p>
+  </div>
+  <div>
+    <span class="label">your name</span>
+    <p><%= params.profile.name %></p>
+  </div>
+  <div>
+    <span class="label">password</span>
+    <p><%= params.profile.password.split("").map(v => "●").join("") %></p>
+  </div>
+  <div>
+    <span class="label">sex</span>
+    <p><%= { "1": "male", "2": "female" }[params.profile.sex] %></p>
+  </div>
+  <div>
+    <span class="label">birthday month</span>
+    <p><%= params.Constant.Month[params.profile.birthMonth] %></p>
+  </div>
+  <div>
+    <span class="label">your job</span>
+    <p><%= params.Constant.Jobs[params.profile.job] %></p>
+  </div>
+  <div>
+    <span class="label">what interested in?</span>
+    <p>
+      <% let interestedIn = params.profile.interestedIn || [] %>
+      <% interestedIn = (typeof interestedIn == 'string') ? [interestedIn] : interestedIn %>
+      <% if(interestedIn.length > 0){ %>
+      <%= interestedIn.map(k => params.Constant.InterestedIn[k]).join(", ") %>
+      <% } %>
+    </p>
+  </div>
+  <div>
+    <span class="label">self introduction</span>
+    <p>
+      <% params.profile.selfIntroduction.split("\n").forEach((line)=>{ %>
+      <%= line %><br>
+      <% }) %>
+    </p>
+  </div>
+  <div>
+    <span class="label"></span>
+      <button type="submit" class="btn-primary">submit</button>
+      <a href="/form_input_example" class="btn btn-default">back</a>
+  </div>
+  </form>
+</div>

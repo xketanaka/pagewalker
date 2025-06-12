@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<% pageTitle = typeof params.title !== 'undefined' ? `${title} | pagewalker example application` : `pagewalker example application` %>
+<% showMenu = typeof params.hideMenu === 'undefined' ? true : false %>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= pageTitle %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="favicon.ico">
+</head>
+<body>
+  <header>
+    <% if (showMenu){ %>
+    <ul class="header-menu">
+      <% if (params.req.isLoggedIn) { %>
+        <li><a href="/logout" ><i class="fa fa-sign-out" ></i> logout</a></li>
+      <% } else { %>
+        <li><a href="/login" ><i class="fa fa-sign-in" ></i> login</a></li>
+      <% } %>
+    </ul>
+    <% } %>
+    <h1><%= pageTitle %></h1>
+  </header>
+  <% if (showMenu){ %>
+  <nav class="side-menu">
+    <div class="title-bar"></div>
+    <ul class="menus">
+      <li class="<%= ['','/'].some(path => path == params.req.path) ? 'selected' : '' %>" >
+        <a href="/" >Overview</a>
+      </li>
+      <% const menus = {
+          "/form_input_example": "Form input",
+          "/dialog_example": "Dialog",
+          "/window_open_example": "Window open",
+          "/file_upload_example": "File upload",
+          "/file_download_example": "File download",
+          "/iframe_example": "Iframe",
+          "/ajax_example": "Ajax",
+          "/table_example": "Table",
+          "/save_pdf_example": "Save PDF",
+          "/observe_element_example": "Observe element",
+          "/basic_auth_example": "Basic auth",
+          "/custom_header_example": "Custom header",
+          "/screenshot_example": "Screenshot",
+          "/managed_users": "Users"
+      };
+      Object.keys(menus).forEach((key)=>{ %>
+      <li class="<%= params.req.path.includes(key) ? 'selected' : '' %>" >
+        <a href="<%= key %>" ><%= menus[key] %></a>
+      </li>
+      <% }) %>
+    </ul>
+  </nav>
+  <% } %>
+  <div class="main">
+    <% if (params.message){ %>
+      <div class="message"><%- params.message.replace(/\n/g, "<br>") %></div>
+    <% } %>
+    <%- include(page, params) %>
+  </div>
+  </body>
+</html>

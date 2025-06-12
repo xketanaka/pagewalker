@@ -1,0 +1,67 @@
+<style type="text/css">
+  div.content.form-inputs div.ptop-plus { padding-top: 5px; }
+</style>
+<h1>Form Input</h1>
+<div class="content form-inputs">
+  <h2>profile</h2>
+  <% const profile = params.profile || {} %>
+  <form action="/form_input_confirm" method="POST" >
+    <div>
+      <span class="label">your email</span>
+      <input type="text" class="long" name="email" value="<%= profile.email %>">
+    </div>
+    <div>
+      <span class="label">your name</span>
+      <input type="text" class="long" name="name" value="<%= profile.name %>">
+    </div>
+    <div>
+      <span class="label">password</span>
+      <input type="password" name="password" value="<%= profile.password %>">
+    </div>
+    <div>
+      <span class="label">password confirmation</span>
+      <input type="password" name="passwordConfirmation" value="<%= profile.passwordConfirmation %>" >
+    </div>
+    <div>
+      <span class="label">sex</span>
+      <label><input type="radio" name="sex" value="1" <%= profile.sex == "1" ? "checked" : "" %> >male</label>
+      <label><input type="radio" name="sex" value="2" <%= profile.sex == "2" ? "checked" : "" %> >female</label>
+    </div>
+    <div>
+      <span class="label">birthday month</span>
+      <select name="birthMonth">
+        <option>please select</option>
+        <% for (let month = 1; month <= 12; month++){ %>
+        <option value="<%= month %>" <%= profile.birthMonth == month ? "selected" : "" %> ><%= params.Constant.Month[month] %></option>
+        <% } %>
+      </select>
+    </div>
+    <div>
+      <span class="label">your job</span>
+      <select name="job">
+        <option>please select</option>
+        <% Object.keys(params.Constant.Jobs).forEach((key)=>{ %>
+        <option value="<%= key %>" <%= profile.job == key ? "selected" : "" %> ><%= params.Constant.Jobs[key] %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="ptop-plus">
+      <span class="label">what interested in?</span>
+      <% let interestedIn = profile.interestedIn || [] %>
+      <% interestedIn = (typeof interestedIn == 'string') ? [interestedIn] : interestedIn %>
+      <% Object.keys(params.Constant.InterestedIn).forEach((key)=>{ %>
+      <label>
+        <input type="checkbox" name="interestedIn" value="<%= key %>" <%= interestedIn.includes(key) ? "checked" : "" %> >
+        <%= params.Constant.InterestedIn[key] %>
+      </label>
+      <% }) %>
+    </div>
+    <div class="ptop-plus">
+      <span class="label">self introduction</span>
+      <textarea name="selfIntroduction" cols="80" rows="5"><%= profile.selfIntroduction %></textarea>
+    </div>
+    <div class="ptop-plus">
+      <button type="submit" class="btn-primary" >submit</button>
+    </div>
+  </form>
+</div>

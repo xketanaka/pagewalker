@@ -1,0 +1,78 @@
+<style>
+.content form { margin-top: 20px; }
+.content form button { margin: 10px 0 20px 0; }
+</style>
+<h1>File Download</h1>
+<div class="content">
+  <p>this is a file download example.</p>
+  <form id="pdf-form" action="/file_download_example/download" method="GET">
+    <h3>PDF file download</h3>
+    <div>
+      <span class="label">filename</span>
+      <input type="text" name="filename" value="default.pdf">
+    </div>
+    <div>
+      <span class="label">get file as..</span>
+      <label><input type="radio" name="disposition" value="attachment" checked="checked">attachment</label>
+      <label><input type="radio" name="disposition" value="inline">inline</label>
+      <label><input type="radio" name="disposition" value="other-inline">other window</label>
+    </div>
+    <div>
+      <input type="hidden" name="kind" value="pdf" >
+      <button type="submit" >download</button>
+    </div>
+  </form>
+
+  <form id="jpg-form" action="/file_download_example/download" method="GET">
+    <h3>JPG file download</h3>
+    <div>
+      <span class="label">filename</span>
+      <input type="text" name="filename" value="default.jpg">
+    </div>
+    <div>
+      <span class="label">get file as..</span>
+      <label><input type="radio" name="disposition" value="attachment" checked="checked">attachment</label>
+      <label><input type="radio" name="disposition" value="inline">inline</label>
+      <label><input type="radio" name="disposition" value="other-inline">other window</label>
+    </div>
+    <div>
+      <input type="hidden" name="kind" value="jpg" >
+      <button type="submit" >download</button>
+    </div>
+  </form>
+
+  <form id="txt-form" action="/file_download_example/download?" method="GET">
+    <h3>TXT file download</h3>
+    <div>
+      <span class="label">filename</span>
+      <input type="text" name="filename" value="default.txt">
+    </div>
+    <div>
+      <span class="label">get file as..</span>
+      <label><input type="radio" name="disposition" value="attachment" checked="checked">attachment</label>
+      <label><input type="radio" name="disposition" value="inline">inline</label>
+      <label><input type="radio" name="disposition" value="other-inline">other window</label>
+    </div>
+    <div>
+      <input type="hidden" name="kind" value="txt" >
+      <button type="submit" >download</button>
+    </div>
+  </form>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', ()=>{
+    function parents(node, tagName){
+      return node.parentNode.tagName == tagName ? node.parentNode : parents(node.parentNode, tagName);
+    }
+    document.querySelectorAll('input[type=radio]').forEach((radio)=>{
+      radio.addEventListener('click', ()=>{
+        const form = parents(radio, "FORM");
+        if(radio.value == "other-inline"){
+          form.setAttribute('target', '_blank');
+        }else{
+          form.removeAttribute('target');
+        }
+      })
+    })
+  })
+</script>

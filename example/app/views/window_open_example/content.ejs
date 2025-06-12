@@ -1,0 +1,12 @@
+<div class="content">
+  <p>This is a page created by window.open()</p>
+  <p><a href="#" data-js-handle="closeLink"><i class="fa fa-times" ></i> Close</a></p>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', ()=>{
+    let link = document.querySelector("a[data-js-handle=closeLink]");
+    link.addEventListener('click', (e)=>{
+      window.close();
+    })
+  });
+</script>

@@ -1,0 +1,32 @@
+<h1>table </h1>
+<div class="content">
+  <form action="/table_example/apply" method="POST">
+    <table>
+      <thead>
+        <tr>
+          <th>select</th>
+          <th>name</th>
+          <th>value</th>
+          <th>Add</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < fruits.length; i++) { %>
+        <tr>
+          <td><input type="checkbox" name="row-<%= i %>" value="1"></td>
+          <td><%= fruits[i] %></td>
+          <td><%= fruitsValue[i] %><input type="hidden" name="currentValue-<%= i %>" value="<%= fruitsValue[i] %>" ></td>
+          <td><input type="number" name="addValue-<%= i %>" value="0" ></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <p><input type="submit" value="apply" ></p>
+  </form>
+</div>
+<style>
+  table td { text-align: center; min-width: 160px; }
+  table td input[type=number] { text-align: right; padding: 4px; font-size: medium }
+  table th { padding: 2px 6px }
+  p input[type=submit] { margin: 8px 60px }
+</style>

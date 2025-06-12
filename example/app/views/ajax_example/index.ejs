@@ -1,0 +1,57 @@
+<h1>Ajax </h1>
+<div class="content">
+  <p>this is a ajax example, click button below.</p>
+  <div class="square">
+    <button data-btn-type="get" data-btn-id="1">Send Ajax Request(GET - 1)</button>
+  </div>
+  <div class="square">
+    <button data-btn-type="get" data-btn-id="2">Send Ajax Request(GET - 2)</button>
+  </div>
+  <div class="square">
+    <p><input type="text" name="nickname" placeholder="nickname"></p>
+    <p>
+      <label><input type="radio" name="sex" value="male">male</label>
+      <label><input type="radio" name="sex" value="female">female</label>
+    </p>
+    <button id="btn-post">Send Ajax Request(POST)</button>
+  </div>
+  <div id="ajax-result" class="square bg-grey" >
+    <h3>ajax result</h3>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  function addResult(str){
+    document.querySelector("#ajax-result")
+    .appendChild(document.createElement("h4"))
+    .appendChild(document.createTextNode(str));
+  }
+
+  document.querySelectorAll("button[data-btn-type=get]").forEach((btn)=>{
+    btn.addEventListener('click', (e)=>{
+      const xhr = new XMLHttpRequest();
+      const btnId = e.target.attributes['data-btn-id'];
+      xhr.open("GET", "/ajax_example/get_content?from=" + btnId.value);
+      xhr.onload = (e)=>{
+        addResult(xhr.responseText);
+      };
+      xhr.send();
+    })
+  })
+  document.querySelectorAll("#btn-post").forEach((btn)=>{
+    btn.addEventListener('click', (e)=>{
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "/ajax_example/post_content");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onload = (e)=>{
+        addResult(xhr.responseText);
+      };
+      xhr.send(JSON.stringify({
+        "nickname": document.querySelector("input[name=nickname]").value,
+        "sex": document.querySelector("input[name=sex]:checked").value
+      }));
+    })
+  });
+});
+</script>

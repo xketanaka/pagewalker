@@ -1,0 +1,20 @@
+<h1>File Upload</h1>
+<div class="content">
+  <form action="/file_upload_example/upload" method="POST" enctype="multipart/form-data">
+    <p>this is a file upload example</p>
+    <p><input type="file" name="file"></p>
+    <div style="padding-top: 5px">
+      <button type="submit" class="btn-primary" >upload</button>
+    </div>
+  </form>
+
+  <div style="margin-top: 40px">
+    <h3 style="border-bottom: solid 1px #ddd">Uploaded files</h3>
+    <ul style="margin-top: 20px">
+      <% files.forEach((file) =>{ %>
+        <% if (file.startsWith('.')) return %>
+        <li style="margin: 10px"><a href="/file_upload_example/download?filename=<%= file %>" ><%= file %></a></li>
+      <% }) %>
+    </ul>
+  </div>
+</div>

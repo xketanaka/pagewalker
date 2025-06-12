@@ -1,0 +1,11 @@
+{
+  "browser": "puppeteer",
+  "scenarioDir": "test",
+  "exitImmediately": false,
+  "puppeteer": {
+    "headless": false,
+    "args":[
+      "--no-sandbox", "--disable-gpu"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+<style>
+div.main { height: 450px; margin-left: auto; }
+.flexbox-container-vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+}
+.flexbox-container-vertical-center span.label {
+  font-size: small;
+  display: block;
+}
+.flexbox-container-vertical-center .btn-wide {
+  margin: 15px 6px;
+}
+</style>
+<div class="content flexbox-container-vertical-center">
+  <form action="/login" method="POST">
+    <p>Please enter your account</p>
+    <div>
+      <span class="label">email address</span>
+      <input type="text" name="username">
+    </div>
+    <div>
+      <span class="label">password</span>
+      <input type="password" name="password">
+    </div>
+    <div>
+      <button class="btn-wide">Log In</button>
+    </div>
+  </form>
+</div>

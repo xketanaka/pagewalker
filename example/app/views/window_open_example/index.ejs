@@ -1,0 +1,23 @@
+<h1>window open </h1>
+<div class="content">
+  <p>this is a window.open example, click links below.</p>
+  <p><a href="#" class="with-listener" data-window-target="sub-window">window.open by javascript, and target-parameter is "sub-window".</a></p>
+  <p><a href="#" class="with-listener" data-window-target="">window.open by javascript, and target-parameter is omitted .</a></p>
+  <p><a href="#" class="with-listener" data-window-target="_blank">window.open by javascript, and target-parameter is "_blank".</a></p>
+  <p><a href="/window_open_example/content" target="_blank">open new window by a-tag, and target-attribute is "_blank".</a></p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  Array.from(document.querySelectorAll("div.content a.with-listener")).forEach((link)=>{
+    link.addEventListener('click', (e)=>{
+      if(link.attributes["data-window-target"].value){
+        window.open("/window_open_example/content", link.attributes["data-window-target"].value);
+      }else{
+        window.open("/window_open_example/content");
+      }
+    })
+  })
+
+});
+</script>
