@@ -1,6 +1,6 @@
 {
   "name": "pagewalker",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "index.js",
   "bin": [
     "bin/pagewalker",
@@ -28,6 +28,10 @@
       }
     ]
   },
+  "files": [
+    "lib",
+    "bin"
+  ],
   "dependencies": {
     "bluebird": "^3.7.0",
     "init-package-json": "^1.10.3",
