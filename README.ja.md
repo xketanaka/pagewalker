@@ -4,7 +4,7 @@ Pagewalker は JavaScript(Node.js) で E2E テストを実装するためのフ�
 
 ## セットアップ
 
-インストールは至って普通です。npm install します。  
+インストールは至って普通です。npm install します。
 ※Node.js、NPMは事前にインストールしてあるものとします。
 
 ```
@@ -17,7 +17,7 @@ $ npm install pagewalker --save
 $ ./node_modules/.bin/init-pagewalker-project
 ```
 
-このコマンドを実行すると、途中でサンプル用のシナリオファイルを作成するか尋ねれます。  
+このコマンドを実行すると、途中でサンプル用のシナリオファイルを作成するか尋ねれます。
 初回は y と入力してサンプルファイルを作成しておきます。
 
 ```
@@ -64,12 +64,12 @@ describe('First example', ()=>{
 });
 ```
 
-pagewalker はテスティングフレームワークとして [mocha](https://mochajs.org/) を採用しています。  
-describe, it を使ってシナリオを記述していきます。  
+pagewalker はテスティングフレームワークとして [mocha](https://mochajs.org/) を採用しています。
+describe, it を使ってシナリオを記述していきます。
 
 ブラウザを操作するには page オブジェクトを利用します。
-page オブジェクトのメソッドの多くは戻り値として Promise を返却するため、async/await を利用してシナリオを記述していきます。  
-より実践的なコードサンプルは [pagewalker-example](https://github.com/xketanaka/pagewalker-example) にあります。
+page オブジェクトのメソッドの多くは戻り値として Promise を返却するため、async/await を利用してシナリオを記述していきます。
+より実践的なコードサンプルは [example](https://github.com/xketanaka/pagewalker/tree/master/example) にあります。
 
 ## APIリファレンス
 
