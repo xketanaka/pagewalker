@@ -1,0 +1,60 @@
+<h1>Event Handler</h1>
+<style>
+  .result-area {
+    padding: 5px; background-color: #f0f0f0; border: solid 1px #ddd; border-radius: 5px
+  }
+  .content > section {
+    margin-bottom: 30px;
+  }
+</style>
+<div class="content">
+  <section>
+    <h3 style="border-bottom: solid 1px #ddd">Button</h3>
+    <div style="margin-top:15px; margin-bottom:15px">
+      <input type="button" name="type-button" value="click">
+    </div>
+    <div class="result-area"></div>
+  </section>
+
+  <section>
+    <h3 style="border-bottom: solid 1px #ddd">Select Box</h3>
+    <div style="margin-top:15px; margin-bottom:15px">
+      <select name="month-select">
+        <option value=""></option>
+        <option value="January">January</option>
+        <option value="February">February</option>>
+        <option value="March">March</option>
+        <option value="April">April</option>
+      </select>
+    </div>
+    <div class="result-area"></div>
+  </section>
+
+  <section>
+    <h3 style="border-bottom: solid 1px #ddd">Check Box</h3>
+    <div style="margin-top:15px; margin-bottom:15px">
+      <label style="padding-right: 20px"><input type="checkbox" name="type-check" value="Red"> Red</label>
+      <label style="padding-right: 20px"><input type="checkbox" name="type-check" value="Green"> Green</label>
+      <label style="padding-right: 20px"><input type="checkbox" name="type-check" value="Blue"> Blue</label>
+    </div>
+    <div class="result-area"></div>
+  </section>
+  <script>
+    document.querySelector('input[type=button]').addEventListener('click', function(e){
+      const div = document.createElement('div');
+      div.textContent = "Button clicked";
+      e.target.closest('section').querySelector('.result-area').appendChild(div);
+    })
+    document.querySelector('select').addEventListener('change', function(e){
+      const div = document.createElement('div');
+      div.textContent = e.target.value + " selected";
+      e.target.closest('section').querySelector('.result-area').appendChild(div);
+    })
+    Array.from(document.querySelectorAll('input[type=checkbox]')).forEach(v => v.addEventListener('change', function(e){
+      console.log(e.target.tagName);
+      const div = document.createElement('div');
+      div.textContent = e.target.value + (e.target.checked ? ' checked' : ' unchecked');
+      e.target.closest('section').querySelector('.result-area').appendChild(div);
+    }));
+  </script>
+</div>

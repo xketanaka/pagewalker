@@ -14,6 +14,7 @@ const routes = [
   require('./routes/iframe_example'),
   require('./routes/ajax_example'),
   require('./routes/table_example'),
+  require('./routes/event_handler_example'),
 ];
 
 const ActionMethods = {
@@ -21,12 +22,6 @@ const ActionMethods = {
     "/": (req, res)=>{
       res.renderLayout('index');
     },
-    "/basic_auth_example": (req, res)=>{
-      res.renderLayout("/basic_auth_example")
-    },
-    "/managed_users": (req, res)=>{
-      res.renderLayout("/managed_users")
-    }
   },
   POST: {}
 };
