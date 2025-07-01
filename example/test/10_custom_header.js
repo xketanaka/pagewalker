@@ -23,5 +23,12 @@ describe("10.Custom Header Example", function(){
 
     assert.strictEqual(await page.find(".result-area").text(), "x-custom-header: CustomValue");
   });
+  it("3. Access without Custom header", async function(){
+    page.setExtraHTTPHeaders({ });
+    await page.find("input[type=button]").click();
+    await page.waitForPageLoad();
+
+    assert.strictEqual(await page.find(".result-area").text(), "");
+  });
 
 })
