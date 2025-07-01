@@ -14,6 +14,7 @@ const routes = [
   require('./routes/iframe_example'),
   require('./routes/ajax_example'),
   require('./routes/table_example'),
+  require('./routes/custom_header_example'),
   require('./routes/event_handler_example'),
 ];
 

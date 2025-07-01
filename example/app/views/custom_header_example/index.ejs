@@ -1,0 +1,23 @@
+<h1>Custom Header</h1>
+<style>
+  .result-area {
+    padding: 5px; background-color: #f0f0f0; border: solid 1px #ddd; border-radius: 5px
+  }
+  .result-area::before {
+    content: '\00A0';
+  }
+</style>
+<div class="content">
+  <section>
+    <h3 style="border-bottom: solid 1px #ddd">Header values</h3>
+    <div style="margin-top:15px; margin-bottom:15px">
+      <div class="result-area"><% Object.keys(params.headers).forEach(k => { %><%= k %>: <%= params.headers[k] %><br><% }) %></div>
+    </div>
+    <input type="button" name="type-button" value="reload">
+  </section>
+  <script>
+    document.querySelector('input[type=button]').addEventListener('click', function(e){
+      document.location.reload();
+    })
+  </script>
+</div>
