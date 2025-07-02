@@ -48,14 +48,16 @@ describe("01.Form Input Example", ()=>{
     assert(await page.find("div.message").find(elm => elm.textContent.includes("Email is invalid format.") ).exist());
     assert(await page.find("div.message").find(elm => elm.textContent.includes("Confirmation password does not match.") ).exist());
 
-    assert(await page.find("input[name=sex]").value(), "2")
+    assert.strictEqual(await page.find("input[name=sex]:checked").value(), "2")
+    assert.strictEqual(await page.find("input[name=sex][value=\"1\"]").checked(), false)
+    assert.strictEqual(await page.find("input[name=sex][value=\"2\"]").checked(), true)
 
     const checked = await page.find("input[name=interestedIn]").beChecked().toArray();
-    assert(await page.find("input[name=interestedIn]").beChecked().count(), 2);
-    assert(checked.length, 2);
-    assert(await checked[0].value(), "5")
-    assert(await checked[1].value(), "6")
-    assert(await page.find("select[name=job] option").beSelected().content(), "engineer");
+    assert.strictEqual(await page.find("input[name=interestedIn]").beChecked().count(), 2);
+    assert.strictEqual(checked.length, 2);
+    assert.strictEqual(await checked[0].value(), "5")
+    assert.strictEqual(await checked[1].value(), "6")
+    assert.strictEqual(await page.find("select[name=job] option").beSelected().content(), "engineer");
   });
 
   it("4. Input valid value.", async () =>{
@@ -73,17 +75,17 @@ describe("01.Form Input Example", ()=>{
 
   it("5. Assert values on confirmation.", async () =>{
     assert(await page.find("div.message").haveContent("Register with this input. Are you OK?").exist());
-    assert.equal(await page.find("span.label").haveText("your email").parent().find("p").text(), "abc.xyz@example.com");
-    assert.equal(await page.find("span.label").haveText("your name").parent().find("p").text(), "xketanaka");
-    assert.equal(await page.find("span.label").haveText("password").parent().find("p").text(), "●●●●●●●●●●●");
-    assert.equal(await page.find("span.label").haveText("sex").parent().find("p").text(), "female");
-    assert.equal(await page.find("span.label").haveText("birthday month").parent().find("p").text(), "August");
-    assert.equal(await page.find("span.label").haveText("your job").parent().find("p").text(), "manager");
-    assert.equal(
+    assert.strictEqual(await page.find("span.label").haveText("your email").parent().find("p").text(), "abc.xyz@example.com");
+    assert.strictEqual(await page.find("span.label").haveText("your name").parent().find("p").text(), "xketanaka");
+    assert.strictEqual(await page.find("span.label").haveText("password").parent().find("p").text(), "●●●●●●●●●●●");
+    assert.strictEqual(await page.find("span.label").haveText("sex").parent().find("p").text(), "female");
+    assert.strictEqual(await page.find("span.label").haveText("birthday month").parent().find("p").text(), "August");
+    assert.strictEqual(await page.find("span.label").haveText("your job").parent().find("p").text(), "manager");
+    assert.strictEqual(
       (await page.find("span.label").haveText("what interested in?").parent().find("p").text()).trim(),
       "movie, food"
     );
-    assert.equal(
+    assert.strictEqual(
       (await page.find("span.label").haveText("self introduction").parent().find("p").text()).trim(),
       "Hello, my name is xketanaka. I come from Japan."
     );
