@@ -82,11 +82,11 @@ describe("01.Form Input Example", ()=>{
     assert.strictEqual(await page.find("span.label").haveText("birthday month").parent().find("p").text(), "August");
     assert.strictEqual(await page.find("span.label").haveText("your job").parent().find("p").text(), "manager");
     assert.strictEqual(
-      (await page.find("span.label").haveText("what interested in?").parent().find("p").text()).trim(),
+      await page.find("span.label").haveText("what interested in?").parent().find("p").text({trim: true}),
       "movie, food"
     );
     assert.strictEqual(
-      (await page.find("span.label").haveText("self introduction").parent().find("p").text()).trim(),
+      await page.find("span.label").haveText("self introduction").parent().find("p").text({trim: true}),
       "Hello, my name is xketanaka. I come from Japan."
     );
   });
