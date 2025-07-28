@@ -22,7 +22,7 @@ form > div { margin-top: 10px; }
       <span>Popup "confirm" dialog, and submit after having clicked "OK"</span>
     </div>
   </form>
-  <div style="margin-top: 20px">
+  <div style="margin-top: 20px; display:none" id="clicked-result-area">
     <h4>Clicked button on Confirm Dialog</h4>
     <div id="clicked-button-result">
     </div>
@@ -36,7 +36,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
       if(btn.attributes["data-dialog-type"].value == 'confirm'){
         let result = confirm(btn.attributes["data-dialog-msg"].value)
         document.querySelector("div#clicked-button-result").innerHTML = result ? "OK" : "Cancel";
-        if(!result){
+        if (document.querySelector("div#clicked-result-area").style.display == "none") {
+          document.querySelector("div#clicked-result-area").style.display = "block";
+        }
+        if(!result && btn.type == "submit"){
           e.preventDefault();
           return;
         }

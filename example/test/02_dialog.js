@@ -24,7 +24,7 @@ describe("02.Dialog Example", ()=>{
       })
       assert.fail('Error should raised.')
     }catch(e){
-      assert.equal(e.message, 'timeout');
+      assert.strictEqual(e.message, 'timeout');
     }
   });
 
@@ -39,19 +39,23 @@ describe("02.Dialog Example", ()=>{
   });
 
   it("5. Popup confirm dialog, Cancel.", async () =>{
+    assert(await page.find("div#clicked-result-area").haveCssProperty('display', 'none').exist())
+
     await page.waitForConfirm({ message: 'Are you OK?', isClickOK: false }, async ()=>{
       await page.find("input[type=button]").haveValue("confirm(1)").click();
     });
 
-     assert.equal(await page.find("div#clicked-button-result").text(), 'Cancel');
+    assert.strictEqual(await page.find("div#clicked-button-result").text(), 'Cancel');
+    assert(await page.find("div#clicked-result-area").haveCssProperty('display', 'block').exist())
   });
 
   it("6. Popup confirm dialog, OK.", async () =>{
+
     await page.waitForConfirm({ message: 'Are you OK?', isClickOK: true }, async ()=>{
       await page.find("input[type=button]").haveValue("confirm(1)").click();
     });
 
-     assert.equal(await page.find("div#clicked-button-result").text(), 'OK');
+    assert.strictEqual(await page.find("div#clicked-button-result").text(), 'OK');
   });
 
   xit("7. Timeout confirm dialog (message is different).", async () =>{
@@ -61,7 +65,7 @@ describe("02.Dialog Example", ()=>{
       });
       assert.fail('Error should raised.')
     }catch(e){
-      assert.equal(e.message, 'timeout');
+      assert.strictEqual(e.message, 'timeout');
     }
   });
 

@@ -89,6 +89,8 @@ describe("01.Form Input Example", ()=>{
       await page.find("span.label").haveText("self introduction").parent().find("p").text({trim: true}),
       "Hello, my name is xketanaka. I come from Japan."
     );
+
+    page.assertScreen("01.Form input example");
   });
 
   it("6. registration success.", async () =>{
