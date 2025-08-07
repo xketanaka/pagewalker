@@ -22,8 +22,8 @@
     "body-parser": "^1.18.2",
     "ejs": "^3.1.10",
     "express": "^4.16.2",
-    "express-session": "^1.15.6",
+    "express-session": "^1.18.2",
     "multer": "^2.0.2",
-    "morgan": "^1.9.0"
+    "morgan": "^1.10.1"
   }
 }
