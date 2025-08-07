@@ -50,7 +50,7 @@
     "esdoc-standard-plugin": "*"
   },
   "optionalDependencies": {
-    "electron": "^22.3.25",
+    "electron": "^28.3.2",
     "puppeteer": "^19.0"
   }
 }
