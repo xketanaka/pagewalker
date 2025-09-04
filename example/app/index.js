@@ -16,6 +16,7 @@ const routes = [
   require('./routes/table_example'),
   require('./routes/custom_header_example'),
   require('./routes/event_handler_example'),
+  require('./routes/change_event_example'),
 ];
 
 const ActionMethods = {

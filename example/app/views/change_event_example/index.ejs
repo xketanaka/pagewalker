@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Change Event Example</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Change Event Example</h1>
+    <input type="text" id="test-input" name="test-input">
+    <span id="event-status"></span>
+    <script>
+      const input = document.getElementById('test-input');
+      const status = document.getElementById('event-status');
+      input.addEventListener('change', () => {
+        status.textContent = 'changed';
+      });
+    </script>
+  </body>
+</html>
