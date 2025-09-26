@@ -1,9 +1,9 @@
 {
   "browser": "puppeteer",
   "scenarioDir": "test",
-  "exitImmediately": false,
+  "exitImmediately": true,
   "puppeteer": {
-    "headless": false,
+    "headless": true,
     "args":[
       "--no-sandbox", "--disable-gpu"
     ]
