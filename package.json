@@ -1,6 +1,6 @@
 {
   "name": "pagewalker",
-  "version": "0.6.11",
+  "version": "0.6.12",
   "main": "index.js",
   "bin": [
     "bin/pagewalker",
@@ -30,6 +30,7 @@
   },
   "files": [
     "lib",
+    "example/01_sample_scenario.js",
     "bin"
   ],
   "dependencies": {
