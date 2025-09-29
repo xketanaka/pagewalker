@@ -1,91 +1,108 @@
 #!/usr/bin/env node
 
-const readJson = require('read-package-json')
-const init = require('init-package-json')
 const path = require('path')
 const fs = require('fs')
-const prompts = require('prompts')
+const readline = require('readline');
+const { execSync } = require('child_process');
 const Config = require('../lib/utils/config')
 
-const ContentDefault = { scripts: { test: "pagewalker" } }
+const ContentDefault = {
+  scripts: { test: "pagewalker" },
+  dependencies: { pagewalker: "*" }
+};
 
+function getStdin(message) {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  return new Promise((resolve, _) => {
+    rl.question(message, (answer) => {
+      resolve(answer);
+      rl.close();
+    });
+  });
+}
 // the dir where we're doin stuff.
 const dir = process.cwd()
 const packageFile = path.resolve(dir, 'package.json')
 const scenarioDir = path.resolve(dir, 'test');
 const downloadDir = path.resolve(dir, 'downloads');
 
-const packageFileExists = fs.existsSync(packageFile);
+async function main() {
 
-new Promise((resolve, reject)=>{
-
-  if(!packageFileExists){
-    resolve(ContentDefault);
-  }else{
-    readJson(packageFile, (err, data)=>{
-      if(err){
-        reject(new Error(`The file["package.json"] is not found. Abort!`));
-      }
-      if(!data.scripts){
-        Object.assign(data, ContentDefault)
-      }
-      else if(!data.scripts.test){
-        Object.assign(data.scripts, ContentDefault.scripts)
-      }
-      else {
-        data.scripts.test = ContentDefault.scripts.test;
-      }
-      resolve(data);
-    })
+  let createPackageJson = true;
+  if(fs.existsSync(packageFile)){
+    let overwriteIt = await getStdin(` - The file["package.json"] is found, overwrite it? (y/N)`);
+    if (overwriteIt.trim().toUpperCase() == 'N') {
+      createPackageJson = false;
+    }
   }
-})
-.then((content)=>{
 
-  fs.writeFileSync(packageFile, (JSON.stringify(content, null, 2) + '\n'), 'utf8');
-
-  if(!packageFileExists){
-    return new Promise((resolve, reject)=>{
-      const initFile = path.resolve(__dirname, 'not_found_file')
-      const configData = { }
-      init(dir, initFile, configData, (err, data)=>{ err ? reject(err) : resolve() });
-    })
+  if (createPackageJson) {
+    // npm init
+    execSync('npm init -y', { cwd: dir })
+    console.log(` - Done .... "npm init -y"`);
   }
-})
-.then(()=>{
-  console.log(`package.json is ${packageFileExists ? 'overwitten' : 'created'}.  [${packageFile}]`)
+
+  if(!fs.existsSync(packageFile)){
+    console.log(` - The file["package.json"] is not found. Abort!`);
+    process.exit(1);
+  }
+
+  let packageJsonText = fs.readFileSync(packageFile, 'utf-8');
+  let jsonContent = null;
+  try {
+    jsonContent = JSON.parse(packageJsonText);
+  } catch (e) {
+    console.log(' - JSON parse error:', e);
+    process.exit(1);
+  }
+
+  function copyContentDefault(obj, key) {
+    if (!obj[key]) {
+      obj[key] = {};
+    }
+    Object.assign(obj[key], ContentDefault[key]);
+  }
+
+  copyContentDefault(jsonContent, 'scripts');
+  copyContentDefault(jsonContent, 'dependencies');
+
+  fs.writeFileSync(packageFile, (JSON.stringify(jsonContent, null, 2) + '\n'), 'utf8');
+
+  console.log(` - package.json is saved,  [${packageFile}]`)
 
   if(!fs.existsSync(scenarioDir)){
     fs.mkdirSync(scenarioDir);
-    console.log(`Done creating scenario directory. [${scenarioDir}]`)
+    console.log(` - Done creating scenario directory. [${scenarioDir}]`)
   }
 
   if(!fs.existsSync(downloadDir)){
     fs.mkdirSync(downloadDir);
-    console.log(`Done creating downloads directory. [${downloadDir}]`)
+    console.log(` - Done creating downloads directory. [${downloadDir}]`)
   }
 
-  // prompt and save sample.scripts
-  return prompts({
-    type: 'text',
-    name: 'yesOrNo',
-    message: 'Do you want to create a sample scenario file?(y/N) ',
-  })
-})
-.then((answer)=>{
-
-  if(answer.yesOrNo == 'y' || answer.yesOrNo == 'Y'){
+  let copySample = await getStdin(` - Do you want to create a sample scenario file?(y/N) `);
+  if (copySample.trim().toUpperCase() == 'Y') {
     const destFile = path.resolve(scenarioDir, '01_sample_scenario.js')
     fs.copyFileSync(path.resolve(__dirname, '../example/01_sample_scenario.js'), destFile);
-    console.log(`Done createing sample scenario file. [${destFile}]`);
-  }else{
-    console.log(`Skipped createing sample scenario file. `);
+    console.log(` - Done createing sample scenario file. [${destFile}]`);
+  }
+  else{
+    console.log(` - Skipped createing sample scenario file. `);
   }
 
   // save config.json
   fs.writeFileSync(path.resolve(dir, 'config.json'), (JSON.stringify(Config.DEFAULT_CONFIG, null, 2) + '\n'), 'utf8');
-  console.log(`Done createing configuration file. [${path.resolve(dir, 'config.json')}]`);
+  console.log(` - Done createing configuration file. [${path.resolve(dir, 'config.json')}]`);
+}
+
+console.log("Initializing pagewaler project....");
+
+main()
+.then(() => {
+  console.log("Finished initializing pagewalker project.")
+  console.log("Next, please enter \n\t npm install\n\t npm test")
 })
-.catch((err)=>{
-  console.log(`Failure: ${err}`);
+.catch((err) => {
+  console.error("[ERROR] ", err);
   process.exit(1);
 })
