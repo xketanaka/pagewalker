@@ -1,74 +1,131 @@
 # pagewalker
 
-Pagewalker は JavaScript(Node.js) で E2E テストを実装するためのフレームワークです。
+Pagewalker は JavaScript(Node.js) で E2E テストを実装するためのツールです。
+
+## 主要な機能
+
+* テスト実行するブラウザとしてはChromeを利用する(Puppeteerを経由する)
+* ヘッドレス実行が可能
+* Dockerですべてを実行可能（ホストマシンにはNode.jsされインストール不要）
+* Dockerで実行する場合もGUIで実行状況を確認可能
 
 ## セットアップ
 
-インストールは至って普通です。npm install します。
-※Node.js、NPMは事前にインストールしてあるものとします。
+### Docker環境で動かす場合
+
+Docker環境で動かすには、
+空のプロジェクトディレクトリに移動し、以下のコマンドでファイルを取得します。
 
 ```
-$ npm install pagewalker --save
+curl https://raw.githubusercontent.com/xketanaka/pagewalker/master/dist/pagewalker-docker.tar.gz | tar zxvf -
 ```
 
-以下のコマンドで、pagewalker の実行に必要なファイル・ディレクトリをプロジェクトに配置します。
+実行すると`Dockerfile`、`docker-compose.yml`が配置されます。
+`docker compose` で実行環境を起動します。
 
 ```
-$ ./node_modules/.bin/init-pagewalker-project
+docker compose up -d
 ```
 
-このコマンドを実行すると、途中でサンプル用のシナリオファイルを作成するか尋ねれます。
-初回は y と入力してサンプルファイルを作成しておきます。
+`pagewalker`のDockerコンテナは実行状況をGUI(Webブラウザ)で公開するため、
+デフォルトで8010ポートを利用します。変更する場合は`docker-compose.yml`を編集してください。
+
+Dockerコンテナが起動したら、`pagewalker`の初期化コマンド(`init-pagewalker-project`)を実行します。
 
 ```
-✔ Do you want to create a sample scenario file?(y/N)  …
+docker compose exec app npx --package=pagewalker -- init-pagewalker-project
 ```
 
-これで実行するための準備は整いました。npm test でテストを実行します。
+初期化コマンドが正常に終了すると`package.json`、および必要なディレクトリが出来上がります。
+つづいてnpmパッケージ群をインストールします。
 
 ```
-$ npm test
+docker compose exec app npm install
 ```
 
-実行するとブラウザが起動し、pagewalkerのGitHubページに遷移する様子が確認できます。
+これで実行するための準備は整いました。
+`npm test`でデフォルトで設置されたサンプルシナリオ(`01_sample_scenario.js`)を実行します。
+
+```
+docker compose exec app npm test
+```
+
+Webブラウザで`http://localhost:8010/vnc.html`にアクセスすると`pagewalker`の動作が確認できます。
+
+TODO:スクリーンショット
+
+### ホスト環境で直接動かす場合
+
+ホスト環境にNode.js/NPMがインストールされていることが前提となります。
+空のプロジェクトディレクトリに移動し、初期化コマンド(`init-pagewalker-project`)を実行します。
+
+```
+npx --package=pagewalker -- init-pagewalker-project
+```
+
+初期化コマンドが正常に終了すると`package.json`、および必要なディレクトリが出来上がります。
+つづいてnpmパッケージ群をインストールします。
+
+```
+npm install
+```
+
+これで実行するための準備は整いました。
+`npm test`でデフォルトで設置されたサンプルシナリオ(`01_sample_scenario.js`)を実行します。
+
+```
+npm test
+```
+
+実行するとブラウザが起動し`pagewalker`の`GitHub`ページに遷移する様子が確認できます。
 
 <img src="https://xketanaka.github.io/pagewalker/image/pagewalker_example.png" width="700px" >
 
-## シナリオ作成
 
-init-pagewalker-project コマンドで作成されるサンプルシナリオファイルは以下のようになっています。
+## シナリオの記述
+
+まずは init-pagewalker-project で作成されるサンプル(01_sample_scenario.js)をみてみましょう。
 
 ```
 const {page} = require('pagewalker');
 const assert = require('assert');
 
 describe('First example', ()=>{
+  it('Visit Github and Inspect code', async function(){
 
-  it('Load page', async ()=>{
+    await page.load('https://github.com/xketanaka/pagewalker');
 
-    await page.load('https://www.google.com')
+    await assert.strictEqual(page.url, 'https://github.com/xketanaka/pagewalker');
 
-    await page.find('input[name=q]').setValue('pagewalker');
+    await page.find('div.search-input-container button').click();
 
-    await page.find('input[type=submit]').haveValue('Google 検索').click();
+    await page.find('input#query-builder-test').fillIn("repo:xketanaka/pagewalker 01_sample_scenario.js");
 
-    await page.waitForPageLoad();
+    await page.find('input#query-builder-test').submit();
 
-    await page.find('a h3').haveText('xketanaka/pagewalker - GitHub').click();
+    await page.waitForFinder(page.find("h2#search-filters-title").haveText("Filter by"));
 
-    await page.waitForPageLoad();
+    await page.find('a').textIncludes("Updating 01_sample_scenario").click();
 
-    await assert.equal(page.url, 'https://github.com/xketanaka/pagewalker');
+    await page.waitForFinder(page.find("h1").textIncludes("Updating 01_sample_scenario.js"));
+
+    await page.find("div#issue-body-viewer a").haveText("01_sample_scenario").click();
+
+    await page.waitForSelector("textarea#read-only-cursor-text-area");
+
+    const expected = 'We have verified that this text exists.';
+    assert(await page.find("textarea#read-only-cursor-text-area").textIncludes(expected).exist());
   });
-
 });
 ```
 
 pagewalker はテスティングフレームワークとして [mocha](https://mochajs.org/) を採用しています。
 describe, it を使ってシナリオを記述していきます。
 
-ブラウザを操作するには page オブジェクトを利用します。
-page オブジェクトのメソッドの多くは戻り値として Promise を返却するため、async/await を利用してシナリオを記述していきます。
+ブラウザを操作するには`pagewalker`の提供する`page`オブジェクトを利用します。
+`page`オブジェクトのメソッドの多くは戻り値として`Promise`を返却します。
+サンプルのように`async/await`を利用してシナリオを記述していきます。
+
 より実践的なコードサンプルは [example](https://github.com/xketanaka/pagewalker/tree/master/example) にあります。
 
 ## APIリファレンス

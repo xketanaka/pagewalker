@@ -1,0 +1,11 @@
+name: pagewalker
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+    ports:
+      - "8010:8010"
