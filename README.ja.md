@@ -1,12 +1,14 @@
 # pagewalker
 
+[English](./README.md)
+
 Pagewalker は JavaScript(Node.js) で E2E テストを実装するためのツールです。
 
-## 主要な機能
+## 特徴
 
 * テスト実行するブラウザとしてはChromeを利用する(Puppeteerを経由する)
 * ヘッドレス実行が可能
-* Dockerですべてを実行可能（ホストマシンにはNode.jsされインストール不要）
+* Dockerですべてを実行可能（ホストマシンにはNode.jsのインストールも不要）
 * Dockerコンテナで実行する様子をWebブラウザで確認可能
   <img src="https://xketanaka.github.io/pagewalker/image/pagewalker_vnc_github.png" width="700px" >
 
@@ -28,8 +30,8 @@ curl https://raw.githubusercontent.com/xketanaka/pagewalker/master/dist/pagewalk
 docker compose up -d
 ```
 
-`pagewalker`のDockerコンテナは実行状況をGUI(Webブラウザ)で公開するため、
-デフォルトで8010ポートを利用します。変更する場合は`docker-compose.yml`を編集してください。
+`pagewalker`のDockerコンテナは実行状況をGUI(Webブラウザ)で閲覧できます。このために8010ポートを利用します。
+ポート番号を変更する場合は`docker-compose.yml`を編集してください。
 
 Dockerコンテナが起動したら、`pagewalker`の初期化コマンド(`init-pagewalker-project`)を実行します。
 
@@ -38,14 +40,14 @@ docker compose exec app npx --package=pagewalker -- init-pagewalker-project
 ```
 
 初期化コマンドが正常に終了すると`package.json`、および必要なディレクトリが出来上がります。
-つづいてnpmパッケージ群をインストールします。
+つづいてnpmパッケージをインストールします。
 
 ```
 docker compose exec app npm install
 ```
 
-これで実行するための準備は整いました。
-`npm test`でデフォルトで設置されたサンプルシナリオ(`01_sample_scenario.js`)を実行します。
+これで実行準備が整いました。
+`npm test`でデフォルトのサンプルシナリオ(`01_sample_scenario.js`)を実行します。
 
 ```
 docker compose exec app npm test
@@ -76,8 +78,8 @@ npx --package=pagewalker -- init-pagewalker-project
 npm install
 ```
 
-これで実行するための準備は整いました。
-`npm test`でデフォルトで設置されたサンプルシナリオ(`01_sample_scenario.js`)を実行します。
+これで実行準備が整いました。
+`npm test`でデフォルトのサンプルシナリオ(`01_sample_scenario.js`)を実行します。
 
 ```
 npm test
@@ -129,7 +131,7 @@ pagewalker はテスティングフレームワークとして [mocha](https://m
 describe, it を使ってシナリオを記述していきます。
 
 ブラウザを操作するには`pagewalker`の提供する`page`オブジェクトを利用します。
-`page`オブジェクトのメソッドの多くは戻り値として`Promise`を返却します。
+`page`オブジェクトのメソッドの多くは戻り値として`Promise`を返します。
 サンプルのように`async/await`を利用してシナリオを記述していきます。
 
 より実践的なコードサンプルは [example](https://github.com/xketanaka/pagewalker/tree/master/example) にあります。
