@@ -7,7 +7,8 @@ Pagewalker は JavaScript(Node.js) で E2E テストを実装するためのツ�
 * テスト実行するブラウザとしてはChromeを利用する(Puppeteerを経由する)
 * ヘッドレス実行が可能
 * Dockerですべてを実行可能（ホストマシンにはNode.jsされインストール不要）
-* Dockerで実行する場合もGUIで実行状況を確認可能
+* Dockerコンテナで実行する様子をWebブラウザで確認可能
+  <img src="https://xketanaka.github.io/pagewalker/image/pagewalker_vnc_github.png" width="700px" >
 
 ## セットアップ
 
@@ -52,7 +53,12 @@ docker compose exec app npm test
 
 Webブラウザで`http://localhost:8010/vnc.html`にアクセスすると`pagewalker`の動作が確認できます。
 
-TODO:スクリーンショット
+<img src="https://xketanaka.github.io/pagewalker/image/pagewalker_vnc.png" width="700px" >
+
+[接続]ボタンをクリックします
+
+<img src="https://xketanaka.github.io/pagewalker/image/pagewalker_vnc_github.png" width="700px" >
+
 
 ### ホスト環境で直接動かす場合
 

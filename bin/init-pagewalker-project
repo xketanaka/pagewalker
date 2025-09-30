@@ -30,7 +30,7 @@ async function main() {
 
   let createPackageJson = true;
   if(fs.existsSync(packageFile)){
-    let overwriteIt = await getStdin(` - The file["package.json"] is found, overwrite it? (y/N)`);
+    let overwriteIt = await getStdin(` - "package.json" is found, overwrite it? (y/N)`);
     if (overwriteIt.trim().toUpperCase() == 'N') {
       createPackageJson = false;
     }
@@ -38,12 +38,13 @@ async function main() {
 
   if (createPackageJson) {
     // npm init
+    console.log(` - execute "npm init -y"`);
     execSync('npm init -y', { cwd: dir })
-    console.log(` - Done .... "npm init -y"`);
+    console.log(` - Done successfully. "npm init -y"`);
   }
 
   if(!fs.existsSync(packageFile)){
-    console.log(` - The file["package.json"] is not found. Abort!`);
+    console.log(` - "package.json" is not found. Abort!`);
     process.exit(1);
   }
 
@@ -68,7 +69,7 @@ async function main() {
 
   fs.writeFileSync(packageFile, (JSON.stringify(jsonContent, null, 2) + '\n'), 'utf8');
 
-  console.log(` - package.json is saved,  [${packageFile}]`)
+  console.log(` - Done saving package.json. [${packageFile}]`)
 
   if(!fs.existsSync(scenarioDir)){
     fs.mkdirSync(scenarioDir);
@@ -80,19 +81,33 @@ async function main() {
     console.log(` - Done creating downloads directory. [${downloadDir}]`)
   }
 
-  let copySample = await getStdin(` - Do you want to create a sample scenario file?(y/N) `);
-  if (copySample.trim().toUpperCase() == 'Y') {
-    const destFile = path.resolve(scenarioDir, '01_sample_scenario.js')
-    fs.copyFileSync(path.resolve(__dirname, '../example/01_sample_scenario.js'), destFile);
-    console.log(` - Done createing sample scenario file. [${destFile}]`);
+  // 01_sample_scenario.js
+  const destFile = path.resolve(scenarioDir, '01_sample_scenario.js');
+  let copySample = true;
+  if(fs.existsSync(destFile)){
+    overwriteIt = await getStdin(` - Sample scenario file["${destFile}"] is found, overwrite it? (y/N)`);
+    if (overwriteIt.trim().toUpperCase() != 'Y') {
+      copySample = false;
+    }
   }
-  else{
-    console.log(` - Skipped createing sample scenario file. `);
+  if (copySample) {
+    fs.copyFileSync(path.resolve(__dirname, '../example/01_sample_scenario.js'), destFile);
+    console.log(` - Done saving Sample scenario file. [${destFile}]`);
   }
 
   // save config.json
-  fs.writeFileSync(path.resolve(dir, 'config.json'), (JSON.stringify(Config.DEFAULT_CONFIG, null, 2) + '\n'), 'utf8');
-  console.log(` - Done createing configuration file. [${path.resolve(dir, 'config.json')}]`);
+  let configFile = path.resolve(dir, 'config.json');
+  let saveConfig = true;
+  if(fs.existsSync(configFile)){
+    overwriteIt = await getStdin(` - Configuration file["${configFile}"] is found, overwrite it? (y/N)`);
+    if (overwriteIt.trim().toUpperCase() != 'Y') {
+      saveConfig = false;
+    }
+  }
+  if (saveConfig) {
+    fs.writeFileSync(configFile, (JSON.stringify(Config.DEFAULT_CONFIG, null, 2) + '\n'), 'utf8');
+    console.log(` - Done createing configuration file. [${configFile}]`);
+  }
 }
 
 console.log("Initializing pagewaler project....");
@@ -100,7 +115,7 @@ console.log("Initializing pagewaler project....");
 main()
 .then(() => {
   console.log("Finished initializing pagewalker project.")
-  console.log("Next, please enter \n\t npm install\n\t npm test")
+  console.log("Next, Please enter \n\t npm install\n\t npm test")
 })
 .catch((err) => {
   console.error("[ERROR] ", err);
