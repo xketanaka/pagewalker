@@ -90,7 +90,7 @@ When you run it, you can see the browser start up and navigate to the `pagewalke
 
 First, let's look at the sample (`01_sample_scenario.js`) created by `init-pagewalker-project`.
 
-```
+```javascript
 const {page} = require('pagewalker');
 const assert = require('assert');
 

@@ -94,7 +94,7 @@ npm test
 
 まずは init-pagewalker-project で作成されるサンプル(01_sample_scenario.js)をみてみましょう。
 
-```
+```javascript
 const {page} = require('pagewalker');
 const assert = require('assert');
 
