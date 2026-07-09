@@ -6,3 +6,5 @@
 
 
 /node_modules/
+docker-compose.override.yml
+supervisord.log
