@@ -59,4 +59,3 @@ mocha をラップします: `scenarioDir`（デフォルト `test/`、`ignoreDi
 
 - README.ja.md（日本語）が実質的な README で、README.md はスタブに過ぎません。ユーザー向けの変更では README.ja.md を更新してください。
 - `lib/` の公開 API メソッドには ESDoc コメントが付いており、公開 API リファレンスの生成元になっています — 新しい API メソッドにも同様にドキュメントを書いてください。
-- `index.js` で `global.Promise` は bluebird に置き換えられています（long stack traces 有効）。

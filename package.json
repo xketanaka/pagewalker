@@ -36,11 +36,10 @@
   ],
   "dependencies": {
     "log4js": "^6.4.0",
-    "mocha": "^10.8.2",
+    "mocha": "^11.7.6",
     "pixelmatch": "^7.1.0",
     "ssim.js": "^3.5.0",
-    "pngjs": "^7.0.0",
-    "uuid": "^3.1.0"
+    "pngjs": "^7.0.0"
   },
   "devDependencies": {
     "esdoc": "^1.1.0",
