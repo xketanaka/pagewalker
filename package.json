@@ -1,6 +1,6 @@
 {
   "name": "pagewalker",
-  "version": "0.6.12",
+  "version": "0.6.13",
   "main": "index.js",
   "bin": [
     "bin/pagewalker",
@@ -14,6 +14,7 @@
   "scripts": {
     "start": "electron .",
     "debug": "DEBUG_LOG=query,app electron .",
+    "docker-archive": "pushd dist; rm pagewalker-docker.tar.gz; tar zcvf pagewalker-docker.tar.gz *; popd",
     "esdoc": "esdoc"
   },
   "esdoc": {
