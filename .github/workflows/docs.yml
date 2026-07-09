@@ -1,0 +1,49 @@
+name: Generate API Docs
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'lib/**'
+      - 'jsdoc.json'
+      - 'README.md'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docs
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    name: Regenerate JSDoc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      # --omit=optional skips puppeteer/electron (and their browser downloads),
+      # which are not needed to generate documentation.
+      - name: Install dependencies
+        run: npm ci --omit=optional
+      - name: Generate docs
+        run: npm run docs
+      - name: Commit regenerated docs
+        run: |
+          git add docs
+          if git diff --cached --quiet; then
+            echo "No documentation changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Regenerate API docs [skip ci]"
+          git push

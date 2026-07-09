@@ -23,7 +23,7 @@ npm test -- test/01_form_input.js   # 単一のシナリオファイルを実行
 npm run debug               # DEBUG_LOG=app 付きの npm start 相当
 ```
 
-その他のルートのスクリプト: `npm run docs` は API ドキュメント（JSDoc + docdash テーマ、設定は `jsdoc.json`）を `docs/` に再生成します（https://xketanaka.github.io/pagewalker/ で公開）。`docs/` は生成物なので手で編集しないでください。ただし `docs/image/pagewalker_*.png` の3枚は README.ja.md が直リンクする手動管理のスクリーンショットなので、docs/ を作り直すときも消さないでください。lint ツールはありません。
+その他のルートのスクリプト: `npm run docs` は API ドキュメント（JSDoc + docdash テーマ、設定は `jsdoc.json`）を `docs/` に再生成します（https://xketanaka.github.io/pagewalker/ で公開）。master への push 時に `lib/` などが変わっていれば GitHub Actions（`.github/workflows/docs.yml`）が自動で再生成してコミットするので、手動で docs/ を再生成してコミットする必要は基本ありません。`docs/` は生成物なので手で編集しないでください。ただし `docs/image/` は README.ja.md が直リンクする手動管理のスクリーンショット置き場で、`npm run docs` はここだけ残して docs/ をクリーン再生成します。lint ツールはありません。
 
 デバッグログ（log4js）は環境変数 `DEBUG_LOG` で制御され、カテゴリは `query` と `app` です（例: `DEBUG_LOG=query,app`）。
 
