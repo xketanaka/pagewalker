@@ -14,7 +14,7 @@
   "scripts": {
     "start": "electron .",
     "debug": "DEBUG_LOG=query,app electron .",
-    "docker-archive": "pushd dist; rm pagewalker-docker.tar.gz; tar zcvf pagewalker-docker.tar.gz *; popd",
+    "docker-archive": "cd dist && rm -f pagewalker-docker.tar.gz && tar zcvf pagewalker-docker.tar.gz Dockerfile docker-compose.yml",
     "esdoc": "esdoc"
   },
   "esdoc": {
@@ -35,7 +35,6 @@
     "bin"
   ],
   "dependencies": {
-    "bluebird": "^3.7.0",
     "log4js": "^6.4.0",
     "mocha": "^10.8.2",
     "pixelmatch": "^7.1.0",

@@ -1,6 +1,3 @@
-global.Promise = require('bluebird');
-global.Promise.config({ longStackTraces: true });
-
 const Config = require("./lib/utils/config");
 
 function main(config){
