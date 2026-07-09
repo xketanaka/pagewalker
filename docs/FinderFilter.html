@@ -1,0 +1,5252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>FinderFilter - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/xketanaka/pagewalker" target="_blank" >GitHub</a></h2><h3>Classes</h3><ul><li><a href="Assert.html">Assert</a></li><li><a href="Browser.html">Browser</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Browser.html#createBrowserPage">createBrowserPage</a></li><li data-type='method' style='display: none;'><a href="Browser.html#createBrowserWindow">createBrowserWindow</a></li></ul></li><li><a href="BrowserPage.html">BrowserPage</a><ul class='methods'><li data-type='method' style='display: none;'><a href="BrowserPage.html#executeJavaScript">executeJavaScript</a></li><li data-type='method' style='display: none;'><a href="BrowserPage.html#getURL">getURL</a></li><li data-type='method' style='display: none;'><a href="BrowserPage.html#loadURL">loadURL</a></li><li data-type='method' style='display: none;'><a href="BrowserPage.html#openDevTools">openDevTools</a></li><li data-type='method' style='display: none;'><a href="BrowserPage.html#reload">reload</a></li><li data-type='method' style='display: none;'><a href="BrowserPage.html#takeScreenshot">takeScreenshot</a></li><li data-type='method' style='display: none;'><a href="BrowserPage.html#waitForAlert">waitForAlert</a></li><li data-type='method' style='display: none;'><a href="BrowserPage.html#waitForConfirm">waitForConfirm</a></li><li data-type='method' style='display: none;'><a href="BrowserPage.html#waitForDownload">waitForDownload</a></li></ul></li><li><a href="BrowserSocket.html">BrowserSocket</a></li><li><a href="CommandLineOption.html">CommandLineOption</a></li><li><a href="Config.html">Config</a></li><li><a href="DateFormat.html">DateFormat</a></li><li><a href="ElectronBrowser.html">ElectronBrowser</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ElectronBrowser.html#createBrowserWindow">createBrowserWindow</a></li></ul></li><li><a href="ElectronFinderExtention.html">ElectronFinderExtention</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ElectronFinderExtention.html#attachFile">attachFile</a></li></ul></li><li><a href="ElectronPage.html">ElectronPage</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ElectronPage.html#getURL">getURL</a></li><li data-type='method' style='display: none;'><a href="ElectronPage.html#reload">reload</a></li></ul></li><li><a href="ElectronSocket.html">ElectronSocket</a></li><li><a href="Filter.html">Filter</a></li><li><a href="Finder.html">Finder</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Finder.html#attachFile">attachFile</a></li><li data-type='method' style='display: none;'><a href="Finder.html#attribute">attribute</a></li><li data-type='method' style='display: none;'><a href="Finder.html#beChecked">beChecked</a></li><li data-type='method' style='display: none;'><a href="Finder.html#beSelected">beSelected</a></li><li data-type='method' style='display: none;'><a href="Finder.html#check">check</a></li><li data-type='method' style='display: none;'><a href="Finder.html#checked">checked</a></li><li data-type='method' style='display: none;'><a href="Finder.html#chooseRadioButton">chooseRadioButton</a></li><li data-type='method' style='display: none;'><a href="Finder.html#click">click</a></li><li data-type='method' style='display: none;'><a href="Finder.html#clone">clone</a></li><li data-type='method' style='display: none;'><a href="Finder.html#closest">closest</a></li><li data-type='method' style='display: none;'><a href="Finder.html#count">count</a></li><li data-type='method' style='display: none;'><a href="Finder.html#evaluate">evaluate</a></li><li data-type='method' style='display: none;'><a href="Finder.html#every">every</a></li><li data-type='method' style='display: none;'><a href="Finder.html#executeJs">executeJs</a></li><li data-type='method' style='display: none;'><a href="Finder.html#exist">exist</a></li><li data-type='method' style='display: none;'><a href="Finder.html#fillIn">fillIn</a></li><li data-type='method' style='display: none;'><a href="Finder.html#find">find</a></li><li data-type='method' style='display: none;'><a href="Finder.html#first">first</a></li><li data-type='method' style='display: none;'><a href="Finder.html#haveAttribute">haveAttribute</a></li><li data-type='method' style='display: none;'><a href="Finder.html#haveContent">haveContent</a></li><li data-type='method' style='display: none;'><a href="Finder.html#haveCssClass">haveCssClass</a></li><li data-type='method' style='display: none;'><a href="Finder.html#haveCssProperty">haveCssProperty</a></li><li data-type='method' style='display: none;'><a href="Finder.html#haveText">haveText</a></li><li data-type='method' style='display: none;'><a href="Finder.html#haveValue">haveValue</a></li><li data-type='method' style='display: none;'><a href="Finder.html#inIframe">inIframe</a></li><li data-type='method' style='display: none;'><a href="Finder.html#indexOf">indexOf</a></li><li data-type='method' style='display: none;'><a href="Finder.html#isClickable">isClickable</a></li><li data-type='method' style='display: none;'><a href="Finder.html#keydown">keydown</a></li><li data-type='method' style='display: none;'><a href="Finder.html#map">map</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notBeChecked">notBeChecked</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notBeSelected">notBeSelected</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notExist">notExist</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notHaveAttribute">notHaveAttribute</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notHaveContent">notHaveContent</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notHaveCssClass">notHaveCssClass</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notHaveCssProperty">notHaveCssProperty</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notHaveText">notHaveText</a></li><li data-type='method' style='display: none;'><a href="Finder.html#notHaveValue">notHaveValue</a></li><li data-type='method' style='display: none;'><a href="Finder.html#parent">parent</a></li><li data-type='method' style='display: none;'><a href="Finder.html#select">select</a></li><li data-type='method' style='display: none;'><a href="Finder.html#selectOption">selectOption</a></li><li data-type='method' style='display: none;'><a href="Finder.html#setText">setText</a></li><li data-type='method' style='display: none;'><a href="Finder.html#setValue">setValue</a></li><li data-type='method' style='display: none;'><a href="Finder.html#submit">submit</a></li><li data-type='method' style='display: none;'><a href="Finder.html#text">text</a></li><li data-type='method' style='display: none;'><a href="Finder.html#textIncludes">textIncludes</a></li><li data-type='method' style='display: none;'><a href="Finder.html#textMatch">textMatch</a></li><li data-type='method' style='display: none;'><a href="Finder.html#toArray">toArray</a></li><li data-type='method' style='display: none;'><a href="Finder.html#toJsCode">toJsCode</a></li><li data-type='method' style='display: none;'><a href="Finder.html#uncheck">uncheck</a></li><li data-type='method' style='display: none;'><a href="Finder.html#value">value</a></li><li data-type='method' style='display: none;'><a href="Finder.html#valueIncludes">valueIncludes</a></li><li data-type='method' style='display: none;'><a href="Finder.html#valueMatch">valueMatch</a></li></ul></li><li><a href="FinderAction.html">FinderAction</a><ul class='methods'><li data-type='method' style='display: none;'><a href="FinderAction.html#attribute">attribute</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#check">check</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#checked">checked</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#chooseRadioButton">chooseRadioButton</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#click">click</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#count">count</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#exist">exist</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#fillIn">fillIn</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#keydown">keydown</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#notExist">notExist</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#select">select</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#setText">setText</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#setValue">setValue</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#submit">submit</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#text">text</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#uncheck">uncheck</a></li><li data-type='method' style='display: none;'><a href="FinderAction.html#value">value</a></li></ul></li><li><a href="FinderBase.html">FinderBase</a><ul class='methods'><li data-type='method' style='display: none;'><a href="FinderBase.html#clone">clone</a></li><li data-type='method' style='display: none;'><a href="FinderBase.html#evaluate">evaluate</a></li><li data-type='method' style='display: none;'><a href="FinderBase.html#find">find</a></li><li data-type='method' style='display: none;'><a href="FinderBase.html#map">map</a></li><li data-type='method' style='display: none;'><a href="FinderBase.html#toJsCode">toJsCode</a></li></ul></li><li><a href="FinderFilter.html">FinderFilter</a><ul class='methods'><li data-type='method' style='display: none;'><a href="FinderFilter.html#beChecked">beChecked</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#beSelected">beSelected</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#closest">closest</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#first">first</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#haveAttribute">haveAttribute</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#haveContent">haveContent</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#haveCssClass">haveCssClass</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#haveCssProperty">haveCssProperty</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#haveText">haveText</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#haveValue">haveValue</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#indexOf">indexOf</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#isClickable">isClickable</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#notBeChecked">notBeChecked</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#notBeSelected">notBeSelected</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#notHaveAttribute">notHaveAttribute</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#notHaveContent">notHaveContent</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#notHaveCssClass">notHaveCssClass</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#notHaveCssProperty">notHaveCssProperty</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#notHaveText">notHaveText</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#notHaveValue">notHaveValue</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#parent">parent</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#textIncludes">textIncludes</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#textMatch">textMatch</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#valueIncludes">valueIncludes</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#valueMatch">valueMatch</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.beChecked">beChecked</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.beDisabled">beDisabled</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.beSelected">beSelected</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.closest">closest</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.haveAttribute">haveAttribute</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.haveClass">haveClass</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.haveContent">haveContent</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.haveStyle">haveStyle</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.haveText">haveText</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.haveValue">haveValue</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.indexOf">indexOf</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.isClickable">isClickable</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.notHaveAttribute">notHaveAttribute</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.notHaveClass">notHaveClass</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.notHaveContent">notHaveContent</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.notHaveStyle">notHaveStyle</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.notHaveText">notHaveText</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.notHaveValue">notHaveValue</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.parent">parent</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.textIncludes">textIncludes</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.textMatch">textMatch</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.valueIncludes">valueIncludes</a></li><li data-type='method' style='display: none;'><a href="FinderFilter.html#.valueMatch">valueMatch</a></li></ul></li><li><a href="Logger.html">Logger</a></li><li><a href="Mapper.html">Mapper</a></li><li><a href="OptParser.html">OptParser</a></li><li><a href="Page.html">Page</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Page.html#assertScreen">assertScreen</a></li><li data-type='method' style='display: none;'><a href="Page.html#executeJs">executeJs</a></li><li data-type='method' style='display: none;'><a href="Page.html#find">find</a></li><li data-type='method' style='display: none;'><a href="Page.html#getSourceHTML">getSourceHTML</a></li><li data-type='method' style='display: none;'><a href="Page.html#inIframe">inIframe</a></li><li data-type='method' style='display: none;'><a href="Page.html#load">load</a></li><li data-type='method' style='display: none;'><a href="Page.html#reload">reload</a></li><li data-type='method' style='display: none;'><a href="Page.html#setExtraHTTPHeaders">setExtraHTTPHeaders</a></li><li data-type='method' style='display: none;'><a href="Page.html#takeScreenshot">takeScreenshot</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForAjaxDone">waitForAjaxDone</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForAlert">waitForAlert</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForBrowserSocket">waitForBrowserSocket</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForConfirm">waitForConfirm</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForDownload">waitForDownload</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForFinder">waitForFinder</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForNewWindow">waitForNewWindow</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForPageLoad">waitForPageLoad</a></li><li data-type='method' style='display: none;'><a href="Page.html#waitForSelector">waitForSelector</a></li><li data-type='method' style='display: none;'><a href="Page.html#wget">wget</a></li></ul></li><li><a href="PageWalker.html">PageWalker</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PageWalker.html#getWindowIdByName">getWindowIdByName</a></li><li data-type='method' style='display: none;'><a href="PageWalker.html#removeWindow">removeWindow</a></li></ul></li><li><a href="Private.html">Private</a></li><li><a href="PuppeteerBrowser.html">PuppeteerBrowser</a></li><li><a href="PuppeteerFinderExtention.html">PuppeteerFinderExtention</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PuppeteerFinderExtention.html#attachFile">attachFile</a></li></ul></li><li><a href="PuppeteerPage.html">PuppeteerPage</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#_waitForDialog">_waitForDialog</a></li><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#executeJavaScript">executeJavaScript</a></li><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#getURL">getURL</a></li><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#loadURL">loadURL</a></li><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#openDevTools">openDevTools</a></li><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#reload">reload</a></li><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#waitForAlert">waitForAlert</a></li><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#waitForConfirm">waitForConfirm</a></li><li data-type='method' style='display: none;'><a href="PuppeteerPage.html#waitForDownload">waitForDownload</a></li></ul></li><li><a href="PuppeteerSocket.html">PuppeteerSocket</a></li><li><a href="Selector.html">Selector</a></li><li><a href="Walker.html">Walker</a></li><li><a href="Window.html">Window</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Window.html#close">close</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#PageMixin">PageMixin</a></li><li><a href="global.html#finderMixin">finderMixin</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">FinderFilter</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            FinderFilter
+        
+        </h2>
+        
+            <div class="class-description usertext"><p>This class provides filtering methods for Finder.
+This class is Mixined to &quot;Finder&quot; class</p></div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="FinderFilter"><span class="type-signature"></span>new FinderFilter<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="beChecked"><span class="type-signature"></span>beChecked<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line258">line 258</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which have been checked</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="beSelected"><span class="type-signature"></span>beSelected<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line270">line 270</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which have been selected</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="closest"><span class="type-signature"></span>closest<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line367">line 367</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return Finder object for the closest node.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="first"><span class="type-signature"></span>first<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line355">line 355</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return Finder for the first matched element. this is same to &quot;indexOf(0)&quot;</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="haveAttribute"><span class="type-signature"></span>haveAttribute<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line306">line 306</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which have specified attrName. If value given, return filtered Finder object which have specified attribute-value</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="haveContent"><span class="type-signature"></span>haveContent<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line234">line 234</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which have the specified text</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="haveCssClass"><span class="type-signature"></span>haveCssClass<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line282">line 282</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which have specified CssClass</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="haveCssProperty"><span class="type-signature"></span>haveCssProperty<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line294">line 294</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which have specified CssProperty</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="haveText"><span class="type-signature"></span>haveText<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line246">line 246</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which have the specified text</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="haveValue"><span class="type-signature"></span>haveValue<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line222">line 222</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which have the specified value</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="indexOf"><span class="type-signature"></span>indexOf<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line349">line 349</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which is in given index in elements</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="isClickable"><span class="type-signature"></span>isClickable<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line343">line 343</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which is clickable like a, button, input[type=button]</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="notBeChecked"><span class="type-signature"></span>notBeChecked<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line264">line 264</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which do not have been checked</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="notBeSelected"><span class="type-signature"></span>notBeSelected<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line276">line 276</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which do not have been selected</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="notHaveAttribute"><span class="type-signature"></span>notHaveAttribute<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line312">line 312</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which do not have specified attrName. If value given, return filtered Finder object which do not have specified attribute-value.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="notHaveContent"><span class="type-signature"></span>notHaveContent<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line240">line 240</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which does not have the specified text</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="notHaveCssClass"><span class="type-signature"></span>notHaveCssClass<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line288">line 288</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which do not have specified CssClass</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="notHaveCssProperty"><span class="type-signature"></span>notHaveCssProperty<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line300">line 300</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which do not have specified CssProperty</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="notHaveText"><span class="type-signature"></span>notHaveText<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which does not have the specified text</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="notHaveValue"><span class="type-signature"></span>notHaveValue<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line228">line 228</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object which does not have the specified value</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="parent"><span class="type-signature"></span>parent<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line361">line 361</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return Finder object for the parent element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="textIncludes"><span class="type-signature"></span>textIncludes<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line330">line 330</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object whose textContent includes given content</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="textMatch"><span class="type-signature"></span>textMatch<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line318">line 318</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object whose textContent matches given regexp</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="valueIncludes"><span class="type-signature"></span>valueIncludes<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line336">line 336</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object whose value includes given value</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="valueMatch"><span class="type-signature"></span>valueMatch<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Finder.html">Finder</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line324">line 324</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return filtered Finder object whose value matches given regexp</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Finder.html">Finder</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".beChecked"><span class="type-signature type-signature-static">(static) </span>beChecked<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given value as element.checked attribute.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".beDisabled"><span class="type-signature type-signature-static">(static) </span>beDisabled<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given value as element.disabled attribute.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".beSelected"><span class="type-signature type-signature-static">(static) </span>beSelected<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line116">line 116</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given value as element.selected attribute.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".closest"><span class="type-signature type-signature-static">(static) </span>closest<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line213">line 213</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to map closest node which matches given selector.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".haveAttribute"><span class="type-signature type-signature-static">(static) </span>haveAttribute<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line152">line 152</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given attrName. If value given, select elements which have given value in element.getAttribute(attrName).</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".haveClass"><span class="type-signature type-signature-static">(static) </span>haveClass<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line128">line 128</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given value in element.classList attribute.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".haveContent"><span class="type-signature type-signature-static">(static) </span>haveContent<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given content as element.textContent</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".haveStyle"><span class="type-signature type-signature-static">(static) </span>haveStyle<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line140">line 140</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given value in window.getComputedStyle(element)</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".haveText"><span class="type-signature type-signature-static">(static) </span>haveText<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Alias of haveContent</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line85">line 85</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given content as element.textContent</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".haveValue"><span class="type-signature type-signature-static">(static) </span>haveValue<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which have given value as element.value</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".indexOf"><span class="type-signature type-signature-static">(static) </span>indexOf<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which is in given index in elements</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isClickable"><span class="type-signature type-signature-static">(static) </span>isClickable<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line195">line 195</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return css selector string to select clickable elements like a, button, input[type=button]</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".notHaveAttribute"><span class="type-signature type-signature-static">(static) </span>notHaveAttribute<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line158">line 158</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which do not have given attrName. If value given, select elements which do not have value in element.getAttribute(attrName)</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".notHaveClass"><span class="type-signature type-signature-static">(static) </span>notHaveClass<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line134">line 134</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which do not have given value in element.classList attribute.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".notHaveContent"><span class="type-signature type-signature-static">(static) </span>notHaveContent<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which do not have given content as element.textContent</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".notHaveStyle"><span class="type-signature type-signature-static">(static) </span>notHaveStyle<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line146">line 146</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which do not have given value in window.getComputedStyle(element)</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".notHaveText"><span class="type-signature type-signature-static">(static) </span>notHaveText<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Alias of notHaveContent</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which do not have given content as element.textContent</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".notHaveValue"><span class="type-signature type-signature-static">(static) </span>notHaveValue<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line104">line 104</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which do not have given value as element.value</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".parent"><span class="type-signature type-signature-static">(static) </span>parent<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line207">line 207</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to map parent node.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".textIncludes"><span class="type-signature type-signature-static">(static) </span>textIncludes<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line182">line 182</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which includes given content as element.textContent</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".textMatch"><span class="type-signature type-signature-static">(static) </span>textMatch<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line164">line 164</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which match given regexp as element.textContent</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".valueIncludes"><span class="type-signature type-signature-static">(static) </span>valueIncludes<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line188">line 188</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which includes given value as element.value</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".valueMatch"><span class="type-signature type-signature-static">(static) </span>valueMatch<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="page_finder_filter.js.html">page/finder_filter.js</a>, <a href="page_finder_filter.js.html#line173">line 173</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>return function code to select elements which match given regexp as element.value</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

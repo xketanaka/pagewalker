@@ -15,19 +15,7 @@
     "start": "electron .",
     "debug": "DEBUG_LOG=query,app electron .",
     "docker-archive": "cd dist && rm -f pagewalker-docker.tar.gz && tar zcvf pagewalker-docker.tar.gz Dockerfile docker-compose.yml",
-    "esdoc": "esdoc"
-  },
-  "esdoc": {
-    "source": "./lib",
-    "destination": "./docs",
-    "plugins": [
-      {
-        "name": "esdoc-standard-plugin"
-      },
-      {
-        "name": "esdoc-node"
-      }
-    ]
+    "docs": "jsdoc -c jsdoc.json"
   },
   "files": [
     "lib",
@@ -38,13 +26,12 @@
     "log4js": "^6.4.0",
     "mocha": "^11.7.6",
     "pixelmatch": "^7.1.0",
-    "ssim.js": "^3.5.0",
-    "pngjs": "^7.0.0"
+    "pngjs": "^7.0.0",
+    "ssim.js": "^3.5.0"
   },
   "devDependencies": {
-    "esdoc": "^1.1.0",
-    "esdoc-node": "*",
-    "esdoc-standard-plugin": "*"
+    "docdash": "^2.0.2",
+    "jsdoc": "^4.0.5"
   },
   "optionalDependencies": {
     "electron": "^22.3.25",

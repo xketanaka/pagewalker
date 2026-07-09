@@ -23,7 +23,7 @@ npm test -- test/01_form_input.js   # 単一のシナリオファイルを実行
 npm run debug               # DEBUG_LOG=app 付きの npm start 相当
 ```
 
-その他のルートのスクリプト: `npm run esdoc` は API ドキュメントを `docs/` に再生成します（https://xketanaka.github.io/pagewalker/ で公開）。`docs/` は生成物なので手で編集しないでください。lint ツールはありません。
+その他のルートのスクリプト: `npm run docs` は API ドキュメント（JSDoc + docdash テーマ、設定は `jsdoc.json`）を `docs/` に再生成します（https://xketanaka.github.io/pagewalker/ で公開）。`docs/` は生成物なので手で編集しないでください。ただし `docs/image/pagewalker_*.png` の3枚は README.ja.md が直リンクする手動管理のスクリーンショットなので、docs/ を作り直すときも消さないでください。lint ツールはありません。
 
 デバッグログ（log4js）は環境変数 `DEBUG_LOG` で制御され、カテゴリは `query` と `app` です（例: `DEBUG_LOG=query,app`）。
 
@@ -58,4 +58,4 @@ mocha をラップします: `scenarioDir`（デフォルト `test/`、`ignoreDi
 ## 補足
 
 - README.ja.md（日本語）が実質的な README で、README.md はスタブに過ぎません。ユーザー向けの変更では README.ja.md を更新してください。
-- `lib/` の公開 API メソッドには ESDoc コメントが付いており、公開 API リファレンスの生成元になっています — 新しい API メソッドにも同様にドキュメントを書いてください。
+- `lib/` の公開 API メソッドには JSDoc コメントが付いており、公開 API リファレンスの生成元になっています — 新しい API メソッドにも同様にドキュメントを書いてください。JSDoc はコメントのないクラス・メソッドをリファレンスに載せないので、公開 API には必ずコメントを付けてください。
