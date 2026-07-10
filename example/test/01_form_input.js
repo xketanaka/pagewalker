@@ -3,6 +3,10 @@ const assert = require('assert');
 
 describe("01.Form Input Example", ()=>{
 
+  // fixtures はファイル末尾(describe より後ろ)で定義されているが
+  // walker.js の遅延評価によりエラーとならないことの検証
+  assert.strictEqual(typeof fixtures.validInput, "object", "fixtures defined after describe() should be referenceable");
+
   it("1. Load form input example page.", async ()=>{
     await page.load("http://localhost:3000");
 
@@ -33,9 +37,7 @@ describe("01.Form Input Example", ()=>{
     await page.find("input[name=interestedIn]").haveValue("2").uncheck();
     await page.find("input[name=interestedIn]").haveValue("5").check();
     await page.find("input[name=interestedIn]").haveValue("6").check();
-    await page.find("textarea[name=selfIntroduction]").setText(
-      "Hello, my name is xketanaka. I come from Japan."
-    );
+    await page.find("textarea[name=selfIntroduction]").setText(fixtures.validInput.selfIntroduction);
 
     await page.waitForPageLoad(async ()=>{
       await page.find("button[type=submit]").haveText("submit").click();
@@ -62,11 +64,11 @@ describe("01.Form Input Example", ()=>{
 
   it("4. Input valid value.", async () =>{
 
-    await page.find("input[name=email]").fillIn("abc.xyz@example.com");
-    await page.find("input[name=name]").fillIn("xketanaka");
-    await page.find("input[name=password]").fillIn("password.Ok");
-    await page.find("input[name=passwordConfirmation]").fillIn("password.Ok");
-    await page.find("select[name=job] option").haveText("manager").select();
+    await page.find("input[name=email]").fillIn(fixtures.validInput.email);
+    await page.find("input[name=name]").fillIn(fixtures.validInput.name);
+    await page.find("input[name=password]").fillIn(fixtures.validInput.password);
+    await page.find("input[name=passwordConfirmation]").fillIn(fixtures.validInput.password);
+    await page.find("select[name=job] option").haveText(fixtures.validInput.job).select();
 
     await page.waitForPageLoad(async ()=>{
       await page.find("button[type=submit]").haveText("submit").click();
@@ -75,19 +77,19 @@ describe("01.Form Input Example", ()=>{
 
   it("5. Assert values on confirmation.", async () =>{
     assert(await page.find("div.message").haveContent("Register with this input. Are you OK?").exist());
-    assert.strictEqual(await page.find("span.label").haveText("your email").parent().find("p").text(), "abc.xyz@example.com");
-    assert.strictEqual(await page.find("span.label").haveText("your name").parent().find("p").text(), "xketanaka");
+    assert.strictEqual(await page.find("span.label").haveText("your email").parent().find("p").text(), fixtures.validInput.email);
+    assert.strictEqual(await page.find("span.label").haveText("your name").parent().find("p").text(), fixtures.validInput.name);
     assert.strictEqual(await page.find("span.label").haveText("password").parent().find("p").text(), "●●●●●●●●●●●");
     assert.strictEqual(await page.find("span.label").haveText("sex").parent().find("p").text(), "female");
     assert.strictEqual(await page.find("span.label").haveText("birthday month").parent().find("p").text(), "August");
-    assert.strictEqual(await page.find("span.label").haveText("your job").parent().find("p").text(), "manager");
+    assert.strictEqual(await page.find("span.label").haveText("your job").parent().find("p").text(), fixtures.validInput.job);
     assert.strictEqual(
       await page.find("span.label").haveText("what interested in?").parent().find("p").text({trim: true}),
       "movie, food"
     );
     assert.strictEqual(
       await page.find("span.label").haveText("self introduction").parent().find("p").text({trim: true}),
-      "Hello, my name is xketanaka. I come from Japan."
+      fixtures.validInput.selfIntroduction
     );
 
     page.assertScreen("01.Form input example");
@@ -134,3 +136,13 @@ describe("01.Form Input Example", ()=>{
     }
   })
 });
+
+const fixtures = {
+  validInput: {
+    email: "abc.xyz@example.com",
+    name: "xketanaka",
+    password: "password.Ok",
+    job: "manager",
+    selfIntroduction: "Hello, my name is xketanaka. I come from Japan.",
+  },
+};

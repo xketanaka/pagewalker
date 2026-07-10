@@ -35,7 +35,7 @@ npm run debug               # DEBUG_LOG=app 付きの npm start 相当
 
 ### テストランナー（`lib/walker/walker.js`）
 
-mocha をラップします: `scenarioDir`（デフォルト `test/`、`ignoreDir`（デフォルト `supports/`）はスキップ）から `.js` ファイルを収集するか、明示的な `scenarioFile` 引数を使います。`loadFiles()` の間、`describe`/`xdescribe`/`describe.only` をオーバーライドしてスイートの登録を全ファイル読み込み後まで*遅延*させます — スイート登録が想定外の挙動をする場合はこの仕組みに注意してください。
+mocha をラップします: `scenarioDir`（デフォルト `test/`、`ignoreDir`（デフォルト `supports/`）はスキップ）から `.js` ファイルを収集するか、明示的な `scenarioFile` 引数を使います。`loadFiles()` の間、`describe`/`xdescribe`/`describe.only` をオーバーライドしてスイートの登録を全ファイル読み込み後まで*遅延*させます。これは「describe 本体が、ファイル内で describe より後ろに書かれた定義（`const fixtures = {...}` など）を参照できるようにする」ための実装です。
 
 ### ブラウザ抽象化
 
