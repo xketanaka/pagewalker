@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>browser/interface/browser.js - Documentation</title>
+    <title>browser/playwright/playwright_finder_extention.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -37,7 +37,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">browser/interface/browser.js</h1>
+    <h1 class="page-title">browser/playwright/playwright_finder_extention.js</h1>
     
 
     
@@ -47,32 +47,45 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const EventEmitter = require('events');
+            <pre class="prettyprint source linenums"><code>const Finder = require("../../page/finder");
 
 /**
- * Abstract browser interface. Implementations emit Ready/NewWindow/Closed events.
+ * Finder extension implemented with Playwright.
  */
-class Browser extends EventEmitter {
+class PlaywrightFinderExtention extends Finder {
 
-  isReady(){ throw new Error("Not Implemented.") }
-  exit(...args){ throw new Error("Not Implemented.") }
   /**
-   * @return {Promise&lt;object>} - object is browserWindow object provided by each browser.
+   * Attach the file given with filePath.
+   * Now, it is not supported that you attach a file to input-elements in iframe .
+   * @param {string} filePath - Specify the path of the file to be attached
+   * @param {object} options
+   * @return {Promise}
    */
-  createBrowserWindow(config, callbacks){ throw new Error("Not Implemented.") }
-  /**
-   * @return {BrowserPage}
-   */
-  createBrowserPage(window){ throw new Error("Not Implemented.") }
+  attachFile(filePath, options = {}){
+    const firstSelector = this.conditions[0].constructor.name == "Selector" ? this.conditions[0].selector : "*";
+
+    return this.page.browserPage.nativeObject.$$(firstSelector)
+    .then((elementHandles)=>{
+      return this.conditions.reduce((prev, condition, i)=>{
+        return prev.then((elementHandles)=>{
+          if(condition.constructor.name == "Selector"){
+            return i == 0 ? elementHandles : elementHandles.$$(condition.selector);
+          }
+          if(condition.constructor.name == "Filter"){
+            return elementHandles.filter(eval(condition.code))
+          }
+        })
+      }, Promise.resolve(elementHandles));
+    })
+    .then((elementHandles)=>{
+      if(elementHandles.length == 0) throw new Error('input element to attach file is not found')
+
+      return elementHandles[0].setInputFiles(filePath);
+    })
+  }
 }
 
-Browser.Events = {
-  Ready: 'ready',
-  NewWindow: 'new-window',
-  Closed: 'closed',
-}
-
-module.exports = Browser;
+module.exports = PlaywrightFinderExtention;
 </code></pre>
         </article>
     </section>
