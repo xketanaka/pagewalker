@@ -15,7 +15,7 @@
     "start": "electron .",
     "debug": "DEBUG_LOG=query,app electron .",
     "docker-archive": "cd dist && rm -f pagewalker-docker.tar.gz && tar zcvf pagewalker-docker.tar.gz Dockerfile docker-compose.yml",
-    "docs": "mkdir -p docs/image && find docs -mindepth 1 -maxdepth 1 ! -name image -exec rm -rf {} + && jsdoc -c jsdoc.json"
+    "docs": "rm -rf docs && jsdoc -c jsdoc.json && cp -r doc-assets/image docs/image"
   },
   "files": [
     "lib",
