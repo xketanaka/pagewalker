@@ -4,7 +4,7 @@
 
 ## What is pagewalker
 
-Pagewalker は Node.js 向けの E2E ブラウザテストフレームワークです。ユーザーは mocha のシナリオ（`describe`/`it`）を書き、pagewalker の `page` API（`const {page} = require('pagewalker')`）を通じて実際のブラウザを操作します。ブラウザバックエンドとして Puppeteer（デフォルト）と Electron の2つを共通の抽象化レイヤーの背後でサポートしています。npm に `pagewalker` として公開されており、Docker 配布版（`dist/`）では Xvfb 上でヘッドレス実行しつつ、その様子をポート 8010 の noVNC で閲覧できます。
+Pagewalker は Node.js 向けの E2E ブラウザテストフレームワークです。ユーザーは mocha のシナリオ（`describe`/`it`）を書き、pagewalker の `page` API（`const {page} = require('pagewalker')`）を通じて実際のブラウザを操作します。ブラウザバックエンドとして Puppeteer（デフォルト）と Playwright（chromium / firefox / webkit）の2つを共通の抽象化レイヤーの背後でサポートしています。npm に `pagewalker` として公開されており、Docker 配布版（`dist/`）では Xvfb 上でヘッドレス実行しつつ、その様子をポート 8010 の noVNC で閲覧できます。
 
 ## Setup Command
 
@@ -31,7 +31,7 @@ npm run debug               # DEBUG_LOG=app 付きの npm start 相当
 
 ### エントリーポイントと起動モード
 
-`bin/pagewalker` は設定を読み込み、`config.browser` で分岐します: `electron` の場合は Electron バイナリ配下で `index.js` を実行するよう自分自身を再 spawn し、`puppeteer` の場合は `index.js` がエクスポートする `main` を同一プロセス内で呼び出します。一方、シナリオから `require('pagewalker')` として読み込まれた場合、`index.js` は実行を開始せずに `PageWalker` シングルトン（`lib/page_walker.js`）を初期化してエクスポートします。`electron` と `puppeteer` はどちらも `optionalDependencies` なので、どちらか一方だけインストールされていれば動作します。
+`bin/pagewalker` は設定を読み込み、`index.js` がエクスポートする `main` を同一プロセス内で呼び出します。一方、シナリオから `require('pagewalker')` として読み込まれた場合、`index.js` は実行を開始せずに `PageWalker` シングルトン（`lib/page_walker.js`）を初期化してエクスポートします。`puppeteer` と `playwright` はどちらも `optionalDependencies` なので、使う方だけインストールされていれば動作します（playwright はブラウザ本体の `npx playwright install` も必要）。
 
 ### テストランナー（`lib/walker/walker.js`）
 
@@ -39,7 +39,7 @@ mocha をラップします: `scenarioDir`（デフォルト `test/`、`ignoreDi
 
 ### ブラウザ抽象化
 
-`lib/browser/interface/` が契約（`Browser`、`BrowserPage`、`BrowserSocket`）を定義し、`lib/browser/puppeteer/` と `lib/browser/electron/` がそれを実装します。`PageWalker.initialize()` が `require('./browser/' + config.browser)` で実装を動的に選択します。`Browser` の実装は `Ready`/`NewWindow`/`Closed` イベントを発火し、`PageWalker` はそれを使ってウィンドウ（`lib/page/window.js`）を UUID で管理します。各バックエンドには `*_finder_extention.js` もあり、バックエンド固有の finder アクション（例: `attachFile`）を追加します。
+`lib/browser/interface/` が契約（`Browser`、`BrowserPage`、`BrowserSocket`）を定義し、`lib/browser/puppeteer/` と `lib/browser/playwright/` がそれを実装します。`PageWalker.initialize()` が `require('./browser/' + config.browser)` で実装を動的に選択します。playwright のブラウザ種別は `config.playwright.browserType`（chromium / firefox / webkit）で選びます。`Browser` の実装は `Ready`/`NewWindow`/`Closed` イベントを発火し、`PageWalker` はそれを使ってウィンドウ（`lib/page/window.js`）を UUID で管理します。各バックエンドには `*_finder_extention.js` もあり、バックエンド固有の finder アクション（例: `attachFile`）を追加します。
 
 ### Page / Finder API（`lib/page/`）
 

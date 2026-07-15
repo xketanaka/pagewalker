@@ -9,16 +9,13 @@ function main(config){
   pageWalker.start(config);
 }
 
-if(process.argv[1] && process.argv[1].match(/\/pagewalker\/index.js$/)){
-  // launch with electron
-  main();
-}
-else if(process.argv[1] && process.argv[1].match(/pagewalker$/)){
-  // launch with puppeteer
+if(process.argv[1] && process.argv[1].match(/pagewalker$/)){
+  // launched with bin/pagewalker
   module.exports = main;
 }
 else{
-  config = Config.create([]);
+  // required as a library from scenario files
+  const config = Config.create([]);
   const pageWalker = module.exports = require("./lib/page_walker");
   pageWalker.initialize(config);
 }

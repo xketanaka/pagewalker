@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.x'
-      # --omit=optional skips puppeteer/electron/playwright (and their browser downloads),
+      # --omit=optional skips puppeteer/playwright (and their browser downloads),
       # which are not needed to generate documentation.
       - name: Install dependencies
         run: npm ci --omit=optional

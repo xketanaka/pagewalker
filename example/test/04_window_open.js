@@ -16,12 +16,7 @@ describe("04.Window Open Example", ()=>{
       await page.find("div.content a").indexOf(0).click();
     })
 
-    if(pageWalker.config.browser == "electron"){
-      // Not resolve promise on Electron.
-      window.page.find('div.content a').click();
-    }else{
-      await window.page.find('div.content a').click();
-    }
+    await window.page.find('div.content a').click();
   });
 
   it("window open example 2", async ()=>{
@@ -30,11 +25,7 @@ describe("04.Window Open Example", ()=>{
       await page.find("div.content a").indexOf(1).click();
     })
 
-    if(pageWalker.config.browser == "electron"){
-      window.page.find('div.content a').click();
-    }else{
-      await window.page.find('div.content a').click();
-    }
+    await window.page.find('div.content a').click();
   })
 
   it("window open example 3", async ()=>{
@@ -43,11 +34,7 @@ describe("04.Window Open Example", ()=>{
       await page.find("div.content a").indexOf(2).click();
     })
 
-    if(pageWalker.config.browser == "electron"){
-      window.page.find('div.content a').click();
-    }else{
-      await window.page.find('div.content a').click();
-    }
+    await window.page.find('div.content a').click();
   })
 
   it("window open example 4", async ()=>{
@@ -56,10 +43,6 @@ describe("04.Window Open Example", ()=>{
       await page.find("div.content a").indexOf(3).click();
     })
 
-    if(pageWalker.config.browser == "electron"){
-      window.page.find('div.content a').click();
-    }else{
-      await window.page.find('div.content a').click();
-    }
+    await window.page.find('div.content a').click();
   })
 })

@@ -1,17 +1,7 @@
 #!/usr/bin/env node
 
-const proc = require('child_process');
-const path = require('path');
-
 const Config = require("../lib/utils/config");
 const config = Config.create(process.argv.slice(2));
 
-if(config.browser == "electron"){
-  const args = [path.join(__dirname, "../index.js")].concat(process.argv.slice(2));
-  const electron = require('electron');
-  const child = proc.spawn(electron, args, { stdio: 'inherit' });
-  child.on('close', (code =>  process.exit(code)));
-}else{
-  const main = require("../index.js");
-  main(config);
-}
+const main = require("../index.js");
+main(config);

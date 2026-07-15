@@ -12,8 +12,6 @@
   },
   "license": "ISC",
   "scripts": {
-    "start": "electron .",
-    "debug": "DEBUG_LOG=query,app electron .",
     "docker-archive": "cd dist && rm -f pagewalker-docker.tar.gz && tar zcvf pagewalker-docker.tar.gz Dockerfile docker-compose.yml",
     "docs": "rm -rf docs && jsdoc -c jsdoc.json && cp -r doc-assets/image docs/image"
   },
@@ -34,7 +32,6 @@
     "jsdoc": "^4.0.5"
   },
   "optionalDependencies": {
-    "electron": "^22.3.25",
     "playwright": "^1.61.1",
     "puppeteer": "^25.3.0"
   }
