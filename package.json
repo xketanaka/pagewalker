@@ -34,5 +34,9 @@
   "optionalDependencies": {
     "playwright": "^1.61.1",
     "puppeteer": "^25.3.0"
+  },
+  "overrides": {
+    "diff": "^8.0.3",
+    "serialize-javascript": "^7.0.5"
   }
 }
