@@ -43,7 +43,9 @@ mocha をラップします: `scenarioDir`（デフォルト `test/`、`ignoreDi
 
 ### Page / Finder API（`lib/page/`）
 
-`Page`（`page.js`）がユーザー向けのオブジェクトで、`page.find(selector)` は `Finder` を返します — これは遅延評価されるチェーン可能なクエリ（`finder_base.js`）で、mixin により `FinderAction`（click、fillIn、submit など）と `FinderFilter`（haveText、textIncludes など）から合成されます。フィルターは蓄積され、アクションはブラウザ内で実行されて Promise を返します。`assert.js` は pixelmatch/ssim.js を使ったスクリーンショット比較アサーションを追加し、`screenshots/expected/` と `screenshots/actual/` を比較します（しきい値は `config.assertion` 配下）。mixin の仕組みは `lib/utils/mixin.js` です。
+`Page`（`page.js`）がユーザー向けのオブジェクトで、`page.find(selector)` は `Finder` を返します — これは遅延評価されるチェーン可能なクエリ（`finder_base.js`）で、mixin により `FinderAction`（click、fillIn、submit など）と `FinderFilter`（haveText、textIncludes など）から合成されます。フィルターは蓄積され、アクションはブラウザ内で実行されて Promise を返します。mixin の仕組みは `lib/utils/mixin.js` です。
+
+`assert.js` は pixelmatch/ssim.js を使ったスクリーンショット比較アサーションを追加し、`screenshots/expected/<browserVariant>/` と `screenshots/actual/<browserVariant>/` を比較します（`browserVariant` は config から導出される `puppeteer-chrome` や `playwright-webkit` のような値。しきい値は `config.assertion` 配下）。expected が無い場合は actual からベースラインを新規作成します。
 
 ### 設定（`lib/utils/config.js`）
 

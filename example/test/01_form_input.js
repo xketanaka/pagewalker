@@ -92,7 +92,7 @@ describe("01.Form Input Example", ()=>{
       fixtures.validInput.selfIntroduction
     );
 
-    page.assertScreen("01.Form input example");
+    await page.assertScreen("01.Form input example");
   });
 
   it("6. registration success.", async () =>{
