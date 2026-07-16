@@ -13,11 +13,15 @@ describe('First example', ()=>{
 
     await page.find('input#query-builder-test').fillIn("repo:xketanaka/pagewalker 01_sample_scenario.js");
 
-    await page.find('input#query-builder-test').submit();
+    await page.waitForPageLoad(async ()=>{
+      await page.find('input#query-builder-test').submit();
+    });
 
     await page.waitForFinder(page.find("h2#search-filters-title").haveText("Filter by"));
 
-    await page.find('a').textIncludes("Updating 01_sample_scenario").click();
+    await page.waitForPageLoad(async ()=>{
+      await page.find('a').textIncludes("Updating 01_sample_scenario").click();
+    });
 
     await page.waitForFinder(page.find("h1").textIncludes("Updating 01_sample_scenario.js"));
 
