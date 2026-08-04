@@ -43,7 +43,7 @@ mocha をラップします: `scenarioDir`（デフォルト `test/`、`ignoreDi
 
 ### Page / Finder API（`lib/page/`）
 
-`Page`（`page.js`）がユーザー向けのオブジェクトで、`page.find(selector)` は `Finder` を返します — これは遅延評価されるチェーン可能なクエリ（`finder_base.js`）で、mixin により `FinderAction`（click、fillIn、submit など）と `FinderFilter`（haveText、textIncludes など）から合成されます。フィルターは蓄積され、アクションはブラウザ内で実行されて Promise を返します。mixin の仕組みは `lib/utils/mixin.js` です。
+`Page`（`page.js`）がユーザー向けのオブジェクトで、`page.find(selector)` は `Finder` を返します — これは遅延評価されるチェーン可能なクエリ（`finder_base.js`）で、mixin により `FinderAction`（click、fillIn、submit など）と `FinderFilter`（haveText、textIncludes など）から合成されます。フィルターは蓄積され、アクションはブラウザ内で実行されて Promise を返します。`config.autoWaiting.enabled: true`（デフォルト false）にすると、変更系アクション（click、fillIn など。`finder_base.js` の `evaluateAction()` 経由）は「要素が存在し・可視で・disabled でない」状態になるまで Node 側でリトライしてから実行されます（読み取り系アクションは待ちません。明示的に待つ場合は従来どおり `waitForFinder`）。finder チェーンの `noWait()` / `waitTimeout(msec)` で呼び出し単位の制御ができます。mixin の仕組みは `lib/utils/mixin.js` です。
 
 `assert.js` は pixelmatch/ssim.js を使ったスクリーンショット比較アサーションを追加し、`screenshots/expected/<browserVariant>/` と `screenshots/actual/<browserVariant>/` を比較します（`browserVariant` は config から導出される `puppeteer-chrome` や `playwright-webkit` のような値。しきい値は `config.assertion` 配下）。expected が無い場合は actual からベースラインを新規作成します。
 
