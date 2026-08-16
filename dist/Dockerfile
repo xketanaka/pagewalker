@@ -3,6 +3,7 @@ FROM node:22-bookworm-slim
 RUN apt update -q \
     && apt install -y xvfb openbox x11vnc websockify novnc \
     && apt install -y libnss3 libasound2 libgbm-dev \
+    && apt install -y unzip \
     && apt install -y supervisor \
     && apt install -y mariadb-client \
     && apt install -y poppler-utils \
