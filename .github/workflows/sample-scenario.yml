@@ -34,6 +34,43 @@ jobs:
           npm install
       - name: Run the sample scenario against github.com
         run: cd smoke && npm test -- --silent
+      - name: Debug - capture how github.com looks from the CI runner
+        if: failure()
+        run: |
+          cd smoke
+          cat > debug-capture.js <<'EOF'
+          const puppeteer = require('puppeteer');
+          const fs = require('fs');
+          (async () => {
+            const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+            const page = await browser.newPage();
+            await page.setViewport({ width: 1024, height: 768 });
+            await page.goto('https://github.com/xketanaka/pagewalker', { waitUntil: 'networkidle2' });
+            fs.writeFileSync('debug-page.html', await page.content());
+            await page.screenshot({ path: 'debug-page.png', fullPage: true });
+            const info = {
+              url: page.url(),
+              title: await page.title(),
+              hasSearchButton: await page.evaluate(() => !!document.querySelector('button[aria-label^="Search or jump to"]')),
+              buttonAriaLabels: await page.evaluate(() => Array.from(document.querySelectorAll('button')).map(b => b.getAttribute('aria-label')).filter(Boolean).slice(0, 30)),
+              bodyTextSnippet: await page.evaluate(() => document.body.innerText.slice(0, 800)),
+            };
+            fs.writeFileSync('debug-info.json', JSON.stringify(info, null, 2));
+            await browser.close();
+          })().catch((e) => { fs.writeFileSync('debug-error.txt', String((e && e.stack) || e)); process.exit(0); });
+          EOF
+          node debug-capture.js
+      - name: Upload debug artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-page-debug
+          path: |
+            smoke/debug-page.html
+            smoke/debug-page.png
+            smoke/debug-info.json
+            smoke/debug-error.txt
+          if-no-files-found: ignore
       - name: Create an issue on failure
         if: failure()
         uses: actions/github-script@v7
