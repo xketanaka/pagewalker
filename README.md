@@ -101,6 +101,7 @@ describe('First example', ()=>{
 
     await assert.strictEqual(page.url, 'https://github.com/xketanaka/pagewalker');
 
+    await page.waitForFinder(page.find('button').haveAttribute("aria-label", "Search or jump to, type / to search"));
     await page.find('button').haveAttribute("aria-label", "Search or jump to, type / to search").click();
 
     await page.waitForFinder(page.find('input').haveAttribute("aria-label", "Search or jump to"));
@@ -109,8 +110,6 @@ describe('First example', ()=>{
 
     await page.find('input').haveAttribute("aria-label", "Search or jump to").keydown({ key: 'Enter' });
     await page.find('input').haveAttribute("aria-label", "Search or jump to").keydown({ key: 'Enter' });
-
-    await page.waitForPageLoad()
 
     await page.waitForFinder(page.find('li[data-component="ActionList.Item"] a').textIncludes("Issues"));
     await page.find('li[data-component="ActionList.Item"] a').textIncludes("Issues").click();
