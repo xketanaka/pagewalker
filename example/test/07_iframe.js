@@ -59,7 +59,7 @@ describe("07.Iframe Example", ()=>{
   it("4. Ajax in iframe", async ()=>{
     const iframePage = await page.inIframe(page.find('iframe').first())
 
-    await iframePage.waitForAjaxDone(async ()=>{
+    await iframePage.waitForFinder(iframePage.find("pre").textIncludes("OK: INPUT VALUE"), async ()=>{
       await iframePage.find("input[name=field]").setValue("input value");
       await iframePage.find("#submit-on-ajax").click();
     })

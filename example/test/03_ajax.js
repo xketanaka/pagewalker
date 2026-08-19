@@ -10,9 +10,9 @@ describe("03.Ajax Example", ()=>{
         await page.find("a").haveContent("Ajax").click();
       })
   })
-  it("2. Wait for ajax done", async () =>{
+  it("2. Wait for element appearance by ajax", async () =>{
 
-    await page.waitForAjaxDone(async ()=>{
+    await page.waitForSelector('#ajax-result h4:nth-of-type(1)', async ()=>{
       await page.find('button[data-btn-id="1"]').click();
     })
   });
