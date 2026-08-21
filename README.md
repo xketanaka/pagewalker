@@ -101,20 +101,15 @@ describe('First example', ()=>{
 
     await assert.strictEqual(page.url, 'https://github.com/xketanaka/pagewalker');
 
-    await page.waitForFinder(page.find('button').haveAttribute("aria-label", "Search or jump to, type / to search"));
     await page.find('button').haveAttribute("aria-label", "Search or jump to, type / to search").click();
-
-    await page.waitForFinder(page.find('input').haveAttribute("aria-label", "Search or jump to"));
 
     await page.find('input').haveAttribute("aria-label", "Search or jump to").fillIn("repo:xketanaka/pagewalker 01_sample_scenario.js");
 
     await page.find('input').haveAttribute("aria-label", "Search or jump to").keydown({ key: 'Enter' });
     await page.find('input').haveAttribute("aria-label", "Search or jump to").keydown({ key: 'Enter' });
 
-    await page.waitForFinder(page.find('li[data-component="ActionList.Item"] a').textIncludes("Issues"));
     await page.find('li[data-component="ActionList.Item"] a').textIncludes("Issues").click();
 
-    await page.waitForFinder(page.find('a').textIncludes("Updating 01_sample_scenario"))
     await page.find('a').textIncludes("Updating 01_sample_scenario").click();
 
     await page.waitForPageLoad();
