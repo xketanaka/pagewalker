@@ -110,7 +110,7 @@ describe("01.Form Input Example", ()=>{
     })
 
     try {
-      await page.find("input[name=missing]").fillIn("test");
+      await page.find("input[name=missing]").noWait().fillIn("test");
       assert.fail("Should throw error, but not thrown.");
     }catch(e) {
       assert(e.message.includes("Element not found"));
@@ -123,7 +123,7 @@ describe("01.Form Input Example", ()=>{
     }
 
     try {
-      await page.find("button.missing").click();
+      await page.find("button.missing").noWait().click();
       assert.fail("Should throw error, but not thrown.");
     }catch(e) {
       assert(e.message.includes("Element not found"));

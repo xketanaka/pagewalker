@@ -4,8 +4,7 @@ const assert = require('assert');
 
 describe("12.Auto Waiting", ()=>{
 
-  before(()=>{ pageWalker.config.autoWaiting.enabled = true });
-  after(()=>{ pageWalker.config.autoWaiting.enabled = false });
+  // config.autoWaiting.enabled is true by default, so no before/after toggling is needed.
 
   beforeEach(async ()=>{
     await page.load("http://localhost:3000");

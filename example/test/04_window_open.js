@@ -16,7 +16,7 @@ describe("04.Window Open Example", ()=>{
       await page.find("div.content a").indexOf(0).click();
     })
 
-    await window.page.find('div.content a').click();
+    await window.page.find('div.content a').allowWindowClose().click();
   });
 
   it("window open example 2", async ()=>{
@@ -25,7 +25,7 @@ describe("04.Window Open Example", ()=>{
       await page.find("div.content a").indexOf(1).click();
     })
 
-    await window.page.find('div.content a').click();
+    await window.page.find('div.content a').allowWindowClose().click();
   })
 
   it("window open example 3", async ()=>{
@@ -34,7 +34,7 @@ describe("04.Window Open Example", ()=>{
       await page.find("div.content a").indexOf(2).click();
     })
 
-    await window.page.find('div.content a').click();
+    await window.page.find('div.content a').allowWindowClose().click();
   })
 
   it("window open example 4", async ()=>{
@@ -43,6 +43,6 @@ describe("04.Window Open Example", ()=>{
       await page.find("div.content a").indexOf(3).click();
     })
 
-    await window.page.find('div.content a').click();
+    await window.page.find('div.content a').allowWindowClose().click();
   })
 })
