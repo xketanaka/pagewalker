@@ -110,7 +110,6 @@ describe('First example', ()=>{
     await page.find('input').haveAttribute("aria-label", "Search or jump to").fillIn("repo:xketanaka/pagewalker 01_sample_scenario.js");
 
     await page.find('input').haveAttribute("aria-label", "Search or jump to").keydown({ key: 'Enter' });
-    await page.find('input').haveAttribute("aria-label", "Search or jump to").keydown({ key: 'Enter' });
 
     await page.find('li[data-component="ActionList.Item"] a').textIncludes("Issues").click();
 
