@@ -27,8 +27,13 @@ describe("14.FillIn Events", ()=>{
     assert((await events()).input >= 1);
   });
 
-  it("2. fires a change event once, without moving the focus", async ()=>{
+  it("2. fires a change event when the focus leaves, as a real user input does", async ()=>{
     await page.find("input[name=email]").fillIn("abc");
+    // ネイティブ入力なので、入力しただけでは change は発生しない
+    assert.strictEqual((await events()).change, 0);
+
+    // 別の要素を操作するとフォーカスが移り、そこで change が発生する
+    await page.find("input[name=name]").fillIn("x");
     assert.strictEqual((await events()).change, 1);
   });
 
