@@ -34,6 +34,16 @@ jobs:
           npm install
       - name: Run the sample scenario against github.com
         run: cd smoke && npm test -- --silent
+      - name: Upload the screenshot of the failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-screenshot
+          path: |
+            smoke/screenshots/failure.png
+            smoke/screenshots/diff.png
+            smoke/screenshots/actual/
+          if-no-files-found: ignore
       - name: Create an issue on failure
         if: failure()
         uses: actions/github-script@v7

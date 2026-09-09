@@ -36,3 +36,13 @@ jobs:
           cd example/
           npm install
           npm start
+      - name: Upload the screenshot of the failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-screenshot
+          path: |
+            example/screenshots/failure.png
+            example/screenshots/diff.png
+            example/screenshots/actual/
+          if-no-files-found: ignore
