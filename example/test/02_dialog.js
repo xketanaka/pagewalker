@@ -19,7 +19,8 @@ describe("02.Dialog Example", ()=>{
 
   xit("3. Timeout alert dialog (message is different).", async () =>{
     try{
-      await page.waitForAlert({ message: 'This is another message.' }, async ()=>{
+      // this wait is expected to time out, so do not wait for the default timeout
+      await page.waitForAlert({ message: 'This is another message.', timeout: 1000 }, async ()=>{
         await page.find("input[type=button]").haveValue("alert(1)").click();
       })
       assert.fail('Error should raised.')
@@ -60,7 +61,8 @@ describe("02.Dialog Example", ()=>{
 
   xit("7. Timeout confirm dialog (message is different).", async () =>{
     try{
-      await page.waitForConfirm({ message: 'Are you ready?', isClickOK: false }, async ()=>{
+      // this wait is expected to time out, so do not wait for the default timeout
+      await page.waitForConfirm({ message: 'Are you ready?', isClickOK: false, timeout: 1000 }, async ()=>{
         await page.find("input[type=button]").haveValue("confirm(1)").click();
       });
       assert.fail('Error should raised.')

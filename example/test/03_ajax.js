@@ -29,9 +29,10 @@ describe("03.Ajax Example", ()=>{
   xit("4. Failure wait for element appearance", async () =>{
 
     try {
+      // this wait is expected to time out, so do not wait for the default timeout
       await page.waitForSelector('#ajax-result h4:nth-of-type(4)', async ()=>{
         await page.find('button[data-btn-id="1"]').click();
-      })
+      }, { timeout: 1000 })
       assert.fail('Error should raised.')
     }catch(e){
       assert.equal(e.message, 'timeout');
@@ -48,9 +49,10 @@ describe("03.Ajax Example", ()=>{
 
   it("6. Failure wait for element appearance with Finder", async () =>{
     try {
+      // this wait is expected to time out, so do not wait for the default timeout
       await page.waitForFinder(page.find('#ajax-result h4').haveContent('response of btn3'), async ()=>{
         await page.find('button[data-btn-id="2"]').click();
-      })
+      }, { timeout: 1000 })
       assert.fail('Error should raised.')
     }catch(e){
       assert.equal(e.message, 'timeout');
