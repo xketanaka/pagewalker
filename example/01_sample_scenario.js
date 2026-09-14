@@ -9,18 +9,25 @@ describe('First example', ()=>{
 
     await assert.strictEqual(page.url, 'https://github.com/xketanaka/pagewalker');
 
-    await page.find('button').haveAttribute("aria-label", "Search or jump to, type / to search").click();
+    const searchButton = page.find('button').haveAttribute("aria-label", "Search or jump to, type / to search");
+    const searchInput = page.find('input').haveAttribute("aria-label", "Search or jump to");
 
-    await page.find('input').haveAttribute("aria-label", "Search or jump to").fillIn("repo:xketanaka/pagewalker 01_sample_scenario.js");
+    // The header is made interactive by JavaScript after the page is loaded, and a click before
+    // that is just ignored. So keep clicking it until the search dialog opens.
+    while(await searchInput.notExist()){
+      await searchButton.click();
+      await new Promise((resolve)=> setTimeout(resolve, 200));
+    }
 
-    await page.find('input').haveAttribute("aria-label", "Search or jump to").keydown({ key: 'Enter' });
+    await searchInput.fillIn("repo:xketanaka/pagewalker 01_sample_scenario.js");
+
+    await searchInput.keydown({ key: 'Enter' });
 
     await page.find('li[data-component="ActionList.Item"] a').textIncludes("Issues").click();
 
     await page.find('a').textIncludes("Updating 01_sample_scenario").click();
 
-    await page.waitForPageLoad();
-
+    // Github shows the issue without loading the page again, so wait for the contents instead
     await page.waitForFinder(page.find("h1").textIncludes("Updating 01_sample_scenario.js"));
 
     await page.find("div#issue-body-viewer a").haveText("01_sample_scenario").click();
