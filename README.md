@@ -82,9 +82,9 @@ Run the default sample scenario (`01_sample_scenario.js`) with `npm test`.
 npm test
 ```
 
-When you run it, you can see the browser start up and navigate to the `pagewalker` GitHub page.
+When you run it, you can see the browser start up and operate the [demo page](https://xketanaka.github.io/pagewalker/demo/).
 
-<img src="https://xketanaka.github.io/pagewalker/image/pagewalker_example.png" width="700px" >
+<img src="https://xketanaka.github.io/pagewalker/image/pagewalker_example.gif" width="700px" >
 
 ## Writing Scenarios
 
@@ -95,33 +95,30 @@ const {page} = require('pagewalker');
 const assert = require('assert');
 
 describe('First example', ()=>{
-  it('Visit Github and Inspect code', async function(){
 
-    await page.load('https://github.com/xketanaka/pagewalker');
+  it('Fill in the form and check the result', async function(){
 
-    await assert.strictEqual(page.url, 'https://github.com/xketanaka/pagewalker');
+    await page.load('https://xketanaka.github.io/pagewalker/demo/');
 
-    await page.find('button').haveAttribute("aria-label", "Search or jump to, type / to search").click();
+    assert.strictEqual(await page.find('h1').text(), 'pagewalker demo');
 
-    await page.find('input').haveAttribute("aria-label", "Search or jump to").fillIn("repo:xketanaka/pagewalker 01_sample_scenario.js");
+    await page.find('input[name=username]').fillIn('pagewalker');
 
-    await page.find('input').haveAttribute("aria-label", "Search or jump to").keydown({ key: 'Enter' });
+    await page.find('select[name=plan]').selectOption('Standard');
 
-    await page.find('li[data-component="ActionList.Item"] a').textIncludes("Issues").click();
+    await page.find('input[name=newsletter]').check();
 
-    await page.find('a').textIncludes("Updating 01_sample_scenario").click();
+    await page.waitForPageLoad(async ()=>{
+      await page.find('button').haveText('Sign up').click();
+    });
 
-    await page.waitForPageLoad();
+    await page.waitForSelector('table#result');
 
-    await page.waitForFinder(page.find("h1").textIncludes("Updating 01_sample_scenario.js"));
-
-    await page.find("div#issue-body-viewer a").haveText("01_sample_scenario").click();
-
-    await page.waitForSelector("textarea#read-only-cursor-text-area");
-
-    const expected = 'We have verified that this text exists.';
-    assert(await page.find("textarea#read-only-cursor-text-area").textIncludes(expected).exist());
+    assert.strictEqual(await page.find('td').haveAttribute('data-field', 'username').text(), 'pagewalker');
+    assert.strictEqual(await page.find('td').haveAttribute('data-field', 'plan').text(), 'Standard');
+    assert(await page.find('td').haveAttribute('data-field', 'newsletter').haveText('yes').exist());
   });
+
 });
 ```
 

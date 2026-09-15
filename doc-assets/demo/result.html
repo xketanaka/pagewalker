@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pagewalker demo - result</title>
+<style>
+  body { font-family: sans-serif; margin: 0 auto; padding: 2em 1em; max-width: 40em; line-height: 1.6; }
+  h1 { border-bottom: 2px solid #4a90d9; padding-bottom: .3em; }
+  table { border-collapse: collapse; width: 100%; margin-top: 1.5em; }
+  th, td { border: 1px solid #ccc; padding: .6em .8em; text-align: left; }
+  th { background: #f2f6fa; width: 12em; }
+</style>
+</head>
+<body>
+
+<h1>Thank you</h1>
+
+<p>The values you have entered are:</p>
+
+<table id="result">
+  <tr><th>User name</th><td data-field="username"></td></tr>
+  <tr><th>Plan</th><td data-field="plan"></td></tr>
+  <tr><th>Newsletter</th><td data-field="newsletter"></td></tr>
+</table>
+
+<p><a href="./">Back to the form</a></p>
+
+<script>
+// The form is submitted by GET, so the entered values are in the query string.
+// This script runs while the page is being parsed, that is, before the load event.
+(function(){
+  var params = new URLSearchParams(location.search);
+  var values = {
+    username: params.get('username') || '',
+    plan: params.get('plan') || '',
+    newsletter: params.get('newsletter') === 'yes' ? 'yes' : 'no'
+  };
+  Object.keys(values).forEach(function(field){
+    document.querySelector('td[data-field="' + field + '"]').textContent = values[field];
+  });
+})();
+</script>
+
+</body>
+</html>

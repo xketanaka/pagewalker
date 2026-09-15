@@ -85,9 +85,9 @@ npm install
 npm test
 ```
 
-実行するとブラウザが起動し`pagewalker`の`GitHub`ページに遷移する様子が確認できます。
+実行するとブラウザが起動し[デモページ](https://xketanaka.github.io/pagewalker/demo/)を操作する様子が確認できます。
 
-<img src="https://xketanaka.github.io/pagewalker/image/pagewalker_example.png" width="700px" >
+<img src="https://xketanaka.github.io/pagewalker/image/pagewalker_example.gif" width="700px" >
 
 
 ## シナリオの記述
@@ -100,39 +100,27 @@ const assert = require('assert');
 
 describe('First example', ()=>{
 
-  it('Visit Github and Inspect code', async function(){
+  it('Fill in the form and check the result', async function(){
 
-    await page.load('https://github.com/xketanaka/pagewalker');
+    await page.load('https://xketanaka.github.io/pagewalker/demo/');
 
-    await assert.strictEqual(page.url, 'https://github.com/xketanaka/pagewalker');
+    assert.strictEqual(await page.find('h1').text(), 'pagewalker demo');
 
-    const searchButton = page.find('button').haveAttribute("aria-label", "Search or jump to, type / to search");
-    const searchInput = page.find('input').haveAttribute("aria-label", "Search or jump to");
+    await page.find('input[name=username]').fillIn('pagewalker');
 
-    // The header is made interactive by JavaScript after the page is loaded, and a click before
-    // that is just ignored. So keep clicking it until the search dialog opens.
-    while(await searchInput.notExist()){
-      await searchButton.click();
-      await new Promise((resolve)=> setTimeout(resolve, 200));
-    }
+    await page.find('select[name=plan]').selectOption('Standard');
 
-    await searchInput.fillIn("repo:xketanaka/pagewalker 01_sample_scenario.js");
+    await page.find('input[name=newsletter]').check();
 
-    await searchInput.keydown({ key: 'Enter' });
+    await page.waitForPageLoad(async ()=>{
+      await page.find('button').haveText('Sign up').click();
+    });
 
-    await page.find('li[data-component="ActionList.Item"] a').textIncludes("Issues").click();
+    await page.waitForSelector('table#result');
 
-    await page.find('a').textIncludes("Updating 01_sample_scenario").click();
-
-    // Github shows the issue without loading the page again, so wait for the contents instead
-    await page.waitForFinder(page.find("h1").textIncludes("Updating 01_sample_scenario.js"));
-
-    await page.find("div#issue-body-viewer a").haveText("01_sample_scenario").click();
-
-    await page.waitForSelector("textarea#read-only-cursor-text-area");
-
-    const expected = 'We have verified that this text exists.';
-    assert(await page.find("textarea#read-only-cursor-text-area").textIncludes(expected).exist());
+    assert.strictEqual(await page.find('td').haveAttribute('data-field', 'username').text(), 'pagewalker');
+    assert.strictEqual(await page.find('td').haveAttribute('data-field', 'plan').text(), 'Standard');
+    assert(await page.find('td').haveAttribute('data-field', 'newsletter').haveText('yes').exist());
   });
 
 });
