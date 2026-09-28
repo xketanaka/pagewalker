@@ -32,7 +32,7 @@ jobs:
           mkdir smoke && cd smoke
           npx --yes --package=pagewalker -- init-pagewalker-project
           npm install
-      - name: Run the sample scenario against github.com
+      - name: Run the sample scenario against the demo page
         run: cd smoke && npm test -- --silent
       - name: Upload the screenshot of the failure
         if: failure()
